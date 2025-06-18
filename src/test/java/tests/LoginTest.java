@@ -1,32 +1,49 @@
 package tests;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pages.LoginPage;
+import org.openqa.selenium.WebElement;
 import utils.DriverFactory;
 
 public class LoginTest {
+    public static void main(String[] args) {
+        WebDriver driver = DriverFactory.getDriver();
 
-    WebDriver driver;
-    LoginPage loginPage;
+        try {
+            // Step 1: Open the login page
+            driver.get("http://austin-insight4.partners.org");
 
-    @BeforeMethod
-    public void setup() {
-        driver = DriverFactory.initDriver();
-        driver.get("https://austin-insight4.partners.org/"); // 🔁 Use actual login URL
-        loginPage = new LoginPage(driver);
-    }
+            // Step 2: Wait for 10 seconds
+            Thread.sleep(20000);
 
-    @Test
-    public void testLogin() {
-        loginPage.login("your-username", "your-password");  // 🔁 Use real credentials
-        // Add assertions or validations here
-    }
+            // Step 3: Enter Username
+            WebElement username = driver.findElement(By.xpath("//input[@id='input28']"));
+            username.sendKeys("HS131");
 
-    @AfterMethod
-    public void tearDown() {
-        DriverFactory.quitDriver();
+            // Step 4: Click "Next"
+            WebElement nextBtn = driver.findElement(By.xpath("//input[@value='Next']"));
+            nextBtn.click();
+
+            // Step 5: Wait for password field to load
+            Thread.sleep(5000);
+
+            // Step 6: Enter Password
+            WebElement password = driver.findElement(By.xpath("//input[@name='credentials.passcode']"));
+            password.sendKeys("MBGexport2025#");
+
+            // Step 7: Click "Verify"
+            WebElement verifyBtn = driver.findElement(By.xpath("//input[@value='Verify']"));
+            verifyBtn.click();
+
+            // ✅ Step 8 (optional): Add wait or print to confirm success
+            Thread.sleep(5000);
+            System.out.println("Login steps completed.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Step 9: Optional - Close the browser
+             //driver.quit();
+        }
     }
 }

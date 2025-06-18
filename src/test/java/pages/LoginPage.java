@@ -12,11 +12,11 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    // Locators (Update these based on actual site)
-    By usernameInput = By.id("username"); // use actual ID
-    By passwordInput = By.id("password");
-    By loginButton   = By.id("loginBtn");
-
+    // Locators ()
+    By usernameInput = By.xpath("//input[@id='input28']");// or whatever locator strategy is appropriate
+    By loginButton = By.xpath("//input[@value='Next']"); // use actual ID
+    By passwordInput = By.xpath("//input[@name='credentials.passcode']");
+    By verifyButton = By.xpath("//input[@value='Verify']");
     // Methods
     public void enterUsername(String username) {
         driver.findElement(usernameInput).sendKeys(username);
@@ -30,9 +30,14 @@ public class LoginPage {
         driver.findElement(loginButton).click();
     }
 
+    public void clickVerify() {
+        driver.findElement(verifyButton).click();
+    }
+
     public void login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
         clickLogin();
+        clickVerify();
     }
 }
