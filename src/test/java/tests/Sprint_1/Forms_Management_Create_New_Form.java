@@ -18,12 +18,43 @@ public class Forms_Management_Create_New_Form {
         driver.manage().window().maximize();
 
         // 'Navigate to the dashboard URL'
-        driver.get("https://your-dashboard-url.com"); // replace with actual URL
+        driver.get("https://austin-insight4.partners.org/"); // replace with actual URL
+
 
         // 'Initialize WebDriverWait'
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {
+
+            // Step 2: Wait for 10 seconds
+            Thread.sleep(20000);
+
+
+            // Step 3: Enter Username
+            WebElement username = driver.findElement(By.xpath("//input[@id='input28']"));
+            username.sendKeys("HS131");
+
+            // Step 4: Click "Next"
+            WebElement nextBtn = driver.findElement(By.xpath("//input[@value='Next']"));
+            nextBtn.click();
+
+            // Step 5: Wait for password field to load
+            Thread.sleep(5000);
+
+            // Step 6: Enter Password
+            WebElement password = driver.findElement(By.xpath("//input[@name='credentials.passcode']"));
+            password.sendKeys("MBGexport2025#");
+
+            Thread.sleep(5000);
+
+            // Step 7: Click "Verify"
+            WebElement verifyBtn = driver.findElement(By.xpath("//input[@value='Verify']"));
+            verifyBtn.click();
+
+            // Step 8 (optional): Add wait or print to confirm success
+            Thread.sleep(5000);
+            System.out.println("Login steps completed.");
+
             // Step 1: 'Click on “Administration”'
             By administrationLink = By.xpath("//a[text()='Administration']");
             wait.until(ExpectedConditions.elementToBeClickable(administrationLink)).click();
@@ -74,7 +105,7 @@ public class Forms_Management_Create_New_Form {
             Thread.sleep(1000);
 
             // Step 15: 'Select “FM Billable” (04) in the list'
-            By fmBillableOption = By.xpath("//div[contains(text(), 'FM Billable')]");
+            By fmBillableOption = By.xpath("//div[contains(text(), 'FM-Billable')]");
             wait.until(ExpectedConditions.elementToBeClickable(fmBillableOption)).click();
 
             // Step 16: 'Add wait time'
