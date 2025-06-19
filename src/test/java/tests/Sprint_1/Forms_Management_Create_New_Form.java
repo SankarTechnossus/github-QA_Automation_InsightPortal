@@ -6,140 +6,147 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
+import com.aventstack.extentreports.*;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+
+import java.io.File;
 import java.time.Duration;
 
 public class Forms_Management_Create_New_Form {
-    public static void main(String[] args) {
-        // 'Initialize Chrome WebDriver'
-        WebDriver driver = new ChromeDriver();
 
-        // 'Maximize browser window'
+    WebDriver driver;
+    WebDriverWait wait;
+    ExtentReports extent;
+    ExtentTest test;
+
+    @BeforeSuite
+    public void setupExtentReport() {
+        // Create test_reports folder if it doesn't exist
+        new File("test_reports").mkdirs();
+
+        // Setup ExtentReports
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Forms_Management_Create_New_Form.html");
+        htmlReporter.config().setDocumentTitle("Forms_Management_Create_New_Form");
+        htmlReporter.config().setReportName("Sprint 1 Automation");
+
+        extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+    }
+
+    @BeforeMethod
+    public void setupBrowser() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
 
-        // 'Navigate to the dashboard URL'
-        driver.get("https://austin-insight4.partners.org/"); // replace with actual URL
-
-
-        // 'Initialize WebDriverWait'
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    @Test
+    public void createFormFlow() {
+        test = extent.createTest("Forms_Management_Create_New_Form Test");
 
         try {
-
-            // Step 2: Wait for 10 seconds
+            driver.get("https://austin-insight4.partners.org/");
+            test.info("Opened dashboard URL");
             Thread.sleep(20000);
 
-
-            // Step 3: Enter Username
             WebElement username = driver.findElement(By.xpath("//input[@id='input28']"));
             username.sendKeys("HS131");
+            test.pass("Entered username");
 
-            // Step 4: Click "Next"
             WebElement nextBtn = driver.findElement(By.xpath("//input[@value='Next']"));
             nextBtn.click();
+            test.pass("Clicked Next");
 
-            // Step 5: Wait for password field to load
             Thread.sleep(5000);
 
-            // Step 6: Enter Password
             WebElement password = driver.findElement(By.xpath("//input[@name='credentials.passcode']"));
             password.sendKeys("MBGexport2025#");
+            test.pass("Entered password");
 
             Thread.sleep(5000);
 
-            // Step 7: Click "Verify"
             WebElement verifyBtn = driver.findElement(By.xpath("//input[@value='Verify']"));
             verifyBtn.click();
+            test.pass("Clicked Verify");
 
-            // Step 8 (optional): Add wait or print to confirm success
             Thread.sleep(5000);
-            System.out.println("Login steps completed.");
 
-            // Step 1: 'Click on “Administration”'
-            By administrationLink = By.xpath("//a[text()='Administration']");
-            wait.until(ExpectedConditions.elementToBeClickable(administrationLink)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Administration']"))).click();
+            test.pass("Clicked Administration");
 
-            // Step 2: 'Add wait time'
             Thread.sleep(2000);
 
-            // Step 3: 'Click on “Forms management” drop down button'
-            By formsManagementToggle = By.xpath("//button[@aria-label='Expand Forms Management']");
-            wait.until(ExpectedConditions.elementToBeClickable(formsManagementToggle)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Expand Forms Management']"))).click();
+            test.pass("Clicked Forms Management");
 
-            // Step 4: 'Add wait time'
             Thread.sleep(2000);
 
-            // Step 5: 'Click on “Agreements” link'
-            By agreementsLink = By.xpath("//span[text()='Agreements']");
-            wait.until(ExpectedConditions.elementToBeClickable(agreementsLink)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Agreements']"))).click();
+            test.pass("Clicked Agreements");
 
-            // Step 6: 'Add wait time'
             Thread.sleep(2000);
 
-            // Step 7: 'Click on “Add new” button'
-            By addNewLink = By.xpath("//a[text()='Add new']");
-            wait.until(ExpectedConditions.elementToBeClickable(addNewLink)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Add new']"))).click();
+            test.pass("Clicked Add New");
 
-            // Step 8: 'Add wait time'
             Thread.sleep(2000);
 
-            // Step 9: 'Enter “TestsankarQAautomation1” in Name text box'
-            By nameInput = By.xpath("//input[@id='name']");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(nameInput)).sendKeys("TestsankarQAautomation1");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys("TestsankarQAautomation1");
+            test.pass("Entered name");
 
-            // Step 10: 'Add wait time'
             Thread.sleep(1000);
 
-            // Step 11: 'Enter “TestAutomationQA” in Description box'
-            By descriptionTextarea = By.xpath("//textarea[@id='description']");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(descriptionTextarea)).sendKeys("TestAutomationQA");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='description']"))).sendKeys("TestAutomationQA");
+            test.pass("Entered description");
 
-            // Step 12: 'Add wait time'
             Thread.sleep(1000);
 
-            // Step 13: 'Click on “Type” drop down'
-            By dropdownArrow = By.xpath("//div[contains(@class, '_dropdownArrow_1y8qt_214')]");
-            wait.until(ExpectedConditions.elementToBeClickable(dropdownArrow)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, '_dropdownArrow_1y8qt_214')]"))).click();
+            test.pass("Clicked Type dropdown");
 
-            // Step 14: 'Add wait time'
             Thread.sleep(1000);
 
-            // Step 15: 'Select “FM Billable” (04) in the list'
-            By fmBillableOption = By.xpath("//div[contains(text(), 'FM-Billable')]");
-            wait.until(ExpectedConditions.elementToBeClickable(fmBillableOption)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(), 'FM-Billable')]"))).click();
+            test.pass("Selected 'FM-Billable'");
 
-            // Step 16: 'Add wait time'
             Thread.sleep(1000);
 
-            // Step 17: 'Click on Category drop down and select “General” (3rd option)'
-            By selectPlaceholder = By.xpath("//div[@id='react-select-9-placeholder']");
-            wait.until(ExpectedConditions.elementToBeClickable(selectPlaceholder)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='react-select-9-placeholder']"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(), 'General')]"))).click();
+            test.pass("Selected category General");
 
-            By generalOption = By.xpath("//div[contains(text(), 'General')]");
-            wait.until(ExpectedConditions.elementToBeClickable(generalOption)).click();
-
-            // Step 18: 'Add wait time'
             Thread.sleep(1000);
 
-            // Step 19: 'Enter 1 in “Category Sequence Number”'
-            By categorySeqInput = By.xpath("//input[@id='categorySequenceNo']");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(categorySeqInput)).sendKeys("1");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='categorySequenceNo']"))).sendKeys("1");
+            test.pass("Entered sequence number");
 
-            // Step 20: 'Add wait time'
             Thread.sleep(1000);
 
-            // Step 21: 'Click on “Create” button'
-            By createButton = By.xpath("//button[text()='Create']");
-            wait.until(ExpectedConditions.elementToBeClickable(createButton)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Create']"))).click();
+            test.pass("Clicked Create");
 
-            // Optional: Confirmation log
-            System.out.println("Form created successfully.");
+            test.pass("Form created successfully");
 
         } catch (Exception e) {
-            System.out.println("Exception occurred: " + e.getMessage());
-        } finally {
-            // 'Close the browser'
+            test.fail("Test failed: " + e.getMessage());
+        }
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
             driver.quit();
         }
+        test.info("Browser closed");
+    }
+
+    @AfterSuite
+    public void flushExtentReport() {
+        extent.flush();
     }
 }
