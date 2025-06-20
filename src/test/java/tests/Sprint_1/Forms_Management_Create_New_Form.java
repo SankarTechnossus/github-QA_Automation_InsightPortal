@@ -94,56 +94,55 @@ public class Forms_Management_Create_New_Form {
             test.pass("Clicked Verify");
 
             // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Click the Administration link from the main dashboard menu'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Administration']"))).click();
             test.pass("Clicked Administration");
 
             // 'Allow the Administration section to fully expand'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Expand the Forms Management drop-down section'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Expand Forms Management']"))).click();
             test.pass("Expanded Forms Management");
 
             // 'Pause briefly to allow drop-down options to appear'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Click on the Agreements link under Forms Management'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Agreements']"))).click();
             test.pass("Selected Agreements section");
 
             // 'Wait for the Agreements page to fully load'
-            Thread.sleep(20000);
-
+            Thread.sleep(10000);
             // 'Click on the Add New button to begin creating a new form'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Add new']"))).click();
             test.pass("Clicked Add New");
 
             // 'Allow the form creation fields to load completely'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Input the form name into the Name field'
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys("TestsankarQAautomation1");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys("TestsankarQAautomation001");
             test.pass("Entered form name");
 
             // 'Brief wait before proceeding to the next field'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Enter a description into the Description text area'
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='description']"))).sendKeys("TestAutomationQA");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='description']"))).sendKeys("TestAutomationQA001");
             test.pass("Entered description");
 
             // 'Pause before selecting the type from the drop-down menu'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Click on the Type drop-down to display available options'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, '_dropdownArrow_1y8qt_214')]"))).click();
             test.pass("Clicked Type drop-down");
 
             // 'Wait for the drop-down options to become clickable'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // Select "FM-Billable" from the Type drop-down options using the stable id-based XPath
             WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='react-select-2-option-4']")));option.click();
@@ -151,14 +150,14 @@ public class Forms_Management_Create_New_Form {
 
 
             // 'Pause before selecting a category'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // Wait for and click the whole control so the dropdown opens
             WebElement control = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='category']/ancestor::div[contains(@class,'select-control')]")));control.click();
             test.pass("Clicked the select-control container");
 
             // 'Wait before entering the General'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // Wait for and click the “General” option using the id-based XPath
             WebElement generalOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='react-select-3-option-2']")));generalOption.click();
@@ -166,21 +165,18 @@ public class Forms_Management_Create_New_Form {
 
 
             // 'Wait before entering the category sequence number'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Enter the value "1" into the Category Sequence Number field'
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='categorySequenceNo']"))).sendKeys("1");
             test.pass("Entered category sequence number as 1");
 
             // 'Pause before final submission'
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             // 'Click the Create button to submit and save the new form'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Create']"))).click();
             test.pass("Clicked Create button to submit the form");
-
-            Thread.sleep(120_000);  // 120 000 ms = 2 minutes
-
 
             // 'Log success message for form creation'
             test.pass("Form was created successfully without errors.");
@@ -195,7 +191,7 @@ public class Forms_Management_Create_New_Form {
     public void tearDown() {
         // 'Close the browser instance after test execution is complete'
         if (driver != null) {
-            driver.quit();
+//            driver.quit();
         }
 
         // 'Record browser closure in the test report'
