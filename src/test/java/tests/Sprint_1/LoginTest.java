@@ -83,7 +83,7 @@ public class LoginTest {
 
             // 'Input the correct password into the password field'
             WebElement password = driver.findElement(By.xpath("//input[@name='credentials.passcode']"));
-            password.sendKeys("MBGexport2025#");
+            password.sendKeys("MGBexport2025#");
             test.pass("Entered password successfully");
 
             // 'Wait before clicking Verify to ensure all fields are loaded'
