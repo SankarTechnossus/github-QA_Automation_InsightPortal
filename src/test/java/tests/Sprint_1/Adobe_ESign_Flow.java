@@ -1,6 +1,7 @@
 package tests.Sprint_1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,10 +29,10 @@ public class Adobe_ESign_Flow {
         new File("test_reports").mkdirs();
 
         // 'Initialize ExtentSparkReporter to generate the HTML test execution report'
-        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Forms_Management_Create_New_Form.html");
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Adobe_ESign_Flow.html");
 
         // 'Set the document title and report name for the test report'
-        htmlReporter.config().setDocumentTitle("Forms_Management_Create_New_Form");
+        htmlReporter.config().setDocumentTitle("Adobe_ESign_Flow");
         htmlReporter.config().setReportName("Sprint 1 Automation");
 
         // 'Attach the reporter to the ExtentReports instance'
@@ -94,47 +95,48 @@ public class Adobe_ESign_Flow {
             test.pass("Clicked Verify");
 
             // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(10000);
+            Thread.sleep(20000);
 
             // Click the Agreements link from the main dashboard menu
-            WebElement agreementsLink = driver.findElement(By.xpath("//a[@class='module-link -with-icon' and @href='/agreements' and contains(text(),'Agreements')]"));
+            WebElement agreementsLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements' and contains(.,'Agreements')]")));
             agreementsLink.click();
-            test.pass("Clicked Agreements");
+            test.pass("Clicked Agreements link");
 
             // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(10000);
+            Thread.sleep(20000);
 
-            // Click the Select... dropdown placeholder
-            WebElement selectPlaceholder = driver.findElement(By.xpath("//div[@id='react-select-7-placeholder' and contains(text(),'Select...')]"));
-            selectPlaceholder.click();
-            test.pass("Clicked Select... placeholder");
+            // Click the transaction status input
+            WebElement transactionStatusInput = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//input[@id='transactionStatusIds']")));
+            transactionStatusInput.click();
+            test.pass("Clicked transaction status input");
 
             // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(10000);
+            Thread.sleep(20000);
 
-            // Click the Draft option from the dropdown
-            WebElement draftOption = driver.findElement(By.xpath("//div[@id='react-select-7-option-0' and text()='Draft']"));
+            // Wait for the Draft option to be visible and click it
+            WebElement draftOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='react-select-7-option-0' and text()='Draft']")));
             draftOption.click();
             test.pass("Clicked Draft option");
 
             // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(10000);
+            Thread.sleep(20000);
 
-            // Click the Search button to submit the form
-            WebElement searchButton = driver.findElement(By.xpath("//button[@type='submit' and contains(text(),'Search')]"));
+            // Wait for the Search button and click it
+            WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit' and contains(text(),'Search')]")));
             searchButton.click();
             test.pass("Clicked Search button");
 
-            // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(10000);
 
-            // Click the span with ID 2025A011342
-            WebElement studentIdSpan = driver.findElement(By.xpath("//span[text()='2025A011342']"));
+            // 'Wait for the user to be redirected to the dashboard'
+            Thread.sleep(20000);
+
+
+            // Wait for the student ID span and click it
+            WebElement studentIdSpan = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='2025A011342']")));
             studentIdSpan.click();
             test.pass("Clicked span with text 2025A011342");
 
-            // 'Wait for the user to be redirected to the dashboard'
-            Thread.sleep(10000);
 
         } catch (Exception e) {
             // 'Capture and log any exceptions that occur during the test'
