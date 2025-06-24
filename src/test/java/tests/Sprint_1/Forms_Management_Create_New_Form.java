@@ -30,6 +30,7 @@ public class Forms_Management_Create_New_Form {
         // 'Initialize ExtentSparkReporter to generate the HTML test execution report'
         ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Forms_Management_Create_New_Form.html");
 
+        
         // 'Set the document title and report name for the test report'
         htmlReporter.config().setDocumentTitle("Forms_Management_Create_New_Form");
         htmlReporter.config().setReportName("Sprint 1 Automation");

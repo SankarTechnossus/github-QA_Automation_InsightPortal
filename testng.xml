@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="FormSuite">
+    <test name="Form Test">
+        <classes>
+            <class name="tests.Sprint_1.Forms_Management_Create_New_Form"/>
+        </classes>
+    </test>
+</suite>
