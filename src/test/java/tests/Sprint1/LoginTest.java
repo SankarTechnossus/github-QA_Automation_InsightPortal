@@ -1,4 +1,4 @@
-package tests.Sprint_1;
+package tests.Sprint1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

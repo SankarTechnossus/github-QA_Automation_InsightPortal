@@ -3,7 +3,7 @@
 <suite name="FormSuite">
     <test name="Form Test">
         <classes>
-            <class name="tests.Sprint_1.Forms_Management_Create_New_Form"/>
+            <class name="tests.Sprint1.Forms_Management_Create_New_Form"/>
         </classes>
     </test>
 </suite>
