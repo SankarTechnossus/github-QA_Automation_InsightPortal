@@ -125,14 +125,14 @@ public class Forms_Management_Create_New_Form {
             Thread.sleep(10000);
 
             // 'Input the form name into the Name field'
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys("TestsankarQAautomation004");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys("TestsankarQAautomation005");
             test.pass("Entered form name");
 
             // 'Brief wait before proceeding to the next field'
             Thread.sleep(10000);
 
             // 'Enter a description into the Description text area'
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='description']"))).sendKeys("TestAutomationQA004");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='description']"))).sendKeys("TestAutomationQA005");
             test.pass("Entered description");
 
             // 'Pause before selecting the type from the drop-down menu'
