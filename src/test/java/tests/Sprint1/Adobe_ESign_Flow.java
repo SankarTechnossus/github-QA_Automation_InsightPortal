@@ -208,6 +208,8 @@ public class Adobe_ESign_Flow {
             // User will wait after previewing the document
             Thread.sleep(50000);
 
+            //*comment following lines
+
 //            // User will click on the E-signature field in the preview section
 //            WebElement eSignButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='E-signature']/ancestor::div[@class='sc-ejwLJJ gmtySD']")));
 //            eSignButton.click();
@@ -228,9 +230,11 @@ public class Adobe_ESign_Flow {
 //            WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Continue' and @class='ntVziG_spectrum-Button-label']")));
 //            continueButton.click();
 //            test.pass("Clicked 'Continue' button");
-
+//
 //            // User will wait after clicking continue button
 //            Thread.sleep(10000);
+
+            //**comment above lines
 
             // User will click the 'Status' tab to verify the current document status
             WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));

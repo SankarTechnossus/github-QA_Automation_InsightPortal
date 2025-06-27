@@ -1,43 +1,47 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
     WebDriver driver;
 
-    // Constructor
+    // Constructor to initialize PageFactory
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
-    // Locators ()
-    By usernameInput = By.xpath("//input[@id='input28']");// or whatever locator strategy is appropriate
-    By loginButton = By.xpath("//input[@value='Next']"); // use actual ID
-    By passwordInput = By.xpath("//input[@name='credentials.passcode']");
-    By verifyButton = By.xpath("//input[@value='Verify']");
-    // Methods
+    // Page Elements
+    @FindBy(id = "input28")
+    private WebElement usernameInput;
+
+    @FindBy(xpath = "//input[@value='Next']")
+    private WebElement nextButton;
+
+    @FindBy(name = "credentials.passcode")
+    private WebElement passwordInput;
+
+    @FindBy(xpath = "//input[@value='Verify']")
+    private WebElement verifyButton;
+
+    // Page Actions
     public void enterUsername(String username) {
-        driver.findElement(usernameInput).sendKeys(username);
+        usernameInput.sendKeys(username);
+    }
+
+    public void clickNext() {
+        nextButton.click();
     }
 
     public void enterPassword(String password) {
-        driver.findElement(passwordInput).sendKeys(password);
-    }
-
-    public void clickLogin() {
-        driver.findElement(loginButton).click();
+        passwordInput.sendKeys(password);
     }
 
     public void clickVerify() {
-        driver.findElement(verifyButton).click();
-    }
-
-    public void login(String username, String password) {
-        enterUsername(username);
-        enterPassword(password);
-        clickLogin();
-        clickVerify();
+        verifyButton.click();
     }
 }
