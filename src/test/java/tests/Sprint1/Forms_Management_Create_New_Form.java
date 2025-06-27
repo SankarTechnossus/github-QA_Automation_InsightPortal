@@ -104,7 +104,7 @@ public class Forms_Management_Create_New_Form {
             test.pass("Clicked Administration link in the sidebar after confirming visibility and scroll.");
 
             // 'User will wait for Administration panel to load'
-            Thread.sleep(10000);
+            Thread.sleep(20000);
 
             // 'User will expand the Forms Management dropdown panel'
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Expand Forms Management']"))).click();

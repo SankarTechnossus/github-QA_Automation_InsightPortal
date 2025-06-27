@@ -1,6 +1,7 @@
 package tests.Sprint1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.interactions.Actions;
 
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -96,10 +98,11 @@ public class Adobe_ESign_Flow {
             // User will wait for the user to be redirected to the dashboard
             Thread.sleep(30000);
 
-            // User will click the 'Agreements' link from the sidebar menu
-            WebElement agreementsLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements' and contains(.,'Agreements')]")));
-            agreementsLink.click();
+            // Wait and click the 'Agreements' link from the sidebar
+            WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            WebElement agreementsLink = customWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Agreements')]")));agreementsLink.click();
             test.pass("Clicked Agreements link");
+
 
             // User will wait for the Agreements page to load
             Thread.sleep(20000);
@@ -178,7 +181,7 @@ public class Adobe_ESign_Flow {
 
             // User will enter the name of the agreement into the input field
             WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@class='default-input _full-width text-input default-input' and @type='text']")));
-            inputField.sendKeys("QA_Automation_Agreement_information3");
+            inputField.sendKeys("QA_Automation_Agreement_information");
             test.pass("Entered text in Agreement name");
 
             // User will wait after entering agreement name
@@ -208,6 +211,49 @@ public class Adobe_ESign_Flow {
             // User will wait after previewing the document
             Thread.sleep(50000);
 
+
+            // Step 1: Switch to the iframe that contains the drop area
+            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
+                    By.cssSelector("iframe.sign-in-iframe")
+            ));
+            test.pass("Switched into iframe");
+
+            // Step 2: Locate the draggable E-signature field (the actual draggable DIV)
+            WebElement eSignatureField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.cssSelector("div.sc-ejwLJJ[draggable='true']")
+            ));
+
+            // Step 3: Locate the drop target area (blank white page)
+            WebElement dropTarget = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.cssSelector("div[data-testid='overlay-drop-target']")
+            ));
+
+            // Step 4: Perform JS-based drag-and-drop
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            String dragDropScript = """
+            function triggerDragAndDrop(sourceNode, destinationNode) {
+            const dataTransfer = new DataTransfer();
+            const dragStartEvent = new DragEvent('dragstart', { dataTransfer });
+            const dropEvent = new DragEvent('drop', { dataTransfer });
+            const dragEndEvent = new DragEvent('dragend', { dataTransfer });
+
+            sourceNode.dispatchEvent(dragStartEvent);
+            destinationNode.dispatchEvent(dropEvent);
+            sourceNode.dispatchEvent(dragEndEvent);
+            }
+            triggerDragAndDrop(arguments[0], arguments[1]);
+            """;
+            js.executeScript(dragDropScript, eSignatureField, dropTarget);
+            test.pass("Performed JS-based drag-and-drop of E-signature field");
+
+            // Important: Switch back to the main content after the iframe interaction
+            driver.switchTo().defaultContent();
+
+            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='sendButton' and @data-testid='footer-button-send-button']")));sendButton.click();
+            test.pass("Clicked 'Send' button successfully.");
+
+
+
             //*comment following lines
 
 //            // User will click on the E-signature field in the preview section
@@ -236,13 +282,16 @@ public class Adobe_ESign_Flow {
 
             //**comment above lines
 
-            // User will click the 'Status' tab to verify the current document status
-            WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
-            statusTab.click();
-            test.pass("Clicked 'Status' tab");
 
-            // User will wait after navigating to the status tab
             Thread.sleep(10000);
+
+//            // User will click the 'Status' tab to verify the current document status
+//            WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
+//            statusTab.click();
+//            test.pass("Clicked 'Status' tab");
+//
+//            // User will wait after navigating to the status tab
+//            Thread.sleep(10000);
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -254,7 +303,7 @@ public class Adobe_ESign_Flow {
     public void tearDown() {
         // User will close the browser instance after test execution is complete
         if (driver != null) {
-            driver.quit();
+//            driver.quit();
         }
 
         // User will record browser closure in the test report
