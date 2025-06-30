@@ -181,7 +181,7 @@ public class Adobe_ESign_Flow {
 
             // User will enter the name of the agreement into the input field
             WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@class='default-input _full-width text-input default-input' and @type='text']")));
-            inputField.sendKeys("QA_Automation_Agreement_information");
+            inputField.sendKeys("QA_Automation_Agreement_information01");
             test.pass("Entered text in Agreement name");
 
             // User will wait after entering agreement name
