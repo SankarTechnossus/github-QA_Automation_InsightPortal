@@ -211,87 +211,71 @@ public class Adobe_ESign_Flow {
             // User will wait after previewing the document
             Thread.sleep(50000);
 
+            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
+            test.pass("Successfully Switched to iframe");
 
-            // Step 1: Switch to the iframe that contains the drop area
-            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
-                    By.cssSelector("iframe.sign-in-iframe")
-            ));
-            test.pass("Switched into iframe");
+            System.out.println("Successfully Switched to iframe");
 
-            // Step 2: Locate the draggable E-signature field (the actual draggable DIV)
-            WebElement eSignatureField = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.cssSelector("div.sc-ejwLJJ[draggable='true']")
-            ));
+            WebElement sourceEle  = driver.findElement(By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span"));
+            WebElement targetEle= driver.findElement(By.xpath("//div[@data-testid='overlay-drop-target']"));
 
-            // Step 3: Locate the drop target area (blank white page)
-            WebElement dropTarget = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.cssSelector("div[data-testid='overlay-drop-target']")
-            ));
+            System.out.println("source =>"+sourceEle.getText());
 
-            // Step 4: Perform JS-based drag-and-drop
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            String dragDropScript = """
-            function triggerDragAndDrop(sourceNode, destinationNode) {
-            const dataTransfer = new DataTransfer();
-            const dragStartEvent = new DragEvent('dragstart', { dataTransfer });
-            const dropEvent = new DragEvent('drop', { dataTransfer });
-            const dragEndEvent = new DragEvent('dragend', { dataTransfer });
+            Actions actions = new Actions(driver);
+            actions.dragAndDrop(sourceEle,targetEle).build().perform();
 
-            sourceNode.dispatchEvent(dragStartEvent);
-            destinationNode.dispatchEvent(dropEvent);
-            sourceNode.dispatchEvent(dragEndEvent);
-            }
-            triggerDragAndDrop(arguments[0], arguments[1]);
-            """;
-            js.executeScript(dragDropScript, eSignatureField, dropTarget);
-            test.pass("Performed JS-based drag-and-drop of E-signature field");
+            Thread.sleep(30000);
 
-            // Important: Switch back to the main content after the iframe interaction
-            driver.switchTo().defaultContent();
-
-            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='sendButton' and @data-testid='footer-button-send-button']")));sendButton.click();
-            test.pass("Clicked 'Send' button successfully.");
+            System.out.println("drag and drop was successfully");
+            test.pass("drag and drop was successfully");
 
 
-
-            //*comment following lines
-
-//            // User will click on the E-signature field in the preview section
-//            WebElement eSignButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='E-signature']/ancestor::div[@class='sc-ejwLJJ gmtySD']")));
-//            eSignButton.click();
-//            test.pass("Clicked 'E-signature' field button");
-//
-//            // User will wait after clicking E-signature field
-//            Thread.sleep(10000);
-//
-//            // User will click the 'Send' button to send the document for signature
-//            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Send' and @class='ntVziG_spectrum-Button-label']")));
-//            sendButton.click();
-//            test.pass("Clicked 'Send' button");
-//
-//            // User will wait after clicking send button
-//            Thread.sleep(10000);
-//
-//            // User will click the 'Continue' button to confirm sending
-//            WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Continue' and @class='ntVziG_spectrum-Button-label']")));
-//            continueButton.click();
-//            test.pass("Clicked 'Continue' button");
-//
-//            // User will wait after clicking continue button
-//            Thread.sleep(10000);
-
-            //**comment above lines
-
-
+            // User will wait after clicking E-signature field
             Thread.sleep(10000);
 
-//            // User will click the 'Status' tab to verify the current document status
-//            WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
-//            statusTab.click();
-//            test.pass("Clicked 'Status' tab");
-//
-//            // User will wait after navigating to the status tab
-//            Thread.sleep(10000);
+            // Step 1: Ensure you're back to default content (especially if you used switchTo().frame earlier)
+            driver.switchTo().defaultContent();
+            test.info("Switched to default content");
+
+            // Step 2: Locate the scrollable modal div using XPath
+            WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'modal-content-wrapper')]")));
+            test.pass("Located scrollable modal-content-wrapper");
+
+            // Step 3: Perform scroll using JavaScript
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollableDiv);
+            test.pass("Successfully scrolled the modal-content-wrapper");
+
+            // User will wait until user is scroll down
+            Thread.sleep(10000);
+
+
+            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
+            test.pass("Successfully Switched to iframe");
+
+            // User will wait until user is scroll down
+            Thread.sleep(10000);
+
+
+            // User will click the 'Send' button to send the document for signature
+            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Send' and @class='ntVziG_spectrum-Button-label']")));
+            sendButton.click();
+            test.pass("Clicked 'Send' button");
+
+            // User will wait after clicking send button
+            Thread.sleep(20000);
+
+
+            driver.switchTo().defaultContent();
+            test.pass("Switched back to default content");
+
+            // User will click the 'Status' tab to verify the current document status
+            WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
+            statusTab.click();
+            test.pass("Clicked 'Status' tab");
+
+            // User will wait after navigating to the status tab
+            Thread.sleep(10000);
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
