@@ -57,7 +57,8 @@ public class Esign_Review_and_Sign_Flow {
 
         try {
             // The user opens the login page URL from the email
-            driver.get("https://nam02.safelinks.protection.outlook.com/..." /* shortened for clarity */);
+            driver.get("https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAqIXivy4TV-rgIu6l-WziAmpxzZQRvvhKn6HMb8WppGOADTxzjQahnFob6IDaZGPQcMnqZgNyVHITo-zJCK6Z0RUcAh4wCBcBsmGCOmDl6egmLp4VIRtbrsmq1n0-A4ew%26&data=05%7C02%7Ckashif.alam%40technossus.com%7Cad7e68fd54334971305708ddb7ca9e10%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C638868803233117082%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=J7zOFcLCdLt6s9KfldEH2mRWBRssq01qsGpfmQW8q1g%3D&reserved=0");
+//          driver.get("");
             test.info("Opened dashboard URL");
 
             // The user waits for the login page to load
