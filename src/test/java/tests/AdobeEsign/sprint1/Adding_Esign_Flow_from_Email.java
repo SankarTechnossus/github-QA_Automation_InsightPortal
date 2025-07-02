@@ -1,8 +1,7 @@
-package tests.Sprint1;
+package tests.AdobeEsign.sprint1;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
