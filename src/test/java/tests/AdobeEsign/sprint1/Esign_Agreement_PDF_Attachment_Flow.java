@@ -17,7 +17,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import java.io.File;
 import java.time.Duration;
 
-public class Adobe_ESign_Flow {
+public class Esign_Agreement_PDF_Attachment_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
