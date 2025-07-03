@@ -24,10 +24,10 @@ public class Esign_Review_and_Sign_Flow {
         new File("test_reports").mkdirs();
 
         // The user initializes the ExtentSparkReporter to generate the HTML report
-        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Adding_Esign_Flow_From_Email.html");
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Esign_Review_and_Sign_Flow.html");
 
         // The user sets the document title and report name for the test
-        htmlReporter.config().setDocumentTitle("Adding_Esign_Flow_From_Email");
+        htmlReporter.config().setDocumentTitle("Esign_Review_and_Sign_Flow");
         htmlReporter.config().setReportName("Sprint 1 Automation");
 
         // The user attaches the reporter to the ExtentReports instance

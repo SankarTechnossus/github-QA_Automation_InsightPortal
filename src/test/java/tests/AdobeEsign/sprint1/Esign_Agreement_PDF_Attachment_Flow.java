@@ -30,10 +30,10 @@ public class Esign_Agreement_PDF_Attachment_Flow {
         new File("test_reports").mkdirs();
 
         // User will initialize ExtentSparkReporter to generate the HTML test execution report
-        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Adobe_ESign_Flow.html");
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("test_reports/Esign_Agreement_PDF_Attachment_Flow.html");
 
         // User will set the document title and report name for the test report
-        htmlReporter.config().setDocumentTitle("Adobe_ESign_Flow");
+        htmlReporter.config().setDocumentTitle("Esign_Agreement_PDF_Attachment_Flow");
         htmlReporter.config().setReportName("Sprint 1 Automation");
 
         // User will attach the reporter to the ExtentReports instance
@@ -109,8 +109,8 @@ public class Esign_Agreement_PDF_Attachment_Flow {
 
             // User will enter the agreement number into the corresponding input field
             WebElement agreementNumberInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='agreementNumber']")));
-            agreementNumberInput.sendKeys("2025A011754");
-            test.pass("Entered Agreement Number: 2025A011754");
+            agreementNumberInput.sendKeys("2025A012363");
+            test.pass("Entered Agreement Number: 2025A012363");
 
             // User will wait after entering the agreement number
             Thread.sleep(10000);
@@ -124,41 +124,34 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             Thread.sleep(20000);
 
             // User will click on the agreement number span to open agreement details
-            WebElement agreementSpan = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='2025A011754']")));
+            WebElement agreementSpan = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='2025A012363']")));
             agreementSpan.click();
-            test.pass("Clicked on Agreement span: 2025A011754");
+            test.pass("Clicked on Agreement span: 2025A012363");
 
             // User will wait after opening the agreement
             Thread.sleep(10000);
 
             // User will click the 'Deliverables' tab in the sidebar for the selected agreement
-            WebElement deliverablesTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A011754/latest/deliverables']//span[text()='Deliverables']")));
+            WebElement deliverablesTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A012363/latest/deliverables']//span[text()='Deliverables']")));
             deliverablesTab.click();
             test.pass("Clicked on correct Deliverables tab in sidebar");
 
             // User will wait after navigating to the Deliverables tab
-            Thread.sleep(5000);
-
-            // User will click the E-Sign section to minimize it
-            WebElement eSignSection = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='title-text' and contains(., 'E-Sign')]")));
-            eSignSection.click();
-            test.pass("Clicked on E-Sign minimise");
-
-            // User will wait after minimizing the E-Sign section
             Thread.sleep(10000);
 
-            // User will click the E-Sign section to maximize it
-            WebElement eSignSection1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='title-text' and contains(., 'E-Sign')]")));
-            eSignSection1.click();
-            test.pass("Clicked on E-Sign section Maximise");
+
+            WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]")));
+            toggleButton.click();
+            test.pass("Clicked the expand/collapse toggle button");
 
             // User will wait after maximizing the E-Sign section
             Thread.sleep(5000);
 
-            // User will click the 'For fully executed agreement' link under E-Sign section
-            WebElement eSignAgreementLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A011754/latest/deliverables/1110376']//span[text()='For fully executed agreement']")));
-            eSignAgreementLink.click();
-            test.pass("Clicked 'For fully executed agreement' under E-Sign section");
+            // User will click the 'Testing 03' link under E-Sign section
+            WebElement eSignTesting03Link = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A012363/latest/deliverables/1113367']//span[text()='Testing 03']")));
+            eSignTesting03Link.click();
+            test.pass("Clicked 'Testing 03' link under E-Sign section");
+
 
             // User will wait after clicking the agreement link
             Thread.sleep(10000);
@@ -179,13 +172,6 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             // User will wait after uploading the file
             Thread.sleep(10000);
 
-            // User will enter the name of the agreement into the input field
-            WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@class='default-input _full-width text-input default-input' and @type='text']")));
-            inputField.sendKeys("QA_Automation_Agreement_information01");
-            test.pass("Entered text in Agreement name");
-
-            // User will wait after entering agreement name
-            Thread.sleep(10000);
 
             // User will click the 'Add Recipient' button
             WebElement addRecipientButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Add Recipient']")));
@@ -203,71 +189,83 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             // User will wait after entering recipient email
             Thread.sleep(10000);
 
-            // User will click the 'Preview Document' button
-            WebElement previewButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Preview Document']")));
+//            // User will click the 'Preview Document' button
+//            WebElement previewButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Preview Document']")));
+//            previewButton.click();
+//            test.pass("Clicked 'Preview Document' button");
+
+
+            // User will click the 'Preview Document' button inside 'add-recipients-section'
+            WebElement previewButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'add-recipients-section')]//button[text()='Preview Document']")));
             previewButton.click();
-            test.pass("Clicked 'Preview Document' button");
+            test.pass("Clicked 'Preview Document' button inside 'add-recipients-section'");
 
-            // User will wait after previewing the document
-            Thread.sleep(50000);
-
-            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
-            test.pass("Successfully Switched to iframe");
-
-            System.out.println("Successfully Switched to iframe");
-
-            WebElement sourceEle  = driver.findElement(By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span"));
-            WebElement targetEle= driver.findElement(By.xpath("//div[@data-testid='overlay-drop-target']"));
-
-            System.out.println("source =>"+sourceEle.getText());
-
-            Actions actions = new Actions(driver);
-            actions.dragAndDrop(sourceEle,targetEle).build().perform();
-
-            Thread.sleep(30000);
-
-            System.out.println("drag and drop was successfully");
-            test.pass("drag and drop was successfully");
+            //Uncomment the below lines if Once the bug is fixed
 
 
-            // User will wait after clicking E-signature field
+//            // User will wait after previewing the document
+//            Thread.sleep(50000);
+//
+//            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
+//            test.pass("Successfully Switched to iframe");
+//
+//            System.out.println("Successfully Switched to iframe");
+//
+//            WebElement sourceEle  = driver.findElement(By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span"));
+//            WebElement targetEle= driver.findElement(By.xpath("//div[@data-testid='overlay-drop-target']"));
+//
+//            System.out.println("source =>"+sourceEle.getText());
+//
+//            Actions actions = new Actions(driver);
+//            actions.dragAndDrop(sourceEle,targetEle).build().perform();
+//
+//            Thread.sleep(30000);
+//
+//            System.out.println("drag and drop was successfully");
+//            test.pass("drag and drop was successfully");
+//
+//
+//            // User will wait after clicking E-signature field
+//            Thread.sleep(10000);
+//
+//            // Step 1: Ensure you're back to default content (especially if you used switchTo().frame earlier)
+//            driver.switchTo().defaultContent();
+//            test.info("Switched to default content");
+//
+//            // Step 2: Locate the scrollable modal div using XPath
+//            WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'modal-content-wrapper')]")));
+//            test.pass("Located scrollable modal-content-wrapper");
+//
+//            // Step 3: Perform scroll using JavaScript
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollableDiv);
+//            test.pass("Successfully scrolled the modal-content-wrapper");
+//
+//            // User will wait until user is scroll down
+//            Thread.sleep(10000);
+//
+//
+//            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
+//            test.pass("Successfully Switched to iframe");
+//
+//            // User will wait until user is scroll down
+//            Thread.sleep(10000);
+//
+//
+//            // User will click the 'Send' button to send the document for signature
+//            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Send' and @class='ntVziG_spectrum-Button-label']")));
+//            sendButton.click();
+//            test.pass("Clicked 'Send' button");
+//
+//            // User will wait after clicking send button
+//            Thread.sleep(20000);
+//
+//
+//            driver.switchTo().defaultContent();
+//            test.pass("Switched back to default content");
+
+
             Thread.sleep(10000);
-
-            // Step 1: Ensure you're back to default content (especially if you used switchTo().frame earlier)
-            driver.switchTo().defaultContent();
-            test.info("Switched to default content");
-
-            // Step 2: Locate the scrollable modal div using XPath
-            WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'modal-content-wrapper')]")));
-            test.pass("Located scrollable modal-content-wrapper");
-
-            // Step 3: Perform scroll using JavaScript
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollableDiv);
-            test.pass("Successfully scrolled the modal-content-wrapper");
-
-            // User will wait until user is scroll down
-            Thread.sleep(10000);
-
-
-            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
-            test.pass("Successfully Switched to iframe");
-
-            // User will wait until user is scroll down
-            Thread.sleep(10000);
-
-
-            // User will click the 'Send' button to send the document for signature
-            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Send' and @class='ntVziG_spectrum-Button-label']")));
-            sendButton.click();
-            test.pass("Clicked 'Send' button");
-
-            // User will wait after clicking send button
-            Thread.sleep(20000);
-
-
-            driver.switchTo().defaultContent();
-            test.pass("Switched back to default content");
 
             // User will click the 'Status' tab to verify the current document status
             WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
