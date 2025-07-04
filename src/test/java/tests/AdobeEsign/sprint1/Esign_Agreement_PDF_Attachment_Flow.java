@@ -108,9 +108,8 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             Thread.sleep(20000);
 
             // User will enter the agreement number into the corresponding input field
-            WebElement agreementNumberInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='agreementNumber']")));
-            agreementNumberInput.sendKeys("2025A012363");
-            test.pass("Entered Agreement Number: 2025A012363");
+            WebElement agreementNumberInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='agreementNumber']")));agreementNumberInput.sendKeys("2025A012368");
+            test.pass("Entered Agreement Number: 2025A012368");
 
             // User will wait after entering the agreement number
             Thread.sleep(10000);
@@ -124,15 +123,15 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             Thread.sleep(20000);
 
             // User will click on the agreement number span to open agreement details
-            WebElement agreementSpan = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='2025A012363']")));
+            WebElement agreementSpan = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='2025A012368']")));
             agreementSpan.click();
-            test.pass("Clicked on Agreement span: 2025A012363");
+            test.pass("Clicked on Agreement span: 2025A012368");
 
             // User will wait after opening the agreement
             Thread.sleep(10000);
 
             // User will click the 'Deliverables' tab in the sidebar for the selected agreement
-            WebElement deliverablesTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A012363/latest/deliverables']//span[text()='Deliverables']")));
+            WebElement deliverablesTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables']//span[text()='Deliverables']")));
             deliverablesTab.click();
             test.pass("Clicked on correct Deliverables tab in sidebar");
 
@@ -148,9 +147,9 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             Thread.sleep(5000);
 
             // User will click the 'Testing 03' link under E-Sign section
-            WebElement eSignTesting03Link = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A012363/latest/deliverables/1113367']//span[text()='Testing 03']")));
+            WebElement eSignTesting03Link = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables/1113382']//span[text()='Test']")));
             eSignTesting03Link.click();
-            test.pass("Clicked 'Testing 03' link under E-Sign section");
+            test.pass("Clicked 'Test' link under E-Sign section");
 
 
             // User will wait after clicking the agreement link
