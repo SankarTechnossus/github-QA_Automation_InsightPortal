@@ -71,7 +71,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
 
             // User will enter the username into the username input field
             WebElement username = driver.findElement(By.xpath("//input[@id='input28']"));
-            username.sendKeys("HS131");
+            username.sendKeys("SV1179");
             test.pass("Entered username");
 
             // User will click the 'Next' button to proceed to the password entry screen
@@ -84,7 +84,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
 
             // User will input the user's password into the password field
             WebElement password = driver.findElement(By.xpath("//input[@name='credentials.passcode']"));
-            password.sendKeys("MGBexport2025#");
+            password.sendKeys("Devinivetha@1930");
             test.pass("Entered password");
 
             // User will pause briefly before attempting to click the 'Verify' button

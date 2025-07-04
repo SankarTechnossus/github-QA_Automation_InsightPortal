@@ -70,7 +70,7 @@ public class Forms_Management_Create_New_Form {
 
             // 'User will input their username into the respective field'
             WebElement username = driver.findElement(By.xpath("//input[@id='input28']"));
-            username.sendKeys("HS131");
+            username.sendKeys("SV1179");
             test.pass("Entered username");
 
             // 'User will click the Next button to proceed to the password screen'
@@ -83,7 +83,7 @@ public class Forms_Management_Create_New_Form {
 
             // 'User will enter the password into the credentials field'
             WebElement password = driver.findElement(By.xpath("//input[@name='credentials.passcode']"));
-            password.sendKeys("MGBexport2025#");
+            password.sendKeys("Devinivetha@1930");
             test.pass("Entered password");
 
             // 'User will pause briefly before clicking Verify'
