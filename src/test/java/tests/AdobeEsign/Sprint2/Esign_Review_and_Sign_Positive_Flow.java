@@ -1,4 +1,4 @@
-package tests.AdobeEsign.sprint1;
+package tests.AdobeEsign.Sprint2;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +11,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import java.io.File;
 import java.time.Duration;
 
-public class Esign_Review_and_Sign_Flow {
+public class Esign_Review_and_Sign_Positive_Flow {
 
     WebDriver driver;
     WebDriverWait wait;

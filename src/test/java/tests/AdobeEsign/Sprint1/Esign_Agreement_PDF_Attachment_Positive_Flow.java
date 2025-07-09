@@ -1,7 +1,6 @@
-package tests.AdobeEsign.sprint1;
+package tests.AdobeEsign.Sprint1;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,8 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.interactions.Actions;
-import pages.LoginPage;
 
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -18,7 +15,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import java.io.File;
 import java.time.Duration;
 
-public class Esign_Agreement_PDF_Attachment_Flow {
+public class Esign_Agreement_PDF_Attachment_Positive_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -164,10 +161,8 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             // User will wait after clicking the Adobe icon
             Thread.sleep(10000);
 
-
-           String AgreementFileName = System.getProperty("user.dir")+"/Test_Data/Agreement Info 2025_03.pdf";
-
             // User will upload the agreement PDF file via file input
+            String AgreementFileName = System.getProperty("user.dir")+"/Test_Data/Agreement Info 2025_03.pdf";
             WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='file' and @accept='application/pdf']")));
             fileInput.sendKeys(AgreementFileName);
             test.pass("Successfully uploaded 'Agreement Info 2025.pdf'");

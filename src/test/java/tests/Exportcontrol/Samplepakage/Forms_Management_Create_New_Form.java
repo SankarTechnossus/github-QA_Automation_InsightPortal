@@ -1,4 +1,4 @@
-package tests.Exportcontrolflow.sprint1;
+package tests.Exportcontrol.Samplepakage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
