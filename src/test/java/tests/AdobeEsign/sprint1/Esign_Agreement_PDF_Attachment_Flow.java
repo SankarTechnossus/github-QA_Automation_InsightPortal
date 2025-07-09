@@ -164,9 +164,12 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             // User will wait after clicking the Adobe icon
             Thread.sleep(10000);
 
+
+           String AgreementFileName = System.getProperty("user.dir")+"/Test_Data/Agreement Info 2025_03.pdf";
+
             // User will upload the agreement PDF file via file input
             WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='file' and @accept='application/pdf']")));
-            fileInput.sendKeys("C:\\Users\\SankarVenkatesan\\OneDrive - Technossus LLC\\Documents\\Agreement Details\\Agreement Info 2025_03.pdf");
+            fileInput.sendKeys(AgreementFileName);
             test.pass("Successfully uploaded 'Agreement Info 2025.pdf'");
 
             // User will wait after uploading the file
