@@ -71,33 +71,34 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             test.info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
-            Thread.sleep(20000);
+            basePage.pause(20000);
+
 
             // User will enter the username into the username input field
             WebElement username = basePage.waitForElement(By.xpath("//input[@id='input28']"));
             username.sendKeys("SV1179");
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Entered username");
 
 
             // User will click the 'Next' button to proceed to the password entry screen
             WebElement nextBtn = basePage.waitForElement(By.xpath("//input[@value='Next']"));
             nextBtn.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked Next");
 
 
             // User will input the user's password into the password field
             WebElement password = basePage.waitForElement(By.xpath("//input[@name='credentials.passcode']"));
             password.sendKeys("Devinivetha@1930");
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Entered password");
 
 
             // User will click the 'Verify' button to authenticate the user
             WebElement verifyBtn = basePage.waitForElement(By.xpath("//input[@value='Verify']"));
             verifyBtn.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked Verify");
 
 
@@ -105,20 +106,20 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             WebElement agreementsLink = basePage.waitForElement50(By.xpath("//a[contains(text(),'Agreements')]"));
             Assert.assertTrue(agreementsLink.isDisplayed(), "Agreements link is not visible after login");
             agreementsLink.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked 'Agreements' link from sidebar");
 
             // User will enter the agreement number into the corresponding input field
-            WebElement agreementNumberInput = basePage.waitForElement(By.xpath("//input[@id='agreementNumber']"));
+            WebElement agreementNumberInput = basePage.waitForElement50(By.xpath("//input[@id='agreementNumber']"));
             Assert.assertTrue(agreementNumberInput.isDisplayed(), "AgreementNumberInput is not visible after login");
             agreementNumberInput.sendKeys("2025A012368");
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Entered Agreement Number: 2025A012368");
 
             // User will click the 'Search' button to search for the agreement
             WebElement searchButton = basePage.waitForElement(By.xpath("//button[text()='Search']"));
             searchButton.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked Search button");
 
 
@@ -126,23 +127,18 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will click on the agreement number span to open agreement details
             WebElement agreementSpan = basePage.waitForElement(By.xpath("//span[text()='2025A012368']"));
             agreementSpan.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked on Agreement span: 2025A012368");
 
 
-
-
             basePage.scrollAndJsClick(By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables']//span[text()='Deliverables']"), 30);
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked 'Deliverables' tab using JavaScript after scroll");
-
-
-
 
 
             WebElement toggleButton = basePage.waitForElement(By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]"));
             toggleButton.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked the expand/collapse toggle button");
 
 
@@ -150,14 +146,14 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will click the 'Testing 03' link under E-Sign section
             WebElement eSignTesting03Link = basePage.waitForElement(By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables/1113382']//span[text()='Test']"));
             eSignTesting03Link.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked 'Test' link under E-Sign section");
 
 
             // User will click the Adobe integration icon to start the e-sign process
             WebElement adobeIcon = basePage.waitForElement(By.xpath("//img[@alt='adobe-icon']"));
             adobeIcon.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked Adobe integration icon");
 
 //            // User will wait after clicking the Adobe icon
@@ -167,7 +163,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             String AgreementFileName = System.getProperty("user.dir")+"/Test_Data/Agreement Info 2025_03.pdf";
             WebElement fileInput =basePage.waitForPresence(By.xpath("//input[@type='file' and @accept='application/pdf']"));
             fileInput.sendKeys(AgreementFileName);
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Successfully uploaded 'Agreement Info 2025.pdf'");
 
 
@@ -176,7 +172,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will click the 'Add Recipient' button
             WebElement addRecipientButton = basePage.waitForElement(By.xpath("//button[text()='Add Recipient']"));
             addRecipientButton.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked 'Add Recipient' button");
 
 
@@ -184,7 +180,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will enter the recipient email in the input field
             WebElement fullWidthInput =  basePage.waitForElement(By.xpath("//span[text()='Email']/following::input[@type='text'][1]"));
             fullWidthInput.sendKeys("Sankar.Venkatesan@technossus.com");
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Entered value in recipient input field");
 
 
@@ -197,7 +193,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will click the 'Preview Document' button inside 'add-recipients-section'
             WebElement previewButton = basePage.waitForElement(By.xpath("//div[contains(@class, 'add-recipients-section')]//button[text()='Preview Document']"));
             previewButton.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked 'Preview Document' button inside 'add-recipients-section'");
 
             //Uncomment the below lines if Once the bug is fixed
@@ -270,7 +266,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will click the 'Status' tab to verify the current document status
             WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
             statusTab.click();
-            basePage.pause(1000);
+            basePage.pause(10000);
             test.pass("Clicked 'Status' tab");
 
 //            // User will wait after navigating to the status tab
