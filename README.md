@@ -15,7 +15,7 @@ src/
  └── test/
       └── java/
            ├── base/       # Test-level base classes
-           ├── constants/  # Environment/test constants
+           ├── utils1/  # Environment/test utils1
            ├── drivers/    # WebDriver setups
            ├── pages/      # Page-specific test implementations
            ├── resources/  # Supporting assets

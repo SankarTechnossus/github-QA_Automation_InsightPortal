@@ -1,29 +1,56 @@
 package listeners;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import org.openqa.selenium.WebElement;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import utils.ScreenshotUtility;
+import org.openqa.selenium.WebDriver;
+import utils.TestConstants;
+import utils.DriverManager;
+import utils.ScreenshotUtility;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class ExtentReportListener implements ITestListener {
     private static ExtentReports extent;
     private static ThreadLocal <ExtentTest> test = new ThreadLocal < > ();
-    private static Map < String, ExtentTest> classLevelTests = new ConcurrentHashMap < > ();
+    private static Map< String, ExtentTest> classLevelTests = new ConcurrentHashMap< >();
     public static ExtentTest getExtentTest() {
         return test.get();
     }
 
     private void configureReport() {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        String reportFileName = "Test_Report_" + timeStamp + ".html";
-        String reportsDirPath = System.getProperty("user.dir") + "/reports";
+        String reportFileName = "Esign_Agreement_PDF_Attachment_Positive_Flow_" + timeStamp + ".html";
+        String reportsDirPath = System.getProperty("user.dir") + "/test_reports";
+
         File reportsDir = new File(reportsDirPath);
         if (!reportsDir.exists()) reportsDir.mkdirs();
+
         ExtentSparkReporter spark = new ExtentSparkReporter(reportsDirPath + "/" + reportFileName);
-        spark.config().setDocumentTitle(TestConstants.REPORT_TITLE);
-        spark.config().setReportName(TestConstants.REPORT_NAME);
-        spark.config().setTheme("DARK".equalsIgnoreCase(TestConstants.REPORT_THEME) ? Theme.DARK : Theme.STANDARD);
+        spark.config().setDocumentTitle("Esign_Agreement_PDF_Attachment_Positive_Flow");
+        spark.config().setReportName("Sprint 1 Automation");
+        spark.config().setTheme(Theme.DARK); // You can change to Theme.STANDARD if needed
+
         extent = new ExtentReports();
         extent.attachReporter(spark);
-        extent.setSystemInfo("Host Name", TestConstants.HOST_NAME);
-        extent.setSystemInfo("Environment", TestConstants.ENVIRONMENT);
-        extent.setSystemInfo("User", TestConstants.USER);
+
+        // You can modify or remove the below system info if needed
+        extent.setSystemInfo("Host Name", "Automation Host");
+        extent.setSystemInfo("Environment", "QA");
+        extent.setSystemInfo("User", "Shankar");
     }
+
 
     @Override
     public synchronized void onStart(ITestContext context) {
@@ -213,7 +240,7 @@ public class ExtentReportListener implements ITestListener {
             getExtentTest().log(Status.WARNING, "Could not capture screenshot: " + e.getMessage());
         }
     }
-    public static void logPassWithElementScreenshot(WebElement element,String stepName) {
+    public static void logPassWithElementScreenshot(WebElement element, String stepName) {
         try {
             String screenshotFormat = TestConstants.SCREENSHOT_FORMAT;
             if ("base64".equalsIgnoreCase(screenshotFormat)) {
