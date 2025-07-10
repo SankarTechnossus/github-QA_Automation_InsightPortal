@@ -1,6 +1,6 @@
 # QA Automation - Insight Portal
 
-This project contains an end-to-end Selenium TestNG framework for automating Insight Portal workflows, particularly focusing on Adobe eSign flows and form management.
+This project contains an end-to-end Selenium TestNG framework for automating Insight Portal workflows, particularly focusing on Adobe eSign flows and Export Control management.
 
 ---
 
