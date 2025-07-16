@@ -287,23 +287,11 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
 
     @AfterMethod
     public void tearDown() {
-        // User will close the browser instance after test execution is complete
-//        if (driver != null) {
-//            driver.quit();
-//        }
 
-        // Quit the WebDriver instance managed by DriverManager
         DriverManager.quitDriver();
-
         // User will record browser closure in the test report
-//        test.info("Browser was successfully closed.");
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
 
-//    @AfterSuite
-//    public void flushExtentReport() {
-//        // User will flush all the test information and generate the final HTML report
-//        extent.flush();
-//    }
 }
