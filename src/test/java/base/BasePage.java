@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -61,9 +62,23 @@ public class BasePage {
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-                .until(ExpectedConditions.elementToBeClickable(element));
+                .until(ExpectedConditions.elementToBeClickable(locator));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
+
+    public void scrollToBottomOfModal(By locator, int timeoutInSeconds) {
+        WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollableDiv);
+    }
+
+    public void clickElement(By locator, int timeoutInSeconds) {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .until(ExpectedConditions.elementToBeClickable(locator));
+        element.click();
+    }
+
+
 
 
     public void pause(long milliseconds) {
@@ -73,6 +88,30 @@ public class BasePage {
             Thread.currentThread().interrupt();
             System.out.println("Pause interrupted: " + e.getMessage());
         }
+    }
+
+//    public void switchToFrame(By locator, int timeoutInSeconds) {
+//        WebElement frame = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+//                .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(locator));
+//    }
+
+    public void switchToFrame(By locator, int timeoutInSeconds) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(locator));
+    }
+
+    public void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
+
+    public void dragAndDrop(By sourceLocator, By targetLocator, int timeoutInSeconds) {
+        WebElement source = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .until(ExpectedConditions.presenceOfElementLocated(sourceLocator));
+        WebElement target = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .until(ExpectedConditions.presenceOfElementLocated(targetLocator));
+
+        Actions actions = new Actions(driver);
+        actions.dragAndDrop(source, target).build().perform();
     }
 
     // Optional: Add more reusable methods
