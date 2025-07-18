@@ -2,18 +2,15 @@ package tests.AdobeEsign.Sprint1;
 
 import base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
+import pages.LoginPage;
+import pages.AdobeE_Sign_AgreementPage;
 import utils.DriverManager;
 import java.time.Duration;
 
@@ -52,121 +49,102 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             // User will open the login page of the Insight Portal application
             driver.get("https://sacramento-insight4.partners.org/");
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
+
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
+            // Create an instance of LoginPage
+            LoginPage loginPage = new LoginPage(driver);
 
             // User will enter the username into the username input field
-            WebElement username = basePage.waitForElement(By.xpath("//input[@id='input28']"));
-            username.sendKeys("SV1179");
+            loginPage.enterUsername("SV1179");
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Entered username");
 
-
             // User will click the 'Next' button to proceed to the password entry screen
-            WebElement nextBtn = basePage.waitForElement(By.xpath("//input[@value='Next']"));
-            nextBtn.click();
+            loginPage.clickNext();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Next");
 
-
             // User will input the user's password into the password field
-            WebElement password = basePage.waitForElement(By.xpath("//input[@name='credentials.passcode']"));
-            password.sendKeys("Devinivetha@1930");
+            loginPage.enterPassword("Devinivetha@1930");
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Entered password");
 
-
             // User will click the 'Verify' button to authenticate the user
-            WebElement verifyBtn = basePage.waitForElement(By.xpath("//input[@value='Verify']"));
-            verifyBtn.click();
+            loginPage.clickVerify();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
+            // Optional: pause if any post-login actions needed
+            basePage.pause(20000);
+
+            // Agreement Page Actions
+            AdobeE_Sign_AgreementPage agreementPage = new AdobeE_Sign_AgreementPage(driver);
 
             // Wait and click the 'Agreements' link from the sidebar
-            WebElement agreementsLink = basePage.waitForElement50(By.xpath("//a[contains(text(),'Agreements')]"));
-            Assert.assertTrue(agreementsLink.isDisplayed(), "Agreements link is not visible after login");
-            agreementsLink.click();
+            agreementPage.clickAgreementsLink();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Agreements' link from sidebar");
 
-            // User will enter the agreement number into the corresponding input field
-            WebElement agreementNumberInput = basePage.waitForElement50(By.xpath("//input[@id='agreementNumber']"));
-            Assert.assertTrue(agreementNumberInput.isDisplayed(), "AgreementNumberInput is not visible after login");
-            agreementNumberInput.sendKeys("2025A012368");
+            // Enter Agreement Number
+            agreementPage.enterAgreementNumber("2025A012368");
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A012368");
 
-            // User will click the 'Search' button to search for the agreement
-            WebElement searchButton = basePage.waitForElement(By.xpath("//button[text()='Search']"));
-            searchButton.click();
+            // Click Search
+            agreementPage.clickSearch();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Search button");
 
-
-
-            // User will click on the agreement number span to open agreement details
-            WebElement agreementSpan = basePage.waitForElement(By.xpath("//span[text()='2025A012368']"));
-            agreementSpan.click();
+            // Click on Agreement Span
+            agreementPage.clickAgreementSpan();
             basePage.pause(10000);
-            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+            ExtentReportListener.getExtentTest().pass("Clicked Agreement span");
 
-
-            basePage.scrollAndJsClick(By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables']//span[text()='Deliverables']"), 30);
+            // Click Deliverables Tab
+            agreementPage.clickDeliverablesTab();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
-
-            WebElement toggleButton = basePage.waitForElement(By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]"));
-            toggleButton.click();
+            // Expand toggle button
+            agreementPage.clickToggleButton();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked the expand/collapse toggle button");
 
-
-
-            // User will click the 'Testing 03' link under E-Sign section
-            WebElement eSignTesting03Link = basePage.waitForElement(By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables/1113382']//span[text()='Test']"));
-            eSignTesting03Link.click();
+            // Click 'Test' link under E-Sign section
+            agreementPage.clickTestLink();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Test' link under E-Sign section");
 
-
-            // User will click the Adobe integration icon to start the e-sign process
-            WebElement adobeIcon = basePage.waitForElement(By.xpath("//img[@alt='adobe-icon']"));
-            adobeIcon.click();
+            // Click Adobe icon
+            agreementPage.clickAdobeIcon();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Adobe integration icon");
 
-            // User will upload the agreement PDF file via file input
-            String AgreementFileName = System.getProperty("user.dir")+"/Test_Data/Agreement Info 2025_03.pdf";
-            WebElement fileInput =basePage.waitForPresence(By.xpath("//input[@type='file' and @accept='application/pdf']"));
-            fileInput.sendKeys(AgreementFileName);
+            // Upload Agreement PDF
+            String AgreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            agreementPage.uploadAgreementPdf(AgreementFileName);
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025.pdf'");
 
-
-
-            // User will click the 'Add Recipient' button
-            WebElement addRecipientButton = basePage.waitForElement(By.xpath("//button[text()='Add Recipient']"));
-            addRecipientButton.click();
+            // Click 'Add Recipient'
+            agreementPage.clickAddRecipient();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
 
-
-            // User will enter the recipient email in the input field
-            WebElement emailInput = basePage.waitForElement(By.xpath("//input[@placeholder='Email' and @type='email']"));
-            emailInput.sendKeys("Sankar.Venkatesan@technossus.com");
+            // Enter recipient email
+            agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
 
-
-            // User will click the 'Preview' button inside 'add-recipients-section'
-            WebElement previewButton = basePage.waitForElement(By.xpath("//div[contains(@class, 'add-recipients-section')]//button[normalize-space(text())='Preview']"));
-            previewButton.click();
-            basePage.pause(40000);
+            // Click Preview button
+            agreementPage.clickPreviewButton();
+            basePage.pause(50000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Preview' button inside 'add-recipients-section'");
 
+
+            // *********Use this code if needed **********
 
 
 //            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
@@ -189,8 +167,9 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
 //            // Step 1: Ensure you're back to default content (especially if you used switchTo().frame earlier)
 //            driver.switchTo().defaultContent();
 //            ExtentReportListener.getExtentTest().info("Switched to default content");
-//
-//
+
+            // ********* End here **********
+
             basePage.switchToFrame(By.xpath("//iframe[@class='sign-in-iframe']"), 15);
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
@@ -238,6 +217,11 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
 
 
+
+
+            // *********Use this code if needed **********
+
+
 //            // Step 2: Locate the scrollable modal div using XPath
 //            WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'modal-content-wrapper')]")));
 //            ExtentReportListener.getExtentTest().pass("Located scrollable modal-content-wrapper");
@@ -275,8 +259,13 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
 //            statusTab.click();
 //            basePage.pause(10000);
 //            ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
-
             // User will wait after navigating to the status tab
+
+
+
+            // ********* End here **********
+
+
 
 
         } catch (Exception e) {
