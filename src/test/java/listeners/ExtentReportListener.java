@@ -29,33 +29,35 @@ public class ExtentReportListener implements ITestListener {
         return test.get();
     }
 
-    private void configureReport() {
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        String reportFileName = "Esign_Agreement_PDF_Attachment_Positive_Flow_" + timeStamp + ".html";
-        String reportsDirPath = System.getProperty("user.dir") + "/test_reports";
 
-        File reportsDir = new File(reportsDirPath);
-        if (!reportsDir.exists()) reportsDir.mkdirs();
+private void configureReport(ITestContext context) {
+    String className = context.getAllTestMethods()[0].getRealClass().getSimpleName();
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+    String reportFileName = className + "_" + timeStamp + ".html";
 
-        ExtentSparkReporter spark = new ExtentSparkReporter(reportsDirPath + "/" + reportFileName);
-        spark.config().setDocumentTitle("Esign_Agreement_PDF_Attachment_Positive_Flow");
-        spark.config().setReportName("Sprint 1 Automation");
-        spark.config().setTheme(Theme.DARK); // You can change to Theme.STANDARD if needed
+    String reportsDirPath = System.getProperty("user.dir") + "/test_reports";
+    File reportsDir = new File(reportsDirPath);
+    if (!reportsDir.exists()) reportsDir.mkdirs();
 
-        extent = new ExtentReports();
-        extent.attachReporter(spark);
+    ExtentSparkReporter spark = new ExtentSparkReporter(reportsDirPath + "/" + reportFileName);
+    spark.config().setDocumentTitle(className + " Report");
+    spark.config().setReportName("Sprint 1 Automation");
+    spark.config().setTheme(Theme.DARK);
 
-        // You can modify or remove the below system info if needed
-        extent.setSystemInfo("Host Name", "Automation Host");
-        extent.setSystemInfo("Environment", "QA");
-        extent.setSystemInfo("User", "Shankar");
-    }
+    extent = new ExtentReports();
+    extent.attachReporter(spark);
+
+    extent.setSystemInfo("Host Name", "Automation Host");
+    extent.setSystemInfo("Environment", "QA");
+    extent.setSystemInfo("User", "Shankar");
+}
 
 
     @Override
     public synchronized void onStart(ITestContext context) {
-        if (extent == null) configureReport();
+        if (extent == null) configureReport(context);
     }
+
 
     @Override
     public void onFinish(ITestContext context) {
@@ -68,50 +70,56 @@ public class ExtentReportListener implements ITestListener {
             System.err.println("Extent is null in onTestStart. Skipping report entry.");
             return;
         }
-        String xmlName = result.getTestContext().getName();
+
         String className = result.getTestClass().getRealClass().getSimpleName();
         String method = result.getMethod().getMethodName();
-        String key = xmlName + "::" + className;
-        ExtentTest extentTest;
-        if (TestConstants.ADD_CLASS_NAME) {
-            String parentName = "<b>"+className+"</b>"+"::"+xmlName;
-            ExtentTest parent = classLevelTests.computeIfAbsent(key, k -> extent.createTest(parentName));
-            extentTest = parent.createNode(method);
-        } else {
-            extentTest = extent.createTest(xmlName);
-        }
+
+        ExtentTest extentTest = extent.createTest(className + " - " + method); // one line report
+        test.set(extentTest);
+        extentTest.log(Status.INFO, "Test Started: " + method);
+
         test.set(extentTest);
         extentTest.log(Status.INFO, "Test Started: " + method);
     }
+
 
     @Override
     public void onTestSuccess(ITestResult result) {
         ExtentTest extentTest = test.get();
         if (extentTest == null) return;
+
         String stepName = "Test Passed: " + result.getMethod().getMethodName();
+
         if (TestConstants.TAKE_SCREENSHOT_ON_PASS && DriverManager.getDriver() != null) {
             try {
                 WebDriver driver = DriverManager.getDriver();
                 String format = TestConstants.SCREENSHOT_FORMAT;
                 String screenshotPath = null;
+
                 if (TestConstants.TAKE_FULL_PAGE_SCREENSHOT) {
                     screenshotPath = "base64".equalsIgnoreCase(format)
-                            ?
-                            ScreenshotUtility.takeFullPageScreenshotAsBase64(driver)
-                            :
-                            ScreenshotUtility.takeFullPageScreenshotAsPNG(driver, "passed", result.getMethod().getMethodName());
+                            ? ScreenshotUtility.takeFullPageScreenshotAsBase64(driver)
+                            : ScreenshotUtility.takeFullPageScreenshotAsPNG(driver, "passed", result.getMethod().getMethodName());
                 } else {
                     screenshotPath = "base64".equalsIgnoreCase(format)
-                            ?
-                            ScreenshotUtility.takeScreenshotAsBase64(driver)
-                            :
-                            ScreenshotUtility.takeScreenshotAsPNG(driver, "passed", result.getMethod().getMethodName());
+                            ? ScreenshotUtility.takeScreenshotAsBase64(driver)
+                            : ScreenshotUtility.takeScreenshotAsPNG(driver, "passed", result.getMethod().getMethodName());
                 }
 
                 if ("base64".equalsIgnoreCase(format)) {
-                    extentTest.pass(stepName, MediaEntityBuilder.createScreenCaptureFromBase64String(screenshotPath).build());
+                    if (screenshotPath != null && !screenshotPath.trim().isEmpty()) {
+                        extentTest.pass(stepName, MediaEntityBuilder.createScreenCaptureFromBase64String(screenshotPath).build());
+                    } else {
+                        extentTest.pass(stepName);
+                        extentTest.log(Status.WARNING, "Screenshot base64 string is null or empty");
+                    }
                 } else if ("png".equalsIgnoreCase(format)) {
-                    extentTest.pass(stepName, MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
+                    if (screenshotPath != null && !screenshotPath.trim().isEmpty()) {
+                        extentTest.pass(stepName, MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
+                    } else {
+                        extentTest.pass(stepName);
+                        extentTest.log(Status.WARNING, "Screenshot file path is null or empty");
+                    }
                 } else {
                     extentTest.pass(stepName);
                     extentTest.log(Status.WARNING, "Invalid screenshot format: " + format);
@@ -125,33 +133,39 @@ public class ExtentReportListener implements ITestListener {
         }
     }
 
+
     @Override
     public void onTestFailure(ITestResult result) {
         ExtentTest extentTest = test.get();
         if (extentTest == null) return;
+
         extentTest.log(Status.FAIL, "Test Failed: " + result.getMethod().getMethodName());
         extentTest.log(Status.FAIL, result.getThrowable());
+
         if (TestConstants.TAKE_SCREENSHOT_ON_FAILURE && DriverManager.getDriver() != null) {
             try {
                 WebDriver driver = DriverManager.getDriver();
                 String format = TestConstants.SCREENSHOT_FORMAT;
                 String screenshot = TestConstants.TAKE_FULL_PAGE_SCREENSHOT
-                        ?
-                        ("base64".equalsIgnoreCase(format)
-                                ?
-                                ScreenshotUtility.takeFullPageScreenshotAsBase64(driver)
-                                :
-                                ScreenshotUtility.takeFullPageScreenshotAsPNG(driver, "failed", result.getMethod().getMethodName()))
-                        :
-                        ("base64".equalsIgnoreCase(format)
-                                ?
-                                ScreenshotUtility.takeScreenshotAsBase64(driver)
-                                :
-                                ScreenshotUtility.takeScreenshotAsPNG(driver, "failed", result.getMethod().getMethodName()));
+                        ? ("base64".equalsIgnoreCase(format)
+                        ? ScreenshotUtility.takeFullPageScreenshotAsBase64(driver)
+                        : ScreenshotUtility.takeFullPageScreenshotAsPNG(driver, "failed", result.getMethod().getMethodName()))
+                        : ("base64".equalsIgnoreCase(format)
+                        ? ScreenshotUtility.takeScreenshotAsBase64(driver)
+                        : ScreenshotUtility.takeScreenshotAsPNG(driver, "failed", result.getMethod().getMethodName()));
+
                 if ("base64".equalsIgnoreCase(format)) {
-                    extentTest.addScreenCaptureFromBase64String(screenshot, "Failed Screenshot");
+                    if (screenshot != null && !screenshot.trim().isEmpty()) {
+                        extentTest.addScreenCaptureFromBase64String(screenshot, "Failed Screenshot");
+                    } else {
+                        extentTest.log(Status.WARNING, "Screenshot base64 string is null or empty");
+                    }
                 } else if ("png".equalsIgnoreCase(format)) {
-                    extentTest.addScreenCaptureFromPath(screenshot);
+                    if (screenshot != null && !screenshot.trim().isEmpty()) {
+                        extentTest.addScreenCaptureFromPath(screenshot);
+                    } else {
+                        extentTest.log(Status.WARNING, "Screenshot file path is null or empty");
+                    }
                 } else {
                     extentTest.log(Status.WARNING, "Invalid screenshot format: " + format);
                 }
@@ -159,36 +173,40 @@ public class ExtentReportListener implements ITestListener {
                 extentTest.log(Status.WARNING, "Could not capture screenshot: " + e.getMessage());
             }
         }
-
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         ExtentTest extentTest = test.get();
         if (extentTest == null) return;
+
         extentTest.log(Status.SKIP, "Test Skipped: " + result.getMethod().getMethodName());
         extentTest.log(Status.SKIP, result.getThrowable());
+
         if (TestConstants.TAKE_SCREENSHOT_ON_FAILURE && DriverManager.getDriver() != null) {
             try {
                 WebDriver driver = DriverManager.getDriver();
                 String format = TestConstants.SCREENSHOT_FORMAT;
                 String screenshot = TestConstants.TAKE_FULL_PAGE_SCREENSHOT
-                        ?
-                        ("base64".equalsIgnoreCase(format)
-                                ?
-                                ScreenshotUtility.takeFullPageScreenshotAsBase64(driver)
-                                :
-                                ScreenshotUtility.takeFullPageScreenshotAsPNG(driver, "skipped", result.getMethod().getMethodName()))
-                        :
-                        ("base64".equalsIgnoreCase(format)
-                                ?
-                                ScreenshotUtility.takeScreenshotAsBase64(driver)
-                                :
-                                ScreenshotUtility.takeScreenshotAsPNG(driver, "skipped", result.getMethod().getMethodName()));
+                        ? ("base64".equalsIgnoreCase(format)
+                        ? ScreenshotUtility.takeFullPageScreenshotAsBase64(driver)
+                        : ScreenshotUtility.takeFullPageScreenshotAsPNG(driver, "skipped", result.getMethod().getMethodName()))
+                        : ("base64".equalsIgnoreCase(format)
+                        ? ScreenshotUtility.takeScreenshotAsBase64(driver)
+                        : ScreenshotUtility.takeScreenshotAsPNG(driver, "skipped", result.getMethod().getMethodName()));
+
                 if ("base64".equalsIgnoreCase(format)) {
-                    extentTest.addScreenCaptureFromBase64String(screenshot, "Skipped Screenshot");
+                    if (screenshot != null && !screenshot.trim().isEmpty()) {
+                        extentTest.addScreenCaptureFromBase64String(screenshot, "Skipped Screenshot");
+                    } else {
+                        extentTest.log(Status.WARNING, "Screenshot base64 string is null or empty");
+                    }
                 } else if ("png".equalsIgnoreCase(format)) {
-                    extentTest.addScreenCaptureFromPath(screenshot);
+                    if (screenshot != null && !screenshot.trim().isEmpty()) {
+                        extentTest.addScreenCaptureFromPath(screenshot);
+                    } else {
+                        extentTest.log(Status.WARNING, "Screenshot file path is null or empty");
+                    }
                 } else {
                     extentTest.log(Status.WARNING, "Invalid screenshot format: " + format);
                 }

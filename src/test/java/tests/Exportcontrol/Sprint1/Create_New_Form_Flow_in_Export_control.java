@@ -56,26 +56,35 @@ public class Create_New_Form_Flow_in_Export_control {
 
             // User will enter the username into the username input field
             loginPage.enterUsername("SV1179");
-            basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Entered username");
 
             // User will click the 'Next' button to proceed to the password entry screen
             loginPage.clickNext();
-            basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Next");
 
             // User will input the user's password into the password field
             loginPage.enterPassword("Devinivetha@1930");
-            basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Entered password");
 
             // User will click the 'Verify' button to authenticate the user
             loginPage.clickVerify();
-            basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
             // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+           basePage.pause(20000);
+
+            // Agreement Page Actions
+            AdobeE_Sign_AgreementPage agreementPage = new AdobeE_Sign_AgreementPage(driver);
+
+            agreementPage.clickAdministrationLink();
+            basePage.pause(10000);
+            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+            agreementPage.clickFormsManagementLink();
+            basePage.pause(10000);
+            ExtentReportListener.getExtentTest().pass("Clicked Forms Management link");
+
+
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -86,7 +95,7 @@ public class Create_New_Form_Flow_in_Export_control {
     @AfterMethod
     public void tearDown() {
 
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 

@@ -2,8 +2,13 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AdobeE_Sign_AgreementPage extends BasePage {
 
@@ -24,8 +29,30 @@ public class AdobeE_Sign_AgreementPage extends BasePage {
     private By addRecipientButton = By.xpath("//button[text()='Add Recipient']");
     private By emailInput = By.xpath("//input[@placeholder='Email' and @type='email']");
     private By previewButton = By.xpath("//div[contains(@class, 'add-recipients-section')]//button[normalize-space(text())='Preview']");
+//    private By administrationLink = By.xpath("//a[contains(@class, 'module-link') and contains(., 'Administration')]");
+    private By administrationLink = By.xpath("//a[contains(@href, '/administration') and contains(., 'Administration')]");
+    private By formsManagementLink = By.xpath("//a[contains(@href, '/administration/forms-management-agreements') and contains(., 'Forms Management')]");
 
     // Actions
+
+    public void clickFormsManagementLink() {
+        click(formsManagementLink);
+        pause(10000);
+    }
+
+
+    public void clickAdministrationLink() {
+        WebElement adminElement = new WebDriverWait(driver, Duration.ofSeconds(60))
+                .until(ExpectedConditions.visibilityOfElementLocated(administrationLink));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", adminElement);
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(adminElement));
+
+        adminElement.click();
+        pause(10000);
+    }
+
     public void clickAgreementsLink() {
         click(agreementsLink);
         pause(10000);

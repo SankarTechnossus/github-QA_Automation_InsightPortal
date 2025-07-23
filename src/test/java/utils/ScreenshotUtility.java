@@ -10,18 +10,23 @@ public class ScreenshotUtility {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
     }
 
+
     public static String takeScreenshotAsPNG(WebDriver driver, String status, String methodName) {
         try {
             File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String path = System.getProperty("user.dir") + "/screenshots/" + status + "_" + methodName + ".png";
+            String path = System.getProperty("user.dir") + "/screenshots/" + status + "/" + methodName + "_" + System.currentTimeMillis() + ".png";
+
             File dest = new File(path);
-            dest.getParentFile().mkdirs();
+            dest.getParentFile().mkdirs(); // Ensures the folder exists
             Files.copy(src.toPath(), dest.toPath());
+
             return path;
         } catch (Exception e) {
+            e.printStackTrace(); // <-- Add this for debug visibility
             return null;
         }
     }
+
 
     public static String takeFullPageScreenshotAsBase64(WebDriver driver) {
         // You can integrate AShot or other tools for full-page capture later
