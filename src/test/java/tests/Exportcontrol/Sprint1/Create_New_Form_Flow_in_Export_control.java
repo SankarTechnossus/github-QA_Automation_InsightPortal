@@ -1,4 +1,4 @@
-package tests.AdobeEsign.Sprint2;
+package tests.Exportcontrol.Sprint1;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,7 @@ import utils.DriverManager;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Esign_Review_and_Sign_Negative_Flow {
+public class Create_New_Form_Flow_in_Export_control {
 
 
     WebDriver driver;
@@ -41,7 +41,7 @@ public class Esign_Review_and_Sign_Negative_Flow {
     }
 
     @Test
-    public void Esign_review_and_sign_Negative_flow() {
+    public void createFormFlowExportcontrol() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             // User will open the login page of the Insight Portal application
