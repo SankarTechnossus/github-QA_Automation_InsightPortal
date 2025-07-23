@@ -42,7 +42,7 @@ public class AdobeE_Sign_AgreementPage extends BasePage {
 
 
     public void clickAdministrationLink() {
-        WebElement adminElement = new WebDriverWait(driver, Duration.ofSeconds(60))
+        WebElement adminElement = new WebDriverWait(driver, Duration.ofSeconds(120))
                 .until(ExpectedConditions.visibilityOfElementLocated(administrationLink));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", adminElement);

@@ -76,12 +76,12 @@ public class Create_New_Form_Flow_in_Export_control {
             // Agreement Page Actions
             AdobeE_Sign_AgreementPage agreementPage = new AdobeE_Sign_AgreementPage(driver);
 
-            agreementPage.clickAdministrationLink();
             basePage.pause(10000);
+            agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            agreementPage.clickFormsManagementLink();
             basePage.pause(10000);
+            agreementPage.clickFormsManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked Forms Management link");
 
 
