@@ -1,6 +1,5 @@
 package tests.Exportcontrol.Sprint1;
 import base.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,7 +8,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.LoginPage;
-import pages.AdobeE_Sign_AgreementPage;
+import pages.AgreementPage;
 import utils.DriverManager;
 import java.time.Duration;
 
@@ -74,15 +73,109 @@ public class Create_New_Form_Flow_in_Export_control {
            basePage.pause(20000);
 
             // Agreement Page Actions
-            AdobeE_Sign_AgreementPage agreementPage = new AdobeE_Sign_AgreementPage(driver);
+            AgreementPage agreementPage = new AgreementPage(driver);
 
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
+
             basePage.pause(10000);
             agreementPage.clickFormsManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked Forms Management link");
+
+            basePage.pause(3000);  // Optional wait
+            agreementPage.scrollSidebarToExportControlAndClick();
+            ExtentReportListener.getExtentTest().pass("Scrolled and clicked on 'Export Control' from left navigation.");
+
+
+            basePage.pause(3000);
+            agreementPage.scrollSidebarToExportControlOnly();
+            ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
+
+            // Now use the new input field
+            agreementPage.enterSearchText("Test");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
+
+
+            basePage.pause(10000);
+            agreementPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+
+
+            basePage.pause(10000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+
+            //**** Negative case ***
+
+            // Now use the new input field
+            agreementPage.enterSearchText("@@@@@");
+            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
+
+
+            basePage.pause(5000);
+            agreementPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+
+
+            basePage.pause(5000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+
+            basePage.pause(10000);  // Optional wait if needed
+            agreementPage.clickAddNewLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Export Control page");
+
+
+            basePage.pause(5000);
+            agreementPage.enterName("TestSan0001");
+            ExtentReportListener.getExtentTest().pass("Entered 'TestSan0001' into Name input field");
+
+
+            basePage.pause(2000);  // Optional initial wait
+            agreementPage.enterDescription("santest01");
+            ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
+
+
+
+            basePage.pause(2000);  // Optional
+            agreementPage.selectTypeAsChecklist();
+            ExtentReportListener.getExtentTest().pass("Selected 'Checklist' from Type dropdown");
+
+
+            basePage.pause(2000);
+            agreementPage.selectCategoryAsGeneral();
+            ExtentReportListener.getExtentTest().pass("Selected 'General' from Category dropdown");
+
+
+
+            basePage.pause(2000);
+            agreementPage.enterCategorySequenceNo("1");
+            ExtentReportListener.getExtentTest().pass("Entered '1' into Category Sequence No field");
+
+
+            basePage.pause(2000);
+            agreementPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("Clicked the 'Create' button");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

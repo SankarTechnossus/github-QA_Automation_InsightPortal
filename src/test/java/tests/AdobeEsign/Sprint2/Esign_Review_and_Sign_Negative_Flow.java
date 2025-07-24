@@ -1,6 +1,5 @@
 package tests.AdobeEsign.Sprint2;
 import base.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,7 +8,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.LoginPage;
-import pages.AdobeE_Sign_AgreementPage;
 import utils.DriverManager;
 import java.time.Duration;
 

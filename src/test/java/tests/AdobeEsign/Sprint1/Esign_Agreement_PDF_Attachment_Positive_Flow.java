@@ -10,7 +10,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.LoginPage;
-import pages.AdobeE_Sign_AgreementPage;
+import pages.AgreementPage;
 import utils.DriverManager;
 import java.time.Duration;
 
@@ -80,7 +80,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             basePage.pause(20000);
 
             // Agreement Page Actions
-            AdobeE_Sign_AgreementPage agreementPage = new AdobeE_Sign_AgreementPage(driver);
+            AgreementPage agreementPage = new AgreementPage(driver);
 
             // Wait and click the 'Agreements' link from the sidebar
             agreementPage.clickAgreementsLink();
@@ -144,7 +144,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Preview' button inside 'add-recipients-section'");
 
 
-            // *********Use this code if needed **********
+            // *********(Please ignore the below commented lines) **********
 
 
 //            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
@@ -216,10 +216,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
 
-
-
-
-            // *********Use this code if needed **********
+            // *********(Please ignore the below commented lines) **********
 
 
 //            // Step 2: Locate the scrollable modal div using XPath
@@ -261,12 +258,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
 //            ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
             // User will wait after navigating to the status tab
 
-
-
             // ********* End here **********
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
