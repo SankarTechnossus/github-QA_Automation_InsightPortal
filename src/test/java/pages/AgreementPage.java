@@ -45,11 +45,20 @@ public class AgreementPage extends BasePage {
     private By generalOption = By.xpath("//div[contains(@class,'option') and text()='General']");
     private By categorySequenceNoInput = By.id("categorySequenceNo");
     private By createButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Create']");
-
-
+    private By version1Link = By.xpath("//a[text()='Version 1']");
 
 
     // ******** Actions *********
+
+
+    public void clickVersion1Link() {
+        WebElement link = driver.findElement(version1Link);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);  // Optional: make it visible
+        pause(1000);  // Wait after scroll
+        link.click();
+        pause(3000);  // Wait for version page to load
+    }
+
 
 
     public void clickCreateButton() {

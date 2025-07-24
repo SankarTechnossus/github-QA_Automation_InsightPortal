@@ -9,6 +9,7 @@ import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.LoginPage;
 import pages.AgreementPage;
+import pages.formBuilderPage;
 import utils.DriverManager;
 import java.time.Duration;
 
@@ -129,35 +130,109 @@ public class Create_New_Form_Flow_in_Export_control {
 
 
             basePage.pause(5000);
-            agreementPage.enterName("TestSan0001");
+            agreementPage.enterName("TestSan0002");
             ExtentReportListener.getExtentTest().pass("Entered 'TestSan0001' into Name input field");
 
 
-            basePage.pause(2000);  // Optional initial wait
-            agreementPage.enterDescription("santest01");
+            basePage.pause(5000);  // Optional initial wait
+            agreementPage.enterDescription("santest02");
             ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
 
 
 
-            basePage.pause(2000);  // Optional
+            basePage.pause(5000);  // Optional
             agreementPage.selectTypeAsChecklist();
             ExtentReportListener.getExtentTest().pass("Selected 'Checklist' from Type dropdown");
 
 
-            basePage.pause(2000);
+            basePage.pause(5000);
             agreementPage.selectCategoryAsGeneral();
             ExtentReportListener.getExtentTest().pass("Selected 'General' from Category dropdown");
 
 
 
-            basePage.pause(2000);
+            basePage.pause(5000);
             agreementPage.enterCategorySequenceNo("1");
             ExtentReportListener.getExtentTest().pass("Entered '1' into Category Sequence No field");
 
 
-            basePage.pause(2000);
+            basePage.pause(5000);
             agreementPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("Clicked the 'Create' button");
+
+
+            basePage.pause(5000);
+            agreementPage.clickVersion1Link();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Version 1' link");
+
+
+            // Agreement Page Actions
+            formBuilderPage formBuilderPage01 = new formBuilderPage(driver);
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickAddRootLevelQuestionButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add root level question' button");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickRadioButtonGroupOption();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Radio button group' in Add Question Modal");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.enterRadioOption1Text("Yes");
+            ExtentReportListener.getExtentTest().pass("Entered text 'Yes' into the first radio option input");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickAddOptionButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add option' button to add new radio choice");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.enterRadioOption2Text("No");
+            ExtentReportListener.getExtentTest().pass("Entered text 'No' into the second radio option input");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.checkReadOnly();
+            ExtentReportListener.getExtentTest().pass("Checked the 'Read only' checkbox");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.enterHelpText("test01");
+            ExtentReportListener.getExtentTest().pass("Entered help text as 'test01'");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickApplyButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Apply' button");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickPreviewLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Preview' link");
+
+            basePage.pause(5000);
+            formBuilderPage01.clickClosePreviewLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Close preview' link");
+
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button");
+
+
+
+
+
+
+
+
+
+
 
 
 
