@@ -29,7 +29,7 @@ public class formBuilderPage extends BasePage {
     private By closePreviewLink = By.xpath("//a[contains(@href, '/edit') and text()='Close preview']");
     private By saveButton = By.xpath("//button[@type='button' and contains(@class, '-submission') and text()='Save']");
     private By addChildQuestionButton = By.xpath("//button[normalize-space()='Add child question']");
-    private By outsidePopupArea = By.xpath("//div[@class='main-area-content']");
+//    private By outsidePopupArea = By.xpath("//div[@class='main-area-content']");
     private By cancelAddingButton = By.xpath("//button[normalize-space()='Cancel adding']");
     private By moveButton = By.xpath("//button[normalize-space()='Move']");
     private By cancelMovingButton = By.xpath("//button[normalize-space()='Cancel moving']");
@@ -43,6 +43,18 @@ public class formBuilderPage extends BasePage {
 
 
     // ***********__________Actions__________*************
+
+
+    public void clickOutsidePopupByOffset() {
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveByOffset(50, 50).click().perform(); // Click on top-left part of the screen
+            pause(500); // Allow popup to close
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click outside popup using offset: " + e.getMessage(), e);
+        }
+    }
+
 
 
     public void clickUndoButton() {
@@ -148,22 +160,22 @@ public class formBuilderPage extends BasePage {
         }
     }
 
-
-    public void clickOutsidePopup() {
-        try {
-            WebElement outsideArea = driver.findElement(outsidePopupArea);
-
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", outsideArea);
-            Actions actions = new Actions(driver);
-            actions.moveToElement(outsideArea, 10, 10).click().perform();
-
-            pause(500);  // Let popup close
-
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to click outside popup to close it: " + e.getMessage(), e);
-        }
-    }
+//
+//    public void clickOutsidePopup() {
+//        try {
+//            WebElement outsideArea = driver.findElement(outsidePopupArea);
+//
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", outsideArea);
+//            Actions actions = new Actions(driver);
+//            actions.moveToElement(outsideArea, 10, 10).click().perform();
+//
+//            pause(500);  // Let popup close
+//
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException("Failed to click outside popup to close it: " + e.getMessage(), e);
+//        }
+//    }
 
 
     public void clickAddChildQuestion() {

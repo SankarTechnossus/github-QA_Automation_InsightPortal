@@ -132,7 +132,7 @@ public class Create_New_Form_Flow_in_Export_control {
 
 
             basePage.pause(5000);
-            agreementPage.enterName("TestSan0007");
+            agreementPage.enterName("TestSan0008");
             ExtentReportListener.getExtentTest().pass("Entered 'TestSan0001' into Name input field");
 
 
@@ -229,10 +229,15 @@ public class Create_New_Form_Flow_in_Export_control {
             formBuilderPage01.clickAddChildQuestion();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add child question' button successfully");
 
+//
+//            basePage.pause(3000);
+//            formBuilderPage01.clickOutsidePopup();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'outside pop up' successfully");
 
             basePage.pause(3000);
-            formBuilderPage01.clickOutsidePopup();
-            ExtentReportListener.getExtentTest().pass("Clicked 'outside pop up' successfully");
+            formBuilderPage01.clickOutsidePopupByOffset();
+            ExtentReportListener.getExtentTest().pass("Clicked outside popup using offset successfully");
+
 
             basePage.pause(3000);
             formBuilderPage01.clickCancelAddingButton();
