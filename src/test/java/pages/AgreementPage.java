@@ -1,10 +1,7 @@
 package pages;
 
 import base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -51,12 +48,30 @@ public class AgreementPage extends BasePage {
     // ******** Actions *********
 
 
+
     public void clickVersion1Link() {
-        WebElement link = driver.findElement(version1Link);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);  // Optional: make it visible
-        pause(1000);  // Wait after scroll
-        link.click();
-        pause(3000);  // Wait for version page to load
+        By version1Link = By.linkText("Version 1");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        try {
+            // Optional: wait for loading overlays to disappear
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".toastify, .loading-spinner")));
+
+            // Ensure element exists in DOM first
+            wait.until(ExpectedConditions.presenceOfElementLocated(version1Link));
+
+            // Wait until it is visible and clickable
+            WebElement link = wait.until(ExpectedConditions.elementToBeClickable(version1Link));
+
+            // Scroll and JS click
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+            Thread.sleep(500);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+
+
+        } catch (Exception e) {
+            throw new RuntimeException("❌ Unable to click 'Version 1' link: " + e.getMessage(), e);
+        }
     }
 
 

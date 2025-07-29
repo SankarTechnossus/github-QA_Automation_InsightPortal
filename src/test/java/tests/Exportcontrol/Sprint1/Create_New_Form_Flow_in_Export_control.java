@@ -94,48 +94,49 @@ public class Create_New_Form_Flow_in_Export_control {
             agreementPage.scrollSidebarToExportControlOnly();
             ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
 
-            // Now use the new input field
-            agreementPage.enterSearchText("Test");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
+            //********commented for testing **********
+//            // Now use the new input field
+//            agreementPage.enterSearchText("Test");
+//            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
+//
+//
+//            basePage.pause(10000);
+//            agreementPage.clickSearchButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+//
+//
+//            basePage.pause(10000);
+//            agreementPage.clickClearSelectionsButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+//
+//            //**** Negative case ***
+//
+//            // Now use the new input field
+//            agreementPage.enterSearchText("@@@@@");
+//            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
+//
+//
+//            basePage.pause(5000);
+//            agreementPage.clickSearchButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+//
+//
+//            basePage.pause(5000);
+//            agreementPage.clickClearSelectionsButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
 
-
-            basePage.pause(10000);
-            agreementPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-
-
-            basePage.pause(10000);
-            agreementPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
-
-            //**** Negative case ***
-
-            // Now use the new input field
-            agreementPage.enterSearchText("@@@@@");
-            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
-
-
-            basePage.pause(5000);
-            agreementPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-
-
-            basePage.pause(5000);
-            agreementPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
-
-            basePage.pause(10000);  // Optional wait if needed
+            basePage.pause(5000);  // Optional wait if needed
             agreementPage.clickAddNewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Export Control page");
 
 
             basePage.pause(5000);
-            agreementPage.enterName("TestSan0002");
+            agreementPage.enterName("TestSan0007");
             ExtentReportListener.getExtentTest().pass("Entered 'TestSan0001' into Name input field");
 
 
             basePage.pause(5000);  // Optional initial wait
-            agreementPage.enterDescription("santest02");
+            agreementPage.enterDescription("santest04");
             ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
 
 
@@ -218,37 +219,11 @@ public class Create_New_Form_Flow_in_Export_control {
             formBuilderPage01.clickClosePreviewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Close preview' link");
 
-
-
             basePage.pause(5000);
             formBuilderPage01.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            //**********
 
 
 

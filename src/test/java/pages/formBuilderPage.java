@@ -21,7 +21,8 @@ public class formBuilderPage extends BasePage {
     private By radioOption1Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option1']");
     private By addOptionButton = By.xpath("//button[@type='button' and div/i[contains(@class, 'fi-add')] and contains(., 'Add option')]");
     private By radioOption2Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option2']");
-    private By readOnlyCheckbox = By.xpath("//label[contains(@class, 'checkbox-editor-label')]/input[@type='checkbox' and contains(@class, 'checkbox')]");
+//  private By readOnlyCheckbox = By.xpath("//label[contains(@class, 'checkbox-editor-label')]/input[@type='checkbox' and contains(@class, 'checkbox')]");
+    private By readOnlyCheckbox = By.xpath("//label[contains(normalize-space(), 'Read only')]/input[@type='checkbox']");
     private By helpTextArea = By.xpath("//span[text()='Help text:']/following-sibling::textarea");
     private By applyButton = By.xpath("//button[contains(@class,'-primary') and contains(@class,'-submission') and contains(@class,'-small') and text()='Apply']");
     private By previewLink = By.xpath("//a[contains(@href, '/preview') and text()='Preview']");
@@ -74,15 +75,35 @@ public class formBuilderPage extends BasePage {
     }
 
 
+//
+//    public void checkReadOnly() {
+//        WebElement checkbox = driver.findElement(readOnlyCheckbox);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
+//        if (!checkbox.isSelected()) {
+//            checkbox.click();
+//            pause(500); // Optional delay after click
+//        }
+//    }
 
     public void checkReadOnly() {
-        WebElement checkbox = driver.findElement(readOnlyCheckbox);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
-        if (!checkbox.isSelected()) {
-            checkbox.click();
-            pause(500); // Optional delay after click
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(readOnlyCheckbox));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
+            Thread.sleep(300); // Optional pause
+
+            if (!checkbox.isSelected()) {
+                checkbox.click(); // or JS click if needed
+                Thread.sleep(500); // Optional post-click pause
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Could not check 'Read only': " + e.getMessage(), e);
         }
     }
+
 
 
     public void enterRadioOption2Text(String text) {
