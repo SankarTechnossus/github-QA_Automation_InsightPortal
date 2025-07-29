@@ -95,6 +95,7 @@ public class Create_New_Form_Flow_in_Export_control {
             ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
 
             //********commented for testing **********
+
 //            // Now use the new input field
 //            agreementPage.enterSearchText("Test");
 //            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
@@ -138,7 +139,6 @@ public class Create_New_Form_Flow_in_Export_control {
             basePage.pause(5000);  // Optional initial wait
             agreementPage.enterDescription("santest04");
             ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
-
 
 
             basePage.pause(5000);  // Optional
@@ -223,7 +223,53 @@ public class Create_New_Form_Flow_in_Export_control {
             formBuilderPage01.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button");
 
-            //**********
+            //********** Negative_case ************
+
+            basePage.pause(5000);
+            formBuilderPage01.clickAddChildQuestion();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add child question' button successfully");
+
+
+            basePage.pause(3000);
+            formBuilderPage01.clickOutsidePopup();
+            ExtentReportListener.getExtentTest().pass("Clicked 'outside pop up' successfully");
+
+            basePage.pause(3000);
+            formBuilderPage01.clickCancelAddingButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel adding' button successfully");
+
+
+            basePage.pause(3000);
+            formBuilderPage01.clickMoveButton();
+            ExtentReportListener.getExtentTest().pass(" Clicked 'Move' button successfully");
+
+
+            basePage.pause(3000);
+            formBuilderPage01.clickCancelMovingButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel moving' button successfully");
+
+            basePage.pause(3000);
+            formBuilderPage01.clickEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button successfully");
+
+            basePage.pause(3000);
+            formBuilderPage01.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+            basePage.pause(5000);
+            formBuilderPage01.clickRemoveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Remove' button successfully");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickUndoButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Undo' button successfully");
+
+
+
+
+
+
 
 
 

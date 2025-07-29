@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,16 +22,163 @@ public class formBuilderPage extends BasePage {
     private By radioOption1Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option1']");
     private By addOptionButton = By.xpath("//button[@type='button' and div/i[contains(@class, 'fi-add')] and contains(., 'Add option')]");
     private By radioOption2Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option2']");
-//  private By readOnlyCheckbox = By.xpath("//label[contains(@class, 'checkbox-editor-label')]/input[@type='checkbox' and contains(@class, 'checkbox')]");
     private By readOnlyCheckbox = By.xpath("//label[contains(normalize-space(), 'Read only')]/input[@type='checkbox']");
     private By helpTextArea = By.xpath("//span[text()='Help text:']/following-sibling::textarea");
     private By applyButton = By.xpath("//button[contains(@class,'-primary') and contains(@class,'-submission') and contains(@class,'-small') and text()='Apply']");
     private By previewLink = By.xpath("//a[contains(@href, '/preview') and text()='Preview']");
     private By closePreviewLink = By.xpath("//a[contains(@href, '/edit') and text()='Close preview']");
     private By saveButton = By.xpath("//button[@type='button' and contains(@class, '-submission') and text()='Save']");
+    private By addChildQuestionButton = By.xpath("//button[normalize-space()='Add child question']");
+    private By outsidePopupArea = By.xpath("//div[@class='main-area-content']");
+    private By cancelAddingButton = By.xpath("//button[normalize-space()='Cancel adding']");
+    private By moveButton = By.xpath("//button[normalize-space()='Move']");
+    private By cancelMovingButton = By.xpath("//button[normalize-space()='Cancel moving']");
+    private By editButton = By.xpath("//button[normalize-space()='Edit']");
+    private By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
+    private By removeButton = By.xpath("//button[normalize-space()='Remove']");
+    private By undoButton = By.xpath("//button[normalize-space()='Undo']");
+
+
+
+
 
     // ***********__________Actions__________*************
 
+
+    public void clickUndoButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement undoBtn = wait.until(ExpectedConditions.elementToBeClickable(undoButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", undoBtn);
+            pause(300);
+            undoBtn.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Undo' button: " + e.getMessage(), e);
+        }
+    }
+
+
+    public void clickRemoveButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement removeBtn = wait.until(ExpectedConditions.elementToBeClickable(removeButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", removeBtn);
+            pause(300);
+            removeBtn.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Remove' button: " + e.getMessage(), e);
+        }
+    }
+
+
+    public void clickCancelButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement cancelBtn = wait.until(ExpectedConditions.elementToBeClickable(cancelButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
+            pause(300);
+            cancelBtn.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Cancel' button: " + e.getMessage(), e);
+        }
+    }
+
+
+    public void clickEditButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement editBtn = wait.until(ExpectedConditions.elementToBeClickable(editButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", editBtn);
+            pause(300);
+            editBtn.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Edit' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickCancelMovingButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement cancelBtn = wait.until(ExpectedConditions.elementToBeClickable(cancelMovingButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
+            pause(300);
+            cancelBtn.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Cancel moving' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickMoveButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement moveBtn = wait.until(ExpectedConditions.elementToBeClickable(moveButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", moveBtn);
+            pause(300); // optional wait
+            moveBtn.click();
+            pause(500); // wait for any move dialog/behavior
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Move' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickCancelAddingButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement cancelBtn = wait.until(ExpectedConditions.elementToBeClickable(cancelAddingButton));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
+            pause(300); // brief wait after scroll
+
+            cancelBtn.click();
+            pause(500); // wait for UI to update
+
+        } catch (Exception e) {
+            throw new RuntimeException(" Failed to click 'Cancel adding' button: " + e.getMessage(), e);
+        }
+    }
+
+
+    public void clickOutsidePopup() {
+        try {
+            WebElement outsideArea = driver.findElement(outsidePopupArea);
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", outsideArea);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(outsideArea, 10, 10).click().perform();
+
+            pause(500);  // Let popup close
+
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click outside popup to close it: " + e.getMessage(), e);
+        }
+    }
+
+
+    public void clickAddChildQuestion() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(addChildQuestionButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", button);
+            pause(300); // optional
+            button.click();
+            pause(500); // wait for action
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Add child question' button: " + e.getMessage(), e);
+        }
+    }
 
 
 
@@ -75,16 +223,6 @@ public class formBuilderPage extends BasePage {
     }
 
 
-//
-//    public void checkReadOnly() {
-//        WebElement checkbox = driver.findElement(readOnlyCheckbox);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
-//        if (!checkbox.isSelected()) {
-//            checkbox.click();
-//            pause(500); // Optional delay after click
-//        }
-//    }
-
     public void checkReadOnly() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -92,11 +230,11 @@ public class formBuilderPage extends BasePage {
             WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(readOnlyCheckbox));
 
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
-            Thread.sleep(300); // Optional pause
+            pause(300); // Optional pause
 
             if (!checkbox.isSelected()) {
                 checkbox.click(); // or JS click if needed
-                Thread.sleep(500); // Optional post-click pause
+                pause(500); // Optional post-click pause
             }
 
         } catch (Exception e) {
