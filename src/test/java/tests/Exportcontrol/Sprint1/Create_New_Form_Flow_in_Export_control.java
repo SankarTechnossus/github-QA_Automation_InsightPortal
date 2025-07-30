@@ -94,50 +94,48 @@ public class Create_New_Form_Flow_in_Export_control {
             agreementPage.scrollSidebarToExportControlOnly();
             ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
 
-            //********commented for testing **********
 
-//            // Now use the new input field
-//            agreementPage.enterSearchText("Test");
-//            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
-//
-//
-//            basePage.pause(10000);
-//            agreementPage.clickSearchButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-//
-//
-//            basePage.pause(10000);
-//            agreementPage.clickClearSelectionsButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
-//
-//            //**** Negative case ***
-//
-//            // Now use the new input field
-//            agreementPage.enterSearchText("@@@@@");
-//            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
-//
-//
-//            basePage.pause(5000);
-//            agreementPage.clickSearchButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-//
-//
-//            basePage.pause(5000);
-//            agreementPage.clickClearSelectionsButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+            // Now use the new input field
+            agreementPage.enterSearchText("Test");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
+
+
+            basePage.pause(10000);
+            agreementPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+
+
+            basePage.pause(10000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+
+            //**** Negative case ***
+
+            // Now use the new input field
+            agreementPage.enterSearchText("@@@@@");
+            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
+
+
+            basePage.pause(5000);
+            agreementPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+
+
+            basePage.pause(5000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
 
             basePage.pause(5000);  // Optional wait if needed
             agreementPage.clickAddNewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Export Control page");
 
-
             basePage.pause(5000);
-            agreementPage.enterName("TestSan0008");
-            ExtentReportListener.getExtentTest().pass("Entered 'TestSan0001' into Name input field");
+            agreementPage.enterName("TestSan0014");
+            ExtentReportListener.getExtentTest().pass("Entered 'TestSan0009' into Name input field");
 
 
             basePage.pause(5000);  // Optional initial wait
-            agreementPage.enterDescription("santest04");
+            agreementPage.enterDescription("santest");
             ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
 
 
@@ -202,7 +200,7 @@ public class Create_New_Form_Flow_in_Export_control {
 
 
             basePage.pause(5000);
-            formBuilderPage01.enterHelpText("test01");
+            formBuilderPage01.enterHelpText("test13");
             ExtentReportListener.getExtentTest().pass("Entered help text as 'test01'");
 
 
@@ -229,35 +227,26 @@ public class Create_New_Form_Flow_in_Export_control {
             formBuilderPage01.clickAddChildQuestion();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add child question' button successfully");
 
-//
-//            basePage.pause(3000);
-//            formBuilderPage01.clickOutsidePopup();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'outside pop up' successfully");
 
-            basePage.pause(3000);
+            basePage.pause(5000);
             formBuilderPage01.clickOutsidePopupByOffset();
             ExtentReportListener.getExtentTest().pass("Clicked outside popup using offset successfully");
 
 
-            basePage.pause(3000);
-            formBuilderPage01.clickCancelAddingButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel adding' button successfully");
-
-
-            basePage.pause(3000);
+            basePage.pause(5000);
             formBuilderPage01.clickMoveButton();
             ExtentReportListener.getExtentTest().pass(" Clicked 'Move' button successfully");
 
 
-            basePage.pause(3000);
+            basePage.pause(5000);
             formBuilderPage01.clickCancelMovingButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel moving' button successfully");
 
-            basePage.pause(3000);
+            basePage.pause(5000);
             formBuilderPage01.clickEditButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button successfully");
 
-            basePage.pause(3000);
+            basePage.pause(5000);
             formBuilderPage01.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
@@ -271,12 +260,49 @@ public class Create_New_Form_Flow_in_Export_control {
             ExtentReportListener.getExtentTest().pass("Clicked 'Undo' button successfully");
 
 
+            basePage.pause(5000);
+            formBuilderPage01.clickTestFormLink();
+            ExtentReportListener.getExtentTest().pass("Clicked on test form link successfully");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickEditDescriptionButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickCancelButtononversionedit01();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+            basePage.pause(5000);
+            formBuilderPage01.clickEditDescriptionButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.enterVersionText("Sanversion0013");
+            ExtentReportListener.getExtentTest().pass("Entered text 'Sanversion' into version description box successfully");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickSaveButtonsmall();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+
+            basePage.pause(5000);
+            formBuilderPage01.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully");
 
 
 
+            basePage.pause(5000);
+            formBuilderPage01.clickCancelButtonaddnewcancel();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
 
-
+            basePage.pause(5000);
+            formBuilderPage01.clickFormManagementLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Form Management' link successfully");
 
 
 

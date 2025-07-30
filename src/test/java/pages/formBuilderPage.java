@@ -29,7 +29,6 @@ public class formBuilderPage extends BasePage {
     private By closePreviewLink = By.xpath("//a[contains(@href, '/edit') and text()='Close preview']");
     private By saveButton = By.xpath("//button[@type='button' and contains(@class, '-submission') and text()='Save']");
     private By addChildQuestionButton = By.xpath("//button[normalize-space()='Add child question']");
-//    private By outsidePopupArea = By.xpath("//div[@class='main-area-content']");
     private By cancelAddingButton = By.xpath("//button[normalize-space()='Cancel adding']");
     private By moveButton = By.xpath("//button[normalize-space()='Move']");
     private By cancelMovingButton = By.xpath("//button[normalize-space()='Cancel moving']");
@@ -37,12 +36,144 @@ public class formBuilderPage extends BasePage {
     private By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
     private By removeButton = By.xpath("//button[normalize-space()='Remove']");
     private By undoButton = By.xpath("//button[normalize-space()='Undo']");
-
-
+    private By formManagementLink = By.xpath("//a[@class='_link_ogtko_1' and contains(@href, '/forms-management-export-control') and normalize-space()='Form Management']");
+    private By testFormLink = By.xpath("//a[contains(@class, '_link_ogtko_1') and contains(@href, '/administration/forms-management-export-control/edit/')]");
+    private By editDescriptionButton = By.xpath("//button[normalize-space()='Edit description']");
+    private By cancelButtononversionedit = By.xpath("//button[normalize-space()='Cancel']");
+//    private By versionTextArea = By.xpath("//textarea[contains(@class,'default-input') and contains(@class,'textarea')]");
+//  private By versionTextArea = By.xpath("//div[contains(@class, 'versionHeader')]/following-sibling::div//textarea[contains(@class,'default-input')]");
+    private By versionTextArea = By.xpath("(//textarea[contains(@class,'default-input')])[last()]");
+    private By saveButtonsmall = By.xpath("//button[@class='button -primary -small' and normalize-space()='Save']");
+    private By addNewButton = By.xpath("//button[@class='button -primary -small' and normalize-space()='Add new']");
+    private By cancelButtonaddnewcancel = By.xpath("//button[@class='button -small -unstyled' and normalize-space()='Cancel']");
 
 
 
     // ***********__________Actions__________*************
+
+
+    public void clickCancelButtonaddnewcancel() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(cancelButtonaddnewcancel));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+            pause(300);
+            button.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Cancel' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickAddNewButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(addNewButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+            pause(300);
+            button.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Add new' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickSaveButtonsmall() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(saveButtonsmall));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+            pause(300);
+            button.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Save' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void enterVersionText(String versionName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement textarea = wait.until(ExpectedConditions.visibilityOfElementLocated(versionTextArea));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", textarea);
+            pause(300);
+            textarea.clear();
+            textarea.sendKeys(versionName);
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to enter text into version description box: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickCancelButtononversionedit01() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(cancelButtononversionedit));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+            pause(300);
+            button.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Cancel' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+
+    public void clickEditDescriptionButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(editDescriptionButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+            pause(300);
+            button.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Edit description' button: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    public void clickTestFormLink() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement link = wait.until(ExpectedConditions.elementToBeClickable(testFormLink));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+            pause(300);
+            link.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click on the test form link: " + e.getMessage(), e);
+        }
+    }
+
+
+
+
+    public void clickFormManagementLink() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement link = wait.until(ExpectedConditions.elementToBeClickable(formManagementLink));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+            pause(300);
+            link.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Form Management' link: " + e.getMessage(), e);
+        }
+    }
+
 
 
     public void clickOutsidePopupByOffset() {
@@ -160,22 +291,6 @@ public class formBuilderPage extends BasePage {
         }
     }
 
-//
-//    public void clickOutsidePopup() {
-//        try {
-//            WebElement outsideArea = driver.findElement(outsidePopupArea);
-//
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", outsideArea);
-//            Actions actions = new Actions(driver);
-//            actions.moveToElement(outsideArea, 10, 10).click().perform();
-//
-//            pause(500);  // Let popup close
-//
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException("Failed to click outside popup to close it: " + e.getMessage(), e);
-//        }
-//    }
 
 
     public void clickAddChildQuestion() {
@@ -218,11 +333,27 @@ public class formBuilderPage extends BasePage {
 
 
 
+//    public void clickApplyButton() {
+//        WebElement button = driver.findElement(applyButton);
+//        button.click();
+//        pause(5000); // Optional wait for changes to take effect
+//    }
+
+
     public void clickApplyButton() {
-        WebElement button = driver.findElement(applyButton);
-        button.click();
-        pause(2000); // Optional wait for changes to take effect
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(applyButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", button);
+            pause(300);
+            button.click();
+            pause(500);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click 'Apply' button: " + e.getMessage(), e);
+        }
     }
+
 
 
 
