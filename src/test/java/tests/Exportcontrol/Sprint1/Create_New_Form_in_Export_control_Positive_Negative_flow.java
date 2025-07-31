@@ -9,7 +9,7 @@ import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.LoginPage;
 import pages.AgreementPage;
-import pages.formBuilderPage;
+import pages.Exportcontrol_formBuilder_Page;
 import utils.DriverManager;
 import java.time.Duration;
 
@@ -166,7 +166,7 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
 
 
             // Agreement Page Actions
-            formBuilderPage formBuilderPage01 = new formBuilderPage(driver);
+            Exportcontrol_formBuilder_Page formBuilderPage01 = new Exportcontrol_formBuilder_Page(driver);
 
 
             basePage.pause(9000);

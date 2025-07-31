@@ -1,19 +1,28 @@
 package pages;
 
+
 import org.openqa.selenium.WebDriver;
 import base.BasePage;
 
-public class transactionTypesExportControl extends BasePage {
+public class ExportControl_statusManagement_Page extends BasePage{
 
-    public transactionTypesExportControl(WebDriver driver) {
+
+    public ExportControl_statusManagement_Page(WebDriver driver) {
         super(driver);
     }
+
 
 
     // Locators
 
 
     //Actions
+
+
+
+
+
+
 
 
 

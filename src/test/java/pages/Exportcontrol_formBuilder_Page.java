@@ -13,9 +13,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class formBuilderPage extends BasePage {
+public class Exportcontrol_formBuilder_Page extends BasePage {
 
-    public formBuilderPage(WebDriver driver) {super(driver);}
+    public Exportcontrol_formBuilder_Page(WebDriver driver) {super(driver);}
 
     private By addRootLevelQuestionButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(., 'Add root level question')]");
     private By radioButtonGroupCard = By.xpath("//div[contains(@class,'possible-question') and .//text()[contains(., 'Radio button group')]]");
