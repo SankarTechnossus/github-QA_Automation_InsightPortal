@@ -14,7 +14,7 @@ import utils.DriverManager;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Create_New_Form_Flow_in_Export_control {
+public class Create_New_Form_in_Export_control_Positive_Negative_flow {
 
 
     WebDriver driver;
@@ -130,7 +130,7 @@ public class Create_New_Form_Flow_in_Export_control {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Export Control page");
 
             basePage.pause(5000);
-            agreementPage.enterName("TestSan0014");
+            agreementPage.enterName("TestSan0017");
             ExtentReportListener.getExtentTest().pass("Entered 'TestSan0009' into Name input field");
 
 
@@ -169,17 +169,17 @@ public class Create_New_Form_Flow_in_Export_control {
             formBuilderPage formBuilderPage01 = new formBuilderPage(driver);
 
 
-            basePage.pause(5000);
+            basePage.pause(9000);
             formBuilderPage01.clickAddRootLevelQuestionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add root level question' button");
 
 
-            basePage.pause(5000);
+            basePage.pause(9000);
             formBuilderPage01.clickRadioButtonGroupOption();
             ExtentReportListener.getExtentTest().pass("Clicked 'Radio button group' in Add Question Modal");
 
 
-            basePage.pause(5000);
+            basePage.pause(7000);
             formBuilderPage01.enterRadioOption1Text("Yes");
             ExtentReportListener.getExtentTest().pass("Entered text 'Yes' into the first radio option input");
 
@@ -194,7 +194,7 @@ public class Create_New_Form_Flow_in_Export_control {
             ExtentReportListener.getExtentTest().pass("Entered text 'No' into the second radio option input");
 
 
-            basePage.pause(5000);
+            basePage.pause(8000);
             formBuilderPage01.checkReadOnly();
             ExtentReportListener.getExtentTest().pass("Checked the 'Read only' checkbox");
 
@@ -223,87 +223,81 @@ public class Create_New_Form_Flow_in_Export_control {
 
             //********** Negative_case ************
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickAddChildQuestion();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add child question' button successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickOutsidePopupByOffset();
             ExtentReportListener.getExtentTest().pass("Clicked outside popup using offset successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickMoveButton();
             ExtentReportListener.getExtentTest().pass(" Clicked 'Move' button successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickCancelMovingButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel moving' button successfully");
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickEditButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button successfully");
 
-            basePage.pause(5000);
+            basePage.pause(8000);
             formBuilderPage01.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-            basePage.pause(5000);
+            basePage.pause(8000);
             formBuilderPage01.clickRemoveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Remove' button successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(9000);
             formBuilderPage01.clickUndoButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Undo' button successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(8000);
             formBuilderPage01.clickTestFormLink();
             ExtentReportListener.getExtentTest().pass("Clicked on test form link successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickEditDescriptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
 
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickCancelButtononversionedit01();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickEditDescriptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
 
-
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.enterVersionText("Sanversion0013");
             ExtentReportListener.getExtentTest().pass("Entered text 'Sanversion' into version description box successfully");
 
-
-            basePage.pause(5000);
+            basePage.pause(10000);
             formBuilderPage01.clickSaveButtonsmall();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
-
-            basePage.pause(5000);
+            basePage.pause(9000);
             formBuilderPage01.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully");
 
 
-
-            basePage.pause(5000);
+            basePage.pause(9000);
             formBuilderPage01.clickCancelButtonaddnewcancel();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
-
 
             basePage.pause(5000);
             formBuilderPage01.clickFormManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Form Management' link successfully");
-
 
 
         } catch (Exception e) {
