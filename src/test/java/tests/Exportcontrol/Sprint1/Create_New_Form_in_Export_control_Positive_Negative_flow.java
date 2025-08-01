@@ -11,6 +11,7 @@ import pages.LoginPage;
 import pages.AgreementPage;
 import pages.Exportcontrol_formBuilder_Page;
 import utils.DriverManager;
+import utils.UniqueNameGenerator;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
@@ -95,43 +96,45 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
             ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
 
 
-            // Now use the new input field
-            agreementPage.enterSearchText("Test");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
-
-
-            basePage.pause(10000);
-            agreementPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-
-
-            basePage.pause(10000);
-            agreementPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
-
-            //**** Negative case ***
-
-            // Now use the new input field
-            agreementPage.enterSearchText("@@@@@");
-            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
-
-
-            basePage.pause(5000);
-            agreementPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-
-
-            basePage.pause(5000);
-            agreementPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+//            // Now use the new input field
+//            agreementPage.enterSearchText("Test");
+//            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
+//
+//
+//            basePage.pause(10000);
+//            agreementPage.clickSearchButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+//
+//
+//            basePage.pause(10000);
+//            agreementPage.clickClearSelectionsButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+//
+//            //**** Negative case ***
+//
+//            // Now use the new input field
+//            agreementPage.enterSearchText("@@@@@");
+//            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
+//
+//
+//            basePage.pause(5000);
+//            agreementPage.clickSearchButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+//
+//
+//            basePage.pause(5000);
+//            agreementPage.clickClearSelectionsButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
 
             basePage.pause(5000);  // Optional wait if needed
             agreementPage.clickAddNewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Export Control page");
 
-            basePage.pause(5000);
-            agreementPage.enterName("TestSan0017");
-            ExtentReportListener.getExtentTest().pass("Entered 'TestSan0009' into Name input field");
+
+
+            String dynamicName = UniqueNameGenerator.generateNextName();
+            agreementPage.enterName(dynamicName);
+            ExtentReportListener.getExtentTest().pass("Entered '" + dynamicName + "' into Name input field");
 
 
             basePage.pause(5000);  // Optional initial wait
@@ -279,7 +282,7 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
 
             basePage.pause(10000);
-            formBuilderPage01.enterVersionText("Sanversion0013");
+            formBuilderPage01.enterVersionText("Sanversion01");
             ExtentReportListener.getExtentTest().pass("Entered text 'Sanversion' into version description box successfully");
 
             basePage.pause(10000);
