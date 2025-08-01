@@ -3,10 +3,12 @@ import base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
+import pages.Exportcontrol_RecordTypes_Page;
 import pages.LoginPage;
 import pages.AgreementPage;
 import utils.DriverManager;
@@ -78,6 +80,169 @@ public class Exportcontrol_RecordTypes_flow {
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+            Exportcontrol_RecordTypes_Page adminPageRecordtypes = new Exportcontrol_RecordTypes_Page(driver);
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickRecordTypesLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Record Types' link successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickExportControlUnderRecordTypes();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' under 'Record Types' successfully");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickAddRecordTypeLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.selectModuleAsExportControl();
+            ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.enterRecordType("Test01");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test' into Record Type input field");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.tickActiveCheckbox();
+            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
+
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickAddRecordTypeLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.selectModuleAsExportControl();
+            ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+
+            basePage.pause(5000);
+            String recordTypeName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+            adminPageRecordtypes.enterRecordType(recordTypeName);
+            ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.tickActiveCheckbox();
+            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+
+
+            String searchKeyword = "Test";
+
+            basePage.pause(5000);
+            adminPageRecordtypes.searchRecordByName(searchKeyword);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword + "'");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+
+
+            String searchKeyword01 = "@@@@@@@";
+
+            basePage.pause(5000);
+            adminPageRecordtypes.searchRecordByName(searchKeyword01);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword01 + "'");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickAddCategoryLink();
+            ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.selectCategory(recordTypeName);
+            ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
+
+
+            String refValue = "1";
+            basePage.pause(2000);
+            adminPageRecordtypes.enterRefMeaning(refValue);
+            ExtentReportListener.getExtentTest().pass("Entered '" + refValue + "' into Ref Meaning input field");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.tickActiveCheckbox();
+            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickAddCategoryLink();
+            ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.selectCategory(recordTypeName);
+            ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
+
+
+            String refValue01 = "1";
+            basePage.pause(2000);
+            adminPageRecordtypes.enterRefMeaning(refValue01);
+            ExtentReportListener.getExtentTest().pass("Entered '" + refValue01 + "' into Ref Meaning input field");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.tickActiveCheckbox();
+            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
