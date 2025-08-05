@@ -26,8 +26,6 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     private By recordTypesLink = By.xpath("//a[@class='label' and @href='/administration/record-types/record-type' and span[text()='Record Types']]");
     private By exportControlLink = By.xpath("//a[span[text()='Record Types']]/ancestor::div[contains(@class,'menu-item')]/following-sibling::div//span[text()='Export Control']");
     private By addRecordTypeLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Record Type']");
-    private By moduleDropdownArrow = By.xpath("//div[contains(@class,'dropdownIndicator') and contains(@class,'select-dropdown-indicator')]");
-    private By exportControlOption = By.xpath("//div[@class='select__option' and text()='Export Control']");
     private By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
     private By activeCheckbox = By.id("active");
     private By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
@@ -36,15 +34,35 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     private By searchButton = By.xpath("//button[@type='button' and text()='Search']");
     private By clearSelectionsButton = By.xpath("//button[@type='button' and text()='Clear Selections']");
     private By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
-    private By categoryDropdown = By.xpath("//div[@id='react-select-9-placeholder' and text()='Select...']");
-    private final String categoryOptionXpath = "//div[contains(@class, 'dropdown')]//li[contains(text(),'%s')]";
+    private By categoryDropdown = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
+    private final String categoryOptionXpath = "//div[text()='%s']";
     private By refMeaningInput = By.xpath("//input[contains(@class,'default-input') and @type='text']");
-
-
+    private By moduleDropdownArrow = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
+    private final String moduleOptionXpath = "//div[text()='%s']";
 
 
 
     //Actions
+
+
+    public void selectModuleAsExportControl() {
+        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
+        pause(1000); // Stabilization wait
+
+        dropdownArrow.click(); // Open dropdown
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Wait for dropdown options to render
+        By exportControlOption = By.xpath(String.format(moduleOptionXpath, "Export Control"));
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(exportControlOption));
+        option.click(); // Select the option
+
+        ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+        pause(1000); // Optional post-click wait
+    }
+
 
 
     public void enterRefMeaning(String value) {
@@ -169,18 +187,69 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
         ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
     }
 
+//
+//    public void selectModuleAsExportControl() {
+//        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
+//        pause(1000); // Wait after scroll
+//        dropdownArrow.click(); // Open the dropdown
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlOption));
+//        option.click(); // Click 'Export Control'
+//
+//    }
 
-    public void selectModuleAsExportControl() {
-        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
-        pause(1000); // Wait after scroll
-        dropdownArrow.click(); // Open the dropdown
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlOption));
-        option.click(); // Click 'Export Control'
+//    public void selectModuleAsExportControl() {
+//        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
+//        pause(1000); // Optional wait
+//
+//        dropdownArrow.click(); // Open the dropdown
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//        // Wait for the dropdown options to be visible (container)
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                By.xpath("//div[contains(@class,'menu')]")
+//        ));
+//
+//        // Wait and click on "Export Control"
+//        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
+//                By.xpath("//div[contains(text(),'Export Control')]")
+//        ));
+//        option.click();
+//
+//        ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+//    }
+//
 
-    }
+
+//    public void selectModuleAsExportControl() {
+//        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
+//        pause(1000); // Just to stabilize
+//
+//        dropdownArrow.click(); // Open the dropdown
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//        // Wait for the dropdown menu container
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                By.xpath("//div[contains(@class,'select__menu-list')]")
+//        ));
+//
+//        // Then wait and click the option
+//        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
+//                By.xpath("//div[contains(@class,'select__option') and text()='Export Control']")
+//        ));
+//        option.click();
+//
+//        ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+//    }
+
+
 
 
     public void clickAddRecordTypeLink() {
@@ -216,18 +285,6 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
         // Assertion inside method (optional)
         Assert.assertTrue(driver.getCurrentUrl().contains("record-types"), "Export Control page did not load properly");
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -97,9 +97,11 @@ public class Exportcontrol_RecordTypes_flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
 
 
+
             basePage.pause(5000);
             adminPageRecordtypes.selectModuleAsExportControl();
             ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+
 
             basePage.pause(5000);
             adminPageRecordtypes.enterRecordType("Test01");
@@ -225,32 +227,38 @@ public class Exportcontrol_RecordTypes_flow {
 
 
 
+            String searchKeyword02 = "Test";
+
+            basePage.pause(5000);
+            adminPageRecordtypes.searchRecordByName(searchKeyword02);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword02 + "'");
 
 
+            basePage.pause(5000);
+            adminPageRecordtypes.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
 
 
+            basePage.pause(5000);
+            adminPageRecordtypes.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
 
+            String searchKeyword03 = "@@@@@@@";
+
+            basePage.pause(5000);
+            adminPageRecordtypes.searchRecordByName(searchKeyword03);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword03 + "'");
 
 
+            basePage.pause(5000);
+            adminPageRecordtypes.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            basePage.pause(5000);
+            adminPageRecordtypes.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
 
 
