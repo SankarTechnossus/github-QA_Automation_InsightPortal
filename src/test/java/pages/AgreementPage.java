@@ -1,6 +1,7 @@
 package pages;
 
 import base.BasePage;
+import listeners.ExtentReportListener;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,7 +23,12 @@ public class AgreementPage extends BasePage {
     private By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
     private By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables/1113382']//span[text()='Test']");
     private By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
-    private By fileInput = By.xpath("//input[@type='file' and @accept='application/pdf']");
+//    private By fileInput = By.xpath("//input[@type='file' and @accept='application/pdf']");
+//    private By fileInput = By.xpath("//input[@type='file' and contains(@accept, 'application/pdf')]");
+   private By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
+    //    private By fileInput = By.xpath("//div[contains(@class,'agreement-details-section')]//input[@type='file']");
+//private By fileInput = By.xpath("//div[@class='_fileUploadArea_1i6j7_129']//input[@type='file']");
+//    private By fileInput = By.xpath("//div[@class='_fileUploadArea_1i6j7_129']//input[@type='file' and contains(@accept,'application/pdf')]");
     private By addRecipientButton = By.xpath("//button[text()='Add Recipient']");
     private By emailInput = By.xpath("//input[@placeholder='Email' and @type='email']");
     private By previewButton = By.xpath("//div[contains(@class, 'add-recipients-section')]//button[normalize-space(text())='Preview']");
@@ -43,9 +49,68 @@ public class AgreementPage extends BasePage {
     private By categorySequenceNoInput = By.id("categorySequenceNo");
     private By createButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Create']");
     private By version1Link = By.xpath("//a[text()='Version 1']");
+    private By reminderDropdown = By.xpath("//div[@id='react-select-17-placeholder' and text()='Select frequency']");
+    private By reminderOptionEveryDay = By.xpath("//div[contains(text(),'Every day') and contains(@class,'menu')]");
+    private By uploadedFileLabel = By.xpath("//div[contains(@class,'_attachedFile')]/span[contains(text(),'.pdf')]");
+    private By uploadedFileName = By.xpath("//span[contains(text(),'Agreement Info 2025_03.pdf')]");
+    private By hiddenFileInput = By.xpath("//div[contains(@class,'_fileUploader')]/input[@type='file']");
 
 
     // ******** Actions *********
+
+
+
+
+    public void uploadAgreementPdf(String filePath) {
+        WebElement uploadInput = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfElementLocated(hiddenFileInput));
+        uploadInput.sendKeys(filePath);
+        ExtentReportListener.getExtentTest().pass("Uploaded file: " + filePath);
+    }
+
+
+
+
+
+    public void waitForUploadedFileToAppear() {
+        By uploadedFileLocator = By.xpath("//span[contains(text(),'Agreement Info') and contains(text(),'.pdf')]");
+        waitForPresence(uploadedFileLocator); // Uses your 120s wait method in BasePage
+        ExtentReportListener.getExtentTest().pass("Waited for uploaded file to appear successfully");
+    }
+
+
+
+
+
+
+    public void uploadPDFToAgreement(String filePath) {
+        WebElement input = driver.findElement(fileInput);
+
+        // Make it visible for sendKeys to work
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", input);
+
+        input.sendKeys(filePath);
+
+        pause(3000); // Wait for file to render visually
+        ExtentReportListener.getExtentTest().pass("Uploaded file successfully: " + filePath);
+    }
+
+
+
+
+
+    public void selectReminderAsEveryDay() {
+        WebElement dropdown = driver.findElement(reminderDropdown);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
+        pause(1000);
+        dropdown.click(); // Open dropdown
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(reminderOptionEveryDay));
+        option.click(); // Select "Every day"
+
+        pause(1000);
+    }
 
 
 
@@ -198,7 +263,7 @@ public class AgreementPage extends BasePage {
 
     public void clickFormsManagementLink() {
         click(formsManagementLink);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickAdministrationLink() {
@@ -210,68 +275,71 @@ public class AgreementPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(adminElement));
 
         adminElement.click();
-        pause(10000);
+        pause(5000);
     }
 
     public void clickAgreementsLink() {
-        click(agreementsLink);
-        pause(10000);
+        WebElement element = waitForElement(agreementsLink); // no need for basePage. — it's inherited
+        element.click();
+        pause(5000);
     }
+
+
 
     public void enterAgreementNumber(String number) {
         WebElement element = waitForElement50(agreementNumberInput);
         element.sendKeys(number);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickSearch() {
         click(searchButton);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickAgreementSpan() {
         click(agreementSpan);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickDeliverablesTab() {
-        scrollAndJsClick(deliverablesTab, 30);
-        pause(10000);
+        scrollAndJsClick(deliverablesTab, 10);
+        pause(5000);
     }
 
     public void clickToggleButton() {
         click(toggleButton);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickTestLink() {
         click(eSignTesting03Link);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickAdobeIcon() {
         click(adobeIcon);
-        pause(10000);
+        pause(5000);
     }
 
-    public void uploadAgreementPdf(String filePath) {
-        WebElement file = waitForPresence(fileInput);
-        file.sendKeys(filePath);
-        pause(10000);
-    }
+//    public void uploadAgreementPdf(String filePath) {
+//        WebElement file = waitForPresence(fileInput);
+//        file.sendKeys(filePath);
+//        pause(5000);
+//    }
 
     public void clickAddRecipient() {
         click(addRecipientButton);
-        pause(10000);
+        pause(5000);
     }
 
     public void enterRecipientEmail(String email) {
         type(emailInput, email);
-        pause(10000);
+        pause(5000);
     }
 
     public void clickPreviewButton() {
         click(previewButton);
-        pause(40000);
+        pause(10000);
     }
 }

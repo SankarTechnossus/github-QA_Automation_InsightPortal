@@ -58,93 +58,110 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
 
             // User will enter the username into the username input field
             loginPage.enterUsername("SV1179");
-            basePage.pause(10000);
+            basePage.pause(2000);
             ExtentReportListener.getExtentTest().pass("Entered username");
 
             // User will click the 'Next' button to proceed to the password entry screen
             loginPage.clickNext();
-            basePage.pause(10000);
+            basePage.pause(2000);
             ExtentReportListener.getExtentTest().pass("Clicked Next");
 
             // User will input the user's password into the password field
             loginPage.enterPassword("Devinivetha@1930");
-            basePage.pause(10000);
+            basePage.pause(2000);
             ExtentReportListener.getExtentTest().pass("Entered password");
 
             // User will click the 'Verify' button to authenticate the user
             loginPage.clickVerify();
-            basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
             // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            basePage.pause(10000);
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
 
             // Wait and click the 'Agreements' link from the sidebar
             agreementPage.clickAgreementsLink();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Agreements' link from sidebar");
 
             // Enter Agreement Number
             agreementPage.enterAgreementNumber("2025A012368");
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A012368");
 
             // Click Search
             agreementPage.clickSearch();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Search button");
 
             // Click on Agreement Span
             agreementPage.clickAgreementSpan();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Agreement span");
 
             // Click Deliverables Tab
             agreementPage.clickDeliverablesTab();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
             // Expand toggle button
             agreementPage.clickToggleButton();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked the expand/collapse toggle button");
 
             // Click 'Test' link under E-Sign section
             agreementPage.clickTestLink();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Test' link under E-Sign section");
 
             // Click Adobe icon
             agreementPage.clickAdobeIcon();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Adobe integration icon");
 
-            // Upload Agreement PDF
-            String AgreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
-            agreementPage.uploadAgreementPdf(AgreementFileName);
-            basePage.pause(10000);
-            ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025.pdf'");
+
+
+            String agreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            agreementPage.uploadAgreementPdf(agreementFileName);
+            basePage.pause(5000); // Optional, for stability
+            ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025_03.pdf'");
+
+
+//             Upload Agreement PDF
+//            String AgreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+//            agreementPage.uploadAgreementPdf(AgreementFileName);
+//            basePage.pause(5000);
+//            ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025.pdf'");
+
+//            String filePath = System.getProperty("user.dir") + "/testfiles/AgreementInfo_2025_03.pdf";
+//            agreementPage.uploadPDFToAgreement(filePath);
+//            agreementPage.waitForUploadedFileToAppear();
+
+
+
+            basePage.pause(5000);
+            agreementPage.selectReminderAsEveryDay();
+            ExtentReportListener.getExtentTest().pass("Selected 'Every day' reminder option");
+
 
             // Click 'Add Recipient'
             agreementPage.clickAddRecipient();
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
 
             // Enter recipient email
             agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
-            basePage.pause(10000);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
 
             // Click Preview button
             agreementPage.clickPreviewButton();
-            basePage.pause(50000);
+            basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Preview' button inside 'add-recipients-section'");
 
 
-            // *********(Please ignore the below commented lines) **********
 
 
 //            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
@@ -269,7 +286,7 @@ public class Esign_Agreement_PDF_Attachment_Positive_Flow {
     @AfterMethod
     public void tearDown() {
 
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 

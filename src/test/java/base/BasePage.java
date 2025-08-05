@@ -27,7 +27,7 @@ public class BasePage {
 
     // Reusable explicit wait method 30 sec
     public WebElement waitForElement50(By locator) {
-        return new WebDriverWait(driver, Duration.ofSeconds(120))
+        return new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
