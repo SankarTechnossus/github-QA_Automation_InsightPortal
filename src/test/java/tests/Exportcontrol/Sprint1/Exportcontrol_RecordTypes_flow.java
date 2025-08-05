@@ -23,7 +23,7 @@ public class Exportcontrol_RecordTypes_flow {
     BasePage basePage;
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+       // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance

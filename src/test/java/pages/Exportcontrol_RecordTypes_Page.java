@@ -187,68 +187,6 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
         ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
     }
 
-//
-//    public void selectModuleAsExportControl() {
-//        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
-//        pause(1000); // Wait after scroll
-//        dropdownArrow.click(); // Open the dropdown
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlOption));
-//        option.click(); // Click 'Export Control'
-//
-//    }
-
-
-//    public void selectModuleAsExportControl() {
-//        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
-//        pause(1000); // Optional wait
-//
-//        dropdownArrow.click(); // Open the dropdown
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//        // Wait for the dropdown options to be visible (container)
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(
-//                By.xpath("//div[contains(@class,'menu')]")
-//        ));
-//
-//        // Wait and click on "Export Control"
-//        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-//                By.xpath("//div[contains(text(),'Export Control')]")
-//        ));
-//        option.click();
-//
-//        ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
-//    }
-//
-
-
-//    public void selectModuleAsExportControl() {
-//        WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
-//        pause(1000); // Just to stabilize
-//
-//        dropdownArrow.click(); // Open the dropdown
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//        // Wait for the dropdown menu container
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(
-//                By.xpath("//div[contains(@class,'select__menu-list')]")
-//        ));
-//
-//        // Then wait and click the option
-//        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
-//                By.xpath("//div[contains(@class,'select__option') and text()='Export Control']")
-//        ));
-//        option.click();
-//
-//        ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
-//    }
-
 
 
 

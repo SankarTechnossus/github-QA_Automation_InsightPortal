@@ -7,6 +7,8 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
+import pages.ExportControl_TransactionTypes_Page;
+import pages.Exportcontrol_RecordTypes_Page;
 import pages.LoginPage;
 import pages.AgreementPage;
 import utils.DriverManager;
@@ -79,13 +81,95 @@ public class Exportcontrol_TransactionTypes_flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
+            ExportControl_TransactionTypes_Page transactionTypesPage = new ExportControl_TransactionTypes_Page(driver);
+
+            basePage.pause(5000);
+            transactionTypesPage.clickTransactionTypesLink();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Transaction Types' link from left navigation");
+
+
+            basePage.pause(5000);
+            transactionTypesPage.clickAddNewTransactionType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Transaction Types page");
+
+
+            basePage.pause(5000);
+            transactionTypesPage.enterTransactionType("Test");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test' into Transaction Type input field");
+
+
+            Exportcontrol_RecordTypes_Page adminPageRecordtypes = new Exportcontrol_RecordTypes_Page(driver);
+
+
+            basePage.pause(10000);
+            transactionTypesPage.checkActiveCheckbox();
+            ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
 
 
 
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
+
+
+            basePage.pause(5000);
+            transactionTypesPage.clickAddNewTransactionType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Transaction Types page");
+
+
+            basePage.pause(10000);
+            String transactionTypeName = transactionTypesPage.generateUniqueTransactionTypeName();
+            transactionTypesPage.enterTransactionType(transactionTypeName);
+            ExtentReportListener.getExtentTest().pass("Entered '" + transactionTypeName + "' into Transaction Type input field");
 
 
 
+            basePage.pause(10000);
+            transactionTypesPage.checkActiveCheckbox();
+            ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
 
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+
+
+            basePage.pause(10000);
+            transactionTypesPage.enterSearchByName("Test");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test001' into Search by Name input field");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+
+
+
+            basePage.pause(10000);
+            transactionTypesPage.enterSearchByName("@@@@@@@@@@");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test001' into Search by Name input field");
+
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+
+
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
 
 
