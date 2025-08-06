@@ -96,35 +96,35 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
             ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
 
 
-//            // Now use the new input field
-//            agreementPage.enterSearchText("Test");
-//            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
-//
-//
-//            basePage.pause(10000);
-//            agreementPage.clickSearchButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-//
-//
-//            basePage.pause(10000);
-//            agreementPage.clickClearSelectionsButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
-//
-//            //**** Negative case ***
-//
-//            // Now use the new input field
-//            agreementPage.enterSearchText("@@@@@");
-//            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
-//
-//
-//            basePage.pause(5000);
-//            agreementPage.clickSearchButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Search button");
-//
-//
-//            basePage.pause(5000);
-//            agreementPage.clickClearSelectionsButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+            // Now use the new input field
+            agreementPage.enterSearchText("Test");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
+
+
+            basePage.pause(10000);
+            agreementPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+
+
+            basePage.pause(10000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
+
+            //**** Negative case ***
+
+            // Now use the new input field
+            agreementPage.enterSearchText("@@@@@");
+            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
+
+
+            basePage.pause(5000);
+            agreementPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button");
+
+
+            basePage.pause(5000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
 
             basePage.pause(5000);  // Optional wait if needed
             agreementPage.clickAddNewLink();
