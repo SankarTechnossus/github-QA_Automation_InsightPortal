@@ -7,6 +7,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
+import pages.ExportControl_statusManagement_Page;
 import pages.LoginPage;
 import pages.AgreementPage;
 import utils.DriverManager;
@@ -78,6 +79,105 @@ public class Export_control_Status_Management_flow {
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+            // StatusManagement Page Actions
+            ExportControl_statusManagement_Page statusManagementPage  = new ExportControl_statusManagement_Page(driver);
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickStatusManagementLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickStatusManagementExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickAddStatusButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
+
+
+
+            basePage.pause(5000);
+            statusManagementPage.enterStatusName("Test01");
+            ExtentReportListener.getExtentTest().pass("Entered 'Test01' in Status Name textbox successfully");
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickAddStatusButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
+
+
+
+            basePage.pause(5000);
+
+            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+            statusManagementPage.enterStatusName(statusName);
+
+            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
+
+
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickDeleteButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
+
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickEditButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
+
+
+
+            basePage.pause(5000);
+            statusManagementPage.appendToStatusName("SAN01");
+            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
+
+
+            basePage.pause(3000);
+            statusManagementPage.selectActiveAsNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
+
+
+            basePage.pause(5000);
+            statusManagementPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
