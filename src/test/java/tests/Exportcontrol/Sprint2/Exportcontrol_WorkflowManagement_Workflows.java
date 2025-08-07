@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
+import pages.Exportcontrol_WorkflowManagement_Workflows_Page;
 import pages.LoginPage;
 import utils.DriverManager;
 
@@ -83,6 +84,26 @@ public class Exportcontrol_WorkflowManagement_Workflows {
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+
+            // Work flow page
+            Exportcontrol_WorkflowManagement_Workflows_Page   workflowpage = new Exportcontrol_WorkflowManagement_Workflows_Page(driver);
+
+
+            basePage.pause(5000);
+            workflowpage.clickWorkflowManagementLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickExportControlWorkflows();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control > Workflows' successfully");
+
+
+
+
+
+
 
 
 
