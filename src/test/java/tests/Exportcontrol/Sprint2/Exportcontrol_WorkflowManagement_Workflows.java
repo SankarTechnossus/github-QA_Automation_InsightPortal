@@ -76,7 +76,7 @@ public class Exportcontrol_WorkflowManagement_Workflows {
             ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
             // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            basePage.pause(10000);
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
@@ -98,6 +98,48 @@ public class Exportcontrol_WorkflowManagement_Workflows {
             basePage.pause(5000);
             workflowpage.clickExportControlWorkflows();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control > Workflows' successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+
+
+            String uniqueName = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
+            basePage.pause(5000);
+            workflowpage.enterName(uniqueName);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName + "' in the Name input field successfully");
+//
+//
+//
+//            basePage.pause(5000);
+//            workflowpage.selectRecordType("Test");
+//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.selectRecordType("Test");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+
+//            basePage.pause(5000);
+//            workflowpage.selectRecordTypeAsExportControlRequest();
+//            ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' from Record Type dropdown successfully");
+
+
+//            basePage.pause(5000);
+//            workflowpage.selectDropdownOption("Test");
+//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from dropdown successfully");
+//
+//            basePage.pause(5000);
+//            workflowpage.selectTransactionTypeAsTest();
+//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
+
+//
+//            basePage.pause(5000);
+//            workflowpage.selectRecordTypeAsTest();
+//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
 
