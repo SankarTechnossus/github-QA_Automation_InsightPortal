@@ -118,7 +118,12 @@ public class Exportcontrol_WorkflowManagement_Workflows {
 
 
             basePage.pause(5000);
-            workflowpage.selectRecordType("Test");
+            workflowpage.selectOptionFromDropdown("Record Type","Test");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+//            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdown("Transaction Type","Test");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 

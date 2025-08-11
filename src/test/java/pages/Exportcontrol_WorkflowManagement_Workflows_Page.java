@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.openqa.selenium.NoSuchElementException;
+import utils.BrowserUtility;
+import utils.WaitUtility;
 
 import java.time.Duration;
 import java.util.List;
@@ -34,34 +36,42 @@ public class Exportcontrol_WorkflowManagement_Workflows_Page extends BasePage {
     private String dropdownOptionXpath = "//div[contains(@class,'select__option') and normalize-space(text())='%s']";
 
 
+    public void selectOptionFromDropdown(String dropDownName,String optionToSelect){
+        String dropdownXpath = "//label[normalize-space(text())='"+dropDownName+"']//following-sibling::div//div[contains(@class,'_indicatorsContainer')]";
+        String menuListXpath = "//div[contains(@class,'select-menu-outer')]";
+        String optionXpath = "//div[contains(@class,'select-menu-outer')]//div[normalize-space(text())='"+optionToSelect+"']";
+        BrowserUtility.click(driver,By.xpath(dropdownXpath),dropDownName);
+        WaitUtility.waitForVisibility(driver,By.xpath(menuListXpath),20,"option list");
+        BrowserUtility.click(driver,By.xpath(optionXpath),optionToSelect);
+    }
 
 
 //Actions
 
-    public void selectRecordType(String recordTypeValue) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        // Step 1: Click the dropdown arrow
-        WebElement dropdownArrow = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[@for='additionalProps.exportControlOfficeId']/ancestor::div[contains(@class,'form-row')]/following-sibling::div//div[contains(@class,'select-dropdown-indicator')]")
-        ));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
-        dropdownArrow.click();
-
-        // Step 2: Wait until dropdown container appears (menu)
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("select__menu")));
-
-        pause(500); // Let options settle
-
-        // Step 3: Now locate and click the option (using contains instead of exact match)
-        By optionLocator = By.xpath(String.format("//div[contains(@class,'select__option') and contains(text(),'%s')]", recordTypeValue));
-        WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(optionLocator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
-
-        pause(500);
-    }
-
-
+//    public void selectRecordType(String recordTypeValue) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//        // Step 1: Click the dropdown arrow
+//        WebElement dropdownArrow = wait.until(ExpectedConditions.elementToBeClickable(
+//                By.xpath("//label[@for='additionalProps.exportControlOfficeId']/ancestor::div[contains(@class,'form-row')]/following-sibling::div//div[contains(@class,'select-dropdown-indicator')]")
+//        ));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
+//        dropdownArrow.click();
+//
+//        // Step 2: Wait until dropdown container appears (menu)
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("select__menu")));
+//
+//        pause(500); // Let options settle
+//
+//        // Step 3: Now locate and click the option (using contains instead of exact match)
+//        By optionLocator = By.xpath(String.format("//div[contains(@class,'select__option') and contains(text(),'%s')]", recordTypeValue));
+//        WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(optionLocator));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+//
+//        pause(500);
+//    }
+//
+//
 
 
 
