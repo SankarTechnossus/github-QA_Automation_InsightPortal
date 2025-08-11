@@ -109,12 +109,6 @@ public class Exportcontrol_WorkflowManagement_Workflows {
             basePage.pause(5000);
             workflowpage.enterName(uniqueName);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName + "' in the Name input field successfully");
-//
-//
-//
-//            basePage.pause(5000);
-//            workflowpage.selectRecordType("Test");
-//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
             basePage.pause(5000);
@@ -122,42 +116,87 @@ public class Exportcontrol_WorkflowManagement_Workflows {
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
-//            basePage.pause(5000);
+            basePage.pause(5000);
             workflowpage.selectOptionFromDropdown("Transaction Type","Test");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
-
-//            basePage.pause(5000);
-//            workflowpage.selectRecordTypeAsExportControlRequest();
-//            ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' from Record Type dropdown successfully");
-
-
-//            basePage.pause(5000);
-//            workflowpage.selectDropdownOption("Test");
-//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from dropdown successfully");
-//
-//            basePage.pause(5000);
-//            workflowpage.selectTransactionTypeAsTest();
-//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
-
-//
-//            basePage.pause(5000);
-//            workflowpage.selectRecordTypeAsTest();
-//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Reviewed");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
+            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+            // ** Negative_case **
+
+
+            basePage.pause(5000);
+            workflowpage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+            basePage.pause(5000);
+            workflowpage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+
+
+            String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
+            basePage.pause(5000);
+            workflowpage.enterName(uniqueName01);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdown("Record Type","Test");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdown("Transaction Type","Test");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Reviewed");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickEditButtonForWorkflow(uniqueName01);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickEditButtonForWorkflow(uniqueName01);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
+
+
+            basePage.pause(3000);
+            workflowpage.appendSanToName();
+            ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
 
 
 
-
-
-
-
-
-
-
-
+            basePage.pause(3000);
+            workflowpage.clickUpdateButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
 
 
 
