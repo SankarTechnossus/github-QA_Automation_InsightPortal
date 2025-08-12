@@ -29,7 +29,9 @@ public class Exportcontrol_WorkflowManagement_Rules_Page extends BasePage {
 // Locators
 
     private By workflowManagementLinkrules = By.xpath("//a[.//span[text()='Workflow Management'] and contains(@href, '/workflow-management')]");
-    private By rulesLink = By.xpath("//a[normalize-space(text())='Rules']");
+//    private By rulesLink = By.xpath("//a[normalize-space(text())='Rules']");
+//    private By rulesLink = By.xpath("//nav//a[normalize-space(.)='Rules' and contains(@href,'/workflow-management') and contains(@href,'/rules')]");
+
     private By addRuleButton = By.xpath("//button[normalize-space(text())='Add rule']");
     private By nameInputField = By.xpath("//input[@id='name' and @type='text']");
     private By addRuleButtonrule = By.xpath("//button[normalize-space()='Rule' or normalize-space(text())='Add Rule']");
@@ -58,6 +60,13 @@ public class Exportcontrol_WorkflowManagement_Rules_Page extends BasePage {
     private static final String OPTION_BY_TEXT =
             "(//div[(contains(@class,'select__option') or contains(@class,'select-option') or @role='option') " +
                     " and normalize-space()='%s'])[1]";
+
+    // Page class — locator (Workflow Management → Rules, scopeId=3 only)
+    private By rulesLink = By.xpath(
+            "//nav//a[normalize-space(.)='Rules' " +
+                    "and contains(@href,'/administration/workflow-management/')" +
+                    "and contains(@href,'/scopeId/3/rules')]"
+    );
 
 
 
