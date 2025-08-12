@@ -107,7 +107,7 @@ public class Exportcontrol_WorkflowManagement_Rules_flow {
 
 
             basePage.pause(5000);
-            exportcontrolrulespage.selectOptionFromDropdownrules("Query Builder","AND");
+            exportcontrolrulespage.selectQueryBuilderOperator("Query Builder","AND");
             ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
 
 
@@ -157,7 +157,7 @@ public class Exportcontrol_WorkflowManagement_Rules_flow {
 
 
             basePage.pause(5000);
-            exportcontrolrulespage.selectOptionFromDropdownrules("Query Builder","AND");
+            exportcontrolrulespage.selectQueryBuilderOperator("Query Builder","AND");
             ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
 
 
