@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
+import pages.Exportcontrol_WorkflowManagement_Rules_Page;
 import pages.LoginPage;
 import utils.DriverManager;
 
@@ -83,6 +84,112 @@ public class Exportcontrol_WorkflowManagement_Rules_flow {
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+            Exportcontrol_WorkflowManagement_Rules_Page exportcontrolrulespage = new Exportcontrol_WorkflowManagement_Rules_Page(driver);
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickWorkflowManagementLinkrules();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickRulesLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Rules' link successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickAddRuleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+
+
+            basePage.pause(5000);
+            String generatedName = exportcontrolrulespage.enterUniqueNameWithTestPrefix();
+            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedName + "' into Name input field successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.selectOptionFromDropdownrules("Query Builder","AND");
+            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickAddRuleButtonrule();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Rule' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickRemoveRuleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Remove rule' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickAddGroupButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Group' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickRemoveGroupButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Remove group' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickMigrationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickMigrationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickAddRuleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+
+
+            basePage.pause(5000);
+            String generatedNamelast = exportcontrolrulespage.enterUniqueNameWithTestPrefix();
+            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedNamelast + "' into Name input field successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.selectOptionFromDropdownrules("Query Builder","AND");
+            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickEditButtonForRule(generatedNamelast);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNamelast + "' successfully");
+
+
+            basePage.pause(5000);
+            exportcontrolrulespage.appendToNameField("san");
+            ExtentReportListener.getExtentTest().pass("Appended 'san' to Name input field successfully");
+
+            basePage.pause(5000);
+            exportcontrolrulespage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
