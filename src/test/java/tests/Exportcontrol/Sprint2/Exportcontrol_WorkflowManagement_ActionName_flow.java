@@ -125,9 +125,9 @@ public class Exportcontrol_WorkflowManagement_ActionName_flow {
 
 
             basePage.pause(5000);
-            String uniqueName04 = "Test_" + System.currentTimeMillis();
-            actionnamepage.enterName(uniqueName03);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName04 + "' in the Name input field successfully");
+            String uniqueName5 = "Test_" + System.currentTimeMillis();
+            actionnamepage.enterName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
 
 
             basePage.pause(5000);
@@ -138,6 +138,26 @@ public class Exportcontrol_WorkflowManagement_ActionName_flow {
             basePage.pause(5000);
             actionnamepage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+
+            basePage.pause(5000);
+            actionnamepage.clickEditForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.clickCancelForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for action name '" + uniqueName5 + "' successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.clickEditForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.clickSaveForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for action name '" + uniqueName5 + "' successfully");
+
 
 
 

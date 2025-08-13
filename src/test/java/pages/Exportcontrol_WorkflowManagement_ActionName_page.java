@@ -23,9 +23,116 @@ public class Exportcontrol_WorkflowManagement_ActionName_page extends BasePage {
     private By cancelButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-unstyled') and normalize-space(text())='Cancel']");
     private By addButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add']");
 
+    // Edit button in the same row as the given Action Name (works in view or edit mode)
+    private String editBtnForActionNameXpath =
+            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
+                    "//td[@data-column='_actions']//button[normalize-space(text())='Edit']";
+
+    // (optional) things to wait for after clicking Edit
+    private String saveBtnForActionNameXpath =
+            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
+                    "//button[normalize-space(text())='Save']";
+    private String nameInputInRowXpath =
+            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
+                    "//td[@data-column='name']//input";
+
+
+    // Cancel button in the same row as the given Action Name (covers text + aria-label)
+    private String cancelBtnForActionNameXpath =
+            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
+                    "//td[@data-column='_actions']//button[(normalize-space(.)='Cancel' or @aria-label='Undo item')]";
+
+    // After cancel, the row should return to view mode and show 'Edit'
+    private String editBtnAfterCancelXpath =
+            "//tr[.//td[@data-column='name' and @data-value='%s']]" +
+                    "//td[@data-column='_actions']//button[normalize-space(.)='Edit']";
+
+
+    // Save in the same row as the given Action Name (handles view/edit DOM)
+    private String saveBtnForActionNameXpathaction =
+            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
+                    "//td[@data-column='_actions']//button[(normalize-space(.)='Save' or @aria-label='Save item')]";
+
+    // After save, row returns to view mode (Edit visible)
+    private String editBtnAfterSaveXpath =
+            "//tr[.//td[@data-column='name' and @data-value='%s']]" +
+                    "//td[@data-column='_actions']//button[normalize-space(.)='Edit']";
 
 
 
+
+
+// Action
+
+
+    public void clickSaveForActionName(String actionName) {
+        By saveLocator = By.xpath(String.format(saveBtnForActionNameXpathaction, actionName, actionName));
+        By editAfterSave = By.xpath(String.format(editBtnAfterSaveXpath, actionName));
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+
+        WebElement saveBtn = wait.until(ExpectedConditions.elementToBeClickable(saveLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+
+        try {
+            saveBtn.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveBtn);
+        }
+
+        // Verify row exited edit mode
+        wait.until(ExpectedConditions.presenceOfElementLocated(editAfterSave));
+        pause(1000);
+    }
+
+
+
+    public void clickCancelForActionName(String actionName) {
+        By cancelLocator = By.xpath(String.format(cancelBtnForActionNameXpath, actionName, actionName));
+        By editAfterCancel = By.xpath(String.format(editBtnAfterCancelXpath, actionName));
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+
+        WebElement cancelBtn = wait.until(ExpectedConditions.elementToBeClickable(cancelLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cancelBtn);
+
+        try {
+            cancelBtn.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancelBtn);
+        }
+
+        // Verify the row exited edit mode (Edit button reappears)
+        wait.until(ExpectedConditions.presenceOfElementLocated(editAfterCancel));
+        pause(1000);
+    }
+
+
+
+    public void clickEditForActionName(String actionName) {
+        By editLocator = By.xpath(String.format(editBtnForActionNameXpath, actionName, actionName));
+        By saveLocator = By.xpath(String.format(saveBtnForActionNameXpath, actionName, actionName));
+        By nameInputInRow = By.xpath(String.format(nameInputInRowXpath, actionName, actionName));
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+
+        WebElement editBtn = wait.until(ExpectedConditions.elementToBeClickable(editLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", editBtn);
+
+        try {
+            editBtn.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", editBtn);
+        }
+
+        // Row should switch to edit mode: wait for Save button or input to appear
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.presenceOfElementLocated(saveLocator),
+                ExpectedConditions.presenceOfElementLocated(nameInputInRow)
+        ));
+
+        pause(1000);
+    }
 
 
 
