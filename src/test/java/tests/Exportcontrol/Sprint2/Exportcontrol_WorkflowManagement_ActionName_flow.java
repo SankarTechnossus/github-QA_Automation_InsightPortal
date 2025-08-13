@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
+import pages.Exportcontrol_WorkflowManagement_ActionName;
 import pages.LoginPage;
 import utils.DriverManager;
 
@@ -84,6 +85,17 @@ public class Exportcontrol_WorkflowManagement_ActionName_flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
+
+            Exportcontrol_WorkflowManagement_ActionName actionnamepage = new Exportcontrol_WorkflowManagement_ActionName(driver);
+
+            basePage.pause(2000);
+            actionnamepage.clickWorkflowManagementaction();
+            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
+
+            // ===== Test class usage (your pattern) =====
+            basePage.pause(2000);
+            actionnamepage.clickActionNameScope3();
+            ExtentReportListener.getExtentTest().pass("Opened 'Action name' (scopeId=3)");
 
 
 
