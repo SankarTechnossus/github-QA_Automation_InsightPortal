@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
-import pages.Exportcontrol_WorkflowManagement_ActionName;
+import pages.Exportcontrol_WorkflowManagement_ActionName_page;
 import pages.LoginPage;
 import utils.DriverManager;
 
@@ -86,22 +86,58 @@ public class Exportcontrol_WorkflowManagement_ActionName_flow {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            Exportcontrol_WorkflowManagement_ActionName actionnamepage = new Exportcontrol_WorkflowManagement_ActionName(driver);
+            Exportcontrol_WorkflowManagement_ActionName_page actionnamepage = new Exportcontrol_WorkflowManagement_ActionName_page(driver);
 
             basePage.pause(2000);
             actionnamepage.clickWorkflowManagementaction();
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
-            // ===== Test class usage (your pattern) =====
+
             basePage.pause(2000);
             actionnamepage.clickActionNameScope3();
             ExtentReportListener.getExtentTest().pass("Opened 'Action name' (scopeId=3)");
 
 
+            basePage.pause(5000);
+            actionnamepage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
+            basePage.pause(5000);
+            String uniqueName03 = "Test_" + System.currentTimeMillis();
+            actionnamepage.enterName(uniqueName03);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
 
 
+            basePage.pause(5000);
+            actionnamepage.enterHistoryTitle("TestSan");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+
+
+            basePage.pause(5000);
+            String uniqueName04 = "Test_" + System.currentTimeMillis();
+            actionnamepage.enterName(uniqueName03);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName04 + "' in the Name input field successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.enterHistoryTitle("TestSan");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+
+
+            basePage.pause(5000);
+            actionnamepage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
 
 
