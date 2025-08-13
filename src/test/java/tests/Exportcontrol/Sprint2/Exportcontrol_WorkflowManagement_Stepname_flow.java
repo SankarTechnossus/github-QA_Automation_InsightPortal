@@ -93,6 +93,47 @@ public class Exportcontrol_WorkflowManagement_Stepname_flow {
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
 
+            basePage.pause(5000);
+            stepnamepage.clickStepNameLink();
+            ExtentReportListener.getExtentTest().pass("Navigated to 'Step name' successfully");
+
+
+            basePage.pause(5000);
+            stepnamepage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+
+
+
+            basePage.pause(5000);
+            stepnamepage.enterName("Sample Name");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample Name' into Name input field successfully");
+
+
+
+            basePage.pause(5000);
+            stepnamepage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+
+            basePage.pause(5000);
+            stepnamepage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+
+
+            basePage.pause(5000);
+            String generatedName = stepnamepage.enterUniqueName("Test");
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + generatedName + "' into Name input field successfully");
+
+
+            basePage.pause(5000);
+            stepnamepage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+
+
+
+
+
+
 
 
 
