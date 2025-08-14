@@ -11,7 +11,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import java.io.File;
 import java.time.Duration;
 
-public class Esign_Review_and_Sign_Positive_Flow {
+public class Esign_Review_and_AddSign__Flow {
 
     WebDriver driver;
     WebDriverWait wait;

@@ -15,7 +15,7 @@ import utils.DriverManager;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Esign_Agreement_PDF_Attachment_Positive_Flow {
+public class Esign_Agreement_PDF_Attachment_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
