@@ -18,10 +18,10 @@ public class AgreementPage extends BasePage {
     private By agreementsLink = By.xpath("//a[contains(text(),'Agreements')]");
     private By agreementNumberInput = By.xpath("//input[@id='agreementNumber']");
     private By searchButton = By.xpath("//button[text()='Search']");
-    private By agreementSpan = By.xpath("//span[text()='2025A012368']");
-    private By deliverablesTab = By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables']//span[text()='Deliverables']");
+    private By agreementSpan = By.xpath("//span[text()='2025A015018']");
+    private By deliverablesTab = By.xpath("//a[@href='/agreements/2025A015018/latest/deliverables']//span[text()='Deliverables']");
     private By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
-    private By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A012368/latest/deliverables/1113382']//span[text()='Test']");
+    private By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A015018/latest/deliverables/1113382']//span[text()='Test']");
     private By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
 //    private By fileInput = By.xpath("//input[@type='file' and @accept='application/pdf']");
 //    private By fileInput = By.xpath("//input[@type='file' and contains(@accept, 'application/pdf')]");
@@ -54,9 +54,87 @@ public class AgreementPage extends BasePage {
     private By uploadedFileLabel = By.xpath("//div[contains(@class,'_attachedFile')]/span[contains(text(),'.pdf')]");
     private By uploadedFileName = By.xpath("//span[contains(text(),'Agreement Info 2025_03.pdf')]");
     private By hiddenFileInput = By.xpath("//div[contains(@class,'_fileUploader')]/input[@type='file']");
+    private By advancedButton = By.xpath("//button[normalize-space(text())='Advanced (0)']");
+    private By closeButton = By.xpath("//button[normalize-space(text())='Close']");
+    private By clearSelectionsButton01 = By.xpath("//button[normalize-space(text())='Clear Selections']");
+
+    private By advancedBtn = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[normalize-space(.)='Search']/following-sibling::button[contains(.,'Advanced')]");
+    private By advancedBtnAlt = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[contains(normalize-space(.),'Advanced (')]");
+    private By addNewDeliverableBtn = By.xpath("//button[contains(@class,'add-deliverable-button') and normalize-space(.)='Add New Deliverable']");
+
 
 
     // ******** Actions *********
+
+
+    public void clickAddNewDeliverable() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(addNewDeliverableBtn));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+        btn.click();
+        pause(1000);
+    }
+
+
+
+    public void clickAdvanced() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        By target = advancedBtn;
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(target));
+        } catch (TimeoutException e) {
+            target = advancedBtnAlt; // fall back if text changed (e.g., Advanced (1))
+            wait.until(ExpectedConditions.presenceOfElementLocated(target));
+        }
+
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(target));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+        btn.click();
+        pause(1000);
+    }
+
+
+
+    public void clickClearSelectionsButton01() {
+        WebElement button = driver.findElement(clearSelectionsButton01);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(clearSelectionsButton01));
+
+        button.click();
+        pause(1000);
+    }
+
+
+
+
+    public void clickCloseButton() {
+        WebElement button = driver.findElement(closeButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(closeButton));
+
+        button.click();
+        pause(1000);
+    }
+
+
+
+
+    public void clickAdvancedButton() {
+        WebElement button = driver.findElement(advancedButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(advancedButton));
+
+        button.click();
+        pause(1000);
+    }
+
 
 
 
@@ -278,11 +356,27 @@ public class AgreementPage extends BasePage {
         pause(5000);
     }
 
+//    public void clickAgreementsLink() {
+//        WebElement element = waitForElement(agreementsLink); // no need for basePage. — it's inherited
+//        element.click();
+//        pause(5000);
+//    }
+
+
+
     public void clickAgreementsLink() {
-        WebElement element = waitForElement(agreementsLink); // no need for basePage. — it's inherited
-        element.click();
+        WebElement link = new WebDriverWait(driver, Duration.ofSeconds(240))
+                .until(ExpectedConditions.visibilityOfElementLocated(agreementsLink));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", link);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(link));
+
+        link.click();
         pause(5000);
     }
+
 
 
 

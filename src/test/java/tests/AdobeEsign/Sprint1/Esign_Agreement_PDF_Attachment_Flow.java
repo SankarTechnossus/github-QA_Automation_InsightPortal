@@ -9,6 +9,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
+import pages.Adobe_Deliverables_page;
 import pages.LoginPage;
 import pages.AgreementPage;
 import utils.DriverManager;
@@ -86,10 +87,36 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Agreements' link from sidebar");
 
-            // Enter Agreement Number
-            agreementPage.enterAgreementNumber("2025A012368");
+            // Enter Agreement Number ****** This record has access issue ***********
+             // agreementPage.enterAgreementNumber("2025A012368");
+
+            //*********______Alternative_Agreement number____**********
+            agreementPage.enterAgreementNumber("2025A015018");
             basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A012368");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
+
+
+
+            basePage.pause(3000);
+            agreementPage.clickAdvanced();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Advanced' button successfully");
+
+
+
+            basePage.pause(5000);
+            agreementPage.clickCloseButton();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Close' button successfully");
+
+
+            basePage.pause(5000);
+            agreementPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Clear Selections' button successfully");
+
+
+            agreementPage.enterAgreementNumber("2025A015018");
+            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
+
 
             // Click Search
             agreementPage.clickSearch();
@@ -106,15 +133,103 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
+
+            basePage.pause(3000);
+            agreementPage.clickAddNewDeliverable();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
+
+
+
+            Adobe_Deliverables_page deliverablepage = new Adobe_Deliverables_page(driver);
+
+
+            basePage.pause(1000);
+
+                // 1) Set text with unique generator
+            String enteredName = deliverablepage.typeDeliverableNameUnique("Testsan01");
+            ExtentReportListener.getExtentTest().pass("Entered Deliverable Name: " + enteredName);
+
+            // 2) Deliverable category = "CTO - Agreement"
+            basePage.pause(1000);
+            deliverablepage.selectDeliverableCategory("CTO - Agreement");
+            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+
+            // 3) Cancel button
+            basePage.pause(1000);
+            deliverablepage.clickCancelOnOverlay();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel on Add New Deliverable overlay");
+
+
+            basePage.pause(3000);
+            agreementPage.clickAddNewDeliverable();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
+
+
+            // 1) Set text with unique generator
+            basePage.pause(1000);
+            String enteredName01 = deliverablepage.typeDeliverableNameUnique("Testsan01");
+            ExtentReportListener.getExtentTest().pass("Entered Deliverable Name: " + enteredName01);
+
+            // 2) Deliverable category = "CTO - Agreement"
+            basePage.pause(1000);
+            deliverablepage.selectDeliverableCategory("CTO - Agreement");
+            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+
+            basePage.pause(1000);
+            deliverablepage.clickSubmitOnOverlay();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' on Add New Deliverable overlay");
+
+
             // Expand toggle button
-            agreementPage.clickToggleButton();
             basePage.pause(5000);
+            agreementPage.clickToggleButton();
             ExtentReportListener.getExtentTest().pass("Clicked the expand/collapse toggle button");
 
-            // Click 'Test' link under E-Sign section
-            agreementPage.clickTestLink();
-            basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Test' link under E-Sign section");
+
+            basePage.pause(1000);
+            deliverablepage.typeDeliverablesSearch("Test");
+            ExtentReportListener.getExtentTest().pass("Typed 'Test' in Deliverables search box");
+
+
+            // 4) Search button (top)
+            basePage.pause(1000);
+            deliverablepage.clickTopSearch();
+            ExtentReportListener.getExtentTest().pass("Clicked top 'Search' button on Deliverables page");
+
+
+            basePage.pause(1000);
+            deliverablepage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' successfully");
+
+
+            basePage.pause(1000);
+            deliverablepage.clickClone();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Clone' successfully");
+
+
+            // after submit/refresh
+            basePage.pause(1000);
+            deliverablepage.checkRowByName(enteredName01);
+            ExtentReportListener.getExtentTest().pass("Checked row for deliverable: " + enteredName01);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //************* *************   Wait
+
+
 
             // Click Adobe icon
             agreementPage.clickAdobeIcon();
