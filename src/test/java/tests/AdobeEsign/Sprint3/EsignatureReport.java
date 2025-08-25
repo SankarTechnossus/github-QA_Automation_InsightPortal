@@ -120,11 +120,12 @@ import java.time.Duration;
                 String[] range01 = agreementpagesAdobe.enterRandomDateRange();
                 ExtentReportListener.getExtentTest().pass("Entered From: " + range01[0] + "  To: " + range01[1]);
 
-                // Report Type
-                basePage.pause(3000);
-                agreementpagesAdobe.selectPendingReportType02();
-                ExtentReportListener.getExtentTest().pass("Selected Report Type: Complete signature report");
 
+
+                // Call in @Test
+                basePage.pause(5000);
+                agreementpagesAdobe.selectCompleteReportType00201();
+                ExtentReportListener.getExtentTest().pass("Selected 'Complete Signature Report' from Report Type dropdown successfully");
 
                 // Search
                 basePage.pause(3000);
@@ -140,22 +141,6 @@ import java.time.Duration;
                 basePage.pause(1000);
                 agreementpagesAdobe.clickDownload();
                 ExtentReportListener.getExtentTest().pass("Clicked Download");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

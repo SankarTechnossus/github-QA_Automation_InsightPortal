@@ -56,8 +56,49 @@ public class AdobeEsignatureReportpage extends BasePage {
 
     private By downloadBtn = By.xpath("//button[contains(@class,'button') and .//span[contains(@class,'label') and normalize-space()='Download']]");
 
+    // Locator (Page class)
+    private By completeSignatureReportOption =
+            By.xpath("//div[@role='option' and normalize-space()='Complete Signature Report']");
+
+
+    // Locator (control – use this to open the dropdown)
+    private By reportTypeControl0101 =
+            By.xpath("//div[contains(@class,'form-base-reportType')]//div[contains(@class,'select-control')]");
+
+
 
     //************   Action   **************
+
+
+    // Method (same pattern you asked for)
+    public void selectCompleteReportType00201() {
+        pause(3000);
+
+        WebElement control = waitClickable(reportTypeControl0101, 30);
+        scrollIntoView(control);
+        try { control.click(); } catch (Exception e) { jsClick(control); }
+
+        WebElement option = waitVisible(reportTypeOption("Complete Signature Report"), 15);
+        scrollIntoView(option);
+        try { option.click(); } catch (Exception e) { jsClick(option); }
+
+    }
+
+
+
+    // Page class
+    public void selectCompleteReportType002() {
+        pause(3000);
+
+        WebElement control = waitClickable(completeSignatureReportOption, 30);
+        scrollIntoView(control);
+        try { control.click(); } catch (Exception e) { jsClick(control); }
+
+        WebElement option = waitVisible(reportTypeOption("Complete Signature Report"), 15);
+        scrollIntoView(option);
+        try { option.click(); } catch (Exception e) { jsClick(option); }
+    }
+
 
 
 
@@ -151,7 +192,7 @@ public class AdobeEsignatureReportpage extends BasePage {
     public void selectPendingReportType02() {
         pause(3000);
 
-        WebElement control = waitClickable(reportTypeControl, 30);
+        WebElement control = waitClickable(reportTypeControl01, 30);
         scrollIntoView(control);
         try { control.click(); } catch (Exception e) { jsClick(control); }
 
