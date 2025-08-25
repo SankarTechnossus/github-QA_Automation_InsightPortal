@@ -91,26 +91,26 @@ public class Esign_Agreement_PDF_Attachment_Flow {
              // agreementPage.enterAgreementNumber("2025A012368");
 
             //*********______Alternative_Agreement number____**********
-            agreementPage.enterAgreementNumber("2025A015018");
-            basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
+//            agreementPage.enterAgreementNumber("2025A015018");
+//            basePage.pause(5000);
+//            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
 
 
 
-            basePage.pause(3000);
-            agreementPage.clickAdvanced();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Advanced' button successfully");
+//            basePage.pause(3000);
+//            agreementPage.clickAdvanced();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Advanced' button successfully");
+//
+//
+//
+//            basePage.pause(5000);
+//            agreementPage.clickCloseButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked on 'Close' button successfully");
 
 
-
-            basePage.pause(5000);
-            agreementPage.clickCloseButton();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Close' button successfully");
-
-
-            basePage.pause(5000);
-            agreementPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Clear Selections' button successfully");
+//            basePage.pause(5000);
+//            agreementPage.clickClearSelectionsButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked on 'Clear Selections' button successfully");
 
 
             agreementPage.enterAgreementNumber("2025A015018");
@@ -134,30 +134,30 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
 
-            basePage.pause(3000);
-            agreementPage.clickAddNewDeliverable();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
+//            basePage.pause(3000);
+//            agreementPage.clickAddNewDeliverable();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
 
 
 
             Adobe_Deliverables_page deliverablepage = new Adobe_Deliverables_page(driver);
 
 
-            basePage.pause(1000);
+//            basePage.pause(1000);
 
-                // 1) Set text with unique generator
-            String enteredName = deliverablepage.typeDeliverableNameUnique("Testsan01");
-            ExtentReportListener.getExtentTest().pass("Entered Deliverable Name: " + enteredName);
-
-            // 2) Deliverable category = "CTO - Agreement"
-            basePage.pause(1000);
-            deliverablepage.selectDeliverableCategory("CTO - Agreement");
-            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
-
-            // 3) Cancel button
-            basePage.pause(1000);
-            deliverablepage.clickCancelOnOverlay();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel on Add New Deliverable overlay");
+//                // 1) Set text with unique generator
+//            String enteredName = deliverablepage.typeDeliverableNameUnique("Testsan01");
+//            ExtentReportListener.getExtentTest().pass("Entered Deliverable Name: " + enteredName);
+//
+//            // 2) Deliverable category = "CTO - Agreement"
+//            basePage.pause(1000);
+//            deliverablepage.selectDeliverableCategory("CTO - Agreement");
+//            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+//
+//            // 3) Cancel button
+//            basePage.pause(1000);
+//            deliverablepage.clickCancelOnOverlay();
+//            ExtentReportListener.getExtentTest().pass("Clicked Cancel on Add New Deliverable overlay");
 
 
             basePage.pause(3000);
@@ -180,55 +180,69 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Submit' on Add New Deliverable overlay");
 
 
-            // Expand toggle button
-            basePage.pause(5000);
-            agreementPage.clickToggleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked the expand/collapse toggle button");
 
 
-            basePage.pause(1000);
-            deliverablepage.typeDeliverablesSearch("Test");
-            ExtentReportListener.getExtentTest().pass("Typed 'Test' in Deliverables search box");
+//            basePage.pause(3000);
+//            deliverablepage.typeDeliverablesSearch("Test");
+//            ExtentReportListener.getExtentTest().pass("Typed 'Test' in Deliverables search box");
+//
+//
+//            // 4) Search button (top)
+//            basePage.pause(3000);
+//            deliverablepage.clickTopSearch();
+//            ExtentReportListener.getExtentTest().pass("Clicked top 'Search' button on Deliverables page");
+//
+//
+//            basePage.pause(1000);
+//            deliverablepage.clickClearSelections();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' successfully");
+//
 
 
-            // 4) Search button (top)
-            basePage.pause(1000);
-            deliverablepage.clickTopSearch();
-            ExtentReportListener.getExtentTest().pass("Clicked top 'Search' button on Deliverables page");
+//            // Expand toggle button
+//            basePage.pause(3000);
+//            agreementPage.clickToggleButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked the expand/collapse toggle button");
+
+//
+//            basePage.pause(3000);
+//            deliverablepage.clickClone();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Clone' successfully");
+//
+//
+//
+//            basePage.pause(3000);
+//            deliverablepage.tickFirstCheckbox();
+//            ExtentReportListener.getExtentTest().pass("Ticked the first checkbox successfully");
+//
+//
+//
+//            basePage.pause(3000);
+//            deliverablepage.clickDownloadSelected();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Download Selected' successfully");
+////
+//
+//            basePage.pause(5000);
+//            deliverablepage.tickFirstCheckbox();
+//            ExtentReportListener.getExtentTest().pass("Ticked the first checkbox successfully");
+//
+//
+//
+//            basePage.pause(2000);
+//            deliverablepage.clickDeleteSelected();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Delete Selected' successfully");
+//
+//
+//
+//            basePage.pause(3000);
+//            deliverablepage.acceptDeleteAlert();
+//            ExtentReportListener.getExtentTest().pass("Accepted delete confirmation alert successfully");
 
 
-            basePage.pause(1000);
-            deliverablepage.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' successfully");
 
-
-            basePage.pause(1000);
-            deliverablepage.clickClone();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Clone' successfully");
-
-
-            // after submit/refresh
-            basePage.pause(1000);
-            deliverablepage.checkRowByName(enteredName01);
-            ExtentReportListener.getExtentTest().pass("Checked row for deliverable: " + enteredName01);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //************* *************   Wait
-
+            basePage.pause(3000);
+            deliverablepage.clickDeliverableByEnteredName(enteredName01);
+            ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
 
 
             // Click Adobe icon
@@ -254,11 +268,16 @@ public class Esign_Agreement_PDF_Attachment_Flow {
 //            agreementPage.uploadPDFToAgreement(filePath);
 //            agreementPage.waitForUploadedFileToAppear();
 
+            basePage.pause(1000);
+            deliverablepage.selectReminderEveryDay();
+            ExtentReportListener.getExtentTest().pass("Selected Reminders frequency: Every day");
 
 
-            basePage.pause(5000);
-            agreementPage.selectReminderAsEveryDay();
-            ExtentReportListener.getExtentTest().pass("Selected 'Every day' reminder option");
+//
+//
+//            basePage.pause(5000);
+//            agreementPage.selectReminderAsEveryDay();
+//            ExtentReportListener.getExtentTest().pass("Selected 'Every day' reminder option");
 
 
             // Click 'Add Recipient'
@@ -271,10 +290,35 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
 
+
+            basePage.pause(1000);
+            deliverablepage.clickFirstRecipientDelete();
+            ExtentReportListener.getExtentTest().pass("Clicked recipient delete button successfully");
+
+            // Click 'Add Recipient'
+            agreementPage.clickAddRecipient();
+            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
+
+            // Enter recipient email
+            agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
+            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
+
+
+
+
+            //***************   Flow stops ***********
+
+
+
             // Click Preview button
             agreementPage.clickPreviewButton();
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Preview' button inside 'add-recipients-section'");
+
+
+
 
 
 
