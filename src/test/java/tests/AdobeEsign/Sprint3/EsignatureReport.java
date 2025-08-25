@@ -90,6 +90,66 @@ import java.time.Duration;
                 AdobeEsignatureReportpage agreementpagesAdobe = new AdobeEsignatureReportpage(driver);
 
 
+                basePage.pause(5000);
+                agreementpagesAdobe.openESignatureReport();
+                ExtentReportListener.getExtentTest().pass("Opened Administration > E-Signature Report successfully");
+
+
+                // Dates
+                basePage.pause(3000);
+                String[] range = agreementpagesAdobe.enterRandomDateRange();
+                ExtentReportListener.getExtentTest().pass("Entered From: " + range[0] + "  To: " + range[1]);
+
+                // Report Type
+                basePage.pause(3000);
+                agreementpagesAdobe.selectPendingReportType();
+                ExtentReportListener.getExtentTest().pass("Selected Report Type: Pending Signature Report");
+
+                // Search
+                basePage.pause(3000);
+                agreementpagesAdobe.clickSearch();
+                ExtentReportListener.getExtentTest().pass("Clicked Search");
+
+                // Clear
+                basePage.pause(3000);
+                agreementpagesAdobe.clickClear();
+                ExtentReportListener.getExtentTest().pass("Clicked Clear");
+
+                // Dates
+                basePage.pause(3000);
+                String[] range01 = agreementpagesAdobe.enterRandomDateRange();
+                ExtentReportListener.getExtentTest().pass("Entered From: " + range01[0] + "  To: " + range01[1]);
+
+                // Report Type
+                basePage.pause(3000);
+                agreementpagesAdobe.selectPendingReportType02();
+                ExtentReportListener.getExtentTest().pass("Selected Report Type: Complete signature report");
+
+
+                // Search
+                basePage.pause(3000);
+                agreementpagesAdobe.clickSearch();
+                ExtentReportListener.getExtentTest().pass("Clicked Search");
+
+                // Clear
+                basePage.pause(3000);
+                agreementpagesAdobe.clickClear();
+                ExtentReportListener.getExtentTest().pass("Clicked Clear");
+
+
+                basePage.pause(1000);
+                agreementpagesAdobe.clickDownload();
+                ExtentReportListener.getExtentTest().pass("Clicked Download");
+
+
+
+
+
+
+
+
+
+
 
 
 

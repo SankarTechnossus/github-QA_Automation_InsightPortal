@@ -273,8 +273,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Selected Reminders frequency: Every day");
 
 
-//
-//
+
 //            basePage.pause(5000);
 //            agreementPage.selectReminderAsEveryDay();
 //            ExtentReportListener.getExtentTest().pass("Selected 'Every day' reminder option");
@@ -304,6 +303,8 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
+
+
 
 
 
@@ -392,7 +393,22 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
 
+
+
+
+
+
+
             // *********(Please ignore the below commented lines) **********
+
+
+
+
+
+
+
+
+
 
 
 //            // Step 2: Locate the scrollable modal div using XPath
