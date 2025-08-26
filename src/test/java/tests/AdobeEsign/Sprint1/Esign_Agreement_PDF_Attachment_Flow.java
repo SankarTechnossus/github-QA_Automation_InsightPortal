@@ -304,6 +304,17 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
 
+            // Click 'Add Recipient'
+            agreementPage.clickAddRecipient();
+            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
+
+
+            // Enter recipient email
+            agreementPage.enterRecipientEmail("shankarvenkatesan59@gmail.com");
+            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
+
 
 
 

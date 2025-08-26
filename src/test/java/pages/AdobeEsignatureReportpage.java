@@ -169,9 +169,9 @@ public class AdobeEsignatureReportpage extends BasePage {
         LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(10, 15)); // 10–14 days ago
         LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 6));     // +1–5 days
         if (to.isAfter(today)) to = today;
-        pause(3000);
 
         setDate(fromInput, fmt(from));
+        pause(3000);
         setDate(toInput, fmt(to));
         return new String[] { fmt(from), fmt(to) };
     }
