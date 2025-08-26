@@ -57,8 +57,8 @@ public class Esign_Review_and_AddSign__Flow {
 
         try {
             // The user opens the login page URL from the email
-//            driver.get("https://massgen.na1.echosign.com/public/esign?tsid=CBFCIBAACBSCTBABDUAAABACAABAAJ8Dc0LcBvgEWRGVj5mW5cY0AxglbbFBx0D4pHZzHq2Q9SKwGYlizHPt80ROdAdJkweIbtdy7IL6iYVBKn-3B9wxH2ZsiO4gdw-GUWF-isQbPub40-xelMBVtY-WkziWM&");
-          driver.get("https://massgen.na1.echosign.com/public/esign?tsid=CBFCIBAACBSCTBABDUAAABACAABAAuMFeuUwL-pIKjTCxcKLlf5rqhirFZejTZtnYX623eFigXcO4hty7fNOtA_WThh3Goq8QyoFS_RUf93-lHKz6ClN3WYriR_cuNvlm0sObiSi3fns9EwiED--WXPr_ES4g&");
+            driver.get("https://massgen.na1.echosign.com/public/esign?tsid=CBFCIBAACBSCTBABDUAAABACAABAAJ8Dc0LcBvgEWRGVj5mW5cY0AxglbbFBx0D4pHZzHq2Q9SKwGYlizHPt80ROdAdJkweIbtdy7IL6iYVBKn-3B9wxH2ZsiO4gdw-GUWF-isQbPub40-xelMBVtY-WkziWM&");
+//          driver.get("https://massgen.na1.echosign.com/public/esign?tsid=CBFCIBAACBSCTBABDUAAABACAABAAuMFeuUwL-pIKjTCxcKLlf5rqhirFZejTZtnYX623eFigXcO4hty7fNOtA_WThh3Goq8QyoFS_RUf93-lHKz6ClN3WYriR_cuNvlm0sObiSi3fns9EwiED--WXPr_ES4g&");
             test.info("Opened dashboard URL");
 
             // The user waits for the login page to load
