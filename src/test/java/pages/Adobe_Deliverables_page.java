@@ -2,10 +2,13 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.BrowserUtility;
 
 import java.time.Duration;
+import java.util.Map;
 
 public class Adobe_Deliverables_page extends BasePage {
 
@@ -72,8 +75,275 @@ public class Adobe_Deliverables_page extends BasePage {
     private By firstRecipientDeleteBtn =
             By.xpath("//div[contains(@class,'email-row')][1]//button[@aria-label='Delete']");
 
+    // Use data-testid or id (stable across builds)
+    private By sendButton01 = By.cssSelector("button[data-testid='sendButton']");
+
+    // React modal overlay and the Send button inside it
+    private By modalOverlay = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
+    private By sendButton   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
+    // IFRAME + editor readiness
+    private By previewIframe       = By.xpath("//iframe[@class='sign-in-iframe']");
+    private By signatureTool       = By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span");
+    private By dropTargetOverlay   = By.xpath("//div[@data-testid='overlay-drop-target']");
+    private By circleLoader        = By.cssSelector("[class*='CircleLoader'], [role='progressbar']"); // generic loader
+//    private By modalOverlay        = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
+    private By modalContentWrapper = By.cssSelector("div.modal-content-wrapper");
+
+    // Send (outside iframe)
+    private By sendButtonInModal   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
+
+
+    // Always target the latest modal, then the concrete button id/testid
+    private By activeModalOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
+    private By sendButtonnew = By.cssSelector("div.modal-content-wrapper #sendButton"); // or: By.cssSelector("button[data-testid='footer-button-send-button']");
+    // Overlay & Send button (scope to the latest modal)
+    private By activeOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
+    private By modalContent  = By.cssSelector("div.modal-content-wrapper");
+    private By sendButtonnew01    = By.cssSelector("button#sendButton, button[data-testid='footer-button-send-button']");
+
+
+
+
+
+
+
 
     // ******** Actions *********
+
+    public void clickOnSendButton(){
+        BrowserUtility.click(driver,By.xpath("//button[@id='sendButton']"),"Send Button");
+    }
+
+    public void clickSendnew01() {
+        // Send lives OUTSIDE the iframe
+//        driver.switchTo().defaultContent();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+
+        // Ensure the latest overlay & its content are visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(activeOverlay));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(modalContent));
+
+        // Bring footer into view (your helper)
+        scrollToBottomOfModal(By.cssSelector("div.modal-content-wrapper"), 10);
+
+        // Wait until the button is truly click-ready
+        wait.until(d -> {
+            try {
+                WebElement btn = d.findElement(sendButtonnew01);               // re-find each poll (handles stale)
+                if (!btn.isDisplayed() || !btn.isEnabled()) return false;
+                String aria = btn.getAttribute("aria-disabled");
+                if ("true".equalsIgnoreCase(aria)) return false;
+
+                // Center it and ensure nothing covers it
+                ((JavascriptExecutor) d).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+                Map<?,?> pt = (Map<?,?>) ((JavascriptExecutor) d).executeScript(
+                        "const r=arguments[0].getBoundingClientRect();" +
+                                "return {x: Math.floor(r.left + r.width/2), y: Math.floor(r.top + r.height/2)};", btn);
+                WebElement top = (WebElement) ((JavascriptExecutor) d).executeScript(
+                        "return document.elementFromPoint(arguments[0], arguments[1]);", pt.get("x"), pt.get("y"));
+                return top != null && (top.equals(btn) ||
+                        (Boolean) ((JavascriptExecutor) d).executeScript(
+                                "return arguments[0].closest('button')===arguments[1];", top, btn));
+            } catch (StaleElementReferenceException | NoSuchElementException ignore) {
+                return false; // retry
+            }
+        });
+
+        // Click with safe fallback
+        try {
+            driver.findElement(sendButtonnew01).click();
+        } catch (Exception e) {
+            WebElement btn = driver.findElement(sendButtonnew01);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
+        }
+
+        pause(2000);
+    }
+
+
+
+
+    public void clickSendnew() {
+        // 1) Ensure default content (Send is OUTSIDE iframe)
+        driver.switchTo().defaultContent();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+
+        // 2) Wait for the active modal overlay and its content
+        wait.until(ExpectedConditions.visibilityOfElementLocated(activeModalOverlay));
+        WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.modal-content-wrapper")));
+
+        // 3) Bring footer into view (your existing helper)
+        scrollToBottomOfModal(By.cssSelector("div.modal-content-wrapper"), 10);
+
+        // 4) Wait for Send to be visible (not using elementToBeClickable which is flaky with overlays)
+        WebElement send = wait.until(ExpectedConditions.visibilityOfElementLocated(sendButton));
+
+        // 5) Custom "click-ready" wait: ensure no overlay is intercepting the center of the button
+        wait.until(driver -> {
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", send);
+                Long[] xy = (Long[]) ((JavascriptExecutor) driver).executeScript(
+                        "const r=arguments[0].getBoundingClientRect();" +
+                                "return [Math.floor(r.left + r.width/2), Math.floor(r.top + r.height/2)];", send);
+                Object el = ((JavascriptExecutor) driver).executeScript(
+                        "return document.elementFromPoint(arguments[0], arguments[1]);",
+                        xy[0], xy[1]);
+                return el instanceof WebElement && (send.equals(el) || ((WebElement) el).isDisplayed());
+            } catch (Exception e) { return false; }
+        });
+
+        // 6) Click with safe fallback
+        try {
+            send.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", send);
+        }
+
+        pause(2000);
+    }
+
+
+//    public void clickPreviewAndPlaceSignature() {
+//        // 1) Wait for modal overlay (outside iframe)
+//        new WebDriverWait(driver, Duration.ofSeconds(60))
+//                .until(ExpectedConditions.visibilityOfElementLocated(modalOverlay));
+//
+//        // 2) Switch to iframe when it’s available
+//        switchToFrame(previewIframe, 60);
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+//
+//        // 3) Wait for editor to finish initial loading:
+//        //    - loader gone
+//        //    - signature tool present
+//        wait.until(ExpectedConditions.or(
+//                ExpectedConditions.invisibilityOfElementLocated(circleLoader),
+//                ExpectedConditions.presenceOfElementLocated(signatureTool)
+//        ));
+//
+//        // Ensure both source & target are ready
+//        WebElement source = wait.until(ExpectedConditions.elementToBeClickable(signatureTool));
+//        WebElement target = wait.until(ExpectedConditions.visibilityOfElementLocated(dropTargetOverlay));
+//
+//        // Scroll both into view (some editors virtualize)
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", source);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", target);
+//
+//        // 4) Perform DnD with resilient strategy
+//        try {
+//            // Primary: Actions to element center
+//            new Actions(driver)
+//                    .moveToElement(source).clickAndHold()
+//                    .pause(Duration.ofMillis(250))
+//                    .moveToElement(target)
+//                    .pause(Duration.ofMillis(250))
+//                    .release()
+//                    .build().perform();
+//        } catch (Exception ignore) {
+//            // Fallback: small offset into target (canvas hit-box)
+//            Point p = target.getLocation();
+//            Dimension d = target.getSize();
+//            int offsetX = Math.max(5, d.width  / 4);
+//            int offsetY = Math.max(5, d.height / 4);
+//            new Actions(driver)
+//                    .moveToElement(source).clickAndHold()
+//                    .pause(Duration.ofMillis(200))
+//                    .moveByOffset(p.x + offsetX, p.y + offsetY)
+//                    .release()
+//                    .build().perform();
+//        }
+//
+//        pause(1500); // short stabilization, not 10s
+//    }
+//
+//    public void clickSend() {
+//        // Send button lives OUTSIDE the iframe
+//        switchToDefaultContent();
+//
+//        // Ensure modal content visible and scrolled
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(modalContentWrapper));
+//
+//        // If needed, use your existing modal scroll utility
+//        scrollToBottomOfModal(modalContentWrapper, 10);
+//
+//        WebElement send = wait.until(ExpectedConditions.elementToBeClickable(sendButtonInModal));
+//
+//        try {
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", send);
+//            send.click();
+//        } catch (Exception e) {
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", send);
+//        }
+//
+//        pause(2000);
+//    }
+//
+//
+
+
+
+    public void clickSend() {
+        // Ensure we are not in the preview iframe
+        driver.switchTo().defaultContent();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // Wait for modal overlay to appear
+        WebElement overlay = wait.until(ExpectedConditions.visibilityOfElementLocated(modalOverlay));
+
+        // Scroll modal content so footer buttons are in view (your existing util)
+        By modalContent = By.cssSelector("div.modal-content-wrapper");
+        scrollToBottomOfModal(modalContent, 20);
+
+        // Wait until Send is clickable
+        WebElement send = wait.until(ExpectedConditions.elementToBeClickable(sendButton));
+
+        // Smooth scroll to center and click with fallback
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", send);
+        try {
+            send.click();
+        } catch (Exception e) {
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", send);
+            } catch (Exception ignored) {
+                // Final fallback
+                new Actions(driver).moveToElement(send).click().perform();
+            }
+        }
+
+        pause(5000);
+    }
+
+
+
+    public void clickSendButton010() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        WebElement sendBtn = wait.until(ExpectedConditions.elementToBeClickable(sendButton01));
+
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", sendBtn);
+
+        // Try normal click
+        try {
+            sendBtn.click();
+        } catch (Exception e) {
+            // JS fallback if normal click fails
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sendBtn);
+        }
+
+        pause(5000); // controlled pause
+    }
+
+
+
+
+
+
+
 
 
     public void clickFirstRecipientDelete() {

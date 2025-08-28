@@ -3,7 +3,9 @@ package tests.AdobeEsign.Sprint1;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -13,6 +15,8 @@ import pages.Adobe_Deliverables_page;
 import pages.LoginPage;
 import pages.AgreementPage;
 import utils.DriverManager;
+import utils.WaitUtility;
+
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
@@ -134,9 +138,9 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
 
-            basePage.pause(3000);
-            agreementPage.clickAddNewDeliverable();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
+//            basePage.pause(3000);
+//            agreementPage.clickAddNewDeliverable();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
 
 
 
@@ -258,20 +262,10 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025_03.pdf'");
 
 
-//             Upload Agreement PDF
-//            String AgreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
-//            agreementPage.uploadAgreementPdf(AgreementFileName);
-//            basePage.pause(5000);
-//            ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025.pdf'");
-
-//            String filePath = System.getProperty("user.dir") + "/testfiles/AgreementInfo_2025_03.pdf";
-//            agreementPage.uploadPDFToAgreement(filePath);
-//            agreementPage.waitForUploadedFileToAppear();
 
             basePage.pause(1000);
             deliverablepage.selectReminderEveryDay();
             ExtentReportListener.getExtentTest().pass("Selected Reminders frequency: Every day");
-
 
 
             // Click 'Add Recipient'
@@ -280,7 +274,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
 
             // Enter recipient email
-            agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
+            agreementPage.enterRecipientEmail("shankarvenkaewqofj04@#$%^&*an9234155nc9");
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
 
@@ -295,67 +289,32 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
 
             // Enter recipient email
-            agreementPage.enterRecipientEmail("shankarvenkatesan59@gmail.com");
+            agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered value in recipient input field");
-
-
-
-
-
-
-
-            //***************   Flow stops ***********
-
 
 
             // Click Preview button
             agreementPage.clickPreviewButton();
             basePage.pause(10000);
+            basePage.switchToFrame(By.xpath("//iframe[@class='sign-in-iframe']"), 20);
+
+            basePage.waitAdobeFormToBeVisible();
             ExtentReportListener.getExtentTest().pass("Clicked 'Preview' button inside 'add-recipients-section'");
 
-
-
-
-
-
-
-//            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
-//            basePage.pause(10000);
-//            ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
-//
-//
-//            WebElement sourceEle  = driver.findElement(By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span"));
-//            WebElement targetEle= driver.findElement(By.xpath("//div[@data-testid='overlay-drop-target']"));
-//
-//
-//            Actions actions = new Actions(driver);
-//            actions.dragAndDrop(sourceEle,targetEle).build().perform();
-//
-//            basePage.pause(30000);
-//            ExtentReportListener.getExtentTest().pass("drag and drop was successfully");
-//            // User will wait after clicking E-signature field
-//            basePage.pause(10000);
-//
-//            // Step 1: Ensure you're back to default content (especially if you used switchTo().frame earlier)
-//            driver.switchTo().defaultContent();
-//            ExtentReportListener.getExtentTest().info("Switched to default content");
-
-            // ********* End here **********
-
-            basePage.switchToFrame(By.xpath("//iframe[@class='sign-in-iframe']"), 15);
             basePage.pause(10000);
             ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
 
             basePage.dragAndDrop(
                     By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span"),
                     By.xpath("//div[@data-testid='overlay-drop-target']"),
-                    15);
-            basePage.pause(30000);
+                    20);
+            basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Drag and drop was successful");
 
             basePage.switchToDefaultContent();
             ExtentReportListener.getExtentTest().info("Switched to default content");
+
 
 
             // Step 1: Scroll the modal
@@ -370,83 +329,15 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.switchToFrame(iframeLocator, 20);
             ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
 
-            basePage.pause(10000);
 
-            // Step 3: Click the 'Send' button
-            By sendButton = By.xpath("//span[text()='Send' and @class='ntVziG_spectrum-Button-label']");
-            basePage.clickElement(sendButton, 20);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Send' button");
-
-            basePage.pause(20000);
-
-            // Step 4: Switch back to default content
-            basePage.switchToDefaultContent();
-            ExtentReportListener.getExtentTest().pass("Switched back to default content");
-
-            // Step 5: Click the 'Status' tab
-            By statusTab = By.xpath("//a[text()='Status']");
-            basePage.clickElement(statusTab, 20);
-            basePage.pause(10000);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
+            Adobe_Deliverables_page deliverableoage02 =new Adobe_Deliverables_page (driver);
 
 
+            basePage.pause(2000);
+            deliverableoage02.clickOnSendButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Send' button successfully");
 
 
-
-
-
-            // *********(Please ignore the below commented lines) **********
-
-
-
-
-
-
-
-
-
-
-
-//            // Step 2: Locate the scrollable modal div using XPath
-//            WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'modal-content-wrapper')]")));
-//            ExtentReportListener.getExtentTest().pass("Located scrollable modal-content-wrapper");
-//
-//            // Step 3: Perform scroll using JavaScript
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollableDiv);
-//            ExtentReportListener.getExtentTest().pass("Successfully scrolled the modal-content-wrapper");
-//
-//            // User will wait until user is scroll down
-//            basePage.pause(10000);
-//
-//
-//            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='sign-in-iframe']")));
-//            ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
-//
-//            // User will wait until user is scroll down
-//            basePage.pause(10000);
-//
-//
-//            // User will click the 'Send' button to send the document for signature
-//            WebElement sendButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Send' and @class='ntVziG_spectrum-Button-label']")));
-//            sendButton.click();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Send' button");
-//
-//            // User will wait after clicking send button
-//            basePage.pause(20000);
-//
-//
-//            driver.switchTo().defaultContent();
-//            ExtentReportListener.getExtentTest().pass("Switched back to default content");
-//
-//            // User will click the 'Status' tab to verify the current document status
-//            WebElement statusTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Status']")));
-//            statusTab.click();
-//            basePage.pause(10000);
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Status' tab");
-            // User will wait after navigating to the status tab
-
-            // ********* End here **********
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -462,5 +353,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
+
+
 
 }

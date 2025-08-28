@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WaitUtility;
 
 import java.time.Duration;
 
@@ -104,15 +105,38 @@ public class BasePage {
         driver.switchTo().defaultContent();
     }
 
-    public void dragAndDrop(By sourceLocator, By targetLocator, int timeoutInSeconds) {
-        WebElement source = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-                .until(ExpectedConditions.presenceOfElementLocated(sourceLocator));
-        WebElement target = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-                .until(ExpectedConditions.presenceOfElementLocated(targetLocator));
+//    public void dragAndDrop(By sourceLocator, By targetLocator, int timeoutInSeconds) {
+//        WebElement source = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+//                .until(ExpectedConditions.presenceOfElementLocated(sourceLocator));
+//        WebElement target = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+//                .until(ExpectedConditions.presenceOfElementLocated(targetLocator));
+//
+//        Actions actions = new Actions(driver);
+//        actions.dragAndDrop(source, target).build().perform();
+//    }
 
+    public void dragAndDrop(By sourceLocator, By targetLocator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+
+        // Wait until both source and target are visible & clickable
+        WebElement source = wait.until(ExpectedConditions.elementToBeClickable(sourceLocator));
+        WebElement target = wait.until(ExpectedConditions.visibilityOfElementLocated(targetLocator));
+
+        // Scroll both into view (optional but avoids "not clickable at point" issues)
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", source);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", target);
+
+        // Perform drag and drop
         Actions actions = new Actions(driver);
-        actions.dragAndDrop(source, target).build().perform();
+        actions.clickAndHold(source)
+                .pause(Duration.ofMillis(300))   // small stability pause
+                .moveToElement(target)
+                .pause(Duration.ofMillis(300))
+                .release()
+                .build()
+                .perform();
     }
+
 
     // Optional: Add more reusable methods
     public void click(By locator) {
@@ -123,5 +147,10 @@ public class BasePage {
         WebElement element = waitForElement(locator);
         element.clear();
         element.sendKeys(text);
+    }
+
+    public void waitAdobeFormToBeVisible(){
+        String xpath = "//span[normalize-space(.)='Add form fields for']";
+        WaitUtility.waitForVisibility(driver,By.xpath(xpath),60,"Adobe Form");
     }
 }
