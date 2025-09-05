@@ -138,9 +138,9 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
 
-//            basePage.pause(3000);
-//            agreementPage.clickAddNewDeliverable();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
+            basePage.pause(3000);
+            agreementPage.clickAddNewDeliverable();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
 
 
 
