@@ -224,7 +224,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(3000);
             deliverablepage.clickDownloadSelected();
             ExtentReportListener.getExtentTest().pass("Clicked 'Download Selected' successfully");
-//
+
 
             basePage.pause(5000);
             deliverablepage.tickFirstCheckbox();
@@ -348,7 +348,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
     @AfterMethod
     public void tearDown() {
 
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
