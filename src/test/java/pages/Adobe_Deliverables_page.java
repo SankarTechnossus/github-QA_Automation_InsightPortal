@@ -101,14 +101,215 @@ public class Adobe_Deliverables_page extends BasePage {
     private By modalContent  = By.cssSelector("div.modal-content-wrapper");
     private By sendButtonnew01    = By.cssSelector("button#sendButton, button[data-testid='footer-button-send-button']");
 
+    private By deleteIcon = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
+    private By sentForSignaturesButton = By.xpath("//button[@type='button' and @aria-label='Status' and contains(@class,'esign-module__pending')]");
 
 
+    private By editRecipientButton = By.xpath("//td[@data-column='options']//button[@aria-label='Edit Recipient']");
+    private By cancelButtonemail = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
+    private By saveButtonemail = By.xpath("//button[@type='button' and @aria-label='Save' and normalize-space()='Save']");
+    private By recipientEmailInput = By.xpath("//input[@id='email' and @type='text']");
+    private By pendingRecipientEditButton = By.xpath("//tr[td[@data-column='status' and @data-value='Pending']]//button[@aria-label='Edit Recipient' and not(@disabled)]");
+    private By closeModalButton = By.xpath("//button[@type='button' and @aria-label='Close modal']");
+    private By unsignedDocDownloadButton = By.xpath("//div[contains(@class,'esign-module__downloadLink')]//button[contains(text(),'Download') and not(@disabled)]");
+    private By eSignOptionsMenuButton = By.xpath("//table[.//th//div[normalize-space()='Options']]//tbody//tr[1]//td[last()]//button[not(@disabled)]");
+    private By deleteIconemail = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
+    private By cancelButtonfrom = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
+    private By closeButtonfrom = By.xpath("//button[@type='button' and @aria-label='Close' and normalize-space()='Close']");
 
 
 
 
 
     // ******** Actions *********
+
+
+    public void clickCloseButton() {
+        WebElement closeBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(closeButtonfrom));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", closeBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(closeBtn));
+
+        closeBtn.click();
+        pause(2000);
+    }
+
+
+    public void clickCancelButtonfrom() {
+        WebElement cancelBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(cancelButtonfrom));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(cancelBtn));
+
+        cancelBtn.click();
+        pause(2000);
+    }
+
+
+
+    public void clickDeleteIconemail() {
+        WebElement deleteEl = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(deleteIconemail));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", deleteEl);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(deleteEl));
+
+        deleteEl.click();
+        pause(2000);
+    }
+
+    public void clickESignOptionsMenu() {
+        WebElement menuBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(eSignOptionsMenuButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", menuBtn);
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(menuBtn));
+
+        menuBtn.click();
+        pause(1500);
+    }
+
+
+
+    public void clickUnsignedDocDownloadButton() {
+        WebElement downloadBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(unsignedDocDownloadButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", downloadBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(downloadBtn));
+
+        downloadBtn.click();
+        pause(2000);
+    }
+
+
+    public void clickCloseModalButton() {
+        WebElement closeBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(closeModalButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", closeBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(closeBtn));
+
+        closeBtn.click();
+        pause(2000);
+    }
+
+
+
+    public void clickPendingRecipientEditButton() {
+        WebElement editBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(pendingRecipientEditButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", editBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(editBtn));
+
+        editBtn.click();
+        pause(2000);
+    }
+
+
+
+    public void setRecipientEmail(String email) {
+        WebElement emailInput = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(recipientEmailInput));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", emailInput);
+
+        emailInput.clear();
+        emailInput.sendKeys(email);
+
+        pause(1000);
+    }
+
+
+
+    public void clickSaveButton() {
+        WebElement saveBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(saveButtonemail));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", saveBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(saveBtn));
+
+        saveBtn.click();
+        pause(2000);
+    }
+
+
+    public void clickCancelButton() {
+        WebElement cancelBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(cancelButtonemail));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(cancelBtn));
+
+        cancelBtn.click();
+        pause(2000);
+    }
+
+
+
+    public void clickEditRecipientButton() {
+        WebElement editButton = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(editRecipientButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", editButton);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(editButton));
+
+        editButton.click();
+        pause(2000);
+    }
+
+
+
+    public void clickSentForSignaturesButton() {
+        WebElement sentButton = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(sentForSignaturesButton));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", sentButton);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(sentButton));
+
+        sentButton.click();
+        pause(2000);
+    }
+
+
+
+    public void clickDeleteIcon() {
+        WebElement deleteElement = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(deleteIcon));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", deleteElement);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(deleteElement));
+
+        deleteElement.click();
+        pause(2000);
+    }
+
 
     public void clickOnSendButton(){
         BrowserUtility.click(driver,By.xpath("//button[@id='sendButton']"),"Send Button");
