@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -97,11 +98,6 @@ public class AdobeE_sign_Flow {
             // Enter Agreement Number ****** This record has access issue ***********
             // agreementPage.enterAgreementNumber("2025A012368");
         //         *********______Alternative_Agreement number____**********
-            agreementPage.enterAgreementNumber("2025A015018");
-            basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
-
-
             agreementPage.enterAgreementNumber("2025A015018");
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
@@ -257,6 +253,16 @@ public class AdobeE_sign_Flow {
             basePage.pause(2000);
             deliverableoage02.clickOnSendButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Send' button successfully");
+
+
+            basePage.switchToDefaultContent();
+            ExtentReportListener.getExtentTest().info("Switched to default content");
+
+
+            basePage.pause(5000);
+            deliverableoage02.scrollUpInPreviewModal();
+            ExtentReportListener.getExtentTest().pass("Scrolled up inside the Preview modal successfully");
+
 
 
             basePage.pause(5000);

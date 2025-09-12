@@ -124,6 +124,19 @@ public class Adobe_Deliverables_page extends BasePage {
     // ******** Actions *********
 
 
+    public void scrollUpInPreviewModal() {
+        // Locate the scrollable container
+        WebElement modalContentWrapper = new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector("div.modal-content-wrapper")));
+
+        // Use JavaScript to scroll to the top
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = 0;", modalContentWrapper);
+
+        pause(2000); // optional pause to let UI stabilize
+    }
+
+
     public void clickCloseButton() {
         WebElement closeBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(closeButtonfrom));

@@ -153,4 +153,29 @@ public class BasePage {
         String xpath = "//span[normalize-space(.)='Add form fields for']";
         WaitUtility.waitForVisibility(driver,By.xpath(xpath),60,"Adobe Form");
     }
+
+    public WebElement getVisibleElement(By locator, int timeout) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void switchToFrame(WebElement frameElement, int timeout) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeout))
+                .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameElement));
+    }
+//
+//    public void switchToDefaultContent() {
+//        driver.switchTo().defaultContent();
+//    }
+
+    public void waitForStaleness(WebElement element, int timeout) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeout))
+                .until(ExpectedConditions.stalenessOf(element));
+    }
+
+    public void waitForVisible(By locator, int timeout) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeout))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
 }
