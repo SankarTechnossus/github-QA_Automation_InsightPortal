@@ -332,14 +332,6 @@ public class AdobeE_sign_Flow {
 
 
 
-
-
-
-
-
-
-
-
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
