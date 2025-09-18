@@ -142,9 +142,11 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
             ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
 
 
-            basePage.pause(5000);  // Optional
-            agreementPage.selectTypeAsChecklist();
-            ExtentReportListener.getExtentTest().pass("Selected 'Checklist' from Type dropdown");
+
+            basePage.pause(5000);
+            agreementPage.selectTypeAsExportControlRequestnew01();
+            ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' from Type dropdown successfully");
+
 
 
             basePage.pause(5000);

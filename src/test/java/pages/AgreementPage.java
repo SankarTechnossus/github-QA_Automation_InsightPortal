@@ -63,8 +63,76 @@ public class AgreementPage extends BasePage {
     private By addNewDeliverableBtn = By.xpath("//button[contains(@class,'add-deliverable-button') and normalize-space(.)='Add New Deliverable']");
 
 
+    // --- Type dropdown (React-Select) ---
+    private By typeControl = By.xpath("//label[@for='type']/following::div[contains(@class,'select-control')][1]");
+    private By typeInput   = By.id("type"); // the hidden text input inside the control
+
+    // React-Select menu container (appears after opening)
+    private By rsMenu      = By.xpath("//div[contains(@class,'menu')]");
+
+    // Build an option locator by visible text (trim-safe)
+    private By optionBy(String text) {
+        return By.xpath("//div[contains(@class,'menu')]//div[contains(@class,'option')][normalize-space()='" + text + "']");
+    }
+
+
+    private By typeControlnew01 = By.xpath("//label[@for='type']/following::div[contains(@class,'select-control')][1]");
+
+
 
     // ******** Actions *********
+
+
+    public void selectTypeAsExportControlRequestnew01() {
+        WebElement control = new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.visibilityOfElementLocated(typeControlnew01));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", control);
+
+        control.click();
+
+        WebElement option = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//div[contains(@class,'menu')]//div[normalize-space()='Export Control Request']")));
+        option.click();
+
+        pause(1000);
+    }
+
+
+
+//    public void selectType(String visibleText) {
+//        WebElement control = new WebDriverWait(driver, Duration.ofSeconds(30))
+//                .until(ExpectedConditions.visibilityOfElementLocated(typeControl));
+//
+//        // Scroll into view (center) per your pattern
+//        ((JavascriptExecutor) driver).executeScript(
+//                "arguments[0].scrollIntoView({block:'center'});", control);
+//
+//        // Open dropdown (React-Select)
+//        control.click();
+//
+//        // Wait for menu to render
+//        new WebDriverWait(driver, Duration.ofSeconds(10))
+//                .until(ExpectedConditions.visibilityOfElementLocated(rsMenu));
+//
+//        // Click the desired option by text
+//        WebElement opt = new WebDriverWait(driver, Duration.ofSeconds(10))
+//                .until(ExpectedConditions.elementToBeClickable(optionBy(visibleText)));
+//        opt.click();
+//
+//        // small controlled pause
+//        pause(1000);
+//    }
+
+//    // Convenience wrapper to match your usual call style
+//    public void selectTypeAsExportControlRequest() {
+//        selectType("Export Control Request");
+//    }
+//
+
+
 
 
     public void clickAddNewDeliverable() {
