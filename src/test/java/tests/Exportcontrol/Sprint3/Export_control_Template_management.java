@@ -90,6 +90,18 @@ public class Export_control_Template_management {
             Export_control_Template_managemnet_Page01.clickTemplateManagementExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
 
+            basePage.pause(5000);
+            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+
+            basePage.pause(3000);
+            String generatedTitle = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle);
+
+
+
+
+
 
 
 

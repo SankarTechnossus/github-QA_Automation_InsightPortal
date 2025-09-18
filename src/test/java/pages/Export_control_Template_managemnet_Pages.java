@@ -26,9 +26,40 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     // Child: Export Control under Template Management
     private By exportControlLink = By.xpath("//a[@class='label' and normalize-space()='Export Control' and contains(@href,'template-management/export-control')]");
 
+    private By addNewTemplateLink = By.xpath("//a[@href='/administration/template-management/new' and normalize-space()='Add new']");
+
+    private By titleInput = By.id("title");
+
 
 
     //Action
+
+    public String enterUniqueTitle() {
+        // Generate unique name starting with "Test"
+        String uniqueTitle = "Test" + System.currentTimeMillis();
+
+        WebElement input = new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.visibilityOfElementLocated(titleInput));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+        input.clear();
+        input.sendKeys(uniqueTitle);
+
+        pause(500);
+        return uniqueTitle; // return value if you want to use it in test for validation
+    }
+
+
+    public void clickAddNewTemplate() {
+        WebElement addNew = new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.elementToBeClickable(addNewTemplateLink));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", addNew);
+        addNew.click();
+
+        pause(1000);
+    }
+
 
     public void clickTemplateManagementExportControl() {
         // Scroll Template Management into view
