@@ -86,6 +86,10 @@ public class Export_control_Template_management {
 
             Export_control_Template_managemnet_Pages  Export_control_Template_managemnet_Page01 = new Export_control_Template_managemnet_Pages(driver);
 
+            basePage.pause(5000);
+            Export_control_Template_managemnet_Page01.clickTemplateManagementExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
+
 
 
 
