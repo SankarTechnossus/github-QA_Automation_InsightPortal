@@ -1,10 +1,7 @@
 package pages;
 
 import base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,9 +27,44 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
 
     private By titleInput = By.id("title");
 
+    private By templateManagementMenu01 = By.xpath("//div[@id='left-sidebar']//a[@class='label' and normalize-space()='Template Management']");
+    private By exportControlLink01 = By.xpath("//div[@id='left-sidebar']//a[@class='label' and normalize-space()='Export Control' and contains(@href,'template-management/export-control')]");
+
+
 
 
     //Action
+
+    public void clickTemplateManagementExportControl01() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        WebElement templateMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(templateManagementMenu01));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", templateMenu);
+
+        try {
+            templateMenu.click(); // parent often navigates directly
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", templateMenu);
+        }
+
+        // EITHER: we already navigated to the page, OR we need to click the child link
+        boolean onTarget =
+                wait.until(d -> d.getCurrentUrl().contains("/administration/template-management/export-control")
+                        || !driver.findElements(exportControlLink01).isEmpty());
+
+        if (!driver.getCurrentUrl().contains("/administration/template-management/export-control")) {
+            // Sidebar path: click the child
+            WebElement child = wait.until(ExpectedConditions.elementToBeClickable(exportControlLink01));
+            try {
+                child.click();
+            } catch (ElementClickInterceptedException e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", child);
+            }
+        }
+
+        pause(1000);
+    }
+
 
     public String enterUniqueTitle() {
         // Generate unique name starting with "Test"
