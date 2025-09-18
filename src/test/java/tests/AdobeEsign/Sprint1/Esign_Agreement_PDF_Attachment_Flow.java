@@ -52,7 +52,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             // User will open the login page of the Insight Portal application
-            driver.get("https://sacramento-insight4.partners.org/");
+            driver.get("https://hollywood-insight4.partners.org/");
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
