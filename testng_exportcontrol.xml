@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="ExportControl_Sprint1_and_Sprint2_Suite" verbose="2" parallel="false">
+
+    <!-- Sprint 1 -->
+    <test name="ExportControl_Sprint1">
+        <packages>
+            <package name="tests.Exportcontrol.Sprint1"/>
+        </packages>
+    </test>
+
+    <!-- Sprint 2 -->
+    <test name="ExportControl_Sprint2">
+        <packages>
+            <package name="tests.Exportcontrol.Sprint2"/>
+        </packages>
+    </test>
+
+</suite>
