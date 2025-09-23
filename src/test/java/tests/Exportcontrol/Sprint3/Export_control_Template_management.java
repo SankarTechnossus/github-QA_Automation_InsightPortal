@@ -99,6 +99,73 @@ public class Export_control_Template_management {
             String generatedTitle = Export_control_Template_managemnet_Page01.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle);
 
+            basePage.pause(5000);
+            String filePath = System.getProperty("user.dir") + "/Test_Data/testjpg.jpg";
+            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath);
+            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+
+            basePage.pause(3000);
+            Export_control_Template_managemnet_Page01.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+
+
+
+            basePage.pause(5000);
+            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+
+
+            basePage.pause(3000);
+            String generatedTitle03 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle03);
+
+            basePage.pause(5000);
+            String filePath03 = System.getProperty("user.dir") + "/Test_Data/img.png";
+            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath03);
+            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+
+            basePage.pause(3000);
+            Export_control_Template_managemnet_Page01.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+
+
+
+            basePage.pause(3000);
+            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+
+            basePage.pause(3000);
+            String generatedTitle02 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle02);
+
+            basePage.pause(5000);
+            String filePath02 = System.getProperty("user.dir") + "/Test_Data/Testdata.docx";
+            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath02);
+            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+
+            basePage.pause(5000);
+            Export_control_Template_managemnet_Page01.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+
+
+            basePage.pause(5000);
+            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+
+
+            basePage.pause(3000);
+            String generatedTitle01 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
+
+            basePage.pause(5000);
+            String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath01);
+            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+
+            basePage.pause(5000);
+            Export_control_Template_managemnet_Page01.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
+
 
 
 

@@ -29,11 +29,62 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
 
     private By templateManagementMenu01 = By.xpath("//div[@id='left-sidebar']//a[@class='label' and normalize-space()='Template Management']");
     private By exportControlLink01 = By.xpath("//div[@id='left-sidebar']//a[@class='label' and normalize-space()='Export Control' and contains(@href,'template-management/export-control')]");
+    // Cancel button under Template Management
+    private By cancelButton = By.xpath("//a[normalize-space()='Cancel']");
+    // Create button under Template Management
+    private By createButton = By.xpath("//button[normalize-space()='Create']");
 
 
 
 
     //Action
+
+
+    public void clickCreateButton() {
+        WebElement create = driver.findElement(createButton);
+
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", create);
+
+        // Wait until clickable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(create));
+
+        // Click
+        create.click();
+
+        // Controlled pause
+        pause(1000);
+    }
+
+
+
+    public void clickCancelButton() {
+        WebElement cancel = driver.findElement(cancelButton);
+
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancel);
+
+        // Wait until clickable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(cancel));
+
+        // Click
+        cancel.click();
+
+        // Controlled pause
+        pause(1000);
+    }
+
+    // Locator for the hidden file input
+    private By fileUploadInput = By.xpath("//input[@type='file']");
+
+    public void uploadAgreementFile(String filePath) {
+        WebElement uploadElement = driver.findElement(fileUploadInput);
+        // Directly send file path (bypasses drag/drop UI)
+        uploadElement.sendKeys(filePath);
+    }
+
 
     public void clickTemplateManagementExportControl01() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
