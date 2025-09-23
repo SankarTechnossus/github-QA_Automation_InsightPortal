@@ -33,11 +33,104 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     private By cancelButton = By.xpath("//a[normalize-space()='Cancel']");
     // Create button under Template Management
     private By createButton = By.xpath("//button[normalize-space()='Create']");
+    // Date Format (react-select) control that owns the input id=configurationPayload.dateFormat
+    private By dateFormatControl = By.xpath(
+            "//div[contains(@class,'select-control')][.//input[@id='configurationPayload.dateFormat']]");
+
+    // Generic option by visible text (react-select renders role='option')
+    private By dateFormatOption(String text) {
+        return By.xpath("//div[@role='option' and normalize-space()='" + text + "']");
+    }
+
+    // Active (react-select) control that owns the input id=isActive
+    private By activeControl = By.xpath(
+            "//div[contains(@class,'select-control')][.//input[@id='isActive']]");
+
+    // Active option locators
+    private By activeOptionYes = By.xpath("//div[@role='option' and normalize-space()='Yes']");
+    private By activeOptionNo  = By.xpath("//div[@role='option' and normalize-space()='No']");
+
+    // Cancel link
+    private By cancelLink = By.xpath("//a[normalize-space()='Cancel']");
+    // Save button under Template Management
+    private By saveButton = By.xpath("//button[normalize-space()='Save']");
+
 
 
 
 
     //Action
+
+
+    public void clickSaveButton() {
+        WebElement save = driver.findElement(saveButton);
+
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", save);
+
+        // Wait until clickable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(save));
+
+        // Click
+        save.click();
+
+        // Controlled pause
+        pause(1000);
+    }
+
+
+
+    public void selectDateFormat(String formatText) {
+        WebElement control = driver.findElement(dateFormatControl);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        control.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement option = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(dateFormatOption(formatText)));
+        option.click();
+
+        pause(1000);
+    }
+
+    public void setActiveToNo() {
+        WebElement control = driver.findElement(activeControl);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        control.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNo));
+        option.click();
+
+        pause(1000);
+    }
+
+
+    public void setActiveToYES() {
+        WebElement control = driver.findElement(activeControl);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        control.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionYes));
+        option.click();
+
+        pause(1000);
+    }
+
+
+    public void clickCancel() {
+        WebElement cancel = driver.findElement(cancelLink);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cancel);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(cancel));
+        cancel.click();
+
+        pause(1000);
+    }
+
 
 
     public void clickCreateButton() {
