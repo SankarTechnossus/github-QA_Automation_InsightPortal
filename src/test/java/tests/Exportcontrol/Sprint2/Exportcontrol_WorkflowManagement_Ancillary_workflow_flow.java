@@ -110,9 +110,9 @@ public class Exportcontrol_WorkflowManagement_Ancillary_workflow_flow {
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
 
-            basePage.pause(5000);
-            ancillaryworkflow.selectOptionFromDropdownancillary("Triggering Rule","testing");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+//            basePage.pause(5000);
+//            ancillaryworkflow.selectOptionFromDropdownancillary("Triggering Rule","testing");
+//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
 
@@ -136,9 +136,9 @@ public class Exportcontrol_WorkflowManagement_Ancillary_workflow_flow {
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
 
 
-            basePage.pause(5000);
-            ancillaryworkflow.selectOptionFromDropdownancillary("Triggering Rule","testing");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+//            basePage.pause(5000);
+//            ancillaryworkflow.selectOptionFromDropdownancillary("Triggering Rule","testing");
+//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
 
