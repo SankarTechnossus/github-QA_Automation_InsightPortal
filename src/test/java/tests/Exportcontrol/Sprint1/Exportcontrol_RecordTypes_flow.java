@@ -216,10 +216,10 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.enterRefMeaning(refValue01);
             ExtentReportListener.getExtentTest().pass("Entered '" + refValue01 + "' into Ref Meaning input field");
 
-
-            basePage.pause(5000);
-            adminPageRecordtypes.tickActiveCheckbox();
-            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+//
+//            basePage.pause(5000);
+//            adminPageRecordtypes.tickActiveCheckbox();
+//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickCreateButton();

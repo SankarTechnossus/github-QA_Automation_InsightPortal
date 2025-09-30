@@ -30,7 +30,12 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     private By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
     private By activeCheckbox = By.id("active");
     private By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
-    private By cancelButton = By.xpath("//a[contains(@class,'_cancelLink_1i3of_13') and text()='Cancel']");
+//    private By cancelButton = By.xpath("//a[contains(@class,'_cancelLink_1i3of_13') and text()='Cancel']");
+// safest: text + href (handles CSS-module class churn)
+    private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/record-types')]");
+// minimal (only text) — OK if no other 'Cancel' on the page
+// private By cancelButton = By.linkText("Cancel");
+
     private By searchByNameInput = By.xpath("//input[@placeholder='Search by Name']");
     private By searchButton = By.xpath("//button[@type='button' and text()='Search']");
     private By clearSelectionsButton = By.xpath("//button[@type='button' and text()='Clear Selections']");
