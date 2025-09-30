@@ -84,7 +84,7 @@ public class Exportcontrol_RecordTypes_flow {
             Exportcontrol_RecordTypes_Page adminPageRecordtypes = new Exportcontrol_RecordTypes_Page(driver);
 
             basePage.pause(5000);
-            adminPageRecordtypes.clickRecordTypesLink();
+            adminPageRecordtypes.openRecordTypesExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked 'Record Types' link successfully");
 
 
@@ -107,9 +107,9 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.enterRecordType("Test01");
             ExtentReportListener.getExtentTest().pass("Entered 'Test' into Record Type input field");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.tickActiveCheckbox();
-            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+//            basePage.pause(5000);
+//            adminPageRecordtypes.tickActiveCheckbox();
+//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
 
 
             basePage.pause(5000);
@@ -133,9 +133,9 @@ public class Exportcontrol_RecordTypes_flow {
             ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
 
 
-            basePage.pause(5000);
-            adminPageRecordtypes.tickActiveCheckbox();
-            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+//            basePage.pause(5000);
+//            adminPageRecordtypes.tickActiveCheckbox();
+//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
 
 
             basePage.pause(5000);

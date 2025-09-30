@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.NoSuchElementException;
 
 
 public class Exportcontrol_RecordTypes_Page extends BasePage{
@@ -40,9 +41,62 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     private By moduleDropdownArrow = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
     private final String moduleOptionXpath = "//div[text()='%s']";
 
+    // Top-level "Record Types" (level-1)
+    private By recordTypesLink02 = By.xpath(
+            "//div[contains(@class,'-level-1') and contains(@class,'menu-item')]//a[contains(@class,'label') and contains(@href,'/administration/record-types')]//span[normalize-space()='Record Types']"
+    );
+
+    // The caret/expand button for "Record Types"
+    private By recordTypesToggle = By.xpath(
+            "//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]//div[contains(@class,'menu-item-side-element')]//button[contains(@class,'toggle-menu-icon-button')]"
+    );
+
+    // Child "Export Control" under Record Types (level-2), *scoped to the Record Types branch*
+    private By recordTypesExportControl = By.xpath(
+            "//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]"
+                    + "/following-sibling::div[contains(@class,'toggleable-menu-children')]"
+                    + "//a[contains(@class,'label')]//span[normalize-space()='Export Control']"
+    );
+
+
 
 
     //Actions
+    public void openRecordTypesExportControl() {
+        // ensure the parent row is in view
+        WebElement parent = driver.findElement(recordTypesLink02);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", parent);
+
+        // if children are collapsed, expand
+        WebElement toggle = driver.findElement(recordTypesToggle);
+        if (toggle.getAttribute("aria-expanded") != null && toggle.getAttribute("aria-expanded").equals("false")) {
+            toggle.click();
+        } else {
+            // some UIs don’t set aria-expanded; click if children not visible
+            try {
+                driver.findElement(recordTypesExportControl); // present but might be hidden
+            } catch (NoSuchElementException e) {
+                toggle.click();
+            }
+        }
+
+        // wait for the submenu item to be visible & clickable, then click
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+        By visibleChild = By.xpath(
+                "//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]"
+                        + "/following-sibling::div[contains(@class,'toggleable-menu-children')]"
+                        + "//a[contains(@class,'label')]//span[normalize-space()='Export Control']/.."
+        );
+        WebElement child = wait.until(ExpectedConditions.elementToBeClickable(visibleChild));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", child);
+        child.click();
+
+        pause(500); // optional, matches your pattern
+    }
+
+
+
+
 
 
     public void selectModuleAsExportControl() {

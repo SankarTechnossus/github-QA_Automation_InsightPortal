@@ -117,12 +117,12 @@ public class Exportcontrol_WorkflowManagement_Workflows {
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Transaction Type","Test");
+            workflowpage.selectOptionFromDropdown("Transaction Type","Test1");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Reviewed");
+            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
@@ -154,12 +154,12 @@ public class Exportcontrol_WorkflowManagement_Workflows {
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Transaction Type","Test");
+            workflowpage.selectOptionFromDropdown("Transaction Type","Test1");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Reviewed");
+            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
