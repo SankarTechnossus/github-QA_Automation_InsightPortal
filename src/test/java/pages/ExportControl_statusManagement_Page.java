@@ -25,7 +25,11 @@ public class ExportControl_statusManagement_Page extends BasePage{
     private By exportControlSubmenu = By.xpath("//a[.//span[text()='Export Control'] and contains(@class,'_menuItem')]");
     private By addStatusButton = By.xpath("//button[text()='Add Status' and contains(@class,'-primary')]");
     private By statusNameInput = By.xpath("//input[@type='text' and contains(@class,'default-input')]");
-    private By cancelButton = By.xpath("//button[text()='Cancel' and contains(@class,'-unstyled')]");
+//    private By cancelButton = By.xpath("//button[text()='Cancel' and contains(@class,'-unstyled')]");
+    private By cancelButton = By.xpath(
+            "//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Cancel']"
+    );
+
     private By addButton = By.xpath("//button[text()='Add' and contains(@class,'-primary')]");
     private By statusNameEditInput = By.xpath("//label[.//span[text()='Status Name']]//input[@type='text']");
 //    private By activeDropdown = By.xpath("//label[.//span[text()='Active']]/following-sibling::div[contains(@class,'select-control')]");

@@ -15,13 +15,14 @@ public class ExportControl_TransactionTypes_Page extends BasePage {
 
 
     // Locators
-    private By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types/transaction-type']/span[text()='Transaction Types']");
+//    private By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types/transaction-type']/span[text()='Transaction Types']");
     private By exportControlTransactionTypeLink = By.xpath("//span[text()='Export Control']/parent::a");
 //    private By exportControlTransactionTypeLink = By.xpath("//a[@href='/administration/transaction-types/transaction-type']/span[text()='Export Control']");
     private By addNewTransactionTypeLink = By.xpath("//a[@href='/administration/transaction-types/transaction-new' and normalize-space(text())='Add new']");
     private By transactionTypeInput = By.xpath("//input[@id='name' and contains(@class,'text-input') and contains(@class,'default-input')]");
     private By searchByNameInput = By.xpath("//input[@placeholder='Search by Name' and contains(@class,'text-input') and contains(@class,'default-input')]");
     private By activeCheckbox = By.id("isActive");
+    private By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types']//span[normalize-space()='Transaction Types']");
 
 
 
