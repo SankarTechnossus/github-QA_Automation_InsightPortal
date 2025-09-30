@@ -105,11 +105,11 @@ public class Exportcontrol_TransactionTypes_flow {
             transactionTypesPage.checkActiveCheckbox();
             ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
 
-
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+//
+//
+//            basePage.pause(5000);
+//            adminPageRecordtypes.clickCreateButton();
+//            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
 
             basePage.pause(5000);

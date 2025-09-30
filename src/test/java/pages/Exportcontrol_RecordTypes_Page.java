@@ -32,7 +32,13 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     private By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
 //    private By cancelButton = By.xpath("//a[contains(@class,'_cancelLink_1i3of_13') and text()='Cancel']");
 // safest: text + href (handles CSS-module class churn)
-    private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/record-types')]");
+//    private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/record-types')]");
+// safest: use text + href
+private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/transaction-types')]");
+
+    // or, if you don’t care about href, just text:
+//    private By cancelButton = By.linkText("Cancel");
+
 // minimal (only text) — OK if no other 'Cancel' on the page
 // private By cancelButton = By.linkText("Cancel");
 
