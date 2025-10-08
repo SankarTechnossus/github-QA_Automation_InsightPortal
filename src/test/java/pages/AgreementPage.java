@@ -15,6 +15,12 @@ public class AgreementPage extends BasePage {
     }
 
     // Locators
+    // Sidebar container (current module)
+    private By leftSidebar = By.cssSelector("div[class*='administrationSubmenu'][class*='current-module']");
+
+    // Exact link for Forms Management > Export Control
+    private By exportControlLink = By.cssSelector("a[href='/administration/forms-management-export-control']");
+
     private By agreementsLink = By.xpath("//a[contains(text(),'Agreements')]");
     private By agreementNumberInput = By.xpath("//input[@id='agreementNumber']");
     private By searchButton = By.xpath("//button[text()='Search']");
@@ -37,8 +43,8 @@ public class AgreementPage extends BasePage {
     private By searchByNameInput = By.xpath("//input[@type='text' and @placeholder='Search by Name' and @maxlength='300' and @value='']");
     private By searchButton01 = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Search']");
     private By clearSelectionsButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-unstyled') and text()='Clear Selections']");
-    private By exportControlLink = By.xpath("//a[@href='/administration/forms-management-export-control' and span[text()='Export Control']]");
-    private By leftSidebar = By.cssSelector("#left-sidebar");
+//    private By exportControlLink = By.xpath("//a[@href='/administration/forms-management-export-control' and span[text()='Export Control']]");
+//    private By leftSidebar = By.cssSelector("#left-sidebar");
     private By addNewLink = By.xpath("//a[@href='/administration/forms-management-export-control/new' and text()='Add new']");
     private By nameInputField = By.id("name");
     private By descriptionTextArea = By.id("description");

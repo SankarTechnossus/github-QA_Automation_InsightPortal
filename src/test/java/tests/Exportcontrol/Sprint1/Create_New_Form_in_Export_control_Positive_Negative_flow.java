@@ -90,10 +90,10 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
             agreementPage.scrollSidebarToExportControlAndClick();
             ExtentReportListener.getExtentTest().pass("Scrolled and clicked on 'Export Control' from left navigation.");
 
-
-            basePage.pause(3000);
-            agreementPage.scrollSidebarToExportControlOnly();
-            ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
+//
+//            basePage.pause(3000);
+//            agreementPage.scrollSidebarToExportControlOnly();
+//            ExtentReportListener.getExtentTest().pass("Scrolled to 'Export Control' in the left navigation without clicking.");
 
 
             // Now use the new input field
