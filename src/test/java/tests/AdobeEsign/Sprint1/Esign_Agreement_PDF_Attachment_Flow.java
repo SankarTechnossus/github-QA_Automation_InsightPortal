@@ -185,8 +185,8 @@ public class Esign_Agreement_PDF_Attachment_Flow {
 
             // 2) Deliverable category = "CTO - Agreement"
             basePage.pause(1000);
-            deliverablepage.selectDeliverableCategory("CTO - Agreement");
-            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+            deliverablepage.selectDeliverableCategory("CTO - MCA");
+            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category:CTO - MCA");
 
             basePage.pause(1000);
             deliverablepage.clickSubmitOnOverlay();
