@@ -678,21 +678,21 @@ public class Adobe_Deliverables_page extends BasePage {
 
 
 
-//    public void clickDeliverableByEnteredName(String enteredName01) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//        By linkLocator = deliverableLinkByName(enteredName01);
-//
-//        WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkLocator));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
-//        wait.until(ExpectedConditions.elementToBeClickable(link));
-//
-//        try {
-//            link.click();
-//        } catch (ElementClickInterceptedException e) {
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
-//        }
-//        pause(600);
-//    }
+    public void clickDeliverableByEnteredName(String enteredName01) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        By linkLocator = deliverableLinkByName(enteredName01);
+
+        WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        wait.until(ExpectedConditions.elementToBeClickable(link));
+
+        try {
+            link.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        }
+        pause(600);
+    }
 
 
 //    private void expandCategoryIfCollapsed(String category) {
