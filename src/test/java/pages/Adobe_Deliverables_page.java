@@ -19,17 +19,32 @@ public class Adobe_Deliverables_page extends BasePage {
 
     // ******** Locators *********
 
+    private By deliverableCategoryControl = By.xpath(
+            "//form[contains(@class,'addNewDeliverable')]" +
+                    "//label[normalize-space()='Deliverable Category']" +
+                    "/following::div[contains(@class,'select-control')][1]"
+    );
+
+    private By deliverableCategoryOption(String text) {
+        return By.xpath(
+                // react-select renders a floating menu with role=listbox; options have role=option
+                "//div[contains(@class,'-menu') or contains(@class,'select-menu')]" +
+                        "//div[@role='option' and normalize-space()='" + text + "']"
+        );
+    }
+
+
     // Overlay
     private By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
 
     // Fields & controls (scoped to overlay)
     private By deliverableNameInput = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Name']/following::input[@type='text'][1]");
-    private By deliverableCategoryControl = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Category']/following::div[contains(@class,'select-control')][1]");
+//    private By deliverableCategoryControl = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Category']/following::div[contains(@class,'select-control')][1]");
 
-    // Options (react-select)
-    private By deliverableCategoryOption(String text) {
-        return By.xpath("//div[(contains(@class,'select__option') or contains(@class,'select-option') or contains(@class,'_option')) and normalize-space(.)='" + text + "']");
-    }
+//    // Options (react-select)
+//    private By deliverableCategoryOption(String text) {
+//        return By.xpath("//div[(contains(@class,'select__option') or contains(@class,'select-option') or contains(@class,'_option')) and normalize-space(.)='" + text + "']");
+//    }
 
     // Buttons
     private By cancelBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[normalize-space(.)='Cancel']");
@@ -116,6 +131,15 @@ public class Adobe_Deliverables_page extends BasePage {
     private By deleteIconemail = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
     private By cancelButtonfrom = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
     private By closeButtonfrom = By.xpath("//button[@type='button' and @aria-label='Close' and normalize-space()='Close']");
+
+    // --- Locators (Page class) ---
+
+    private By deliverableCategoryInput = By.xpath(
+            "//form[contains(@class,'addNewDeliverable')]" +
+                    "//label[normalize-space()='Deliverable Category']" +
+                    "/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
+    );
+
 
 
 
@@ -778,17 +802,38 @@ public class Adobe_Deliverables_page extends BasePage {
         return unique;
     }
 
-    public void selectDeliverableCategory(String categoryText) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//    public void selectDeliverableCategory(String categoryText) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+//        control.click();
+//
+//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryOption(categoryText)));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // more stable on react-select
+//        pause(300);
+//    }
+public void selectDeliverableCategory(String categoryText) {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-        control.click();
+    // 1) Bring control into view and open it
+    WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+    control.click();
 
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryOption(categoryText)));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // more stable on react-select
-        pause(300);
-    }
+    // 2) Type to filter (more stable for react-select)
+    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
+    input.clear();
+    input.sendKeys(categoryText);
+
+    // 3) Wait for the menu and click exact option
+    WebElement option = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryOption(categoryText)));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // avoids overlay issues
+
+    // 4) Small settle
+    pause(300);
+}
+
 
     public void clickCancelOnOverlay() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

@@ -157,10 +157,15 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             String enteredName = deliverablepage.typeDeliverableNameUnique("Testsan01");
             ExtentReportListener.getExtentTest().pass("Entered Deliverable Name: " + enteredName);
 
-            // 2) Deliverable category = "CTO - Agreement"
+//            // 2) Deliverable category = "CTO - Agreement"
+//            basePage.pause(1000);
+//            deliverablepage.selectDeliverableCategory("CTO - Agreement");
+//            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+
             basePage.pause(1000);
-            deliverablepage.selectDeliverableCategory("CTO - Agreement");
-            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+            deliverablepage.selectDeliverableCategory("CTO - MCA");
+            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - MCA");
+
 
             // 3) Cancel button
             basePage.pause(1000);
@@ -352,7 +357,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
     @AfterMethod
     public void tearDown() {
 
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
