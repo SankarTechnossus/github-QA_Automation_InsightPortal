@@ -57,8 +57,8 @@ public class Esign_Review_and_AddSign__Flow {
 
         try {
             // The user opens the login page URL from the email
-            driver.get("https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAf-ovN9w_493obHYo6SeAydch8bRs0_Te-bHcdN9y3BrjcKLQbSH_pKrbIyVSq0YkIdSjgdNTzRyHg4PdU6W2Ac_aGWkvyY77JaBcm6VR2rf2D0hENZbWYK8GtfbSvbBo%26&data=05%7C02%7Csankar.venkatesan%40technossus.com%7C716bac979aa6471af2ab08de0bd79cff%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C638961217845956495%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Y8zZP6dJGQe2pA%2B4bQrDBcYJSPislvO9nyS%2FWSd2Nwk%3D&reserved=0");
-
+            driver.get("https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAXyqTHI_ltGZ__uSgIFw9LH379uPCrfmqNZ4zcPVNutnpc2EUYA4PE2PaMU-XmaLY1c9ZpRpp28TkNdiKVo8vNAaqtKvZwOY5RwgEmc14ylUpSxLwsT1e9us-bcWR3C3I%26&data=05%7C02%7Csankar.venkatesan%40technossus.com%7C81ed355026224073960d08de0bd9d90c%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C638961227464467359%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=zJNw6zL9vibTX3lNleOPt7TZvnktnl%2FVofZw2C1OGMQ%3D&reserved=0");
+//            driver.get("");
             test.info("Opened dashboard URL");
 
             // The user waits for the login page to load
