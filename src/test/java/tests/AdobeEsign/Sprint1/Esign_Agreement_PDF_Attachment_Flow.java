@@ -91,12 +91,6 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Agreements' link from sidebar");
 
-            // Enter Agreement Number ****** This record has access issue ***********
-             // agreementPage.enterAgreementNumber("2025A012368");
-
-            // Enter Agreement Number ****** This record has access issue ***********
-//            *********______Alternative_Agreement number____**********
-//            agreementPage.enterAgreementNumber("2025A015018");
 
 //            *********______Alternative_Agreement number____**********
             agreementPage.enterAgreementNumber("2025A017161");
@@ -157,10 +151,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             String enteredName = deliverablepage.typeDeliverableNameUnique("Testsan01");
             ExtentReportListener.getExtentTest().pass("Entered Deliverable Name: " + enteredName);
 
-//            // 2) Deliverable category = "CTO - Agreement"
-//            basePage.pause(1000);
-//            deliverablepage.selectDeliverableCategory("CTO - Agreement");
-//            ExtentReportListener.getExtentTest().pass("Selected Deliverable Category: CTO - Agreement");
+//
 
             basePage.pause(1000);
             deliverablepage.selectDeliverableCategory("CTO - MCA");
@@ -235,36 +226,11 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Download Selected' successfully");
 
 
-            basePage.pause(5000);
-            deliverablepage.tickFirstCheckbox();
-            ExtentReportListener.getExtentTest().pass("Ticked the first checkbox successfully");
-
-
-
-            basePage.pause(2000);
-            deliverablepage.clickDeleteSelected();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Delete Selected' successfully");
-
-
-
-            basePage.pause(3000);
-            deliverablepage.acceptDeleteAlert();
-            ExtentReportListener.getExtentTest().pass("Accepted delete confirmation alert successfully");
-
 
             // 2) Click the same deliverable link inside CTO - MCA category
             basePage.pause(3000);
             deliverablepage.clickDeliverableExact("CTO - MCA", enteredName01);
             ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
-
-//
-//            basePage.pause(3000);
-//            deliverablepage.clickDeliverableInCategory("CTO - MCA", enteredName01);
-//            ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
-
-//            basePage.pause(3000);
-//            deliverablepage.clickDeliverableByEnteredName(enteredName01);
-//            ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
 
 
             // Click Adobe icon
