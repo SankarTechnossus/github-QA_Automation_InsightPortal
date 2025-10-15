@@ -2,14 +2,10 @@ package pages;
 
 import base.BasePage;
 import listeners.ExtentReportListener;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.openqa.selenium.NoSuchElementException;
 import utils.BrowserUtility;
 import utils.WaitUtility;
 
@@ -30,12 +26,49 @@ public class Exportcontrol_WorkflowManagement_Workflows_Page extends BasePage {
     private By addNewButton = By.xpath("//button[@type='button' and contains(@class,'-primary') and text()='Add New']");
     private By nameInputField = By.xpath("//input[@id='name' and @type='text']");
     private By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
-    private By saveButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
+    private By saveButton = By.xpath("//div[contains(@class,'buttons-cell')]//button[normalize-space()='Save']");
+//    private By saveButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
     private String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
     private By updateButton = By.xpath("//button[normalize-space(text())='Update']");
+    // Scope: the workflows grid/table
+    private By workflowGrid = By.cssSelector("div.panel.-table, div.list, table"); // adjust if you have a stable class
+
+    // Any Edit control in the grid (link or button, text or title)
+    private By editControls = By.xpath(
+            ".//a[normalize-space()='Edit' or @title='Edit']" +
+                    " | .//button[normalize-space()='Edit' or @title='Edit' or .//i[contains(@class,'edit')]]"
+    );
 
 
 //Actions
+
+    public void clickFirstEdit() {
+        WebElement grid = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfElementLocated(workflowGrid));
+
+        // Wait until at least one Edit is present
+        List<WebElement> edits = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(driver1 -> {
+                    List<WebElement> els = grid.findElements(editControls);
+                    return (els != null && !els.isEmpty()) ? els : null;
+                });
+
+        // Pick the first *displayed* one
+        WebElement first = edits.stream().filter(WebElement::isDisplayed).findFirst().orElse(edits.get(0));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", first);
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(first));
+
+        try {
+            first.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", first);
+        }
+
+        pause(2000);
+    }
+
 
     public void clickUpdateButton() {
         WebElement button = driver.findElement(updateButton);

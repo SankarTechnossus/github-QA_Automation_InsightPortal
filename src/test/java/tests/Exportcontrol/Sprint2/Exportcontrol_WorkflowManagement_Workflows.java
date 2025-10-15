@@ -118,17 +118,17 @@ public class Exportcontrol_WorkflowManagement_Workflows {
 
             basePage.pause(5000);
             workflowpage.selectOptionFromDropdown("Transaction Type","Test1");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
 
 
             basePage.pause(5000);
             workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Export control status dropdown successfully");
 
 
             basePage.pause(5000);
             workflowpage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Entered Email successfully");
 
             // ** Negative_case **
 
@@ -155,27 +155,36 @@ public class Exportcontrol_WorkflowManagement_Workflows {
 
             basePage.pause(5000);
             workflowpage.selectOptionFromDropdown("Transaction Type","Test1");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
 
 
             basePage.pause(5000);
             workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Selected 'Test' from ExportControl Status successfully");
 
 
             basePage.pause(5000);
             workflowpage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Entered Email successfully");
 
+
+//            basePage.pause(5000);
+//            workflowpage.clickSaveButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
             basePage.pause(5000);
-            workflowpage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            workflowpage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
 
-            basePage.pause(5000);
-            workflowpage.clickEditButtonForWorkflow(uniqueName01);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
+//            basePage.pause(5000);
+//            workflowpage.clickEditButtonForWorkflow(uniqueName01);
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
+
+            basePage.pause(3000);
+            workflowpage.clickFirstEdit();
+            ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
+
 
 
             basePage.pause(5000);
@@ -183,20 +192,27 @@ public class Exportcontrol_WorkflowManagement_Workflows {
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
 
-            basePage.pause(5000);
-            workflowpage.clickEditButtonForWorkflow(uniqueName01);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
+//            basePage.pause(5000);
+//            workflowpage.clickEditButtonForWorkflow(uniqueName01);
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
 
+            basePage.pause(3000);
+            workflowpage.clickFirstEdit();
+            ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
 
             basePage.pause(3000);
             workflowpage.appendSanToName();
             ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
 
 
-
             basePage.pause(3000);
             workflowpage.clickUpdateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
+
+
+            basePage.pause(5000);
+            workflowpage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
 
 
