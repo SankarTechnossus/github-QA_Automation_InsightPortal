@@ -94,10 +94,14 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             // Enter Agreement Number ****** This record has access issue ***********
              // agreementPage.enterAgreementNumber("2025A012368");
 
+            // Enter Agreement Number ****** This record has access issue ***********
 //            *********______Alternative_Agreement number____**********
-            agreementPage.enterAgreementNumber("2025A015018");
+//            agreementPage.enterAgreementNumber("2025A015018");
+
+//            *********______Alternative_Agreement number____**********
+            agreementPage.enterAgreementNumber("2025A014166");
             basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A014166");
 
 
 
@@ -117,9 +121,9 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked on 'Clear Selections' button successfully");
 
 
-            agreementPage.enterAgreementNumber("2025A015018");
+            agreementPage.enterAgreementNumber("2025A014166");
             basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A014166");
 
 
             // Click Search
