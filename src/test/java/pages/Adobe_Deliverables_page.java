@@ -19,6 +19,23 @@ public class Adobe_Deliverables_page extends BasePage {
 
     // ******** Locators *********
 
+    // Category accordion (scope by title text)
+    private By categoryBar(String category) {
+        return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]");
+    }
+    private By categoryToggleBtn(String category) {
+        return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]//button[contains(@class,'content-toggler-button')]");
+    }
+
+    // Dynamic deliverable link inside a specific category
+    private By deliverableLinkInCategory(String category, String deliverableName) {
+        return By.xpath(
+                "//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]" +
+                        "//a[normalize-space()='"+deliverableName+"']"
+        );
+    }
+
+
 //    // form-anchored control + input
 //    private final By deliverableCategoryControl = By.xpath(
 //            "//form[contains(@class,'addNewDeliverable')]" +
@@ -637,21 +654,56 @@ public class Adobe_Deliverables_page extends BasePage {
 
 
 
-    public void clickDeliverableByEnteredName(String enteredName01) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        By linkLocator = deliverableLinkByName(enteredName01);
+//    public void clickDeliverableByEnteredName(String enteredName01) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//        By linkLocator = deliverableLinkByName(enteredName01);
+//
+//        WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkLocator));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+//        wait.until(ExpectedConditions.elementToBeClickable(link));
+//
+//        try {
+//            link.click();
+//        } catch (ElementClickInterceptedException e) {
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+//        }
+//        pause(600);
+//    }
 
-        WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkLocator));
+
+    private void expandCategoryIfCollapsed(String category) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement bar = wait.until(ExpectedConditions.presenceOfElementLocated(categoryBar(category)));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", bar);
+
+        // If not open, click its toggle and wait until class includes '-open'
+        if (!bar.getAttribute("class").contains("-open")) {
+            WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(categoryToggleBtn(category)));
+            toggle.click();
+            wait.until(ExpectedConditions.attributeContains(categoryBar(category), "class", "-open"));
+        }
+    }
+
+    public void clickDeliverableInCategory(String category, String deliverableName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        expandCategoryIfCollapsed(category);
+
+        By linkBy = deliverableLinkInCategory(category, deliverableName);
+
+        // Wait & click with scroll + JS fallback (handles overlay/focus quirks)
+        WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(linkBy));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         wait.until(ExpectedConditions.elementToBeClickable(link));
-
         try {
             link.click();
-        } catch (ElementClickInterceptedException e) {
+        } catch (ElementClickInterceptedException | StaleElementReferenceException e) {
+            link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkBy));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
         }
         pause(600);
     }
+
 
 
 

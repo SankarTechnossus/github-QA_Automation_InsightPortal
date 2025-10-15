@@ -252,10 +252,13 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Accepted delete confirmation alert successfully");
 
 
-
             basePage.pause(3000);
-            deliverablepage.clickDeliverableByEnteredName(enteredName01);
+            deliverablepage.clickDeliverableInCategory("CTO - MCA", enteredName01);
             ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
+
+//            basePage.pause(3000);
+//            deliverablepage.clickDeliverableByEnteredName(enteredName01);
+//            ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
 
 
             // Click Adobe icon
