@@ -26,14 +26,14 @@ public class Adobe_Deliverables_page extends BasePage {
     private By categoryToggleBtn(String category) {
         return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]//button[contains(@class,'content-toggler-button')]");
     }
-
-    // Dynamic deliverable link inside a specific category
-    private By deliverableLinkInCategory(String category, String deliverableName) {
-        return By.xpath(
-                "//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]" +
-                        "//a[normalize-space()='"+deliverableName+"']"
-        );
-    }
+//
+//    // Dynamic deliverable link inside a specific category
+//    private By deliverableLinkInCategory(String category, String deliverableName) {
+//        return By.xpath(
+//                "//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]" +
+//                        "//a[normalize-space()='"+deliverableName+"']"
+//        );
+//    }
 
 
 //    // form-anchored control + input
@@ -649,6 +649,30 @@ public class Adobe_Deliverables_page extends BasePage {
     }
 
 
+//
+//    // ---- Dynamic locator builders ----
+//    private By categoryToggleBy(String category) {
+//        return By.xpath(
+//                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+//                        + "/ancestor::div[contains(@class,'toggleable-title')]"
+//                        + "//button[contains(@class,'content-toggler-button')]"
+//        );
+//    }
+
+    private By categoryContainerBy(String category) {
+        return By.xpath(
+                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
+        );
+    }
+
+    private By deliverableLinkBy(String category, String deliverableName) {
+        return By.xpath(
+                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
+                        + "//tbody//a[.//span[normalize-space()='" + deliverableName + "']]"
+        );
+    }
 
 
 
@@ -671,39 +695,66 @@ public class Adobe_Deliverables_page extends BasePage {
 //    }
 
 
-    private void expandCategoryIfCollapsed(String category) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//    private void expandCategoryIfCollapsed(String category) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//        WebElement bar = wait.until(ExpectedConditions.presenceOfElementLocated(categoryBar(category)));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", bar);
+//
+//        // If not open, click its toggle and wait until class includes '-open'
+//        if (!bar.getAttribute("class").contains("-open")) {
+//            WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(categoryToggleBtn(category)));
+//            toggle.click();
+//            wait.until(ExpectedConditions.attributeContains(categoryBar(category), "class", "-open"));
+//        }
+//    }
 
-        WebElement bar = wait.until(ExpectedConditions.presenceOfElementLocated(categoryBar(category)));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", bar);
 
-        // If not open, click its toggle and wait until class includes '-open'
-        if (!bar.getAttribute("class").contains("-open")) {
-            WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(categoryToggleBtn(category)));
-            toggle.click();
-            wait.until(ExpectedConditions.attributeContains(categoryBar(category), "class", "-open"));
-        }
-    }
+//    // 1) The toggle button for a category (works even if it shows "CTO - MCA 1")
+//    private By categoryToggle(String category) {
+//        return By.xpath(
+//                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+//                        + "/ancestor::div[contains(@class,'toggleable-title')]"
+//                        + "//button[contains(@class,'content-toggler-button')]"
+//        );
+//    }
 
-    public void clickDeliverableInCategory(String category, String deliverableName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        expandCategoryIfCollapsed(category);
+//    // 2) The collapsible container for that category
+//    private By categoryContainer(String category) {
+//        return By.xpath(
+//                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+//                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
+//        );
+//    }
+//
+//    // 3) The deliverable link inside the category grid
+//    private By deliverableLinkInCategory(String category, String deliverableName) {
+//        return By.xpath(
+//                categoryContainer(category).toString().replace("By.xpath: ", "") // keep it simple if you build strings
+//                        + "//tbody//a[.//span[normalize-space()='" + deliverableName + "']]"
+//        );
+//    }
 
-        By linkBy = deliverableLinkInCategory(category, deliverableName);
 
-        // Wait & click with scroll + JS fallback (handles overlay/focus quirks)
-        WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(linkBy));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
-        wait.until(ExpectedConditions.elementToBeClickable(link));
-        try {
-            link.click();
-        } catch (ElementClickInterceptedException | StaleElementReferenceException e) {
-            link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkBy));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
-        }
-        pause(600);
-    }
-
+//    public void clickDeliverableInCategory(String category, String deliverableName) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//        expandCategoryIfCollapsed(category);
+//
+//        By linkBy = deliverableLinkInCategory(category, deliverableName);
+//
+//        // Wait & click with scroll + JS fallback (handles overlay/focus quirks)
+//        WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(linkBy));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+//        wait.until(ExpectedConditions.elementToBeClickable(link));
+//        try {
+//            link.click();
+//        } catch (ElementClickInterceptedException | StaleElementReferenceException e) {
+//            link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkBy));
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+//        }
+//        pause(600);
+//    }
+//
 
 
 
@@ -1017,6 +1068,51 @@ public class Adobe_Deliverables_page extends BasePage {
         btn.click();
         pause(800);
     }
+
+    private By categoryToggleBy(String category) {
+        return By.xpath(
+                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+                        + "/ancestor::div[contains(@class,'toggleable-title')]"
+                        + "//button[contains(@class,'content-toggler-button')]"
+        );
+    }
+
+    private By deliverableLinkExact(String category, String deliverableName) {
+        return By.xpath(
+                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
+                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
+                        + "//td[@data-column='col_204' and @data-value='" + deliverableName + "']//a"
+        );
+    }
+
+    public void clickDeliverableExact(String category, String deliverableName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // Step 1: Expand category if collapsed
+        By toggleBy = categoryToggleBy(category);
+        WebElement toggle = wait.until(ExpectedConditions.visibilityOfElementLocated(toggleBy));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", toggle);
+        String expanded = toggle.getAttribute("aria-expanded");
+        if (expanded == null || expanded.equalsIgnoreCase("false")) {
+            toggle.click();
+            wait.until(ExpectedConditions.attributeToBe(toggle, "aria-expanded", "true"));
+        }
+
+        // Step 2: Click deliverable link by data-value
+        By linkBy = deliverableLinkExact(category, deliverableName);
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkBy));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        try {
+            link.click();
+        } catch (ElementClickInterceptedException | StaleElementReferenceException e) {
+            link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkBy));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        }
+
+        pause(600);
+    }
+
+
 
 
 

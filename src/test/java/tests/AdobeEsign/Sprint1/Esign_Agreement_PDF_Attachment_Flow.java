@@ -252,9 +252,15 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Accepted delete confirmation alert successfully");
 
 
+            // 2) Click the same deliverable link inside CTO - MCA category
             basePage.pause(3000);
-            deliverablepage.clickDeliverableInCategory("CTO - MCA", enteredName01);
+            deliverablepage.clickDeliverableExact("CTO - MCA", enteredName01);
             ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
+
+//
+//            basePage.pause(3000);
+//            deliverablepage.clickDeliverableInCategory("CTO - MCA", enteredName01);
+//            ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
 
 //            basePage.pause(3000);
 //            deliverablepage.clickDeliverableByEnteredName(enteredName01);
