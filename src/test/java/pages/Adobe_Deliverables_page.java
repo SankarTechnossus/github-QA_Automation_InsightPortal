@@ -19,19 +19,22 @@ public class Adobe_Deliverables_page extends BasePage {
 
     // ******** Locators *********
 
-    private By deliverableCategoryControl = By.xpath(
-            "//form[contains(@class,'addNewDeliverable')]" +
-                    "//label[normalize-space()='Deliverable Category']" +
-                    "/following::div[contains(@class,'select-control')][1]"
-    );
-
-    private By deliverableCategoryOption(String text) {
-        return By.xpath(
-                // react-select renders a floating menu with role=listbox; options have role=option
-                "//div[contains(@class,'-menu') or contains(@class,'select-menu')]" +
-                        "//div[@role='option' and normalize-space()='" + text + "']"
-        );
-    }
+//    // form-anchored control + input
+//    private final By deliverableCategoryControl = By.xpath(
+//            "//form[contains(@class,'addNewDeliverable')]" +
+//                    "//label[normalize-space()='Deliverable Category']/following::div[contains(@class,'select-control')][1]"
+//    );
+//
+//    private final By deliverableCategoryInput = By.xpath(
+//            "//form[contains(@class,'addNewDeliverable')]" +
+//                    "//label[normalize-space()='Deliverable Category']/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
+//    );
+//
+//    // global (portal-safe) listbox and option
+//    private final By reactSelectListbox = By.xpath("//div[@role='listbox' and contains(@id,'react-select')]");
+//    private By reactSelectOptionExact(String text) {
+//        return By.xpath("//div[@role='listbox' and contains(@id,'react-select')]//div[@role='option' and normalize-space()='" + text + "']");
+//    }
 
 
     // Overlay
@@ -133,12 +136,12 @@ public class Adobe_Deliverables_page extends BasePage {
     private By closeButtonfrom = By.xpath("//button[@type='button' and @aria-label='Close' and normalize-space()='Close']");
 
     // --- Locators (Page class) ---
-
-    private By deliverableCategoryInput = By.xpath(
-            "//form[contains(@class,'addNewDeliverable')]" +
-                    "//label[normalize-space()='Deliverable Category']" +
-                    "/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
-    );
+//
+//    private By deliverableCategoryInput = By.xpath(
+//            "//form[contains(@class,'addNewDeliverable')]" +
+//                    "//label[normalize-space()='Deliverable Category']" +
+//                    "/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
+//    );
 
 
 
@@ -813,26 +816,136 @@ public class Adobe_Deliverables_page extends BasePage {
 //        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // more stable on react-select
 //        pause(300);
 //    }
-public void selectDeliverableCategory(String categoryText) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-    // 1) Bring control into view and open it
-    WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
-    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-    control.click();
+    // --- Locators (keep only one copy) ---
+    private final By deliverableCategoryControl = By.xpath(
+            "//form[contains(@class,'addNewDeliverable')]" +
+                    "//label[normalize-space()='Deliverable Category']/following::div[contains(@class,'select-control')][1]"
+    );
+    private final By deliverableCategoryInput = By.xpath(
+            "//form[contains(@class,'addNewDeliverable')]" +
+                    "//label[normalize-space()='Deliverable Category']/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
+    );
 
-    // 2) Type to filter (more stable for react-select)
-    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
-    input.clear();
-    input.sendKeys(categoryText);
+    // OPTION match that works whether the menu is portaled or not (no reliance on role=listbox)
+    private By reactSelectOptionExact(String text) {
+        return By.xpath(
+                // look anywhere on the page for a react-select option with exact text
+                "//div[@role='option' and normalize-space()='" + text + "']" +
+                        " | //div[contains(@class,'option') and normalize-space()='" + text + "']"
+        );
+    }
 
-    // 3) Wait for the menu and click exact option
-    WebElement option = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryOption(categoryText)));
-    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // avoids overlay issues
+    // "any option" – used for ARROW_DOWN/ENTER fallback check
+    private final By anyReactSelectOption = By.xpath(
+            "//div[@role='option'] | //div[contains(@class,'option')]"
+    );
 
-    // 4) Small settle
-    pause(300);
-}
+    public void selectDeliverableCategory(String categoryText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // open control
+        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+
+        // focus input & type filter
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
+        input.clear();
+        input.sendKeys(categoryText);
+
+        // ---- Strategy A: click exact option if it appears
+        try {
+            WebElement exact = wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectOptionExact(categoryText)));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", exact);
+            pause(300);
+            return;
+        } catch (TimeoutException ignore) {
+            // fall through
+        }
+
+        // ---- Strategy B: if the menu didn't render options with roles/classes,
+        // use keyboard to pick the first highlighted match
+        try {
+            // ensure menu is open (some skins close after typing)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+            // wait briefly for any option to appear; if not, still try keys
+            try { wait.until(ExpectedConditions.presenceOfElementLocated(anyReactSelectOption)); }
+            catch (TimeoutException ignored) { /* menu may not expose option DOM; keys still work */ }
+
+            input.sendKeys(Keys.ARROW_DOWN);
+            input.sendKeys(Keys.ENTER);
+            pause(300);
+            return;
+        } catch (Exception e) {
+            // ---- Strategy C: one retry from the top (handles flicker)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+            input.clear();
+            input.sendKeys(categoryText);
+            WebElement exact2 = wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectOptionExact(categoryText)));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", exact2);
+            pause(300);
+        }
+    }
+
+
+
+//
+//
+//
+//    public void selectDeliverableCategory(String categoryText) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//        // open control
+//        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+//        control.click();
+//
+//        // type to filter
+//        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
+//        input.clear();
+//        input.sendKeys(categoryText);
+//
+//        // wait for the portal menu (role=listbox) to appear
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectListbox));
+//
+//        // If exact match is present, click via JS; otherwise press ENTER (first highlighted)
+//        try {
+//            WebElement exact = wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectOptionExact(categoryText)));
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", exact);
+//        } catch (TimeoutException e) {
+//            // fallback: pick the highlighted option
+//            input.sendKeys(Keys.ENTER);
+//        }
+//
+//        pause(300);
+//    }
+
+
+
+
+
+
+//public void selectDeliverableCategory(String categoryText) {
+//    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//    // 1) Bring control into view and open it
+//    WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
+//    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+//    control.click();
+//
+//    // 2) Type to filter (more stable for react-select)
+//    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
+//    input.clear();
+//    input.sendKeys(categoryText);
+//
+//    // 3) Wait for the menu and click exact option
+//    WebElement option = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryOption(categoryText)));
+//    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // avoids overlay issues
+//
+//    // 4) Small settle
+//    pause(300);
+//}
 
 
     public void clickCancelOnOverlay() {
