@@ -52,7 +52,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             // User will open the login page of the Insight Portal application
-            driver.get("https://sacramento-insight4.partners.org/");
+            driver.get("https://phoenix-insight4.partners.org/");
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
@@ -93,9 +93,9 @@ public class Esign_Agreement_PDF_Attachment_Flow {
 
 
 //            *********______Alternative_Agreement number____**********
-            agreementPage.enterAgreementNumber("2025A017161");
+            agreementPage.enterAgreementNumber("2025A019384");
             basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A017161");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A019384");
 
 
 
@@ -115,9 +115,9 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked on 'Clear Selections' button successfully");
 
 
-            agreementPage.enterAgreementNumber("2025A017161");
+            agreementPage.enterAgreementNumber("2025A019384");
             basePage.pause(5000);
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A017161");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A019384");
 
 
             // Click Search
