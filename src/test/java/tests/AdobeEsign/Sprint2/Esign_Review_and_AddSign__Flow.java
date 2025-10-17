@@ -7,6 +7,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import pages.Adobe_Deliverables_page;
 
 import java.io.File;
 import java.time.Duration;
@@ -57,8 +58,8 @@ public class Esign_Review_and_AddSign__Flow {
 
         try {
             // The user opens the login page URL from the email
-            driver.get("https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAXyqTHI_ltGZ__uSgIFw9LH379uPCrfmqNZ4zcPVNutnpc2EUYA4PE2PaMU-XmaLY1c9ZpRpp28TkNdiKVo8vNAaqtKvZwOY5RwgEmc14ylUpSxLwsT1e9us-bcWR3C3I%26&data=05%7C02%7Csankar.venkatesan%40technossus.com%7C81ed355026224073960d08de0bd9d90c%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C638961227464467359%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=zJNw6zL9vibTX3lNleOPt7TZvnktnl%2FVofZw2C1OGMQ%3D&reserved=0");
-//            driver.get("");
+           driver.get("https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAXyqTHI_ltGZ__uSgIFw9LH379uPCrfmqNZ4zcPVNutnpc2EUYA4PE2PaMU-XmaLY1c9ZpRpp28TkNdiKVo8vNAaqtKvZwOY5RwgEmc14ylUpSxLwsT1e9us-bcWR3C3I%26&data=05%7C02%7Csankar.venkatesan%40technossus.com%7C81ed355026224073960d08de0bd9d90c%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C638961227464467359%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=zJNw6zL9vibTX3lNleOPt7TZvnktnl%2FVofZw2C1OGMQ%3D&reserved=0");
+//            driver.get("https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAIxytm2T3Bh6aCMMFhrwuW5LcvWkhIoyiis0JAVqR_iP55gwglJ6a1H2yvS3QB5LmENr78lDJ6aI6i3iwlrfCjDso-wHNbcXa4Z90mu3XmlYQHRA7tKe3HZBn8O_ojPt7%26&data=05%7C02%7Csankar.venkatesan%40technossus.com%7Cf5d6844048694744a03808de0d54deba%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C638962855340225889%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=ryffQOBQvogz4f4WkNoqF8329WTP%2B1XdxhOVs69JDaQ%3D&reserved=0");
             test.info("Opened dashboard URL");
 
             // The user waits for the login page to load
@@ -101,10 +102,17 @@ public class Esign_Review_and_AddSign__Flow {
             // The user waits before selecting the dropdown option
             Thread.sleep(10000);
 
-            // The user selects the option 'I approve this document' from the dropdown
-            WebElement approveOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@id='signReasonFormControlDropdown']/option[text()=' I approve this document']")));
-            approveOption.click();
-            test.pass("User selected 'I approve this document' from the dropdown");
+            Adobe_Deliverables_page Adobedeliverablepage= new Adobe_Deliverables_page(driver);
+            Adobedeliverablepage.selectSignReasonApprove();
+            test.pass("Selected signing reason 'I approve this document' successfully");
+
+//
+//            // The user selects the option 'I approve this document' from the dropdown
+//            WebElement approveOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@id='signReasonFormControlDropdown']/option[text()=' I approve this document']")));
+//            approveOption.click();
+//            test.pass("User selected 'I approve this document' from the dropdown");
+
+
 
             // The user waits before clicking 'OK'
             Thread.sleep(10000);

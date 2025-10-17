@@ -4,6 +4,7 @@ import base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.BrowserUtility;
 
@@ -26,6 +27,42 @@ public class Adobe_Deliverables_page extends BasePage {
     private By categoryToggleBtn(String category) {
         return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]//button[contains(@class,'content-toggler-button')]");
     }
+
+
+    // Locators
+    private By signatureModalTitle = By.xpath("//h1[@id='modal-title-view58' and normalize-space()='Signature Preview']");
+    private By signReasonDropdown  = By.id("signReasonFormControlDropdown");
+
+    // Method (no Extent logging here)
+    public void selectSignReasonApprove() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Ensure modal is present/visible first
+        wait.until(ExpectedConditions.visibilityOfElementLocated(signatureModalTitle));
+
+        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(signReasonDropdown));
+
+        // Scroll into view to avoid overlay/interception
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", dropdown);
+
+        // Use Select API; prefer value (most stable), then text fallback
+        Select select = new Select(dropdown);
+        try {
+            select.selectByValue("9370386570"); // value for " I approve this document"
+        } catch (NoSuchElementException e) {
+            // Fallback: trim spaces with normalize-space()
+            WebElement opt = driver.findElement(By.xpath("//select[@id='signReasonFormControlDropdown']/option[normalize-space(text())='I approve this document']"));
+            // Selenium Select can't select by WebElement directly for fallback text, so:
+            select.selectByVisibleText(" I approve this document"); // note leading space
+        }
+
+        // Verify selection
+        wait.until(d -> {
+            String val = new Select(d.findElement(signReasonDropdown)).getFirstSelectedOption().getAttribute("value");
+            return "9370386570".equals(val);
+        });
+    }
+
 //
 //    // Dynamic deliverable link inside a specific category
 //    private By deliverableLinkInCategory(String category, String deliverableName) {
