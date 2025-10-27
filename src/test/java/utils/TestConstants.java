@@ -11,7 +11,7 @@ public class TestConstants {
     public static final boolean TAKE_SCREENSHOT_ON_PASS = true;
     public static final boolean TAKE_SCREENSHOT_ON_FAILURE = true;
     public static final boolean TAKE_FULL_PAGE_SCREENSHOT = false;
-    public static final String SCREENSHOT_FORMAT = "png"; // or "base64"
+    public static final String SCREENSHOT_FORMAT = "base64"; // or "base64"
     public static final int STALE_EXCEPTION_RETRY_ATTEMPTS_COUNT = 3 ;
     public static final int TIMEOUT = 10;
 

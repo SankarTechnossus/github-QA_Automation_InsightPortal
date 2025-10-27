@@ -15,6 +15,7 @@ import pages.AgreementPage;
 import pages.Exportcontrol_WorkflowManagement_ActionName_page;
 import pages.LoginPage;
 import utils.DriverManager;
+import workflow_helper.LoginPageHelper;
 
 import java.time.Duration;
 
@@ -57,23 +58,31 @@ public class Exportcontrol_WorkflowManagement_ActionName_flow {
             basePage.pause(20000);
 
             // Create an instance of LoginPage
-            LoginPage loginPage = new LoginPage(driver);
+            //LoginPage loginPage = new LoginPage(driver);
+
+            LoginPageHelper loginPageHelper =new LoginPageHelper(driver);
+            loginPageHelper.enterUserName("SV1179");
+            loginPageHelper.clickNext();
+            loginPageHelper.enterPassword();
+            loginPageHelper.clickVerify();
 
             // User will enter the username into the username input field
-            loginPage.enterUsername("SV1179");
-            ExtentReportListener.getExtentTest().pass("Entered username");
+            //loginPage.enterUsername("SV1179");
+            //ExtentReportListener.getExtentTest().pass("Entered username");
+
+            //ExtentReportListener.logPassWithScreenshot("Entered Useranme");
 
             // User will click the 'Next' button to proceed to the password entry screen
-            loginPage.clickNext();
-            ExtentReportListener.getExtentTest().pass("Clicked Next");
+            //loginPage.clickNext();
+            //ExtentReportListener.getExtentTest().pass("Clicked Next");
 
             // User will input the user's password into the password field
-            loginPage.enterPassword("Devinivetha@1930");
-            ExtentReportListener.getExtentTest().pass("Entered password");
+            //loginPage.enterPassword("Devinivetha@1930");
+            //ExtentReportListener.getExtentTest().pass("Entered password");
 
             // User will click the 'Verify' button to authenticate the user
-            loginPage.clickVerify();
-            ExtentReportListener.getExtentTest().pass("Clicked Verify");
+            //loginPage.clickVerify();
+            //ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
             // Optional: pause if any post-login actions needed
             basePage.pause(20000);
