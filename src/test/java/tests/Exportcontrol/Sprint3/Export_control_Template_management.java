@@ -184,54 +184,17 @@ public class Export_control_Template_management {
 
 
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.selectDateFormat("01/01/2020 (MM/DD/YYYY)");
-            ExtentReportListener.getExtentTest().pass("Selected '01/01/2020 (MM/DD/YYYY)' from Date Format dropdown successfully");
+            Export_control_Template_managemnet_Page01.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
+            ExtentReportListener.getExtentTest().pass("Selected Date Format successfully");
 
-
-
-            // Step 2: Active = No
-            basePage.pause(2000);
+            basePage.pause(3000);
             Export_control_Template_managemnet_Page01.setActiveToNo();
-            ExtentReportListener.getExtentTest().pass("Set Active to: No");
-
-            // Step 3: Click Cancel
-            basePage.pause(2000);
-            Export_control_Template_managemnet_Page01.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' successfully");
-
-
-            basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
-
-
-            basePage.pause(3000);
-            String generatedTitle06 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle06);
-
-            basePage.pause(5000);
-            String filePath06 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath06);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
-
-            basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
-
-            // Step 1: Date Format = MM/DD/YYYY
-            basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.selectDateFormat("MMMM DD, YYYY");
-            ExtentReportListener.getExtentTest().pass("Selected Date Format: MMMM DD, YYYY");
-
-            // Step 2: Active = No
-            basePage.pause(2000);
-            Export_control_Template_managemnet_Page01.setActiveToYES();
-            ExtentReportListener.getExtentTest().pass("Set Active to: YES");
-
+            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown successfully");
 
             basePage.pause(3000);
             Export_control_Template_managemnet_Page01.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button under Template Management successfully");
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
 
 
 

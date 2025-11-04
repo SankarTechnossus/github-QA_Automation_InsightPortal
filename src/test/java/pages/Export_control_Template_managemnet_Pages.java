@@ -34,8 +34,8 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     // Create button under Template Management
     private By createButton = By.xpath("//button[normalize-space()='Create']");
     // Date Format (react-select) control that owns the input id=configurationPayload.dateFormat
-    private By dateFormatControl = By.xpath(
-            "//div[contains(@class,'select-control')][.//input[@id='configurationPayload.dateFormat']]");
+//    private By dateFormatControl = By.xpath(
+//            "//div[contains(@class,'select-control')][.//input[@id='configurationPayload.dateFormat']]");
 
     // Generic option by visible text (react-select renders role='option')
     private By dateFormatOption(String text) {
@@ -50,39 +50,130 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     private By activeOptionYes = By.xpath("//div[@role='option' and normalize-space()='Yes']");
     private By activeOptionNo  = By.xpath("//div[@role='option' and normalize-space()='No']");
 
-    // Cancel link
-    private By cancelLink = By.xpath("//a[normalize-space()='Cancel']");
     // Save button under Template Management
     private By saveButton = By.xpath("//button[normalize-space()='Save']");
+    // Date Format control & input
 
-    // Dropdown arrow for Date Format
-    private By dateFormatDropdownArrow = By.xpath("//label[normalize-space()='Date Format']/following::div[contains(@class,'select-control')][1]");
+    // Date Format control (clickable area)
+    private By dateFormatControl = By.xpath("//label[normalize-space()='Date Format']/following::div[contains(@class,'select-control')][1]");
 
-    // Dynamic option inside dropdown
-    private By getDateFormatOption(String formatText) {
-        return By.xpath("//div[contains(@class,'select__menu')]//div[contains(text(),'" + formatText + "')]");
+    // The real input for React-Select (has aria-expanded / aria-controls)
+    private By dateFormatInput = By.id("configurationPayload.dateFormat");
+
+    // Build an option inside the computed listbox id
+    private By optionInListbox(String listboxId, String text) {
+        return By.xpath("//*[@id='" + listboxId + "']//div[@role='option' and contains(normalize-space(.),'" + text + "')]");
+    }
+
+    // Global fallback when menu is portaled to <body>
+    private By globalOption(String text) {
+        return By.xpath("//div[@role='listbox']//div[@role='option' and contains(normalize-space(.),'" + text + "')]");
     }
 
 
+    // Active dropdown control (React-Select wrapper)
+    private By activeControl01 = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]");
+
+    // Input field inside control (has aria-expanded and aria-controls)
+    private By activeInput = By.id("isActive");
+
+    // Option inside the dynamic listbox
+    private By activeOptionNoInListbox(String listboxId) {
+        return By.xpath("//*[@id='" + listboxId + "']//div[@role='option' and normalize-space()='No']");
+    }
+
+    // Fallback when portal renders to <body>
+    private By activeOptionNoGlobal = By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='No']");
+
+    // Save button (primary action)
+    private By saveButton01 = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
 
 
     //Action
 
+    public void clickSaveButton01() {
+        WebElement save = driver.findElement(saveButton01);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", save);
 
-    public void selectDateFormat01(String formatText) {
-        // Scroll to dropdown
-        WebElement dropdownArrow = driver.findElement(dateFormatDropdownArrow);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", dropdownArrow);
-        dropdownArrow.click();
+        // Try normal click first, fallback to JS click if intercepted
+        try {
+            save.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", save);
+        }
 
-        // Wait for dropdown options to appear
+        pause(2000);
+    }
+
+
+    public void setActiveToNo() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement option = wait.until(ExpectedConditions
-                .visibilityOfElementLocated(getDateFormatOption(formatText)));
-        option.click();
+
+        // Scroll and open dropdown
+        WebElement control = driver.findElement(activeControl01);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        try { control.click(); }
+        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control); }
+
+        // Wait for input & ensure dropdown opened
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(activeInput));
+        wait.until(d -> "true".equals(input.getAttribute("aria-expanded")));
+
+        // Get dynamic listbox id (e.g., react-select-3-listbox)
+        String listboxId = input.getAttribute("aria-controls");
+
+        try {
+            WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNoInListbox(listboxId)));
+            option.click();
+        } catch (TimeoutException t1) {
+            WebElement fallback = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNoGlobal));
+            fallback.click();
+        }
 
         pause(1000);
     }
+
+
+
+    public void selectDateFormat(String visibleText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1) Open the menu
+        WebElement control = driver.findElement(dateFormatControl);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        try { control.click(); }
+        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control); }
+
+        // 2) Wait until menu is actually open: aria-expanded=true
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(dateFormatInput));
+        wait.until(d -> "true".equals(input.getAttribute("aria-expanded")));
+
+        // 3) Prefer a scoped lookup using aria-controls -> listbox id (e.g., react-select-2-listbox)
+        String listboxId = input.getAttribute("aria-controls");
+        try {
+            WebElement option = wait.until(ExpectedConditions
+                    .visibilityOfElementLocated(optionInListbox(listboxId, visibleText)));
+            option.click();
+        } catch (TimeoutException t1) {
+            // 4) Fallback A: global listbox (portal)
+            try {
+                WebElement option = wait.until(ExpectedConditions
+                        .visibilityOfElementLocated(globalOption(visibleText)));
+                option.click();
+            } catch (TimeoutException t2) {
+                // 5) Fallback B: type-ahead + ENTER (most reliable for RS)
+                input.clear();
+                input.sendKeys(visibleText);
+             pause(300);          // tiny debounce per your pattern
+                input.sendKeys(Keys.ENTER);
+            }
+        }
+
+      pause(1000); // settle
+    }
+
+
+
 
 
 
@@ -105,30 +196,30 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
 
 
 
-    public void selectDateFormat(String formatText) {
-        WebElement control = driver.findElement(dateFormatControl);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-        control.click();
+//    public void selectDateFormat(String formatText) {
+//        WebElement control = driver.findElement(dateFormatControl);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+//        control.click();
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement option = wait.until(ExpectedConditions
+//                .visibilityOfElementLocated(dateFormatOption(formatText)));
+//        option.click();
+//
+//        pause(1000);
+//    }
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement option = wait.until(ExpectedConditions
-                .visibilityOfElementLocated(dateFormatOption(formatText)));
-        option.click();
-
-        pause(1000);
-    }
-
-    public void setActiveToNo() {
-        WebElement control = driver.findElement(activeControl);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-        control.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNo));
-        option.click();
-
-        pause(1000);
-    }
+//    public void setActiveToNo() {
+//        WebElement control = driver.findElement(activeControl);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+//        control.click();
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNo));
+//        option.click();
+//
+//        pause(1000);
+//    }
 
 
     public void setActiveToYES() {
@@ -144,16 +235,6 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     }
 
 
-    public void clickCancel() {
-        WebElement cancel = driver.findElement(cancelLink);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cancel);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(cancel));
-        cancel.click();
-
-        pause(1000);
-    }
 
 
 
