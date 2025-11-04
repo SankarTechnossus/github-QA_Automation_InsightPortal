@@ -94,27 +94,6 @@ public class Export_control_Status_Management_flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
 
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddStatusButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
-
-
-
-            basePage.pause(5000);
-            statusManagementPage.enterStatusName("Test01");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test01' in Status Name textbox successfully");
-
-
-            basePage.pause(5000);
-            statusManagementPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
-
-
-            basePage.pause(5000);
-            statusManagementPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
-
-
 
             basePage.pause(5000);
             statusManagementPage.clickAddStatusButton();
