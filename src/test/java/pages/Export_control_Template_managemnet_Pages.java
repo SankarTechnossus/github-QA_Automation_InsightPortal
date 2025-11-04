@@ -42,9 +42,9 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
         return By.xpath("//div[@role='option' and normalize-space()='" + text + "']");
     }
 
-    // Active (react-select) control that owns the input id=isActive
-    private By activeControl = By.xpath(
-            "//div[contains(@class,'select-control')][.//input[@id='isActive']]");
+//    // Active (react-select) control that owns the input id=isActive
+//    private By activeControl = By.xpath(
+//            "//div[contains(@class,'select-control')][.//input[@id='isActive']]");
 
     // Active option locators
     private By activeOptionYes = By.xpath("//div[@role='option' and normalize-space()='Yes']");
@@ -60,36 +60,172 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     // The real input for React-Select (has aria-expanded / aria-controls)
     private By dateFormatInput = By.id("configurationPayload.dateFormat");
 
-    // Build an option inside the computed listbox id
-    private By optionInListbox(String listboxId, String text) {
-        return By.xpath("//*[@id='" + listboxId + "']//div[@role='option' and contains(normalize-space(.),'" + text + "')]");
-    }
+//    // Build an option inside the computed listbox id
+//    private By optionInListbox(String listboxId, String text) {
+//        return By.xpath("//*[@id='" + listboxId + "']//div[@role='option' and contains(normalize-space(.),'" + text + "')]");
+//    }
 
-    // Global fallback when menu is portaled to <body>
-    private By globalOption(String text) {
-        return By.xpath("//div[@role='listbox']//div[@role='option' and contains(normalize-space(.),'" + text + "')]");
-    }
+//    // Global fallback when menu is portaled to <body>
+//    private By globalOption(String text) {
+//        return By.xpath("//div[@role='listbox']//div[@role='option' and contains(normalize-space(.),'" + text + "')]");
+//    }
 
 
-    // Active dropdown control (React-Select wrapper)
-    private By activeControl01 = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]");
+//    // Active dropdown control (React-Select wrapper)
+//    private By activeControl01 = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]");
 
-    // Input field inside control (has aria-expanded and aria-controls)
-    private By activeInput = By.id("isActive");
+//    // Input field inside control (has aria-expanded and aria-controls)
+//    private By activeInput = By.id("isActive");
 
     // Option inside the dynamic listbox
     private By activeOptionNoInListbox(String listboxId) {
         return By.xpath("//*[@id='" + listboxId + "']//div[@role='option' and normalize-space()='No']");
     }
 
-    // Fallback when portal renders to <body>
-    private By activeOptionNoGlobal = By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='No']");
+//    // Fallback when portal renders to <body>
+//    private By activeOptionNoGlobal = By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='No']");
 
     // Save button (primary action)
     private By saveButton01 = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
 
 
+
+    // Active dropdown wrapper & input
+    private By activeControl = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]");
+    private By activeInput   = By.id("isActive");
+
+    // Option inside computed listbox id (e.g., react-select-3-listbox)
+    private By optionInListbox(String listboxId, String text) {
+        return By.xpath("//*[@id='" + listboxId + "']//div[@role='option' and normalize-space()='" + text + "']");
+    }
+    // Global fallback when menu is portaled to <body>
+    private By globalOption(String text) {
+        return By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='" + text + "']");
+    }
+
+    // Readback of selected single value (“Yes”/“No”)
+    private By activeSingleValue = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]//div[contains(@class,'singleValue')]");
+
+
+    private By activeValueTxt = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]//div[contains(@class,'singleValue')]");
+
+    // Cancel button
+    private By cancelButtonnew = By.xpath("//a[contains(@class,'_link_') and normalize-space(text())='Cancel']");
+
+
+    // Scrollable grid container
+    private By gridScroller = By.cssSelector(".item-grid-wrapper.-scrollable, .item-grid-wrapper");
+
+    // Exact-match link by title
+    private By linkByExactTitle(String title) {
+        return By.xpath("//table[contains(@class,'item-grid')]//a[normalize-space(.)='" + title + "']");
+    }
+
+    // Fallback: contains() in case UI adds/omits spaces
+    private By linkByContainsTitle(String title) {
+        return By.xpath("//table[contains(@class,'item-grid')]//a[contains(normalize-space(.),'" + title + "')]");
+    }
+
+
+
+
+
     //Action
+
+
+    public void clickTemplateByTitle(String titleText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Ensure the grid is in view (scroll container if present)
+        try {
+            WebElement scroller = driver.findElement(gridScroller);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = 0;", scroller);
+        } catch (NoSuchElementException ignore) {}
+
+        // Try exact match first
+        By exact = linkByExactTitle(titleText);
+        By fuzzy = linkByContainsTitle(titleText);
+
+        WebElement link;
+        try {
+            link = wait.until(ExpectedConditions.visibilityOfElementLocated(exact));
+        } catch (TimeoutException te) {
+            link = wait.until(ExpectedConditions.visibilityOfElementLocated(fuzzy));
+        }
+
+        // Scroll that link into view (works even inside the grid scroller)
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+
+        // Click (with JS fallback)
+        try { link.click(); }
+        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link); }
+
+        // Wait for edit page to load (URL contains /edit/ and the title appears on the form)
+        wait.until(ExpectedConditions.urlContains("/administration/template-management/edit/"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//label[@for='title']/following::input[@id='title' and contains(@value,'" + titleText + "')]")
+        ));
+
+        pause(800);
+    }
+
+
+
+    public void clickCancelButtonnew() {
+        WebElement cancel = driver.findElement(cancelButtonnew);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cancel);
+
+        try {
+            cancel.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancel);
+        }
+
+        pause(2000);
+    }
+
+
+    public void setActive(String expected) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement control = driver.findElement(activeControl);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        try { control.click(); }
+        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control); }
+
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(activeInput));
+        wait.until(d -> "true".equals(input.getAttribute("aria-expanded")));   // menu open
+
+        String listboxId = input.getAttribute("aria-controls");
+        boolean selected = false;
+
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(optionInListbox(listboxId, expected))).click();
+            selected = true;
+        } catch (TimeoutException ignore) {}
+
+        if (!selected) {
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(globalOption(expected))).click();
+                selected = true;
+            } catch (TimeoutException ignore) {}
+        }
+
+        if (!selected) {
+            input.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+            input.sendKeys(expected);
+            pause(200);
+            input.sendKeys(Keys.ENTER);
+        }
+
+        // verify selected value
+        String actual = wait.until(ExpectedConditions.visibilityOfElementLocated(activeValueTxt)).getText().trim();
+        if (!expected.equals(actual)) {
+            throw new AssertionError("Active not set. Expected: " + expected + ", Actual: " + actual);
+        }
+        pause(800);
+    }
+
 
     public void clickSaveButton01() {
         WebElement save = driver.findElement(saveButton01);
@@ -109,28 +245,51 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     public void setActiveToNo() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Scroll and open dropdown
-        WebElement control = driver.findElement(activeControl01);
+        // Open dropdown (scroll + click, with JS fallback)
+        WebElement control = driver.findElement(activeControl);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
         try { control.click(); }
         catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control); }
 
-        // Wait for input & ensure dropdown opened
+        // Wait until input is visible and menu is open
         WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(activeInput));
         wait.until(d -> "true".equals(input.getAttribute("aria-expanded")));
 
-        // Get dynamic listbox id (e.g., react-select-3-listbox)
-        String listboxId = input.getAttribute("aria-controls");
+        String listboxId = input.getAttribute("aria-controls"); // e.g., react-select-3-listbox
 
+        boolean selected = false;
+
+        // Path 1: scoped listbox
         try {
-            WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNoInListbox(listboxId)));
-            option.click();
-        } catch (TimeoutException t1) {
-            WebElement fallback = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionNoGlobal));
-            fallback.click();
+            WebElement opt = wait.until(ExpectedConditions.visibilityOfElementLocated(optionInListbox(listboxId, "No")));
+            opt.click();
+            selected = true;
+        } catch (TimeoutException ignore) { }
+
+        // Path 2: global portal
+        if (!selected) {
+            try {
+                WebElement opt = wait.until(ExpectedConditions.visibilityOfElementLocated(globalOption("No")));
+                opt.click();
+                selected = true;
+            } catch (TimeoutException ignore) { }
         }
 
-        pause(1000);
+        // Path 3: type-ahead + ENTER
+        if (!selected) {
+            input.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+            input.sendKeys("No");
+            pause(200); // tiny debounce, matches your pattern
+            input.sendKeys(Keys.ENTER);
+        }
+
+        // Verify selected value shows “No”
+        WebElement value = wait.until(ExpectedConditions.visibilityOfElementLocated(activeSingleValue));
+        if (!"No".equals(value.getText().trim())) {
+            throw new AssertionError("Active dropdown did not select 'No'. Current value: " + value.getText());
+        }
+
+        pause(800);
     }
 
 

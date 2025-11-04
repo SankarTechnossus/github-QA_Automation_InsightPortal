@@ -187,13 +187,39 @@ public class Export_control_Template_management {
             Export_control_Template_managemnet_Page01.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
             ExtentReportListener.getExtentTest().pass("Selected Date Format successfully");
 
-            basePage.pause(3000);
+            basePage.pause(2000);
             Export_control_Template_managemnet_Page01.setActiveToNo();
-            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown successfully");
+            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
+
 
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.clickSaveButton();
+            Export_control_Template_managemnet_Page01.clickSaveButton01();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+            basePage.pause(2000);
+            Export_control_Template_managemnet_Page01.setActive("Yes");
+            ExtentReportListener.getExtentTest().pass("Active set to 'Yes' successfully");
+
+            basePage.pause(2000);
+            Export_control_Template_managemnet_Page01.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+
+            Export_control_Template_managemnet_Page01.clickTemplateByTitle(generatedTitle01);
+            ExtentReportListener.getExtentTest().pass("Opened template '" + generatedTitle01 + "' from the list successfully");
+
+
+            basePage.pause(2000);
+            Export_control_Template_managemnet_Page01.setActiveToNo();
+            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
+
+
+
+            basePage.pause(3000);
+            Export_control_Template_managemnet_Page01.clickSaveButton01();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+
 
 
 
