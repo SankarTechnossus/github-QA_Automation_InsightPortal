@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
+import pages.Export_control_Display_checklist_flow_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 
@@ -73,6 +74,17 @@ public class Export_control_Display_checklist_flow {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
+
+            basePage.pause(10000);
+            agreementPage.clickAdministrationLink();
+            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+
+            Export_control_Display_checklist_flow_page displaychecklistflow =new Export_control_Display_checklist_flow_page(driver);
+
+
+
+
 
 
 

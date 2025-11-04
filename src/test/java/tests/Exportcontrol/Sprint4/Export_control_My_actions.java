@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
+import pages.Export_control_My_actions_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 
@@ -73,6 +74,16 @@ public class Export_control_My_actions {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
+
+            basePage.pause(10000);
+            agreementPage.clickAdministrationLink();
+            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+
+            Export_control_My_actions_page myactionspage = new Export_control_My_actions_page(driver);
+
+
+
 
 
 

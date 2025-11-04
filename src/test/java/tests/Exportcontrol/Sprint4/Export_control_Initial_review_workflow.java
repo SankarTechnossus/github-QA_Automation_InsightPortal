@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
+import pages.Export_control_Initial_review_workflow_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 
@@ -73,6 +74,17 @@ public class Export_control_Initial_review_workflow {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
+
+            basePage.pause(10000);
+            agreementPage.clickAdministrationLink();
+            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+
+
+
+            Export_control_Initial_review_workflow_page initreviewworkflow =new Export_control_Initial_review_workflow_page(driver);
+
+
+
 
 
 
