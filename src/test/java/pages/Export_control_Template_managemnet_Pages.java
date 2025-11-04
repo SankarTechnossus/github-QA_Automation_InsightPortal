@@ -128,9 +128,9 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
 
 
 
-
-
     //Action
+
+
 
 
     public void clickTemplateByTitle(String titleText) {
