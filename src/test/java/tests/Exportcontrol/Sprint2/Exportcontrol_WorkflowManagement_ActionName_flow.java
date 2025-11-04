@@ -57,32 +57,23 @@ public class Exportcontrol_WorkflowManagement_ActionName_flow {
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Create an instance of LoginPage
-            //LoginPage loginPage = new LoginPage(driver);
 
             LoginPageHelper loginPageHelper =new LoginPageHelper(driver);
             loginPageHelper.enterUserName("SV1179");
+            ExtentReportListener.getExtentTest().pass("Entered username");
+
+
             loginPageHelper.clickNext();
+            ExtentReportListener.getExtentTest().pass("Clicked Next");
+
             loginPageHelper.enterPassword();
+            ExtentReportListener.getExtentTest().pass("Entered password");
+
+
             loginPageHelper.clickVerify();
+            ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
-            // User will enter the username into the username input field
-            //loginPage.enterUsername("SV1179");
-            //ExtentReportListener.getExtentTest().pass("Entered username");
 
-            //ExtentReportListener.logPassWithScreenshot("Entered Useranme");
-
-            // User will click the 'Next' button to proceed to the password entry screen
-            //loginPage.clickNext();
-            //ExtentReportListener.getExtentTest().pass("Clicked Next");
-
-            // User will input the user's password into the password field
-            //loginPage.enterPassword("Devinivetha@1930");
-            //ExtentReportListener.getExtentTest().pass("Entered password");
-
-            // User will click the 'Verify' button to authenticate the user
-            //loginPage.clickVerify();
-            //ExtentReportListener.getExtentTest().pass("Clicked Verify");
 
             // Optional: pause if any post-login actions needed
             basePage.pause(20000);

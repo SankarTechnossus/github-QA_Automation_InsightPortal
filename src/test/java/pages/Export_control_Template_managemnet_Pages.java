@@ -56,10 +56,40 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
     private By saveButton = By.xpath("//button[normalize-space()='Save']");
 
 
+    // Dropdown control for Date Format
+    private By dateFormatDropdownArrow = By.xpath("//label[normalize-space()='Date Format']/following::div[contains(@class,'select-control')][1]");
+
+    // Option locator (dynamic)
+    private By getDateFormatOption(String formatText) {
+        return By.xpath("//div[contains(@class,'select__menu')]//div[contains(text(),'" + formatText + "')]");
+    }
+
+    // Save button
+    private By saveButton01 = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
+
+
+
 
 
 
     //Action
+
+
+    public void selectDateFormatAndSave(String formatText) {
+        WebElement dropdownArrow = driver.findElement(dateFormatDropdownArrow);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
+        dropdownArrow.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(getDateFormatOption(formatText)));
+        option.click();
+
+        pause(1000);
+        WebElement save = driver.findElement(saveButton01);
+        save.click();
+        pause(2000);
+    }
+
 
 
     public void clickSaveButton() {
