@@ -184,16 +184,10 @@ public class Export_control_Template_management {
 
 
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.selectDateFormatAndSave("01/01/2020 (MM/DD/YYYY)");
-            ExtentReportListener.getExtentTest().pass("Selected '01/01/2020 (MM/DD/YYYY)' as Date Format and clicked Save successfully");
+            Export_control_Template_managemnet_Page01.selectDateFormat("01/01/2020 (MM/DD/YYYY)");
+            ExtentReportListener.getExtentTest().pass("Selected '01/01/2020 (MM/DD/YYYY)' from Date Format dropdown successfully");
 
 
-
-
-//            // Step 1: Date Format = MM/DD/YYYY
-//            basePage.pause(3000);
-//            Export_control_Template_managemnet_Page01.selectDateFormat("MM/DD/YYYY");
-//            ExtentReportListener.getExtentTest().pass("Selected Date Format: MM/DD/YYYY");
 
             // Step 2: Active = No
             basePage.pause(2000);
