@@ -88,6 +88,34 @@ public class Export_control_My_actions {
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
 
+            basePage.pause(3000);
+            myactionspage.clickActionRequiredLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' link successfully");
+
+            basePage.pause(2000);
+            myactionspage.selectRecordType("Export Control Request");
+            ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
+
+            basePage.pause(2000);
+            myactionspage.enterRecordNumber("01");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 01");
+
+            basePage.pause(2000);
+            myactionspage.selectTransactionType("Initial Review");
+            ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
+
+            basePage.pause(2000);
+            myactionspage.enterAgreementNumbers("2025E004880");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 2025E004880");
+
+            basePage.pause(2000);
+            myactionspage.clickSearch();
+            ExtentReportListener.getExtentTest().pass("Clicked Search and submitted the form");
+
+
+
+
+
 
 
 
