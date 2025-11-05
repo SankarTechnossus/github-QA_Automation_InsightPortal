@@ -83,6 +83,11 @@ public class Export_control_My_actions {
             Export_control_My_actions_page myactionspage = new Export_control_My_actions_page(driver);
 
 
+            basePage.pause(3000);
+            myactionspage.clickExportControlLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+
+
 
 
 
