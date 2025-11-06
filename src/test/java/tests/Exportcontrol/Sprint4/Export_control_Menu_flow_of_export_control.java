@@ -83,6 +83,9 @@ public class Export_control_Menu_flow_of_export_control {
             Export_control_menu_flow_of_export_control_page menuflowexport = new Export_control_menu_flow_of_export_control_page(driver);
 
 
+            basePage.pause(3000);
+            menuflowexport.clickExportControlLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
 
 
