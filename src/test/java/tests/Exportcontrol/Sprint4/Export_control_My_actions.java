@@ -58,6 +58,7 @@ public class Export_control_My_actions {
             // Create an instance of LoginPage
             LoginPageHelper loginPageHelper =new LoginPageHelper(driver);
             loginPageHelper.enterUserName("SV1179");
+//            loginPageHelper.enterUserName("MA1279");
             ExtentReportListener.getExtentTest().pass("Entered username");
 
             loginPageHelper.clickNext();
@@ -91,21 +92,51 @@ public class Export_control_My_actions {
             myactionspage.clickActionRequiredLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' link successfully");
 
-            basePage.pause(800);
+
+            basePage.pause(2000);
             myactionspage.setRecordType("Export Control Request");
             ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
 
-            myactionspage.setRecordNumber("01");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 01");
 
+            basePage.pause(2000);
+            myactionspage.setRecordNumber("2025E006115");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006115");
+
+            basePage.pause(2000);
             myactionspage.setTransactionType("Initial Review");
             ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
 
-            myactionspage.setAgreementNumbers("2025E004880");
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 2025E004880");
+            basePage.pause(2000);
+            myactionspage.setAgreementNumbers("01");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 01");
 
+            basePage.pause(2000);
             myactionspage.clickSearch();
             ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+
+
+            basePage.pause(2000);
+            myactionspage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' button successfully");
+
+
+            basePage.pause(2000);
+            myactionspage.setRecordNumber("2025E006115");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006115");
+
+
+            basePage.pause(2000);
+            myactionspage.clickSearch();
+            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+
+
+            basePage.pause(1000);
+            myactionspage.clickRecordNumberLink("2025E006115");
+            ExtentReportListener.getExtentTest().pass("Clicked record number link: 2025E006115 successfully");
+
+
+
+
 
 
 

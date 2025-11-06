@@ -29,6 +29,7 @@ public class LoginPageHelper {
     public void enterPassword(){
         // User will input the user's password into the password field
         loginPage.enterPassword("Devinivetha@1930");
+//        loginPage.enterPassword("Nexon@1996");
         ExtentReportListener.getExtentTest().pass("Entered password");
     }
 
