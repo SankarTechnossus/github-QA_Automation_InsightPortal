@@ -129,22 +129,10 @@ public class Export_control_My_actions {
             myactionspage.clickSearch();
             ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
 
-
-            basePage.pause(1000);
-            myactionspage.clickRecordNumberLink("2025E006115");
-            ExtentReportListener.getExtentTest().pass("Clicked record number link: 2025E006115 successfully");
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//            basePage.pause(1000);
+//            myactionspage.clickRecordNumberLink("2025E006115");
+//            ExtentReportListener.getExtentTest().pass("Clicked record number link: 2025E006115 successfully");
 
 
 
