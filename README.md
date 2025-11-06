@@ -95,7 +95,7 @@ Test PDFs used during execution are stored under:
 ## 🧠 Author
 
 **Shankar Venkatesan**  
-🔗 _Automation Engineer | Open to Collaborations_  
+🔗 _Automation Engineer
 📩 Feel free to raise issues, contribute, or fork!
 
 ---
