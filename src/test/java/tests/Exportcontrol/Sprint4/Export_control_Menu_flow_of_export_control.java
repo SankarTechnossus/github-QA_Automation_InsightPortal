@@ -88,6 +88,48 @@ public class Export_control_Menu_flow_of_export_control {
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
 
+            basePage.pause(1000);
+            menuflowexport.clickSearchLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
+
+            basePage.pause(1000);
+            menuflowexport.setStatusCompleted();
+            ExtentReportListener.getExtentTest().pass("Selected Status: Completed");
+
+            basePage.pause(1000);
+            menuflowexport.setRecordNumber("2025E006126");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006126");
+
+
+            basePage.pause(3000);
+            String[] createdRange = menuflowexport.enterCreatedOnRandomRange();
+            ExtentReportListener.getExtentTest().pass("Created On  From: " + createdRange[0] + "  To: " + createdRange[1]);
+
+            String[] reviewRange  = menuflowexport.enterReviewDateRandomRange();
+            ExtentReportListener.getExtentTest().pass("Review date From: " + reviewRange[0] + "  To: " + reviewRange[1]);
+
+
+            basePage.pause(1000);
+            menuflowexport.setAgreementNumbers("01");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 01");
+
+            basePage.pause(1000);
+            menuflowexport.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search");
+
+            basePage.pause(1000);
+            menuflowexport.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
+
+            basePage.pause(1000);
+            menuflowexport.setRecordNumber("2025E006126");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006126");
+
+            basePage.pause(1000);
+            menuflowexport.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search");
+
+
 
 
 
