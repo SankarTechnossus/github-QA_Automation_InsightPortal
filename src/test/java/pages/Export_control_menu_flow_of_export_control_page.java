@@ -61,67 +61,105 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
     //Helper
 
 
-    // Created On
+
+// Created On
     private By createdFromInput = By.xpath(
-            "//label[normalize-space()='Created On']/following::div[contains(@class,'_dateRangeContainer')][1]" +
-                    "//div[contains(@class,'react-datepicker__input-container')][1]//input"
+            "//label[normalize-space()='Created On']" +
+                    "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]"
     );
     private By createdToInput = By.xpath(
-            "//label[normalize-space()='Created On']/following::div[contains(@class,'_dateRangeContainer')][1]" +
-                    "//div[contains(@class,'react-datepicker__input-container')][2]//input"
+            "//label[normalize-space()='Created On']" +
+                    "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]"
     );
 
     // Review date
     private By reviewFromInput = By.xpath(
-            "//label[normalize-space()='Review date']/following::div[contains(@class,'_dateRangeContainer')][1]" +
-                    "//div[contains(@class,'react-datepicker__input-container')][1]//input"
+            "//label[normalize-space()='Review date']" +
+                    "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]"
     );
     private By reviewToInput = By.xpath(
-            "//label[normalize-space()='Review date']/following::div[contains(@class,'_dateRangeContainer')][1]" +
-                    "//div[contains(@class,'react-datepicker__input-container')][2]//input"
+            "//label[normalize-space()='Review date']" +
+                    "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]"
     );
 
 
     private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
     private String fmt(LocalDate d) { return d.format(DF); }
 
-    // Safe setter for these plain text date fields
     private void setDate(By inputBy, String value) {
-        WebElement el = driver.findElement(inputBy);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(inputBy));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
         el.click();
         el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         el.sendKeys(Keys.DELETE);
         el.sendKeys(value);
+        // Close any open datepicker so it doesn't block next actions
+        try { el.sendKeys(Keys.ESCAPE); } catch (Exception ignored) {}
     }
 
 
-    /** Created On: enter random From/To (10–14 days ago to +1–5 days, capped at today) */
+    public void setCreatedOnFrom(LocalDate from)  { setDate(createdFromInput, fmt(from)); }
+    public void setCreatedOnTo(LocalDate to)      { setDate(createdToInput,   fmt(to)); }
+
+    public void setReviewDateFrom(LocalDate from) { setDate(reviewFromInput,  fmt(from)); }
+    public void setReviewDateTo(LocalDate to)     { setDate(reviewToInput,    fmt(to)); }
+
+
+
+
+
+
+//    /** Created On: enter random From/To (10–14 days ago to +1–5 days, capped at today) */
+//    public String[] enterCreatedOnRandomRange() {
+//        LocalDate today = LocalDate.now();
+//        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(10, 15));
+//        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 6));
+//        if (to.isAfter(today)) to = today;
+//
+//        setDate(createdFromInput, fmt(from));
+//        pause(300); // small settle
+//        setDate(createdToInput, fmt(to));
+//        return new String[] { fmt(from), fmt(to) };
+//    }
+//
+//    /** Review date: enter random From/To (7–10 days ago to +1–3 days, capped at today) */
+//    public String[] enterReviewDateRandomRange() {
+//        LocalDate today = LocalDate.now();
+//        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(7, 11));
+//        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 4));
+//        if (to.isAfter(today)) to = today;
+//
+//        setDate(reviewFromInput, fmt(from));
+//        pause(300);
+//        setDate(reviewToInput, fmt(to));
+//        return new String[] { fmt(from), fmt(to) };
+//    }
+
     public String[] enterCreatedOnRandomRange() {
         LocalDate today = LocalDate.now();
-        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(10, 15));
-        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 6));
+        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(10,15));
+        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1,6));
         if (to.isAfter(today)) to = today;
 
-        setDate(createdFromInput, fmt(from));
-        pause(300); // small settle
-        setDate(createdToInput, fmt(to));
-        return new String[] { fmt(from), fmt(to) };
+        setCreatedOnFrom(from);
+        pause(3000);
+        setCreatedOnTo(to);
+        return new String[]{ fmt(from), fmt(to) };
     }
 
-    /** Review date: enter random From/To (7–10 days ago to +1–3 days, capped at today) */
     public String[] enterReviewDateRandomRange() {
         LocalDate today = LocalDate.now();
-        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(7, 11));
-        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 4));
+        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(7,11));
+        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1,4));
         if (to.isAfter(today)) to = today;
 
-        setDate(reviewFromInput, fmt(from));
-        pause(300);
-        setDate(reviewToInput, fmt(to));
-        return new String[] { fmt(from), fmt(to) };
+        setReviewDateFrom(from);
+        pause(3000);
+        setReviewDateTo(to);
+        return new String[]{ fmt(from), fmt(to) };
     }
+
 
 
 

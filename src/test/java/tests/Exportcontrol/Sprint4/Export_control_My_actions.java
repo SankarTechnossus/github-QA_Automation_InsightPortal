@@ -99,8 +99,8 @@ public class Export_control_My_actions {
 
 
             basePage.pause(2000);
-            myactionspage.setRecordNumber("2025E006115");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006115");
+            myactionspage.setRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
 
             basePage.pause(2000);
             myactionspage.setTransactionType("Initial Review");
@@ -121,8 +121,8 @@ public class Export_control_My_actions {
 
 
             basePage.pause(2000);
-            myactionspage.setRecordNumber("2025E006115");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006115");
+            myactionspage.setRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
 
 
             basePage.pause(2000);
@@ -131,8 +131,8 @@ public class Export_control_My_actions {
 
 
 //            basePage.pause(1000);
-//            myactionspage.clickRecordNumberLink("2025E006115");
-//            ExtentReportListener.getExtentTest().pass("Clicked record number link: 2025E006115 successfully");
+//            myactionspage.clickRecordNumberLink("2025E006129");
+//            ExtentReportListener.getExtentTest().pass("Clicked record number link: 2025E006129 successfully");
 
 
 
