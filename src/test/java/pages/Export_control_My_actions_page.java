@@ -19,6 +19,27 @@ public class Export_control_My_actions_page extends BasePage {
     }
 
 
+    // inside Export_control_My_actions_page
+
+    private WebElement waitHighlightAndGetClickable(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+        // scroll to center
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+
+        // highlight element for demo
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].style.outline='3px solid red';", el);
+
+        // demo pause so you can *see* it before click
+        pause(1500);
+
+        return el;
+    }
+
     // root div for a React-Select control for a given <label>
     private By controlRoot(String label) {
         return By.xpath("//label[normalize-space()='" + label + "']" +
@@ -34,6 +55,12 @@ public class Export_control_My_actions_page extends BasePage {
                 ExpectedConditions.elementToBeClickable(controlRoot(label)));
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", root);
+
+        // highlight & pause before opening dropdown
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].style.outline='3px solid red';", root);
+        pause(1000);
+
         root.click();
 
         WebElement inputEl = root.findElement(By.xpath(".//input[@role='combobox']"));
@@ -47,7 +74,6 @@ public class Export_control_My_actions_page extends BasePage {
         }
         By listboxBy = By.id(listboxId);
 
-        // pre-filter text & wait for listbox
         inputEl.clear();
         inputEl.sendKeys(optionText);
         new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -55,21 +81,27 @@ public class Export_control_My_actions_page extends BasePage {
 
         By optionBy = By.xpath("//*[@id='" + listboxId + "']//*[normalize-space()='" + optionText + "']");
         WebElement optionEl = wait.until(ExpectedConditions.elementToBeClickable(optionBy));
+
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", optionEl);
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].style.outline='3px solid blue';", optionEl);
+        pause(1000);   // see the option before click
+
         optionEl.click();
 
-        // close dropdown
         try { inputEl.sendKeys(Keys.ESCAPE); } catch (Exception ignored) {}
         try { driver.findElement(By.tagName("body")).click(); } catch (Exception ignored) {}
 
-        // assert selected value
         By selectedValueBy = By.xpath(
                 "//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]" +
                         "//*[contains(@class,'singleValue') or contains(@class,'valueContainer')]"
         );
         wait.until(d -> d.findElement(selectedValueBy).getText().trim().equals(optionText));
+
+        pause(1000);   // after selection pause
     }
+
 
 
     // ActionRequiredPage.java
@@ -117,6 +149,8 @@ public class Export_control_My_actions_page extends BasePage {
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
 
         link.click();
+
+        pause(1500);   // after-click pause
     }
 
 
