@@ -13,6 +13,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AgreementPage;
 import pages.Export_control_My_actions_page;
+import pages.Export_control_menu_flow_of_export_control_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 
@@ -81,58 +82,45 @@ public class Export_control_My_actions {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            Export_control_My_actions_page myactionspage = new Export_control_My_actions_page(driver);
-
+            Export_control_menu_flow_of_export_control_page menuflowexport = new Export_control_menu_flow_of_export_control_page(driver);
 
             basePage.pause(3000);
-            myactionspage.clickExportControlLink();
+            menuflowexport.clickExportControlLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(3000);
+
+            Export_control_My_actions_page myactionspage = new Export_control_My_actions_page(driver);
+
+            // inside @Test
+            basePage.pause(5000);
+
             myactionspage.clickActionRequiredLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' link successfully");
+            ExtentReportListener.getExtentTest()
+                    .pass("Clicked 'Action Required' from Export Control left navigation");
+
+            myactionspage.selectRecordTypeAsExportControlRequest();
+            ExtentReportListener.getExtentTest()
+                    .pass("Selected Record Type as 'Export Control Request'");
+
+            myactionspage.enterRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest()
+                    .pass("Entered Record Number '2025E006129'");
+
+            myactionspage.selectTransactionTypeAsInitialReview();
+            ExtentReportListener.getExtentTest()
+                    .pass("Selected Transaction Type as 'Initial Review'");
+
+            myactionspage.enterAgreementNumbers("932840");
+            ExtentReportListener.getExtentTest()
+                    .pass("Entered Agreement Numbers '932840'");
+
+            myactionspage.clickSearchButton();
+            ExtentReportListener.getExtentTest()
+                    .pass("Clicked 'Search' on Action Required page");
 
 
-            basePage.pause(2000);
-            myactionspage.setRecordType("Export Control Request");
-            ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
 
 
-            basePage.pause(2000);
-            myactionspage.setRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-            basePage.pause(2000);
-            myactionspage.setTransactionType("Initial Review");
-            ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
-
-            basePage.pause(2000);
-            myactionspage.setAgreementNumbers("01");
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 01");
-
-            basePage.pause(2000);
-            myactionspage.clickSearch();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
-
-
-            basePage.pause(2000);
-            myactionspage.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' button successfully");
-
-
-            basePage.pause(2000);
-            myactionspage.setRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-
-            basePage.pause(2000);
-            myactionspage.clickSearch();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
-
-
-//            basePage.pause(1000);
-//            myactionspage.clickRecordNumberLink("2025E006129");
-//            ExtentReportListener.getExtentTest().pass("Clicked record number link: 2025E006129 successfully");
 
 
 
