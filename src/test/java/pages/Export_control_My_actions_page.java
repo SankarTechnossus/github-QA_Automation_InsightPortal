@@ -19,145 +19,162 @@ public class Export_control_My_actions_page extends BasePage {
     }
 
 
-
-    //Locators
-
-
-    // Left nav - Action Required
-    private By actionRequiredLink = By.xpath(
-            "//div[contains(@class,'export-control-nav-block')]//a[@href='/export-control/action-required']"
-    );
-
-    // Generic React-Select controls (we'll use helper with label)
-    private By recordTypeControl = By.xpath(
-            "//label[normalize-space()='Record Type']/following::div[contains(@class,'select-control')][1]"
-    );
-    private By transactionTypeControl = By.xpath(
-            "//label[normalize-space()='Transaction Type']/following::div[contains(@class,'select-control')][1]"
-    );
-
-    // Text inputs
-    private By recordNumberInput = By.xpath(
-            "//label[normalize-space()='Record Number']/following::input[contains(@class,'default-input')][1]"
-    );
-    private By agreementNumbersInput = By.xpath(
-            "//label[normalize-space()='Agreement Numbers']/following::input[contains(@class,'default-input')][1]"
-    );
-
-    // Search button
-    private By searchButton = By.xpath(
-            "//form[contains(@class,'base-search-form')]//button[@type='submit' and normalize-space()='Search']"
-    );
-
-    private By clearSelectionsButton = By.xpath(
-            "//form[contains(@class,'base-search-form')]//button[@type='button' and normalize-space()='Clear Selections']"
-    );
-
-    private By firstRecordNumberLink = By.xpath(
-            "//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a"
-    );
+    // root div for a React-Select control for a given <label>
+    private By controlRoot(String label) {
+        return By.xpath("//label[normalize-space()='" + label + "']" +
+                "/following::div[contains(@class,'select-control')][1]");
+    }
 
 
+    // ---------- Generic React-Select (single) by <label> ----------
+    private void selectReactSelectSingleByLabel(String label, String optionText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-    // helper
-public void selectReactSelectByLabel(String label, String optionText) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement root = wait.until(
+                ExpectedConditions.elementToBeClickable(controlRoot(label)));
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", root);
+        root.click();
 
-    By controlBy = By.xpath("//label[normalize-space()='" + label + "']" +
-            "/following::div[contains(@class,'select-control')][1]");
-    WebElement controlEl = wait.until(ExpectedConditions.elementToBeClickable(controlBy));
-    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", controlEl);
-    controlEl.click();
+        WebElement inputEl = root.findElement(By.xpath(".//input[@role='combobox']"));
 
-    By inputBy = By.xpath("//label[normalize-space()='" + label + "']" +
-            "/following::div[contains(@class,'select-control')][1]//input[@role='combobox']");
-    WebElement inputEl = wait.until(ExpectedConditions.elementToBeClickable(inputBy));
-    inputEl.sendKeys(optionText);
+        String listboxId = inputEl.getAttribute("aria-controls");
+        if (listboxId == null || listboxId.isEmpty()) {
+            String inputId = inputEl.getAttribute("id");
+            if (inputId != null) {
+                listboxId = inputId.replace("input", "listbox");
+            }
+        }
+        By listboxBy = By.id(listboxId);
 
-    By optionBy = By.xpath("//div[@role='listbox']//div[@role='option']" +
-            "[.//div[normalize-space()='" + optionText + "']]");
-    WebElement optionEl = wait.until(ExpectedConditions.elementToBeClickable(optionBy));
-    optionEl.click();
+        // pre-filter text & wait for listbox
+        inputEl.clear();
+        inputEl.sendKeys(optionText);
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(listboxBy));
 
-    pause(1000);
-}
+        By optionBy = By.xpath("//*[@id='" + listboxId + "']//*[normalize-space()='" + optionText + "']");
+        WebElement optionEl = wait.until(ExpectedConditions.elementToBeClickable(optionBy));
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", optionEl);
+        optionEl.click();
 
+        // close dropdown
+        try { inputEl.sendKeys(Keys.ESCAPE); } catch (Exception ignored) {}
+        try { driver.findElement(By.tagName("body")).click(); } catch (Exception ignored) {}
 
-//Method
-
-    public void clickFirstRecordNumberLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        WebElement recordLink = wait.until(
-                ExpectedConditions.elementToBeClickable(firstRecordNumberLink)
+        // assert selected value
+        By selectedValueBy = By.xpath(
+                "//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]" +
+                        "//*[contains(@class,'singleValue') or contains(@class,'valueContainer')]"
         );
+        wait.until(d -> d.findElement(selectedValueBy).getText().trim().equals(optionText));
+    }
+
+
+    // ActionRequiredPage.java
+
+    // Left nav – "Action Required" under Export Control
+    private By actionRequiredLink = By.xpath(
+            "//div[contains(@class,'export-control-nav-block')]//a" +
+                    "[contains(@class,'label') and normalize-space()='Action Required']"
+    );
+
+
+    // text inputs
+    private By recordNumberInput = By.xpath(
+            "//label[normalize-space()='Record Number']/following::input[1]"
+    );
+
+    private By agreementNumbersInput = By.xpath(
+            "//label[normalize-space()='Agreement Numbers']/following::input[1]"
+    );
+
+    // buttons
+    private By clearSelectionsButton = By.xpath("//button[normalize-space()='Clear Selections']");
+    private By searchButton          = By.xpath("//button[@type='submit' and normalize-space()='Search']");
+
+    // grid link (first row, record number)
+    private By firstRecordNumberLink = By.xpath(
+            "//table[contains(@class,'item-grid')]//tbody/tr[1]" +
+                    "//td[@data-column='_exportControlNumber']//a"
+    );
+
+
+
+    // 1. Click "Action Required" left nav is in some LeftNav page – leaving as you already have.
+
+
+
+
+
+    public void clickActionRequiredLink() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(actionRequiredLink));
 
         ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", recordLink);
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
 
-        recordLink.click();
-        pause(1500);
-    }
-
-
-    public void clickClearSelections() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(clearSelectionsButton));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-        btn.click();
-        pause(1500);
-    }
-
-
-    // 1. Click on "Action Required"
-    public void clickActionRequiredLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(actionRequiredLink));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         link.click();
-        pause(1500);
     }
 
-    // 2. Record Type = "Export Control Request"
-    public void selectRecordTypeAsExportControlRequest() {
-        selectReactSelectByLabel("Record Type", "Export Control Request");
+
+    // 2. Select Record Type = "Export Control Request"
+    public void selectRecordTypeExportControlRequest() {
+        selectReactSelectSingleByLabel("Record Type", "Export Control Request");
+        pause(1000);
     }
 
-    // 3. Enter Record Number "2025E006129"
+    // 3. Enter Record Number
     public void enterRecordNumber(String recordNumber) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(recordNumberInput));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+        WebElement input = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(recordNumberInput));
         input.clear();
         input.sendKeys(recordNumber);
         pause(500);
     }
 
-    // 4. Transaction Type = "Initial Review"
-    public void selectTransactionTypeAsInitialReview() {
-        selectReactSelectByLabel("Transaction Type", "Initial Review");
+    // 4. Select Transaction Type = "Initial Review"
+    public void selectTransactionTypeInitialReview() {
+        selectReactSelectSingleByLabel("Transaction Type", "Initial Review");
+        pause(1000);
     }
 
-    // 5. Agreement Numbers = "932840"
+    // 5. Enter Agreement Numbers
     public void enterAgreementNumbers(String agreementNumber) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(agreementNumbersInput));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+        WebElement input = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(agreementNumbersInput));
         input.clear();
         input.sendKeys(agreementNumber);
         pause(500);
     }
 
-    // Click Search
+    // 6. Click Clear Selections
+    public void clickClearSelections() {
+        WebElement btn = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(clearSelectionsButton));
+        btn.click();
+        pause(1000);
+    }
+
+    // 7. Click Search
     public void clickSearchButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(searchButton));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+        WebElement btn = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(searchButton));
         btn.click();
         pause(2000);
     }
 
-
-
+    // 8. Click first Record Number link (2025E006129)
+    public void clickFirstRecordNumberLink() {
+        WebElement link = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(firstRecordNumberLink));
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        link.click();
+        pause(1500);
+    }
 
 }
+
