@@ -72,8 +72,71 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
 
 
 
+    // First row Edit (pen) button in Record Types grid
+    private By firstRowEditButton = By.xpath(
+            "//table[contains(@class,'item-grid')]//tbody/tr[1]" +
+                    "//td[@data-column='_actions']//button[.//div[@aria-label='Edit']]"
+    );
+
+    // Cancel button on the "Edit Record Type" modal
+    private By editRecordTypeCancelButton = By.xpath(
+            "//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Cancel']"
+    );
+
+    private By editRecordTypeSaveButton = By.xpath(
+            "//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Save']"
+    );
+
+
+
 
     //Actions
+
+    public void clickSaveOnEditRecordTypeModal() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement saveBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(editRecordTypeSaveButton)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+
+        saveBtn.click();
+        pause(1000);   // your pattern
+    }
+
+
+    public void clickFirstRecordTypeEditIcon() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement editBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(firstRowEditButton)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", editBtn);
+
+        editBtn.click();
+        pause(1000);
+    }
+
+    public void clickCancelOnEditRecordTypeModal() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement cancelBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(editRecordTypeCancelButton)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelBtn);
+
+        cancelBtn.click();
+        pause(1000);
+    }
+
+
+
     public void openRecordTypesExportControl() {
         // ensure the parent row is in view
         WebElement parent = driver.findElement(recordTypesLink02);

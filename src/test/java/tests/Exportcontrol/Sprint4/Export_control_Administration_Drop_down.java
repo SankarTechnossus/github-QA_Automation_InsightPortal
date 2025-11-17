@@ -106,9 +106,7 @@ public class Export_control_Administration_Drop_down {
             adminPageRecordtypes.enterRecordType("Test01");
             ExtentReportListener.getExtentTest().pass("Entered 'Test' into Record Type input field");
 
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
 
 
             basePage.pause(5000);
@@ -132,9 +130,7 @@ public class Export_control_Administration_Drop_down {
             ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
 
 
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
 
 
             basePage.pause(5000);
@@ -177,6 +173,23 @@ public class Export_control_Administration_Drop_down {
 
 
             basePage.pause(5000);
+            adminPageRecordtypes.clickFirstRecordTypeEditIcon();
+            ExtentReportListener.getExtentTest().pass("Clicked Edit icon for the first Record Type in the list");
+
+            basePage.pause(2000);
+            adminPageRecordtypes.clickCancelOnEditRecordTypeModal();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel on Edit Record Type modal");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickFirstRecordTypeEditIcon();
+            ExtentReportListener.getExtentTest().pass("Clicked Edit icon for the first Record Type in the list");
+
+            basePage.pause(2000);
+            adminPageRecordtypes.clickSaveOnEditRecordTypeModal();
+            ExtentReportListener.getExtentTest().pass("Clicked Save on Edit Record Type modal");
+
+
+            basePage.pause(5000);
             adminPageRecordtypes.clickAddCategoryLink();
             ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
 
@@ -191,10 +204,6 @@ public class Export_control_Administration_Drop_down {
             adminPageRecordtypes.enterRefMeaning(refValue);
             ExtentReportListener.getExtentTest().pass("Entered '" + refValue + "' into Ref Meaning input field");
 
-
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickCancelButton();
@@ -215,10 +224,7 @@ public class Export_control_Administration_Drop_down {
             adminPageRecordtypes.enterRefMeaning(refValue01);
             ExtentReportListener.getExtentTest().pass("Entered '" + refValue01 + "' into Ref Meaning input field");
 
-//
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
+
 
             basePage.pause(5000);
             adminPageRecordtypes.clickCreateButton();
@@ -258,6 +264,22 @@ public class Export_control_Administration_Drop_down {
             basePage.pause(5000);
             adminPageRecordtypes.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickFirstRecordTypeEditIcon();
+            ExtentReportListener.getExtentTest().pass("Clicked Edit icon for the first Record Type in the list");
+
+            basePage.pause(2000);
+            adminPageRecordtypes.clickCancelOnEditRecordTypeModal();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel on Edit Record Type modal");
+
+            basePage.pause(5000);
+            adminPageRecordtypes.clickFirstRecordTypeEditIcon();
+            ExtentReportListener.getExtentTest().pass("Clicked Edit icon for the first Record Type in the list");
+
+            basePage.pause(2000);
+            adminPageRecordtypes.clickSaveOnEditRecordTypeModal();
+            ExtentReportListener.getExtentTest().pass("Clicked Save on Edit Record Type modal");
 
 
 
