@@ -129,6 +129,12 @@ public class Export_control_Menu_flow_of_export_control {
             ExtentReportListener.getExtentTest().pass("Clicked Search");
 
 
+            basePage.pause(5000);
+            menuflowexport.clickFirstRecordNumberLink();
+            ExtentReportListener.getExtentTest().pass("Clicked the first Record Number link and navigated inside the Record Details page");
+
+
+
 
 
 

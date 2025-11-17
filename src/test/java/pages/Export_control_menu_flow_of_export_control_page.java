@@ -82,6 +82,28 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
                     "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]"
     );
 
+    // First row Record Number link
+    private By firstRecordNumberLink = By.xpath(
+            "//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a"
+    );
+
+
+    public void clickFirstRecordNumberLink() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement recordLink = wait.until(
+                ExpectedConditions.elementToBeClickable(firstRecordNumberLink)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", recordLink);
+
+        recordLink.click();
+
+        pause(1500);  // your pattern
+    }
+
+
 
     private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private String fmt(LocalDate d) { return d.format(DF); }
