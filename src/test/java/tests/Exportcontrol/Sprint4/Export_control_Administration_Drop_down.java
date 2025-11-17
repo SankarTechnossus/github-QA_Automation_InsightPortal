@@ -282,11 +282,6 @@ public class Export_control_Administration_Drop_down {
             ExtentReportListener.getExtentTest().pass("Clicked Save on Edit Record Type modal");
 
 
-
-
-
-
-
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
