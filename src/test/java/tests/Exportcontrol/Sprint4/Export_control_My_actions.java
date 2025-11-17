@@ -91,32 +91,50 @@ public class Export_control_My_actions {
 
             Export_control_My_actions_page myactionspage = new Export_control_My_actions_page(driver);
 
-            // inside @Test
-            basePage.pause(5000);
-
+            basePage.pause(3000);
             myactionspage.clickActionRequiredLink();
-            ExtentReportListener.getExtentTest()
-                    .pass("Clicked 'Action Required' from Export Control left navigation");
+            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' from Export Control left navigation");
 
+            basePage.pause(1000);
             myactionspage.selectRecordTypeAsExportControlRequest();
-            ExtentReportListener.getExtentTest()
-                    .pass("Selected Record Type as 'Export Control Request'");
+            ExtentReportListener.getExtentTest().pass("Selected Record Type as 'Export Control Request'");
 
+            basePage.pause(1000);
             myactionspage.enterRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest()
-                    .pass("Entered Record Number '2025E006129'");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number '2025E006129'");
 
+            basePage.pause(1000);
             myactionspage.selectTransactionTypeAsInitialReview();
-            ExtentReportListener.getExtentTest()
-                    .pass("Selected Transaction Type as 'Initial Review'");
+            ExtentReportListener.getExtentTest().pass("Selected Transaction Type as 'Initial Review'");
 
+            basePage.pause(1000);
             myactionspage.enterAgreementNumbers("932840");
-            ExtentReportListener.getExtentTest()
-                    .pass("Entered Agreement Numbers '932840'");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers '932840'");
 
+            basePage.pause(1000);
             myactionspage.clickSearchButton();
-            ExtentReportListener.getExtentTest()
-                    .pass("Clicked 'Search' on Action Required page");
+            ExtentReportListener.getExtentTest().pass("Clicked 'Search' on Action Required page");
+
+            basePage.pause(3000);
+            myactionspage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' on Action Required page");
+
+
+            basePage.pause(1000);
+            myactionspage.enterRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number '2025E006129'");
+
+
+            basePage.pause(1000);
+            myactionspage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Search' on Action Required page");
+
+
+            basePage.pause(3000);
+            myactionspage.clickFirstRecordNumberLink();
+            ExtentReportListener.getExtentTest().pass("Clicked the first Record Number link '2025E006129' from Action Required grid");
+
+
 
 
 

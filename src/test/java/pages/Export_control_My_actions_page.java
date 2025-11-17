@@ -49,8 +49,17 @@ public class Export_control_My_actions_page extends BasePage {
             "//form[contains(@class,'base-search-form')]//button[@type='submit' and normalize-space()='Search']"
     );
 
+    private By clearSelectionsButton = By.xpath(
+            "//form[contains(@class,'base-search-form')]//button[@type='button' and normalize-space()='Clear Selections']"
+    );
 
-// helper
+    private By firstRecordNumberLink = By.xpath(
+            "//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a"
+    );
+
+
+
+    // helper
 public void selectReactSelectByLabel(String label, String optionText) {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -75,6 +84,30 @@ public void selectReactSelectByLabel(String label, String optionText) {
 
 
 //Method
+
+    public void clickFirstRecordNumberLink() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement recordLink = wait.until(
+                ExpectedConditions.elementToBeClickable(firstRecordNumberLink)
+        );
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", recordLink);
+
+        recordLink.click();
+        pause(1500);
+    }
+
+
+    public void clickClearSelections() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(clearSelectionsButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+        btn.click();
+        pause(1500);
+    }
+
 
     // 1. Click on "Action Required"
     public void clickActionRequiredLink() {
