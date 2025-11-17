@@ -18,12 +18,22 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
     }
 
 
+
+    // root div for a React-Select control for a given <label>
+    private By controlRoot(String label) {
+        return By.xpath("//label[normalize-space()='" + label + "']" +
+                "/following::div[contains(@class,'select-control')][1]");
+    }
+
     //helper
+    // ---------- Generic React-Select (single) by <label> ----------
     private void selectReactSelectSingleByLabel(String label, String optionText) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        WebElement root = wait.until(ExpectedConditions.elementToBeClickable(controlRoot(label)));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", root);
+        WebElement root = wait.until(
+                ExpectedConditions.elementToBeClickable(controlRoot(label)));
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", root);
         root.click();
 
         WebElement inputEl = root.findElement(By.xpath(".//input[@role='combobox']"));
@@ -31,11 +41,13 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         String listboxId = inputEl.getAttribute("aria-controls");
         if (listboxId == null || listboxId.isEmpty()) {
             String inputId = inputEl.getAttribute("id");
-            if (inputId != null) listboxId = inputId.replace("input","listbox");
+            if (inputId != null) {
+                listboxId = inputId.replace("input", "listbox");
+            }
         }
         By listboxBy = By.id(listboxId);
 
-        // pre-filter & open
+        // pre-filter text & wait for listbox
         inputEl.clear();
         inputEl.sendKeys(optionText);
         new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -43,13 +55,15 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
 
         By optionBy = By.xpath("//*[@id='" + listboxId + "']//*[normalize-space()='" + optionText + "']");
         WebElement optionEl = wait.until(ExpectedConditions.elementToBeClickable(optionBy));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", optionEl);
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", optionEl);
         optionEl.click();
 
-        // close & assert by value (don’t wait for invisibility)
+        // close dropdown
         try { inputEl.sendKeys(Keys.ESCAPE); } catch (Exception ignored) {}
         try { driver.findElement(By.tagName("body")).click(); } catch (Exception ignored) {}
 
+        // assert selected value
         By selectedValueBy = By.xpath(
                 "//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]" +
                         "//*[contains(@class,'singleValue') or contains(@class,'valueContainer')]"
@@ -58,11 +72,10 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
     }
 
 
-    //Helper
+
+    // locators
 
 
-
-// Created On
     private By createdFromInput = By.xpath(
             "//label[normalize-space()='Created On']" +
                     "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]"
@@ -192,9 +205,7 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
     private By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
     private By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'label')]");
     // React-Select controls by label (generic roots)
-    private By controlRoot(String label) {
-        return By.xpath("//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]");
-    }
+
 
     // Text inputs
     private By recordNumberInput   = By.xpath("//label[normalize-space()='Record Number']/following::input[@type='text'][1]");
