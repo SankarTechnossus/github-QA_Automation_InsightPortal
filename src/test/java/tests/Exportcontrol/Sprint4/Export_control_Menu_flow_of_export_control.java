@@ -132,12 +132,6 @@ public class Export_control_Menu_flow_of_export_control {
             menuflowexport.clickRecordNumberFromSearchGrid();
             ExtentReportListener.getExtentTest().pass("Clicked Record Number link 2025E006129 from Search grid");
 
-
-
-
-
-
-
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
