@@ -9,7 +9,8 @@
       "FormDescription": "Test Form",
       "FormType": "Export Control Request",
       "FormCategory": "General",
-      "CategorySeqNo": "1"
+      "CategorySeqNo": "1",
+      "FormInstructions": "Test Instructions"
     }
   ]
 }

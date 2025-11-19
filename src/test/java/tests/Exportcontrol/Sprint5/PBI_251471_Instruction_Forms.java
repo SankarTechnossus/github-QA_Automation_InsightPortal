@@ -101,6 +101,7 @@ public class PBI_251471_Instruction_Forms {
             String formType = JsonDataReader.get(1,"FormType");
             String formCat = JsonDataReader.get(1,"FormCategory");
             String formCatSeqNo = JsonDataReader.get(1,"CategorySeqNo");
+            String formInst = JsonDataReader.get(1,"FormInstructions");
 
             // Create new form
             String name = UniqueNameGenerator.generateNextName();
@@ -108,7 +109,17 @@ public class PBI_251471_Instruction_Forms {
             Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(name));
             ExtentReportListener.getExtentTest().pass("New form is created successfully with name = " + name);
 
-            // Activate the form
+            // Activate the form and verify status
+            Assert.assertTrue(formsManagementExportControlPage.ChangeFormStatusToActiveAndVerifyStatus());
+            ExtentReportListener.getExtentTest().pass("Form status has been changed to: Active");
+
+            // Click on the Active version to add the instructions
+            formsManagementExportControlPage.ClickOnTheActiveVersion();
+            ExtentReportListener.getExtentTest().info("User clicked on the Active Version link in order to add the instructions.");
+
+            //Enter instructions and save form
+            Assert.assertTrue(formsManagementExportControlPage.AddInstructionsAndVerifyItIsSavedSuccessfully(formInst));
+            ExtentReportListener.getExtentTest().pass("Form Saved successfully with instructions: " + formInst);
         }
         catch (Exception e)
         {
