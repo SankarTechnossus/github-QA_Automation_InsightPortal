@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.HomePage.DashboardPage;
 import pages.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -20,12 +21,13 @@ import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
 
-public class Export_control_Instruction_Forms {
+public class PBI_251471_Instruction_Forms {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
+    DashboardPage dashboardPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -46,12 +48,12 @@ public class Export_control_Instruction_Forms {
 
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
 
     @Test
-    public void Export_control_InstructionForms () {
-        ExtentReportListener.getExtentTest().info("Test Started: Export_control_Instructions_Forms");
-
+    public void Export_control_InstructionForms ()
+    {
         try
         {
             String url = JsonDataReader.get("URL");
@@ -65,6 +67,7 @@ public class Export_control_Instruction_Forms {
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
+            // Login into the application
             loginPage.enterUsername(userName);
             loginPage.clickNext();
             loginPage.enterPassword(password);
@@ -73,9 +76,13 @@ public class Export_control_Instruction_Forms {
             // Optional: pause if any post-login actions needed
             basePage.pause(20000);
 
-            Assert.assertEquals(driver.getCurrentUrl(), "");
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully " +
+                    "and lands on the dashboard page.");
 
-
+            // Navigate to Administration module
+            dashboardPage.NavigateToAdministrationModule();
+            ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
         }
         catch (Exception e)
         {
@@ -91,6 +98,5 @@ public class Export_control_Instruction_Forms {
 
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
 }

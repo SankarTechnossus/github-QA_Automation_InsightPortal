@@ -38,7 +38,7 @@ public class LoginPage extends BasePage {
         pause(10000);
     }
 
-    public void login(String username, String password) {
+    public void Login(String username, String password) {
         enterUsername(username);
         clickNext();
         enterPassword(password);
