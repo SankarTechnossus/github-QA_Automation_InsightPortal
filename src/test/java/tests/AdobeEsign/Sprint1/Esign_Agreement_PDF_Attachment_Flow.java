@@ -3,19 +3,16 @@ package tests.AdobeEsign.Sprint1;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import pages.Adobe_Deliverables_page;
+import pages.Adobe.Adobe_Deliverables_page;
 import pages.LoginPage;
-import pages.AgreementPage;
+import pages.Adobe.AgreementPage;
 import utils.DriverManager;
-import utils.WaitUtility;
 
 import java.time.Duration;
 

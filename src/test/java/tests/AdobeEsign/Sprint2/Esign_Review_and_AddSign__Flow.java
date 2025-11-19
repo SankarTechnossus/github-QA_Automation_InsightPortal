@@ -1,6 +1,5 @@
 package tests.AdobeEsign.Sprint2;
 
-import listeners.ExtentReportListener;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.*;
@@ -8,7 +7,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import pages.Adobe_Deliverables_page;
+import pages.Adobe.Adobe_Deliverables_page;
 
 import java.io.File;
 import java.time.Duration;
