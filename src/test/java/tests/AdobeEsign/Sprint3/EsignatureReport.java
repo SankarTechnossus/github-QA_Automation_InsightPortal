@@ -10,8 +10,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.AdobeEsignatureReportpage;
-import pages.AgreementPage;
+import pages.Adobe.AdobeEsignatureReportpage;
+import pages.Adobe.AgreementPage;
 import pages.LoginPage;
 import utils.DriverManager;
 

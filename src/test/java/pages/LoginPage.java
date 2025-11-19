@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import base.BasePage;
 
 public class LoginPage extends BasePage {
@@ -39,7 +38,7 @@ public class LoginPage extends BasePage {
         pause(10000);
     }
 
-    public void loginToInsightPortal(String username, String password) {
+    public void login(String username, String password) {
         enterUsername(username);
         clickNext();
         enterPassword(password);

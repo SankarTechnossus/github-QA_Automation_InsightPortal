@@ -5,15 +5,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Adobe_Deliverables_page;
-import pages.AgreementPage;
+import pages.Adobe.Adobe_Deliverables_page;
+import pages.Adobe.AgreementPage;
 import pages.LoginPage;
 import utils.DriverManager;
 

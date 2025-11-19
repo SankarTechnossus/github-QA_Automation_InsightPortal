@@ -3,14 +3,13 @@ import base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import pages.Exportcontrol_RecordTypes_Page;
+import pages.HomePage.Administration.Exportcontrol_RecordTypes_Page;
 import pages.LoginPage;
-import pages.AgreementPage;
+import pages.Adobe.AgreementPage;
 import utils.DriverManager;
 import java.time.Duration;
 

@@ -11,8 +11,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.AgreementPage;
-import pages.Export_control_menu_flow_of_export_control_page;
+import pages.Adobe.AgreementPage;
+import pages.HomePage.Export_Control.Export_control_menu_flow_of_export_control_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 
@@ -131,12 +131,6 @@ public class Export_control_Menu_flow_of_export_control {
             basePage.pause(2000);
             menuflowexport.clickRecordNumberFromSearchGrid();
             ExtentReportListener.getExtentTest().pass("Clicked Record Number link 2025E006129 from Search grid");
-
-
-
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
