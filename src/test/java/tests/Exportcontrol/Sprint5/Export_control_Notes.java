@@ -12,8 +12,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.HomePage.Export_Control.Export_control_menu_flow_of_export_control_page;
-import pages.HomePage.Administration.Export_control_Notes_page;
+import pages.Export_Control.Export_control_menu_flow_of_export_control_page;
+import pages.Administration.Export_control_Notes_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 

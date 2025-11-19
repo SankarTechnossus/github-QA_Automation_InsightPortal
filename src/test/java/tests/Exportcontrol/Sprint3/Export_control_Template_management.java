@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.HomePage.Administration.Export_control_Template_managemnet_Pages;
+import pages.Administration.Export_control_Template_managemnet_Pages;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 

@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.HomePage.Administration.ExportControl_statusManagement_Page;
+import pages.Administration.ExportControl_statusManagement_Page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 

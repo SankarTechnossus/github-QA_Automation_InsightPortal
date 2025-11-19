@@ -1,4 +1,4 @@
-package pages.HomePage.Administration;
+package pages.Administration;
 import listeners.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;

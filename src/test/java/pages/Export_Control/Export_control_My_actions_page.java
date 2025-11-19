@@ -1,4 +1,4 @@
-package pages.HomePage.Export_Control;
+package pages.Export_Control;
 
 import base.BasePage;
 import org.openqa.selenium.*;

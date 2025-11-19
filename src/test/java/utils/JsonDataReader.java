@@ -32,26 +32,32 @@ public class JsonDataReader {
         }
     }
 
-    public static String get(String key) {
+    public static String get(int index, String key) {
+
         if (testData == null) {
             throw new IllegalStateException("JSON data not loaded.");
         }
 
-        // Access first element in "data" array
         JSONArray dataArray = testData.optJSONArray("data");
         if (dataArray == null || dataArray.isEmpty()) {
             throw new IllegalStateException("No data entries found in JSON file.");
         }
 
-        JSONObject firstObject = dataArray.optJSONObject(0);
-        if (firstObject == null) {
-            throw new IllegalStateException("Invalid JSON object structure.");
+        if (index < 0 || index >= dataArray.length()) {
+            throw new IndexOutOfBoundsException(
+                    "Index " + index + " is out of range. Valid range: 0 to " + (dataArray.length() - 1)
+            );
         }
 
-        if (!firstObject.has(key)) {
-            throw new RuntimeException("Key '" + key + "' not found in JSON.");
+        JSONObject obj = dataArray.optJSONObject(index);
+        if (obj == null) {
+            throw new IllegalStateException("JSON object at index " + index + " is invalid.");
         }
 
-        return firstObject.get(key).toString();
+        if (!obj.has(key)) {
+            throw new RuntimeException("Key '" + key + "' not found in JSON object at index " + index);
+        }
+
+        return obj.optString(key);
     }
 }

@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import pages.HomePage.Administration.Exportcontrol_RecordTypes_Page;
+import pages.Administration.Exportcontrol_RecordTypes_Page;
 import pages.LoginPage;
 import pages.Adobe.AgreementPage;
 import utils.DriverManager;

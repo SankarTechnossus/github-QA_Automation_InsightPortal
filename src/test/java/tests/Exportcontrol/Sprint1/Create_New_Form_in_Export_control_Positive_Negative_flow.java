@@ -9,7 +9,7 @@ import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.LoginPage;
 import pages.Adobe.AgreementPage;
-import pages.HomePage.Administration.Exportcontrol_formBuilder_Page;
+import pages.Administration.Exportcontrol_formBuilder_Page;
 import utils.DriverManager;
 import utils.UniqueNameGenerator;
 import java.time.Duration;

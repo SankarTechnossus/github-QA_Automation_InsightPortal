@@ -41,7 +41,8 @@ private void configureReport(ITestContext context) {
 
     ExtentSparkReporter spark = new ExtentSparkReporter(reportsDirPath + "/" + reportFileName);
     spark.config().setDocumentTitle(className + " Report");
-    spark.config().setReportName("Sprint 1 Automation");
+
+    spark.config().setReportName("MGB Automation Report");
     spark.config().setTheme(Theme.DARK);
 
     extent = new ExtentReports();
@@ -75,9 +76,6 @@ private void configureReport(ITestContext context) {
         String method = result.getMethod().getMethodName();
 
         ExtentTest extentTest = extent.createTest(className + " - " + method); // one line report
-        test.set(extentTest);
-        extentTest.log(Status.INFO, "Test Started: " + method);
-
         test.set(extentTest);
         extentTest.log(Status.INFO, "Test Started: " + method);
     }

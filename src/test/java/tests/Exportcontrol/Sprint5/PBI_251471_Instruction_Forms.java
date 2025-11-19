@@ -12,10 +12,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.HomePage.DashboardPage;
+import pages.Administration.Forms_Management.FormsManagement_ExportControlPage;
+import pages.Home.DashboardPage;
 import pages.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
@@ -28,10 +30,11 @@ public class PBI_251471_Instruction_Forms {
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    FormsManagement_ExportControlPage formsManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -49,16 +52,17 @@ public class PBI_251471_Instruction_Forms {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        formsManagementExportControlPage = new FormsManagement_ExportControlPage(driver);
     }
 
     @Test
-    public void Export_control_InstructionForms ()
+    public void InstructionForms ()
     {
         try
         {
-            String url = JsonDataReader.get("URL");
-            String userName = JsonDataReader.get("Username");
-            String password = JsonDataReader.get("Password");
+            String url = JsonDataReader.get(0,"URL");
+            String userName = JsonDataReader.get(0,"Username");
+            String password = JsonDataReader.get(0,"Password");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -77,12 +81,34 @@ public class PBI_251471_Instruction_Forms {
             basePage.pause(20000);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
-            ExtentReportListener.getExtentTest().pass("User logged into the application successfully " +
-                    "and lands on the dashboard page.");
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Navigate to Administration module
             dashboardPage.NavigateToAdministrationModule();
             ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
+
+            // Navigate to Export Control under Forms Management
+            formsManagementExportControlPage.NavigateToFormsManagementExportControlPage();
+            Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/forms-management-export-control");
+            ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Forms Management.");
+
+            // Click on Add New link to Add a new Form
+            formsManagementExportControlPage.ClickAddNewLink();
+            Assert.assertTrue(formsManagementExportControlPage.VerifyUserIsOnNewFormPage());
+            ExtentReportListener.getExtentTest().pass("User clicked on Add New link and landed on add new form page.");
+
+            String description = JsonDataReader.get(1,"FormDescription");
+            String formType = JsonDataReader.get(1,"FormType");
+            String formCat = JsonDataReader.get(1,"FormCategory");
+            String formCatSeqNo = JsonDataReader.get(1,"CategorySeqNo");
+
+            // Create new form
+            String name = UniqueNameGenerator.generateNextName();
+            formsManagementExportControlPage.CreateNewForm(name, description, formType, formCat, formCatSeqNo);
+            Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(name));
+            ExtentReportListener.getExtentTest().pass("New form is created successfully with name = " + name);
+
+            // Activate the form
         }
         catch (Exception e)
         {
