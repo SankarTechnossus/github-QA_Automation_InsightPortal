@@ -11,8 +11,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Adobe.AgreementPage;
-import pages.HomePage.Administration.Export_control_Notes_page;
+import pages.AgreementPage;
+import pages.Export_control_Administration_Drop_down_page;
+import pages.Export_control_Notes_page;
+import pages.Export_control_menu_flow_of_export_control_page;
 import utils.DriverManager;
 import workflow_helper.LoginPageHelper;
 
@@ -81,6 +83,63 @@ public class Export_control_Notes {
 
 
             Export_control_Notes_page exportcontrolnotes = new Export_control_Notes_page(driver);
+
+
+            Export_control_menu_flow_of_export_control_page menuflowexport = new Export_control_menu_flow_of_export_control_page(driver);
+
+
+            basePage.pause(3000);
+            menuflowexport.clickExportControlLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+
+
+            basePage.pause(1000);
+            menuflowexport.clickSearchLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
+
+            basePage.pause(1000);
+            menuflowexport.setStatusCompleted();
+            ExtentReportListener.getExtentTest().pass("Selected Status: Completed");
+
+            basePage.pause(2000);
+            menuflowexport.setRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+
+
+            basePage.pause(3000);
+            String[] created = menuflowexport.enterCreatedOnRandomRange();
+            ExtentReportListener.getExtentTest().pass("Created On  From: " + created[0] + "  To: " + created[1]);
+
+            String[] review = menuflowexport.enterReviewDateRandomRange();
+            ExtentReportListener.getExtentTest().pass("Review date From: " + review[0] + "  To: " + review[1]);
+
+            basePage.pause(2000);
+            menuflowexport.setAgreementNumbers("01");
+            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 01");
+
+            basePage.pause(2000);
+            menuflowexport.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search");
+
+            basePage.pause(2000);
+            menuflowexport.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
+
+            basePage.pause(2000);
+            menuflowexport.setRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+
+            basePage.pause(2000);
+            menuflowexport.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search");
+
+            basePage.pause(2000);
+            menuflowexport.clickRecordNumberFromSearchGrid();
+            ExtentReportListener.getExtentTest().pass("Clicked Record Number link 2025E006129 from Search grid");
+
+
+
+
 
 
 
