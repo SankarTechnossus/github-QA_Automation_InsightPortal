@@ -23,8 +23,7 @@ public class DashboardPage extends BasePage
 
 
     // Actions
-    public boolean VerifyUserLandsOnDashboardPage()
-    {
+    public boolean VerifyUserLandsOnDashboardPage() {
         boolean result = false;
         waitForPresence(lblTestEnvironment);
         String text = driver.findElement(lblTestEnvironment).getText();
