@@ -12,14 +12,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.Forms_Management.FormsManagement_ExportControlPage;
 import pages.Administration.People_Management.PeopleManagement_ExportControlPage;
-import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Home.DashboardPage;
 import pages.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
-import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
@@ -58,7 +55,7 @@ public class PBI_251470_Staff_Management_Admin {
     }
 
     @Test
-    public void StaffManagementAdmin ()
+    public void StaffManagementAdmin()
     {
         try
         {
@@ -79,9 +76,6 @@ public class PBI_251470_Staff_Management_Admin {
             loginPage.enterPassword(password);
             loginPage.clickVerify();
 
-            // Optional: pause if any post-login actions needed
-            basePage.pause(30000);
-
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
@@ -89,18 +83,46 @@ public class PBI_251470_Staff_Management_Admin {
             dashboardPage.NavigateToAdministrationModule();
             ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
 
-            // Navigate to Export Control under Forms Management
+            // Navigate to Export Control under People Management
             peopleManagementExportControlPage.NavigateToPeopleManagementExportControlPage();
             Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/people-management");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under People Management.");
 
+            // Add a new People Type and verify in the People Management list
+            String peopleTypeName = basePage.GenerateRandomName(6);
+            Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList(peopleTypeName));
+            ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : General");
 
+            // Add a new role and assign to the created people type
+            String role = basePage.GenerateRandomName(6);
+            Assert.assertTrue(peopleManagementExportControlPage.AddNewRoleToPeopleTypeAndVerifyInList(peopleTypeName, role));
+            ExtentReportListener.getExtentTest().pass("New Role with name : " + role + " has been assigned to people type: " + peopleTypeName);
 
+            // Edit People Type Name and Verify
+            String newTypeName = basePage.GenerateRandomName(6);
 
+            Assert.assertTrue(peopleManagementExportControlPage.EditPeopleTypeNameAndVerifyInList(peopleTypeName, newTypeName));
+            ExtentReportListener.getExtentTest().pass("People Type Name changed successfully to : " + newTypeName);
 
-            // End User Logout
-            dashboardPage.UserLogout();
-            ExtentReportListener.getExtentTest().info("User successfully logged out of the application.");
+            // Deactivate New People Type and Verify
+            Assert.assertTrue(peopleManagementExportControlPage.DeactivatePeopleTypeAndVerifyStatusInList());
+            ExtentReportListener.getExtentTest().pass("People Type Name : " + newTypeName + " deactivated successfully and status changed to : No");
+
+            // Edit Role Name and Verify
+            String newRoleName = basePage.GenerateRandomName(6);
+
+            Assert.assertTrue(peopleManagementExportControlPage.EditRoleNameAndVerifyInList(newTypeName, newRoleName));
+            ExtentReportListener.getExtentTest().pass("People Type Name changed successfully to : " + newTypeName);
+
+            // Deactivate new role name and verify
+            Assert.assertTrue(peopleManagementExportControlPage.DeactivateAssociatedRoleAndVerifyInList(newRoleName, newTypeName));
+            ExtentReportListener.getExtentTest().pass("New Role with name : " + newRoleName + " has been deactivated successfully for people type : " + newTypeName);
+
+            // Try to deactivate all associated roles and verify error message
+            String msg = JsonDataReader.get(3,"RoleDeactivationErrorMessage");
+
+            Assert.assertTrue(peopleManagementExportControlPage.TryToDeactivateAllRolesAndVerifyCorrectErrorMessageIsDisplayed(msg));
+            ExtentReportListener.getExtentTest().pass("Upon trying to deactivate all associated roles, user is getting an alert with message :  " + msg);
         }
         catch (Exception e)
         {

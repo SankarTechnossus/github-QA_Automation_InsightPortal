@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.WaitUtility;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class BasePage {
     protected WebDriver driver;
@@ -173,6 +174,30 @@ public class BasePage {
     public void waitForVisible(By locator, int timeout) {
         new WebDriverWait(driver, Duration.ofSeconds(timeout))
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public String GenerateRandomName(int length) {
+        // Default length is 6 if no length is provided
+        if (length <= 0) {
+            length = 6;
+        }
+
+        // Characters to choose from
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        // Random object
+        Random random = new Random();
+
+        // StringBuilder to store the generated name
+        StringBuilder name = new StringBuilder(length);
+
+        // Generate random name
+        for (int i = 0; i < length; i++) {
+            // Randomly select a character from the 'chars' string
+            name.append(chars.charAt(random.nextInt(chars.length())));
+        }
+
+        return name.toString();
     }
 
 }

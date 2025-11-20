@@ -14,6 +14,9 @@
     },
     {
       "PIName": "Chandra, Mohan"
+    },
+    {
+      "RoleDeactivationErrorMessage": "You must have at-least one role mapped to a type."
     }
   ]
 }

@@ -151,10 +151,6 @@ public class PBI_251471_Instruction_Forms {
             // Verify the instructions mentioned in the form is visible in the Export Control to the End user
             Assert.assertTrue(createExportControlPage.VerifyInstructionsAssociatedWithFormIsVisibleUnderExportControl(formName, formInst));
             ExtentReportListener.getExtentTest().pass("Instructions : " + formInst + " mentioned in the form : " + formName + " is visible for the created Export Control with Record Number: " + recordNo);
-
-            // End User Logout
-            dashboardPage.UserLogout();
-            ExtentReportListener.getExtentTest().info("User successfully logged out of the application.");
         }
         catch (Exception e)
         {

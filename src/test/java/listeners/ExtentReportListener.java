@@ -29,8 +29,7 @@ public class ExtentReportListener implements ITestListener {
         return test.get();
     }
 
-
-private void configureReport(ITestContext context) {
+    private void configureReport(ITestContext context) {
     String className = context.getAllTestMethods()[0].getRealClass().getSimpleName();
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     String reportFileName = className + "_" + timeStamp + ".html";
@@ -53,12 +52,10 @@ private void configureReport(ITestContext context) {
     extent.setSystemInfo("User", "Shankar");
 }
 
-
     @Override
     public synchronized void onStart(ITestContext context) {
         if (extent == null) configureReport(context);
     }
-
 
     @Override
     public void onFinish(ITestContext context) {
@@ -79,7 +76,6 @@ private void configureReport(ITestContext context) {
         test.set(extentTest);
         extentTest.log(Status.INFO, "Test Started: " + method);
     }
-
 
     @Override
     public void onTestSuccess(ITestResult result) {
@@ -130,7 +126,6 @@ private void configureReport(ITestContext context) {
             extentTest.log(Status.PASS, stepName);
         }
     }
-
 
     @Override
     public void onTestFailure(ITestResult result) {
