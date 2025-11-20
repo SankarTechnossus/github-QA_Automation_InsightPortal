@@ -21,7 +21,7 @@ public class BasePage {
 
     // Reusable explicit wait method 10 sec
     public WebElement waitForElement(By locator) {
-        return new WebDriverWait(driver, Duration.ofSeconds(10))
+        return new WebDriverWait(driver, Duration.ofSeconds(60))
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
@@ -34,8 +34,8 @@ public class BasePage {
 
 
     // Reusable explicit wait for present
-    public WebElement waitForPresence(By locator) {
-        return new WebDriverWait(driver, Duration.ofSeconds(120))
+    public void waitForPresence(By locator) {
+        new WebDriverWait(driver, Duration.ofSeconds(120))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
@@ -78,9 +78,6 @@ public class BasePage {
                 .until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
-
-
-
 
     public void pause(long milliseconds) {
         try {

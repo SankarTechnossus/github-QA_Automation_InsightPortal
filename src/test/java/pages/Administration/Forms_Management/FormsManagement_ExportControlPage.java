@@ -37,10 +37,12 @@ public class FormsManagement_ExportControlPage extends BasePage {
     // Functions
     public void NavigateToFormsManagementExportControlPage() {
         //Click on Forms Management navigation link
+        waitForPresence(linkFormsManagement);
         click(linkFormsManagement);
         pause(2000);
 
         //Click on Export Control under Forms Management
+        waitForPresence(linkExportControl);
         click(linkExportControl);
         pause(2000);
     }
@@ -139,16 +141,31 @@ public class FormsManagement_ExportControlPage extends BasePage {
         pause(2000);
     }
 
-    public boolean AddInstructionsAndVerifyItIsSavedSuccessfully(String instructions) {
+    public boolean AddInstructionsAndVerifyItIsSavedSuccessfully(String instructions, String formName) {
         boolean result = false;
+
+        waitForPresence(inputInstructions);
         click(inputInstructions);
+        pause(5000);
+
         type(inputInstructions, instructions);
         click(buttonSave);
         pause(2000);
 
-        if(driver.findElement(By.xpath("//div[text()='Form has been saved successfully.']")).isDisplayed())
+        driver.findElement(By.xpath("//a[text()='" + formName + "']")).click();
+        pause(2000);
+
+        click(linkActiveVersion);
+        pause(2000);
+
+        String inst = driver.findElement(By.xpath("//div[@class='fr-element fr-view']")).getText();
+        if(Objects.equals(inst, instructions))
         {
+            click(buttonSave);
+            pause(2000);
+
             result = true;
+            pause(2000);
         }
         return result;
     }

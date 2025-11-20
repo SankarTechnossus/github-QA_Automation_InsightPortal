@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.Forms_Management.FormsManagement_ExportControlPage;
+import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Home.DashboardPage;
 import pages.LoginPage;
 import utils.DriverManager;
@@ -31,6 +32,7 @@ public class PBI_251471_Instruction_Forms {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     FormsManagement_ExportControlPage formsManagementExportControlPage;
+    CreateExportControlPage createExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,6 +55,7 @@ public class PBI_251471_Instruction_Forms {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         formsManagementExportControlPage = new FormsManagement_ExportControlPage(driver);
+        createExportControlPage = new CreateExportControlPage(driver);
     }
 
     @Test
@@ -78,7 +81,7 @@ public class PBI_251471_Instruction_Forms {
             loginPage.clickVerify();
 
             // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            basePage.pause(30000);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
@@ -104,10 +107,10 @@ public class PBI_251471_Instruction_Forms {
             String formInst = JsonDataReader.get(1,"FormInstructions");
 
             // Create new form
-            String name = UniqueNameGenerator.generateNextName();
-            formsManagementExportControlPage.CreateNewForm(name, description, formType, formCat, formCatSeqNo);
-            Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(name));
-            ExtentReportListener.getExtentTest().pass("New form is created successfully with name = " + name);
+            String formName = UniqueNameGenerator.generateNextName();
+            formsManagementExportControlPage.CreateNewForm(formName, description, formType, formCat, formCatSeqNo);
+            Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
+            ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName);
 
             // Activate the form and verify status
             Assert.assertTrue(formsManagementExportControlPage.ChangeFormStatusToActiveAndVerifyStatus());
@@ -118,8 +121,40 @@ public class PBI_251471_Instruction_Forms {
             ExtentReportListener.getExtentTest().info("User clicked on the Active Version link in order to add the instructions.");
 
             //Enter instructions and save form
-            Assert.assertTrue(formsManagementExportControlPage.AddInstructionsAndVerifyItIsSavedSuccessfully(formInst));
+            Assert.assertTrue(formsManagementExportControlPage.AddInstructionsAndVerifyItIsSavedSuccessfully(formInst, formName));
             ExtentReportListener.getExtentTest().pass("Form Saved successfully with instructions: " + formInst);
+
+            // Navigate back to Dashboard page
+            dashboardPage.NavigateBackToDashboardPage();
+            ExtentReportListener.getExtentTest().info("User navigated back to dashboard page.");
+
+            // Navigate back to Export Control module
+            dashboardPage.NavigateToExportControlModule();
+            ExtentReportListener.getExtentTest().info("User navigated to Export Control module.");
+
+            // Navigate to Create Export Control page
+            createExportControlPage.NavigateToCreateExportControlPage();
+            ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
+
+            // Create Export Control
+            String piName = JsonDataReader.get(2,"PIName");
+
+            createExportControlPage.CreateExportControl(piName);
+            Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
+            String recordNo = createExportControlPage.GetExportControlRecordNumber();
+            ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);
+
+            // Verify created form is visible for the newly created Export Control
+            Assert.assertTrue(createExportControlPage.VerifyCreatedFormIsVisible(formName));
+            ExtentReportListener.getExtentTest().pass("Form : " + formName + " is visible for the newly created Export Control with Record Number : " + recordNo);
+
+            // Verify the instructions mentioned in the form is visible in the Export Control to the End user
+            Assert.assertTrue(createExportControlPage.VerifyInstructionsAssociatedWithFormIsVisibleUnderExportControl(formName, formInst));
+            ExtentReportListener.getExtentTest().pass("Instructions : " + formInst + " mentioned in the form : " + formName + " is visible for the created Export Control with Record Number: " + recordNo);
+
+            // End User Logout
+            dashboardPage.UserLogout();
+            ExtentReportListener.getExtentTest().info("User successfully logged out of the application.");
         }
         catch (Exception e)
         {
