@@ -112,7 +112,7 @@ public class PBI_251470_Staff_Management_Admin {
             String newRoleName = basePage.GenerateRandomName(6);
 
             Assert.assertTrue(peopleManagementExportControlPage.EditRoleNameAndVerifyInList(newTypeName, newRoleName));
-            ExtentReportListener.getExtentTest().pass("People Type Name changed successfully to : " + newTypeName);
+            ExtentReportListener.getExtentTest().pass("Role Name changed successfully to : " + newRoleName);
 
             // Deactivate new role name and verify
             Assert.assertTrue(peopleManagementExportControlPage.DeactivateAssociatedRoleAndVerifyInList(newRoleName, newTypeName));
