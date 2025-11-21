@@ -81,7 +81,6 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            /*
             // Navigate to Export Control module
             dashboardPage.NavigateToExportControlModule();
             ExtentReportListener.getExtentTest().info("User navigated to Export Control module.");
@@ -101,7 +100,6 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             // Navigate to attachments
             createExportControlPage.NavigateToAttachments();
             ExtentReportListener.getExtentTest().pass("User navigated to Attachments screen.");
-            */
 
             // Build absolute path from project
             String baseDir = System.getProperty("user.dir");
