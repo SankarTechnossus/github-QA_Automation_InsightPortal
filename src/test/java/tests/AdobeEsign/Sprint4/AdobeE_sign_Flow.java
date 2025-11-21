@@ -7,14 +7,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.Adobe_Deliverables_page;
 import pages.Adobe.AgreementPage;
-import pages.LoginPage;
+import pages.Home.DashboardPage;
+import pages.Home.LoginPage;
 import utils.DriverManager;
+import utils.JsonDataReader;
 
 import java.time.Duration;
 
@@ -25,10 +28,12 @@ public class AdobeE_sign_Flow {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
 
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -44,44 +49,30 @@ public class AdobeE_sign_Flow {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         basePage = new BasePage (driver);
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
-
 
     @Test
     public void createFormFlow() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
+            String url = JsonDataReader.get(0,"URL");
+            String userName = JsonDataReader.get(0,"Username");
+            String password = JsonDataReader.get(0,"Password");
+
             // User will open the login page of the Insight Portal application
-            driver.get("https://phoenix-insight4.partners.org/");
+            driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Create an instance of LoginPage
-            LoginPage loginPage = new LoginPage(driver);
+            // Login into the application
+            loginPage.LoginIntoApplication(userName, password);
 
-            // User will enter the username into the username input field
-            loginPage.enterUsername("SV1179");
-            basePage.pause(2000);
-            ExtentReportListener.getExtentTest().pass("Entered username");
-
-            // User will click the 'Next' button to proceed to the password entry screen
-            loginPage.clickNext();
-            basePage.pause(2000);
-            ExtentReportListener.getExtentTest().pass("Clicked Next");
-
-            // User will input the user's password into the password field
-            loginPage.enterPassword("Devinivetha@1930");
-            basePage.pause(2000);
-            ExtentReportListener.getExtentTest().pass("Entered password");
-
-            // User will click the 'Verify' button to authenticate the user
-            loginPage.clickVerify();
-            ExtentReportListener.getExtentTest().pass("Clicked Verify");
-
-            // Optional: pause if any post-login actions needed
-            basePage.pause(10000);
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
@@ -91,16 +82,12 @@ public class AdobeE_sign_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Agreements' link from sidebar");
 
-
-
-
             // Enter Agreement Number ****** This record has access issue ***********
             // agreementPage.enterAgreementNumber("2025A012368");
-        //         *********______Alternative_Agreement number____**********
+            //         *********______Alternative_Agreement number____**********
             agreementPage.enterAgreementNumber("2025A015018");
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Entered Agreement Number: 2025A015018");
-
 
             // Click Search
             agreementPage.clickSearch();
@@ -117,12 +104,9 @@ public class AdobeE_sign_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Deliverables' tab using JavaScript after scroll");
 
-
             basePage.pause(3000);
             agreementPage.clickAddNewDeliverable();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
-
-
 
             Adobe_Deliverables_page deliverablepage = new Adobe_Deliverables_page(driver);
 
@@ -140,7 +124,6 @@ public class AdobeE_sign_Flow {
             deliverablepage.clickSubmitOnOverlay();
             ExtentReportListener.getExtentTest().pass("Clicked 'Submit' on Add New Deliverable overlay");
 
-
             basePage.pause(3000);
             deliverablepage.clickDeliverableByEnteredName(enteredName01);
             ExtentReportListener.getExtentTest().pass("Opened deliverable link: " + enteredName01);
@@ -150,13 +133,10 @@ public class AdobeE_sign_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Adobe integration icon");
 
-
             String agreementFileName01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
             agreementPage.uploadAgreementPdf(agreementFileName01);
             basePage.pause(5000); // Optional, for stability
             ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025_03.pdf'");
-
-
 
             basePage.pause(1000);
             deliverablepage.selectReminderEveryDay();
@@ -180,32 +160,24 @@ public class AdobeE_sign_Flow {
             deliverableoage02.clickCloseButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Close' button successfully");
 
-
-
             // Click Adobe icon
             agreementPage.clickAdobeIcon();
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Adobe integration icon");
-
 
             String agreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
             agreementPage.uploadAgreementPdf(agreementFileName);
             basePage.pause(5000); // Optional, for stability
             ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025_03.pdf'");
 
-
-
             basePage.pause(1000);
             deliverablepage.selectReminderEveryDay();
             ExtentReportListener.getExtentTest().pass("Selected Reminders frequency: Every day");
-
-
 
             // Click 'Add Recipient'
             agreementPage.clickAddRecipient();
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Recipient' button");
-
 
             // Enter recipient email
             agreementPage.enterRecipientEmail("Sankar.Venkatesan@technossus.com");
@@ -233,8 +205,6 @@ public class AdobeE_sign_Flow {
             basePage.switchToDefaultContent();
             ExtentReportListener.getExtentTest().info("Switched to default content");
 
-
-
             // Step 1: Scroll the modal
             By modalLocator = By.xpath("//div[contains(@class, 'modal-content-wrapper')]");
             basePage.scrollToBottomOfModal(modalLocator, 20);
@@ -247,43 +217,32 @@ public class AdobeE_sign_Flow {
             basePage.switchToFrame(iframeLocator, 20);
             ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
 
-
-
             basePage.pause(2000);
             deliverableoage02.clickOnSendButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Send' button successfully");
 
-
             basePage.switchToDefaultContent();
             ExtentReportListener.getExtentTest().info("Switched to default content");
-
 
             basePage.pause(5000);
             deliverableoage02.scrollUpInPreviewModal();
             ExtentReportListener.getExtentTest().pass("Scrolled up inside the Preview modal successfully");
 
-
-
             basePage.pause(5000);
             deliverableoage02.clickDeleteIcon();
             ExtentReportListener.getExtentTest().pass("Clicked Delete icon successfully");
-
 
             basePage.pause(5000);
             deliverableoage02.clickSentForSignaturesButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Sent For Signatures' button successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickEditRecipientButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit Recipient' button successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
-
 
             basePage.pause(5000);
             deliverableoage02.clickEditRecipientButton();
@@ -293,43 +252,33 @@ public class AdobeE_sign_Flow {
             deliverableoage02.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickEditRecipientButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit Recipient' button successfully");
-
 
             basePage.pause(5000);
             deliverableoage02.setRecipientEmail("abcd123@gmail.com");
             ExtentReportListener.getExtentTest().pass("Entered recipient email as 'abcd123@gmail.com' successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
 
             basePage.pause(5000);
             deliverableoage02.clickCloseModalButton();
             ExtentReportListener.getExtentTest().pass("Closed Signature Status modal successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickUnsignedDocDownloadButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Download' button for Unsigned Document successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickESignOptionsMenu();
             ExtentReportListener.getExtentTest().pass("Opened E-Signature row Options menu (⋯) successfully");
 
-
             basePage.pause(5000);
             deliverableoage02.clickESignOptionsMenu();
             ExtentReportListener.getExtentTest().pass("Opened E-Signature row Options menu (⋯) successfully");
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
