@@ -37,6 +37,7 @@ public class CreateExportControlPage extends BasePage {
 
     //Attachment Locators
     By linkAttachments = By.xpath("//span[text()='Attachments']/..");
+    By inputSearchAttachment = By.xpath("//input[@placeholder='Search by attachments...']");
     By buttonSearch = By.xpath("//button[text()='Search']");
     By linkSelectFilesFromComputer = By.xpath("//span[text()='select files from computer']");
     By fileInput = By.xpath("//input[@type='file']");
@@ -126,20 +127,32 @@ public class CreateExportControlPage extends BasePage {
     }
 
     public boolean VerifyIfFileIsUploadedSuccessfully(String name) {
+        pause(3000);
+
         return driver.findElement(By.xpath("//div[text()='" + name + "']")).isDisplayed();
     }
 
-    public boolean EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(String typeName, String desc)
-    {
+    public boolean EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(String fileName, String typeName, String desc) {
         boolean result = false;
 
-        type(inputAttachmentType, typeName);
+        // Select Attachment type
+        click(inputAttachmentType);
+        pause(1000);
+
+        driver.findElement(By.xpath("//div[text()='" + typeName + "']")).click();
+        pause(1000);
+
+        // Enter Attachment Description
         type(textareaAttachmentDescription, desc);
         pause(3000);
 
-        // Reload page
-        driver.navigate().refresh();
+        // Search for the attachment
+        driver.findElement(inputSearchAttachment).clear();
+        type(inputSearchAttachment, fileName);
+        click(buttonSearch);
+        pause(3000);
 
+        // Verify of attachment group is visible
         if(driver.findElement(By.xpath("//span[text()='" + typeName + "']")).isDisplayed() && driver.findElement(By.xpath("//span[text()='1']")).isDisplayed())
         {
             result = true;
@@ -147,8 +160,7 @@ public class CreateExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(String typeName)
-    {
+    public boolean DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(String typeName) {
         boolean result = false;
 
         // Expand the group
@@ -164,6 +176,7 @@ public class CreateExportControlPage extends BasePage {
             if(driver.findElement(By.xpath("//div[text()='Document was successfully deleted.']")).isDisplayed())
             {
                 result = true;
+                pause(2000);
             }
         }
         return result;

@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.Forms_Management.FormsManagement_ExportControlPage;
+import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
 import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -32,8 +32,8 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    FormsManagement_ExportControlPage formsManagementExportControlPage;
     CreateExportControlPage createExportControlPage;
+    AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -55,8 +55,8 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        formsManagementExportControlPage = new FormsManagement_ExportControlPage(driver);
         createExportControlPage = new CreateExportControlPage(driver);
+        attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
     }
 
     @Test
@@ -80,6 +80,24 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
+
+            // Navigate to Administration module
+            dashboardPage.NavigateToAdministrationModule();
+            ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
+
+            // Navigate to Export Control under Attachment Types module
+            attachmentTypesExportControlPage.NavigateToAttachmentTypesExportControlPage();
+            Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/attachment-type");
+            ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Attachment Types.");
+
+            // Add a new Attachment Type and verify in the Attachment Type list
+            String attachmentTypeName = basePage.GenerateRandomName(6);
+            Assert.assertTrue(attachmentTypesExportControlPage.AddAttachmentTypeAndVerifyInTheAttachmentTypeList(attachmentTypeName));
+            ExtentReportListener.getExtentTest().pass("New Attachment Type with name : " + attachmentTypeName + " has been created successfully. Status is : Yes");
+
+            // Navigate back to Dashboard page
+            dashboardPage.NavigateBackToDashboardPage();
+            ExtentReportListener.getExtentTest().info("User navigated back to dashboard page.");
 
             // Navigate to Export Control module
             dashboardPage.NavigateToExportControlModule();
@@ -132,14 +150,13 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
                         ExtentReportListener.getExtentTest().pass("User successfully attached file : " + fileName);
 
                         // Enter Attachment type and description and verify The grouping
-                        String type = JsonDataReader.get(4,"FileType");
                         String description = JsonDataReader.get(4,"FileDescription");
 
-                        Assert.assertTrue(createExportControlPage.EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(type, description));
-                        ExtentReportListener.getExtentTest().pass("File Type : " + type + " and Description : " + description + " added for File : " + fileName + ". Also file is grouped according to filetype.");
+                        Assert.assertTrue(createExportControlPage.EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(fileName, attachmentTypeName, description));
+                        ExtentReportListener.getExtentTest().pass("File Type : " + attachmentTypeName + " and Description : " + description + " added for File : " + fileName + ". Also file is grouped according to file type.");
 
                         // Delete Attachment and Verify
-                        Assert.assertTrue(createExportControlPage.DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(type));
+                        Assert.assertTrue(createExportControlPage.DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(attachmentTypeName));
                         ExtentReportListener.getExtentTest().pass("File : " + fileName + " Deleted successfully.");
                     }
                 }

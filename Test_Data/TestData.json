@@ -20,7 +20,6 @@
     },
     {
       "TestFilesFolderPath": "src/test/java/resources/testfiles",
-      "FileType": "abc",
       "FileDescription": "Test Attachment"
     }
   ]
