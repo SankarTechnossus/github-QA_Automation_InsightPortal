@@ -2,6 +2,7 @@ package pages.Export_Control.Actions;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -33,7 +34,11 @@ public class CreateExportControlPage extends BasePage {
     By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Application has been submitted successfully']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
 
+    //Attachment Locators
     By linkAttachments = By.xpath("//span[text()='Attachments']/..");
+    By buttonSearch = By.xpath("//button[text()='Search']");
+    By linkSelectFilesFromComputer = By.xpath("//span[text()='select files from computer']");
+    By fileInput = By.cssSelector("input[type='file']");
 
     // Functions
     public void NavigateToCreateExportControlPage() {
@@ -104,5 +109,16 @@ public class CreateExportControlPage extends BasePage {
     public void NavigateToAttachments() {
         click(linkAttachments);
         pause(2000);
+    }
+
+    public void UploadAnAttachment(String filePath) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Make the hidden input visible (optional but safe)
+        js.executeScript("arguments[0].style.display='block';", fileInput);
+
+        // Upload
+        type(fileInput, filePath);
+        pause(3000);
     }
 }

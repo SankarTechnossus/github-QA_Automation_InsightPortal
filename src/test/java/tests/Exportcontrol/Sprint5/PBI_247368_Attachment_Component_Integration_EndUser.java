@@ -18,9 +18,10 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
-import utils.UniqueNameGenerator;
+import java.nio.file.Paths;
 
 import java.time.Duration;
+import java.io.File;
 
 @Listeners(ExtentReportListener.class)
 
@@ -80,6 +81,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
+            /*
             // Navigate to Export Control module
             dashboardPage.NavigateToExportControlModule();
             ExtentReportListener.getExtentTest().info("User navigated to Export Control module.");
@@ -98,6 +100,42 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
 
             // Navigate to attachments
             createExportControlPage.NavigateToAttachments();
+            ExtentReportListener.getExtentTest().pass("User navigated to Attachments screen.");
+            */
+
+            // Build absolute path from project
+            String baseDir = System.getProperty("user.dir");
+            String folderPath = JsonDataReader.get(4,"TestFilesFolderPath");
+
+            // Create folder object
+            File folder = new File(folderPath);
+
+            if(folder.exists() && folder.isDirectory())
+            {
+                File[] files = folder.listFiles();
+                Assert.assertNotNull(files);
+
+                System.out.println("Total files: " + files.length);
+
+                for (File file : files)
+                {
+                    if (file.isFile())
+                    {
+                        // Get file name
+                        String fileName = file.getName();
+                        System.out.println("File: " + fileName);
+
+                        // Get file path
+                        String filePath = Paths.get(baseDir, folderPath, fileName).toString();
+
+                        // Upload file
+                        createExportControlPage.UploadAnAttachment(filePath);
+                    }
+                }
+            } else
+            {
+                System.out.println("Folder not found!");
+            }
         }
         catch (Exception e)
         {
