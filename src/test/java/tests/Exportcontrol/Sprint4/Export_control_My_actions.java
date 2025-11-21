@@ -7,6 +7,7 @@ import listeners.ExtentReportListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -14,8 +15,10 @@ import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
 import pages.Export_Control.Export_control_My_actions_page;
 import pages.Export_Control.Export_control_menu_flow_of_export_control_page;
+import pages.Home.DashboardPage;
+import pages.Home.LoginPage;
 import utils.DriverManager;
-import workflow_helper.LoginPageHelper;
+import utils.JsonDataReader;
 
 import java.time.Duration;
 
@@ -26,6 +29,9 @@ public class Export_control_My_actions {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
+
     @BeforeMethod
     public void setupBrowser() {
         // User will setup and configure the Chrome WebDriver using WebDriverManager
@@ -44,35 +50,30 @@ public class Export_control_My_actions {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         basePage = new BasePage (driver);
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
+
     @Test
     public void Export_control_My_actions() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
+            String url = JsonDataReader.get(0,"URL");
+            String userName = JsonDataReader.get(0,"Username");
+            String password = JsonDataReader.get(0,"Password");
+
             // User will open the login page of the Insight Portal application
-            driver.get("https://hollywood-insight4.partners.org/");
+            driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Create an instance of LoginPage
-            LoginPageHelper loginPageHelper =new LoginPageHelper(driver);
-            loginPageHelper.enterUserName("SV1179");
-//            loginPageHelper.enterUserName("MA1279");
-            ExtentReportListener.getExtentTest().pass("Entered username");
+            // Login into the application
+            loginPage.LoginIntoApplication(userName, password);
 
-            loginPageHelper.clickNext();
-            ExtentReportListener.getExtentTest().pass("Clicked Next");
-
-            loginPageHelper.enterPassword();
-            ExtentReportListener.getExtentTest().pass("Entered password");
-
-            loginPageHelper.clickVerify();
-            ExtentReportListener.getExtentTest().pass("Clicked Verify");
-
-            // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
@@ -81,13 +82,11 @@ public class Export_control_My_actions {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
             Export_control_menu_flow_of_export_control_page menuflowexport = new Export_control_menu_flow_of_export_control_page(driver);
 
             basePage.pause(3000);
             menuflowexport.clickExportControlLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
-
 
             Export_control_My_actions_page myactionspage = new Export_control_My_actions_page(driver);
 
@@ -134,14 +133,10 @@ public class Export_control_My_actions {
             myactionspage.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
 
-
             basePage.pause(2000);
             // 7. Click record link in grid
             myactionspage.clickFirstRecordNumberLink();
             ExtentReportListener.getExtentTest().pass("Clicked first Record Number link '2025E006129' from Action Required grid");
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -151,8 +146,7 @@ public class Export_control_My_actions {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
