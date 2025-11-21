@@ -14,10 +14,11 @@ public class CreateExportControlPage extends BasePage {
         super(driver);
     }
 
-    // Locators
+    // General Locators
     By buttonActions = By.xpath("//button[text()='Actions']");
     By linkCreateExportControl = By.xpath("//span[text()='Create Export Control']/..");
 
+    // Create Export Control page locators
     By inputPersonnelExclusion = By.xpath("//input[@value='PersonnelExclusion']");
     By inputExportControlRequest = By.xpath("//input[@value='ExportControlRequest']");
     By inputSelectPI = By.xpath("//input[@id='dynamic-form-field-input-74472-PiName']");
@@ -27,9 +28,12 @@ public class CreateExportControlPage extends BasePage {
     By buttonSave = By.xpath("//button[text()='Save']");
     By buttonCreate = By.xpath("//button[text()='Create']");
 
+    // Export Control Details locators
     By exportControlRecordNo = By.xpath("//dt[text()='Record #']/../dd");
     By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Application has been submitted successfully']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
+
+    By linkAttachments = By.xpath("//span[text()='Attachments']/..");
 
     // Functions
     public void NavigateToCreateExportControlPage() {
@@ -95,5 +99,10 @@ public class CreateExportControlPage extends BasePage {
         }
 
         return result;
+    }
+
+    public void NavigateToAttachments() {
+        click(linkAttachments);
+        pause(2000);
     }
 }

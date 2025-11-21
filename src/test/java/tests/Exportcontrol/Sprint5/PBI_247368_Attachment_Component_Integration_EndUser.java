@@ -96,7 +96,8 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             String recordNo = createExportControlPage.GetExportControlRecordNumber();
             ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);
 
-
+            // Navigate to attachments
+            createExportControlPage.NavigateToAttachments();
         }
         catch (Exception e)
         {
