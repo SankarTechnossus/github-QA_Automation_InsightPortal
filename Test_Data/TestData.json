@@ -19,7 +19,9 @@
       "RoleDeactivationErrorMessage": "You must have at-least one role mapped to a type."
     },
     {
-      "TestFilesFolderPath": "src/test/java/resources/testfiles"
+      "TestFilesFolderPath": "src/test/java/resources/testfiles",
+      "FileType": "abc",
+      "FileDescription": "Test Attachment"
     }
   ]
 }

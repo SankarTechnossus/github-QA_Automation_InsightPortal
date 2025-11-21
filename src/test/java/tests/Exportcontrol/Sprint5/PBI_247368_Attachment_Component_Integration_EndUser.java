@@ -126,8 +126,21 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
                         // Get file path
                         String filePath = Paths.get(baseDir, folderPath, fileName).toString();
 
-                        // Upload file
+                        // Upload file and verify the attachment
                         createExportControlPage.UploadAnAttachment(filePath);
+                        Assert.assertTrue(createExportControlPage.VerifyIfFileIsUploadedSuccessfully(fileName));
+                        ExtentReportListener.getExtentTest().pass("User successfully attached file : " + fileName);
+
+                        // Enter Attachment type and description and verify The grouping
+                        String type = JsonDataReader.get(4,"FileType");
+                        String description = JsonDataReader.get(4,"FileDescription");
+
+                        Assert.assertTrue(createExportControlPage.EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(type, description));
+                        ExtentReportListener.getExtentTest().pass("File Type : " + type + " and Description : " + description + " added for File : " + fileName + ". Also file is grouped according to filetype.");
+
+                        // Delete Attachment and Verify
+                        Assert.assertTrue(createExportControlPage.DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(type));
+                        ExtentReportListener.getExtentTest().pass("File : " + fileName + " Deleted successfully.");
                     }
                 }
             } else

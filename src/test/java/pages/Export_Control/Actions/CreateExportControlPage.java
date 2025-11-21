@@ -4,6 +4,7 @@ import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.Objects;
@@ -38,7 +39,12 @@ public class CreateExportControlPage extends BasePage {
     By linkAttachments = By.xpath("//span[text()='Attachments']/..");
     By buttonSearch = By.xpath("//button[text()='Search']");
     By linkSelectFilesFromComputer = By.xpath("//span[text()='select files from computer']");
-    By fileInput = By.cssSelector("input[type='file']");
+    By fileInput = By.xpath("//input[@type='file']");
+
+    By inputAttachmentType = By.xpath("//td[@data-column='exportControlAttachmentCategoryId']/div//input");
+    By textareaAttachmentDescription = By.xpath("//td[@data-column='description']/textarea");
+    By buttonDeleteAttachment = By.xpath("//button[@aria-label='Delete attachment']");
+    By buttonOK = By.xpath("//button[text()='OK']");
 
     // Functions
     public void NavigateToCreateExportControlPage() {
@@ -112,13 +118,54 @@ public class CreateExportControlPage extends BasePage {
     }
 
     public void UploadAnAttachment(String filePath) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement uploadElement = driver.findElement(fileInput);
 
-        // Make the hidden input visible (optional but safe)
-        js.executeScript("arguments[0].style.display='block';", fileInput);
-
-        // Upload
-        type(fileInput, filePath);
+        // Directly send file path (bypasses drag/drop UI)
+        uploadElement.sendKeys(filePath);
         pause(3000);
+    }
+
+    public boolean VerifyIfFileIsUploadedSuccessfully(String name) {
+        return driver.findElement(By.xpath("//div[text()='" + name + "']")).isDisplayed();
+    }
+
+    public boolean EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(String typeName, String desc)
+    {
+        boolean result = false;
+
+        type(inputAttachmentType, typeName);
+        type(textareaAttachmentDescription, desc);
+        pause(3000);
+
+        // Reload page
+        driver.navigate().refresh();
+
+        if(driver.findElement(By.xpath("//span[text()='" + typeName + "']")).isDisplayed() && driver.findElement(By.xpath("//span[text()='1']")).isDisplayed())
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(String typeName)
+    {
+        boolean result = false;
+
+        // Expand the group
+        driver.findElement(By.xpath("//span[text()='" + typeName + "']")).click();
+        pause(2000);
+
+        click(buttonDeleteAttachment);
+        if(driver.findElement(By.xpath("//div[text()='Are you sure you want to delete this attachment?']")).isDisplayed())
+        {
+            click(buttonOK);
+            pause(2000);
+
+            if(driver.findElement(By.xpath("//div[text()='Document was successfully deleted.']")).isDisplayed())
+            {
+                result = true;
+            }
+        }
+        return result;
     }
 }
