@@ -2,8 +2,13 @@ package pages.Home;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Objects;
 
 public class DashboardPage extends BasePage
@@ -20,7 +25,6 @@ public class DashboardPage extends BasePage
     By linkDashboard = By.xpath("//span[text()='Dashboard']/..");
     By linkLogout = By.xpath("//span[text()='Logout']/..");
     By linkExportControl = By.xpath("//a[@aria-label='Export Control']");
-
 
     // Actions
     public boolean VerifyUserLandsOnDashboardPage() {
@@ -60,5 +64,13 @@ public class DashboardPage extends BasePage
 
         click(linkLogout);
         pause(3000);
+    }
+
+    public void clickExportControlLink() {
+        WebElement link = driver.findElement(linkExportControl);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(link));
+        link.click();
+        pause(1000);
     }
 }
