@@ -3,15 +3,19 @@ import base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.Administration.ExportControl_TransactionTypes_Page;
 import pages.Administration.Exportcontrol_RecordTypes_Page;
-import pages.LoginPage;
+import pages.Home.DashboardPage;
+import pages.Home.LoginPage;
 import pages.Adobe.AgreementPage;
 import utils.DriverManager;
+import utils.JsonDataReader;
+
 import java.time.Duration;
 
 
@@ -21,6 +25,9 @@ public class Exportcontrol_TransactionTypes_flow {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
+
     @BeforeMethod
     public void setupBrowser() {
 //         User will setup and configure the Chrome WebDriver using WebDriverManager
@@ -39,40 +46,30 @@ public class Exportcontrol_TransactionTypes_flow {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         basePage = new BasePage (driver);
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
 
     @Test
     public void Exportcontrol_TransactionTypes_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
+            String url = JsonDataReader.get(0,"URL");
+            String userName = JsonDataReader.get(0,"Username");
+            String password = JsonDataReader.get(0,"Password");
+
             // User will open the login page of the Insight Portal application
-            driver.get("https://hollywood-insight4.partners.org/");
+            driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Create an instance of LoginPage
-            LoginPage loginPage = new LoginPage(driver);
+            // Login into the application
+            loginPage.LoginIntoApplication(userName, password);
 
-            // User will enter the username into the username input field
-            loginPage.enterUsername("SV1179");
-            ExtentReportListener.getExtentTest().pass("Entered username");
-
-            // User will click the 'Next' button to proceed to the password entry screen
-            loginPage.clickNext();
-            ExtentReportListener.getExtentTest().pass("Clicked Next");
-
-            // User will input the user's password into the password field
-            loginPage.enterPassword("Devinivetha@1930");
-            ExtentReportListener.getExtentTest().pass("Entered password");
-
-            // User will click the 'Verify' button to authenticate the user
-            loginPage.clickVerify();
-            ExtentReportListener.getExtentTest().pass("Clicked Verify");
-
-            // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);

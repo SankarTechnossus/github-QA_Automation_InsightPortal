@@ -3,14 +3,18 @@ import base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
 import pages.Administration.Exportcontrol_RecordTypes_Page;
-import pages.LoginPage;
+import pages.Home.DashboardPage;
+import pages.Home.LoginPage;
 import pages.Adobe.AgreementPage;
 import utils.DriverManager;
+import utils.JsonDataReader;
+
 import java.time.Duration;
 
 
@@ -20,6 +24,9 @@ public class Exportcontrol_RecordTypes_flow {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
+
     @BeforeMethod
     public void setupBrowser() {
        // User will setup and configure the Chrome WebDriver using WebDriverManager
@@ -38,40 +45,30 @@ public class Exportcontrol_RecordTypes_flow {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         basePage = new BasePage (driver);
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
 
     @Test
     public void Exportcontrol_RecordTypes_Test() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
+            String url = JsonDataReader.get(0,"URL");
+            String userName = JsonDataReader.get(0,"Username");
+            String password = JsonDataReader.get(0,"Password");
+
             // User will open the login page of the Insight Portal application
-            driver.get("https://hollywood-insight4.partners.org/");
+            driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Create an instance of LoginPage
-            LoginPage loginPage = new LoginPage(driver);
+            // Login into the application
+            loginPage.LoginIntoApplication(userName, password);
 
-            // User will enter the username into the username input field
-            loginPage.enterUsername("SV1179");
-            ExtentReportListener.getExtentTest().pass("Entered username");
-
-            // User will click the 'Next' button to proceed to the password entry screen
-            loginPage.clickNext();
-            ExtentReportListener.getExtentTest().pass("Clicked Next");
-
-            // User will input the user's password into the password field
-            loginPage.enterPassword("Devinivetha@1930");
-            ExtentReportListener.getExtentTest().pass("Entered password");
-
-            // User will click the 'Verify' button to authenticate the user
-            loginPage.clickVerify();
-            ExtentReportListener.getExtentTest().pass("Clicked Verify");
-
-            // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
@@ -86,7 +83,6 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.openRecordTypesExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked 'Record Types' link successfully");
 
-
             basePage.pause(5000);
             adminPageRecordtypes.clickExportControlUnderRecordTypes();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' under 'Record Types' successfully");
@@ -95,32 +91,21 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.clickAddRecordTypeLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
 
-
-
             basePage.pause(5000);
             adminPageRecordtypes.selectModuleAsExportControl();
             ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
-
 
             basePage.pause(5000);
             adminPageRecordtypes.enterRecordType("Test01");
             ExtentReportListener.getExtentTest().pass("Entered 'Test' into Record Type input field");
 
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
-
-
             basePage.pause(5000);
             adminPageRecordtypes.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
 
-
-
             basePage.pause(5000);
             adminPageRecordtypes.clickAddRecordTypeLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
-
 
             basePage.pause(5000);
             adminPageRecordtypes.selectModuleAsExportControl();
@@ -131,16 +116,9 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.enterRecordType(recordTypeName);
             ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
 
-
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
-
-
             basePage.pause(5000);
             adminPageRecordtypes.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
-
 
             String searchKeyword = "Test";
 
@@ -148,16 +126,13 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.searchRecordByName(searchKeyword);
             ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword + "'");
 
-
             basePage.pause(5000);
             adminPageRecordtypes.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
 
-
             basePage.pause(5000);
             adminPageRecordtypes.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
-
 
             String searchKeyword01 = "@@@@@@@";
 
@@ -191,11 +166,6 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.enterRefMeaning(refValue);
             ExtentReportListener.getExtentTest().pass("Entered '" + refValue + "' into Ref Meaning input field");
 
-
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
-
             basePage.pause(5000);
             adminPageRecordtypes.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
@@ -215,16 +185,9 @@ public class Exportcontrol_RecordTypes_flow {
             adminPageRecordtypes.enterRefMeaning(refValue01);
             ExtentReportListener.getExtentTest().pass("Entered '" + refValue01 + "' into Ref Meaning input field");
 
-//
-//            basePage.pause(5000);
-//            adminPageRecordtypes.tickActiveCheckbox();
-//            ExtentReportListener.getExtentTest().pass("'Active' checkbox is checked");
-
             basePage.pause(5000);
             adminPageRecordtypes.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
-
-
 
             String searchKeyword02 = "Test";
 
@@ -236,7 +199,6 @@ public class Exportcontrol_RecordTypes_flow {
             basePage.pause(5000);
             adminPageRecordtypes.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
-
 
             basePage.pause(5000);
             adminPageRecordtypes.clickClearSelectionsButton();
@@ -258,8 +220,6 @@ public class Exportcontrol_RecordTypes_flow {
             basePage.pause(5000);
             adminPageRecordtypes.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
