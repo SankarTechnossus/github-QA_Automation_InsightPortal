@@ -14,7 +14,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.People_Management.PeopleManagement_ExportControlPage;
 import pages.Home.DashboardPage;
-import pages.LoginPage;
+import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
@@ -55,7 +55,7 @@ public class PBI_251470_Staff_Management_Admin {
     }
 
     @Test
-    public void StaffManagementAdmin()
+    public void StaffManagement_Admin()
     {
         try
         {
@@ -71,10 +71,7 @@ public class PBI_251470_Staff_Management_Admin {
             basePage.pause(20000);
 
             // Login into the application
-            loginPage.enterUsername(userName);
-            loginPage.clickNext();
-            loginPage.enterPassword(password);
-            loginPage.clickVerify();
+            loginPage.LoginIntoApplication(userName, password);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");

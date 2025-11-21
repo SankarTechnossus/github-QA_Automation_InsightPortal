@@ -44,4 +44,5 @@ public class LoginPage {
     public void clickVerify() {
         verifyButton.click();
     }
+
 }
