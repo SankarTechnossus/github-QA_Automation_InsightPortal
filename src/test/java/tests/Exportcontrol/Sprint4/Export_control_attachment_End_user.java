@@ -7,14 +7,17 @@ import listeners.ExtentReportListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
 import pages.Administration.Export_control_attachment_End_user_pages;
+import pages.Home.DashboardPage;
+import pages.Home.LoginPage;
 import utils.DriverManager;
-import workflow_helper.LoginPageHelper;
+import utils.JsonDataReader;
 
 import java.time.Duration;
 
@@ -25,6 +28,9 @@ public class Export_control_attachment_End_user {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
+
     @BeforeMethod
     public void setupBrowser() {
         // User will setup and configure the Chrome WebDriver using WebDriverManager
@@ -43,34 +49,30 @@ public class Export_control_attachment_End_user {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         basePage = new BasePage (driver);
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
+
     @Test
     public void Export_control_attachment_End_user() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
+            String url = JsonDataReader.get(0,"URL");
+            String userName = JsonDataReader.get(0,"Username");
+            String password = JsonDataReader.get(0,"Password");
+
             // User will open the login page of the Insight Portal application
-            driver.get("https://hollywood-insight4.partners.org/");
+            driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Create an instance of LoginPage
-            LoginPageHelper loginPageHelper =new LoginPageHelper(driver);
-            loginPageHelper.enterUserName("SV1179");
-            ExtentReportListener.getExtentTest().pass("Entered username");
+            // Login into the application
+            loginPage.LoginIntoApplication(userName, password);
 
-            loginPageHelper.clickNext();
-            ExtentReportListener.getExtentTest().pass("Clicked Next");
-
-            loginPageHelper.enterPassword();
-            ExtentReportListener.getExtentTest().pass("Entered password");
-
-            loginPageHelper.clickVerify();
-            ExtentReportListener.getExtentTest().pass("Clicked Verify");
-
-            // Optional: pause if any post-login actions needed
-            basePage.pause(20000);
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
@@ -81,13 +83,6 @@ public class Export_control_attachment_End_user {
 
 
             Export_control_attachment_End_user_pages attachmentenduser = new Export_control_attachment_End_user_pages(driver);
-
-
-
-
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
