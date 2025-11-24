@@ -17,6 +17,7 @@ public class CreateExportControlPage extends BasePage {
     // General Locators
     By buttonActions = By.xpath("//button[text()='Actions']");
     By linkCreateExportControl = By.xpath("//span[text()='Create Export Control']/..");
+    By linkInitialReview = By.xpath("//div[text()='Initial Review (IR)']/..");
 
     // Create Export Control page locators
     By inputPersonnelExclusion = By.xpath("//input[@value='PersonnelExclusion']");
@@ -45,6 +46,9 @@ public class CreateExportControlPage extends BasePage {
     By textareaAttachmentDescription = By.xpath("//td[@data-column='description']/textarea");
     By buttonDeleteAttachment = By.xpath("//button[@aria-label='Delete attachment']");
     By buttonOK = By.xpath("//button[text()='OK']");
+
+    //People Locators
+    By linkPeople = By.xpath("//span[text()='People']/..");
 
     // Functions
     public void NavigateToCreateExportControlPage() {
@@ -114,6 +118,11 @@ public class CreateExportControlPage extends BasePage {
 
     public void NavigateToAttachments() {
         click(linkAttachments);
+        pause(2000);
+    }
+
+    public void NavigateToPeople() {
+        click(linkPeople);
         pause(2000);
     }
 
@@ -188,6 +197,74 @@ public class CreateExportControlPage extends BasePage {
                 pause(2000);
             }
         }
+        return result;
+    }
+
+    public boolean VerifyInstructionsForPeople(String formInst) {
+        boolean result = false;
+
+        // Click on Instructions link
+        driver.findElement(By.xpath("//span[text()='Instructions']")).click();
+        pause(2000);
+
+        // Verify Instructions
+        String name = driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).getText();
+        if(Objects.equals(name, formInst))
+        {
+            result=true;
+        }
+
+        return result;
+    }
+
+    public boolean VerifyInstructionsForAttachments(String formInst) {
+        boolean result = false;
+
+        // Click on Instructions link
+        driver.findElement(By.xpath("//span[text()='Instructions']")).click();
+        pause(2000);
+
+        // Verify Instructions
+        String name = driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).getText();
+        if(Objects.equals(name, formInst))
+        {
+            result=true;
+        }
+
+        return result;
+    }
+
+    public boolean VerifyInstructionsForReviewLetter(String formInst) {
+        boolean result = false;
+
+        // Click on Initial Review link
+        click(linkInitialReview);
+        pause(5000);
+
+        // Verify Instructions
+        if(driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).isDisplayed())
+        {
+            String name = driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).getText();
+            if(Objects.equals(name, formInst))
+            {
+                result=true;
+            }
+        }
+        else {
+            // Click on Instructions link
+            driver.findElement(By.xpath("//span[text()='Instructions']")).click();
+            pause(3000);
+
+            String name = driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).getText();
+            if(Objects.equals(name, formInst))
+            {
+                result=true;
+            }
+        }
+
+
+
+
         return result;
     }
 }

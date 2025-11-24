@@ -4,7 +4,6 @@ package tests.Exportcontrol.Sprint5;
 import base.BasePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
 import pages.Administration.Instructions_Management.InstructionsManagement_ExportControlPage;
 import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Home.DashboardPage;
@@ -21,8 +19,6 @@ import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
-import java.io.File;
-import java.nio.file.Paths;
 import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
@@ -93,38 +89,92 @@ public class PBI_248110_Instruction_Pages {
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Instructions Management.");
 
             String officeCode = JsonDataReader.get(5,"OfficeCode");
+            String office = JsonDataReader.get(5,"Office");
+            String content1 = JsonDataReader.get(5,"Content1");
+            String content2 = JsonDataReader.get(5,"Content2");
+            String content3 = JsonDataReader.get(5,"Content3");
+
             String pageName = "";
-            String content = "";
+
 
             for (int i=1; i<=3; i++)
             {
                 if(i==1)
                 {
                     pageName = JsonDataReader.get(5,"Page1");
-                    content = "Test " + pageName + " Instructions.";
+
+                    // Delete previously added instructions if any
+                    instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
+                    ExtentReportListener.getExtentTest().info("There are no existing instructions with key : " + pageName + " and record type : " + office);
+
+                    // Add New instructions
+                    instructionsManagementExportControlPage.AddNewInstructions(pageName, officeCode, content1);
+
+                    Assert.assertTrue(instructionsManagementExportControlPage.VerifyInstructionsAreAddedSuccessfully(pageName, office, content1));
+                    ExtentReportListener.getExtentTest().pass("Instructions : " + content1 + " added successfully for page : " + pageName + " and office : " + office);
                 } else if (i==2)
                 {
                     pageName = JsonDataReader.get(5,"Page2");
-                    content = "Test " + pageName + " Instructions.";
+
+                    // Delete previously added instructions if any
+                    instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
+                    ExtentReportListener.getExtentTest().info("There are no existing instructions with key : " + pageName + " and record type : " + office);
+
+                    // Add New instructions
+                    instructionsManagementExportControlPage.AddNewInstructions(pageName, officeCode, content2);
+
+                    Assert.assertTrue(instructionsManagementExportControlPage.VerifyInstructionsAreAddedSuccessfully(pageName, office, content2));
+                    ExtentReportListener.getExtentTest().pass("Instructions : " + content2 + " added successfully for page : " + pageName + " and office : " + office);
                 }
                 else
                 {
                     pageName = JsonDataReader.get(5,"Page3");
-                    content = "Test " + pageName + " Instructions.";
+
+                    // Delete previously added instructions if any
+                    instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
+                    ExtentReportListener.getExtentTest().info("There are no existing instructions with key : " + pageName + " and record type : " + office);
+
+                    // Add New instructions
+                    instructionsManagementExportControlPage.AddNewInstructions(pageName, officeCode, content3);
+
+                    Assert.assertTrue(instructionsManagementExportControlPage.VerifyInstructionsAreAddedSuccessfully(pageName, office, content3));
+                    ExtentReportListener.getExtentTest().pass("Instructions : " + content3 + " added successfully for page : " + pageName + " and office : " + office);
                 }
-
-                // Delete previously added instructions if any
-                instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
-                ExtentReportListener.getExtentTest().info("There are no instructions with existing key and record type.");
-
-                // Add New instructions
-                instructionsManagementExportControlPage.AddNewInstructions(pageName, officeCode, content);
-
-                String office = JsonDataReader.get(5,"Office");
-
-                Assert.assertTrue(instructionsManagementExportControlPage.VerifyInstructionsAreAddedSuccessfully(pageName, office, content));
-                ExtentReportListener.getExtentTest().pass("Instructions : " + content + " added successfully for page : " + pageName + " and office :" + office);
             }
+
+            // Navigate back to Dashboard page
+            dashboardPage.NavigateBackToDashboardPage();
+            ExtentReportListener.getExtentTest().info("User navigated back to dashboard page.");
+
+            // Navigate back to Export Control module
+            dashboardPage.NavigateToExportControlModule();
+            ExtentReportListener.getExtentTest().info("User navigated to Export Control module.");
+
+            // Navigate to Create Export Control page
+            createExportControlPage.NavigateToCreateExportControlPage();
+            ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
+
+            // Create Export Control
+            String piName = JsonDataReader.get(2,"PIName");
+
+            createExportControlPage.CreateExportControl(piName);
+            Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
+            String recordNo = createExportControlPage.GetExportControlRecordNumber();
+            ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);
+
+            // Navigate to People and Verify Instructions
+            createExportControlPage.NavigateToPeople();
+            Assert.assertTrue(createExportControlPage.VerifyInstructionsForPeople(content1));
+            ExtentReportListener.getExtentTest().pass("Instructions : " + content1 + " are visible for People.");
+
+            // Navigate to Attachments and Verify Instructions
+            createExportControlPage.NavigateToAttachments();
+            Assert.assertTrue(createExportControlPage.VerifyInstructionsForAttachments(content2));
+            ExtentReportListener.getExtentTest().pass("Instructions : " + content2 + " are visible for Attachments.");
+
+            // Navigate to Review Letter and Verify Instructions
+            Assert.assertTrue(createExportControlPage.VerifyInstructionsForReviewLetter(content3));
+            ExtentReportListener.getExtentTest().pass("Instructions : " + content3 + " are visible for Review Letter.");
         }
         catch (Exception e)
         {

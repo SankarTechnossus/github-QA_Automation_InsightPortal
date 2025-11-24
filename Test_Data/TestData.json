@@ -27,7 +27,10 @@
       "Page2": "Attachments",
       "Page3": "Review Letter",
       "OfficeCode": "ExportControlRequest",
-      "Office": "Export Control Request"
+      "Office": "Export Control Request",
+      "Content1": "Test People Instructions",
+      "Content2": "Test Attachment Instructions",
+      "Content3": "Test Review Letter Instructions"
     }
   ]
 }

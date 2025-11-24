@@ -51,7 +51,7 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
         type(inputContent, contentName);
 
         click(buttonCreate);
-        pause(2000);
+        pause(6000);
     }
 
     public boolean VerifyInstructionsAreAddedSuccessfully(String pageName, String officeName, String contentName) {
