@@ -21,6 +21,13 @@
     {
       "TestFilesFolderPath": "src/test/java/resources/testfiles",
       "FileDescription": "Test Attachment"
+    },
+    {
+      "Page1": "People",
+      "Page2": "Attachments",
+      "Page3": "Review Letter",
+      "OfficeCode": "ExportControlRequest",
+      "Office": "Export Control Request"
     }
   ]
 }
