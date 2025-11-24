@@ -143,6 +143,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
 
                         // Get file path
                         String filePath = Paths.get(baseDir, folderPath, fileName).toString();
+                        System.out.println("File Path: " + filePath);
 
                         // Upload file and verify the attachment
                         createExportControlPage.UploadAnAttachment(filePath);

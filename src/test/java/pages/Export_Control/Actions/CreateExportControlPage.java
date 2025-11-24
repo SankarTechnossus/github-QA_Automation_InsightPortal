@@ -2,10 +2,8 @@ package pages.Export_Control.Actions;
 
 import base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.util.Objects;
 
@@ -41,6 +39,7 @@ public class CreateExportControlPage extends BasePage {
     By buttonSearch = By.xpath("//button[text()='Search']");
     By linkSelectFilesFromComputer = By.xpath("//span[text()='select files from computer']");
     By fileInput = By.xpath("//input[@type='file']");
+    By buttonClearSelections = By.xpath("//button[text()='Clear Selections']");
 
     By inputAttachmentType = By.xpath("//td[@data-column='exportControlAttachmentCategoryId']/div//input");
     By textareaAttachmentDescription = By.xpath("//td[@data-column='description']/textarea");
@@ -119,6 +118,8 @@ public class CreateExportControlPage extends BasePage {
     }
 
     public void UploadAnAttachment(String filePath) {
+        pause(2000);
+
         WebElement uploadElement = driver.findElement(fileInput);
 
         // Directly send file path (bypasses drag/drop UI)
@@ -176,6 +177,14 @@ public class CreateExportControlPage extends BasePage {
             if(driver.findElement(By.xpath("//div[text()='Document was successfully deleted.']")).isDisplayed())
             {
                 result = true;
+                pause(5000);
+
+                driver.findElement(inputSearchAttachment).clear();
+                click(buttonSearch);
+                pause(3000);
+
+                //click(buttonClearSelections);
+                driver.navigate().refresh();
                 pause(2000);
             }
         }
