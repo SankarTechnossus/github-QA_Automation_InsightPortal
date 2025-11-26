@@ -107,12 +107,21 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
 
             // Create Export Control
             String piName = JsonDataReader.get(2,"PIName");
+            String type = JsonDataReader.get(2,"ExportControlType");
+            String status = JsonDataReader.get(2,"Status");
 
             createExportControlPage.CreateExportControl(piName);
             Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
             String recordNo = createExportControlPage.GetExportControlRecordNumber();
             ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);
 
+            // Navigate to People Section
+            createExportControlPage.NavigateToPeople();
+            ExtentReportListener.getExtentTest().info("User navigated to People section.");
+
+            // Verify Export Control Details under People Section
+            Assert.assertTrue(createExportControlPage.VerifyExportControlDetailsOnPeoplePage(recordNo, piName, type, status));
+            ExtentReportListener.getExtentTest().pass("Created Export Control has PI : " + piName + " with Type : " + type + " and Status : " + status);
 
 
 

@@ -31,6 +31,10 @@ public class CreateExportControlPage extends BasePage {
 
     // Export Control Details locators
     By exportControlRecordNo = By.xpath("//dt[text()='Record #']/../dd");
+    By exportControlPI = By.xpath("//dt[text()='PI']/../dd");
+    By exportControlType = By.xpath("//dt[text()='Type']/../dd");
+    By exportControlStatus = By.xpath("//dt[text()='Status']/../dd");
+
     By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Record has been created successfully.']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
 
@@ -265,6 +269,22 @@ public class CreateExportControlPage extends BasePage {
 
 
 
+        return result;
+    }
+
+    public boolean VerifyExportControlDetailsOnPeoplePage(String recordNum, String piName, String ecType, String ecStatus)
+    {
+        boolean result = false;
+
+        String recordNo = driver.findElement(exportControlRecordNo).getText();
+        String pi = driver.findElement(exportControlPI).getText();
+        String type = driver.findElement(exportControlType).getText();
+        String status = driver.findElement(exportControlStatus).getText();
+
+        if(Objects.equals(recordNum, recordNo) && Objects.equals(piName, pi) && Objects.equals(ecType, type) && Objects.equals(ecStatus, status))
+        {
+            result=true;
+        }
         return result;
     }
 }

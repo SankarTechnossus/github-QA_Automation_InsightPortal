@@ -13,7 +13,9 @@
       "FormInstructions": "Test Instructions"
     },
     {
-      "PIName": "Chandra, Mohan"
+      "PIName": "Chandra, Mohan",
+      "ExportControlType": "Export Control Request",
+      "Status": "Draft"
     },
     {
       "RoleDeactivationErrorMessage": "You must have at-least one role mapped to a type."
