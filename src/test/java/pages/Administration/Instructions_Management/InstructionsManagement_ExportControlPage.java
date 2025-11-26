@@ -24,6 +24,8 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
     By inputContent = By.xpath("//div[@class='fr-element fr-view']");
     By buttonCreate = By.xpath("//button[text()='Create']");
 
+    By navBackLinkInstructionsManagement = By.xpath("//a[text()='Instructions Management']");
+
     // Functions
     public void NavigateToInstructionsManagementExportControlPage() {
 
@@ -109,4 +111,56 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
             }
         }
     }
+
+    public boolean VerifyErrorMsgIfInstructionsForAPageNoAndOfficeCodeCombinationAlreadyExist(String page, String offCode, String content) {
+        boolean result = false;
+
+        click(buttonAddNew);
+        pause(2000);
+
+        type(inputPage, page);
+        type(inputOffice, offCode);
+
+        click(inputContent);
+        pause(2000);
+
+        type(inputContent, content);
+
+        click(buttonCreate);
+        pause(2000);
+
+        if(driver.findElement(By.xpath("//div[@id='A page instruction with key and record type already exists.']")).isDisplayed())
+        {
+            result = true;
+            pause(5000);
+        }
+
+        return result;
+    }
+
+    public boolean VerifyErrorMsgIfUserTriesToAddAnInstructionWithInvalidOfficeCodeCombination(String offCode) {
+        boolean result = false;
+
+        driver.findElement(inputOffice).clear();
+        type(inputOffice, offCode);
+
+        click(buttonCreate);
+        pause(2000);
+
+        if(driver.findElement(By.xpath("//div[text()='Invalid values entered. Please select options only from available options below']")).isDisplayed())
+        {
+            result = true;
+            pause(5000);
+        }
+
+        return result;
+    }
+
+    public void NavigateBackToInstructionsManagementPage() {
+
+        //Click on Instructions Management navigation link
+        click(navBackLinkInstructionsManagement);
+        pause(2000);
+    }
+
 }

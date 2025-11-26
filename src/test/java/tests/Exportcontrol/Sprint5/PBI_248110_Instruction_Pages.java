@@ -93,12 +93,13 @@ public class PBI_248110_Instruction_Pages {
             String content1 = JsonDataReader.get(5,"Content1");
             String content2 = JsonDataReader.get(5,"Content2");
             String content3 = JsonDataReader.get(5,"Content3");
+            String errorMsg1 = JsonDataReader.get(5,"DuplicateInstructionErrorMessage");
+            String errorMsg2 = JsonDataReader.get(5,"InvalidOfficeCodeErrorMessage");
+            String invalidOffCode = JsonDataReader.get(5,"InvalidOfficeCode");
 
             String pageName = "";
 
-
-            for (int i=1; i<=3; i++)
-            {
+            for (int i=1; i<=3; i++) {
                 if(i==1)
                 {
                     pageName = JsonDataReader.get(5,"Page1");
@@ -112,6 +113,18 @@ public class PBI_248110_Instruction_Pages {
 
                     Assert.assertTrue(instructionsManagementExportControlPage.VerifyInstructionsAreAddedSuccessfully(pageName, office, content1));
                     ExtentReportListener.getExtentTest().pass("Instructions : " + content1 + " added successfully for page : " + pageName + " and office : " + office);
+
+                    // Verify Error message If user tries to add an instruction with existing page no and office code combination
+                    Assert.assertTrue(instructionsManagementExportControlPage.VerifyErrorMsgIfInstructionsForAPageNoAndOfficeCodeCombinationAlreadyExist(pageName, officeCode, content1));
+                    ExtentReportListener.getExtentTest().pass("Error Message : " + errorMsg1 + " is displayed when admin user tries to add an instruction with existing page no and office code combination.");
+
+                    // Verify Error message If user tries to add an instruction with Invalid office code combination
+                    Assert.assertTrue(instructionsManagementExportControlPage.VerifyErrorMsgIfUserTriesToAddAnInstructionWithInvalidOfficeCodeCombination(invalidOffCode));
+                    ExtentReportListener.getExtentTest().pass("Error Message : " + errorMsg2 + " is displayed when admin user tries to add an instruction with invalid office code combination.");
+
+                    instructionsManagementExportControlPage.NavigateBackToInstructionsManagementPage();
+                    ExtentReportListener.getExtentTest().info("User navigated back to instruction management page.");
+
                 } else if (i==2)
                 {
                     pageName = JsonDataReader.get(5,"Page2");
@@ -184,8 +197,7 @@ public class PBI_248110_Instruction_Pages {
     }
 
     @AfterMethod
-    public void tearDown()
-    {
+    public void tearDown() {
         DriverManager.quitDriver();
 
         // User will record browser closure in the test report

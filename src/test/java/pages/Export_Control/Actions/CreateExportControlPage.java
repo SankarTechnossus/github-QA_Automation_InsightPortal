@@ -31,7 +31,7 @@ public class CreateExportControlPage extends BasePage {
 
     // Export Control Details locators
     By exportControlRecordNo = By.xpath("//dt[text()='Record #']/../dd");
-    By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Application has been submitted successfully']");
+    By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Record has been created successfully.']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
 
     //Attachment Locators

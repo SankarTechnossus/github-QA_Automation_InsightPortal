@@ -30,7 +30,10 @@
       "Office": "Export Control Request",
       "Content1": "Test People Instructions",
       "Content2": "Test Attachment Instructions",
-      "Content3": "Test Review Letter Instructions"
+      "Content3": "Test Review Letter Instructions",
+      "DuplicateInstructionErrorMessage": "A page instruction with key and record type already exists.",
+      "InvalidOfficeCodeErrorMessage": "Invalid values entered. Please select options only from available options below",
+      "InvalidOfficeCode": "TestOfficeCode"
     }
   ]
 }
