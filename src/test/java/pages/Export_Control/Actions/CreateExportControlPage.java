@@ -65,6 +65,8 @@ public class CreateExportControlPage extends BasePage {
     By inputAddExternalAffiliation = By.xpath("//input[@placeholder='Add External Affiliation']");
     By inputExternalAffiliation = By.xpath("(//div[text()='External Affiliation']/following::input)[1]");
 
+
+
     // Functions
     public void NavigateToCreateExportControlPage() {
         waitForPresence(buttonActions);
@@ -276,10 +278,6 @@ public class CreateExportControlPage extends BasePage {
                 result=true;
             }
         }
-
-
-
-
         return result;
     }
 
@@ -304,12 +302,6 @@ public class CreateExportControlPage extends BasePage {
 
     public boolean VerifyUserIsAbleToAddExternalPeopleWithNewExternalAffiliation(String firstName, String lastName, String newExternalAffiliation) {
         boolean result = false;
-
-        // Click on Add New People link
-        click(buttonAddNewPeople);
-
-        // Click Add External People link
-        click(buttonAddExternalPeople);
 
         // Enter external people details
         type(inputFirstName, firstName);
@@ -348,12 +340,6 @@ public class CreateExportControlPage extends BasePage {
     public boolean VerifyUserIsAbleToAddExternalPeopleWithExistingExternalAffiliation(String firstName, String lastName, String existingExternalAffiliation) {
         boolean result = false;
 
-        // Click on Add New People link
-        click(buttonAddNewPeople);
-
-        // Click Add External People link
-        click(buttonAddExternalPeople);
-
         // Enter external people details
         type(inputFirstName, firstName);
         type(inputLastName, lastName);
@@ -387,8 +373,10 @@ public class CreateExportControlPage extends BasePage {
         // Accept the alert (click 'OK')
         alert.accept();
         pause(2000);
-        if(driver.findElement(By.xpath("//div[text()='Instruction Deleted successfully.']")).isDisplayed())
+        if(driver.findElement(By.xpath("//div[text()='People deleted successfully.']")).isDisplayed())
         {
+            pause(3000);
+
             List<WebElement> elements = driver.findElements(By.xpath("//div[text()='" + name + "']"));
 
             if (!elements.isEmpty()) {
@@ -400,5 +388,58 @@ public class CreateExportControlPage extends BasePage {
         }
 
         return result;
+    }
+
+    public void NavigateToAddNewInternalPeopleSection() {
+        click(buttonAddNewPeople);
+        pause(1000);
+    }
+
+    public void NavigateToAddNewExternalPeopleSection() {
+        click(buttonAddNewPeople);
+        pause(1000);
+
+        click(buttonAddExternalPeople);
+        pause(1000);
+    }
+
+    public boolean VerifyUserIsAbleToAddExistingExternalPeople(String existingExternalPeople) {
+        boolean result = false;
+
+        click(inputSearchForUsers);
+        type(inputSearchForUsers, existingExternalPeople);
+        pause(2000);
+
+        driver.findElement(By.xpath("//div[text()='" + existingExternalPeople + "']")).click();
+        pause(2000);
+
+        click(buttonAdd);
+        pause(2000);
+
+        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        {
+            result = true;
+            pause(2000);
+        }
+        return result;
+    }
+
+    public boolean VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(String instAff, String departAff, String unitAff, String existingUserAff) {
+        boolean result = false;
+
+        String affName = driver.findElement(inputExternalAffiliation).getAttribute("value");
+
+        if(driver.findElement(By.xpath("//div[text()='" + instAff + "']")).isDisplayed() && driver.findElement(By.xpath("//div[text()='" + departAff + "']")).isDisplayed() && driver.findElement(By.xpath("//div[text()='" + unitAff + "']")).isDisplayed())
+        {
+            if(Objects.equals(existingUserAff, affName))
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public boolean VerifyNewExistingExternalPeopleIsVisibleInTheList(String name) {
+        return driver.findElement(By.xpath("//div[text()='" + name + "']")).isDisplayed();
     }
 }

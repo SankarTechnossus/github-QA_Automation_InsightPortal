@@ -38,8 +38,12 @@
       "InvalidOfficeCode": "TestOfficeCode"
     },
     {
-      "NewInternalPeople": "Dhiman, Vivek",
-      "NewExistingExternalPeople": "savant, Ranjit",
+      "InternalPeople": "Dhiman, Vivek",
+      "ExistingExternalPeople": "savant, Ranjit",
+      "InstitutionAffiliation": "NWH",
+      "DepartmentAffiliation": "Medicine",
+      "UnitAffiliation": "Endocrinology/Diabetes",
+      "ExistingUserExternalAffiliation": "Mass General Brigham > NWH > Medicine > Endocrinology/Diabetes",
       "NewExternalAffiliation": "Test External Affiliation",
       "ExistingExternalAffiliation": "Saint Georges University",
       "DefaultPeopleType": "External"
