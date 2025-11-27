@@ -107,6 +107,10 @@ public class PeopleManagement_ExportControlPage extends BasePage {
         return result;
     }
 
+    public String GetRoleName() {
+        return driver.findElement(By.xpath("//td[@data-column='mappedRoles']/a")).getText();
+    }
+
     public boolean AddNewRoleToPeopleTypeAndVerifyInList(String typeName, String roleName) {
         boolean result = false;
 
@@ -334,5 +338,4 @@ public class PeopleManagement_ExportControlPage extends BasePage {
         }
         return result;
     }
-
 }

@@ -39,6 +39,7 @@ public class CreateExportControlPage extends BasePage {
 
     By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Record has been created successfully.']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
+    By lblSubmissionChecklist = By.xpath("//span[text()='Submission Checklist']");
 
     //Attachment Locators
     By linkAttachments = By.xpath("//span[text()='Attachments']/..");
@@ -307,11 +308,15 @@ public class CreateExportControlPage extends BasePage {
         type(inputFirstName, firstName);
         type(inputLastName, lastName);
         type(inputAddExternalAffiliation, newExternalAffiliation);
+        pause(1000);
 
         click(buttonAdd);
         pause(2000);
 
-        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
+        waitForPresence(userAdditionMsg);
+
+        if(driver.findElement(userAdditionMsg).isDisplayed())
         {
             result = true;
             pause(2000);
@@ -319,8 +324,23 @@ public class CreateExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean VerifyNewExternalPeopleIsVisibleInTheList(String name) {
-        return driver.findElement(By.xpath("//div[text()='" + name + "']")).isDisplayed();
+    public boolean VerifyNewExternalPeopleIsVisibleInTheList(String name, String org, String type) {
+        boolean result = false;
+
+        By elementUserName = By.xpath("//div[text()='" + name + "']");
+        waitForPresence(elementUserName);
+
+        By elementOrgName = By.xpath("//div[text()='" + org + "']");
+        waitForPresence(elementUserName);
+
+        By elementTypeName = By.xpath("//div[text()='" + type + "']");
+        waitForPresence(elementUserName);
+
+        if(driver.findElement(elementUserName).isDisplayed() && driver.findElement(elementOrgName).isDisplayed() && driver.findElement(elementTypeName).isDisplayed())
+        {
+            result = true;
+        }
+        return result;
     }
 
     public boolean VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(String orgName, String typeName) {
@@ -353,7 +373,10 @@ public class CreateExportControlPage extends BasePage {
         click(buttonAdd);
         pause(2000);
 
-        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
+        waitForPresence(userAdditionMsg);
+
+        if(driver.findElement(userAdditionMsg).isDisplayed())
         {
             result = true;
             pause(2000);
@@ -373,7 +396,11 @@ public class CreateExportControlPage extends BasePage {
         // Accept the alert (click 'OK')
         alert.accept();
         pause(2000);
-        if(driver.findElement(By.xpath("//div[text()='People deleted successfully.']")).isDisplayed())
+
+        By userDeletionMsg = By.xpath("//div[text()='People deleted successfully.']");
+        waitForPresence(userDeletionMsg);
+
+        if(driver.findElement(userDeletionMsg).isDisplayed())
         {
             pause(3000);
 
@@ -403,20 +430,16 @@ public class CreateExportControlPage extends BasePage {
         pause(1000);
     }
 
-    public boolean VerifyUserIsAbleToAddExistingExternalPeople(String existingExternalPeople) {
+    public boolean VerifyUserIsAbleToAddExistingExternalPeople() {
         boolean result = false;
-
-        click(inputSearchForUsers);
-        type(inputSearchForUsers, existingExternalPeople);
-        pause(2000);
-
-        driver.findElement(By.xpath("//div[text()='" + existingExternalPeople + "']")).click();
-        pause(2000);
 
         click(buttonAdd);
         pause(2000);
 
-        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
+        waitForPresence(userAdditionMsg);
+
+        if(driver.findElement(userAdditionMsg).isDisplayed())
         {
             result = true;
             pause(2000);
@@ -424,10 +447,21 @@ public class CreateExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(String instAff, String departAff, String unitAff, String existingUserAff) {
+    public boolean VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(String existingExternalPeople, String instAff, String departAff, String unitAff, String existingUserAff) {
         boolean result = false;
 
-        String affName = driver.findElement(inputExternalAffiliation).getAttribute("value");
+        // Select Existing External People
+        click(inputSearchForUsers);
+        type(inputSearchForUsers, existingExternalPeople);
+        pause(2000);
+
+        By elementUser = By.xpath("//div[text()='" + existingExternalPeople + "']");
+        click(elementUser);
+
+        pause(2000);
+
+        // Get External Affiliation value
+        String affName = driver.findElement(inputAddExternalAffiliation).getAttribute("value");
 
         if(driver.findElement(By.xpath("//div[text()='" + instAff + "']")).isDisplayed() && driver.findElement(By.xpath("//div[text()='" + departAff + "']")).isDisplayed() && driver.findElement(By.xpath("//div[text()='" + unitAff + "']")).isDisplayed())
         {
@@ -439,7 +473,95 @@ public class CreateExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean VerifyNewExistingExternalPeopleIsVisibleInTheList(String name) {
-        return driver.findElement(By.xpath("//div[text()='" + name + "']")).isDisplayed();
+    public boolean VerifyUserIsAbleToAddInternalPeople(String existingInternalPeople) {
+        boolean result = false;
+
+        // Select Existing Internal People
+        click(inputSearchForUsers);
+        type(inputSearchForUsers, existingInternalPeople);
+        pause(2000);
+
+        By elementUser = By.xpath("//div[text()='" + existingInternalPeople + "']");
+        click(elementUser);
+
+        pause(2000);
+
+        click(buttonAdd);
+        pause(2000);
+
+        By userAdditionMsg = By.xpath("//div[text()='People was successfully added.']");
+        waitForPresence(userAdditionMsg);
+
+        if(driver.findElement(userAdditionMsg).isDisplayed())
+        {
+            result = true;
+            pause(2000);
+        }
+        return result;
+    }
+
+    public boolean VerifyNewInternalPeopleIsVisibleInTheList(String name, String org) {
+        boolean result = false;
+
+        By elementUserName = By.xpath("//div[text()='" + name + "']");
+        waitForPresence(elementUserName);
+
+        By elementOrgName = By.xpath("//div[text()='" + org + "']");
+        waitForPresence(elementOrgName);
+
+        if(driver.findElement(elementUserName).isDisplayed() && driver.findElement(elementOrgName).isDisplayed())
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean VerifyBothOrganizationAndTypeFieldsAreEnabledForNewlyAddedInternalPeople(String orgName) {
+        boolean result = false;
+
+        driver.findElement(By.xpath("//div[text()='"+ orgName + "']/../..")).click();
+        String orgClassName = driver.findElement(By.xpath("//div[text()='"+ orgName + "']/../..")).getAttribute("class");
+
+        pause(2000);
+
+        driver.findElement(By.xpath("(//td[@data-column='type'])[2]/div/div")).click();
+        String typeClassName = driver.findElement(By.xpath("(//td[@data-column='type'])[2]/div/div")).getAttribute("class");
+
+        if(orgClassName.contains("_controlMenuExpanded") && typeClassName.contains("_controlMenuExpanded"))
+        {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public void SelectNewlyCreatedPeopleTypeForTheAddedInternalPeople(String typeName) {
+        driver.findElement(By.xpath("(//td[@data-column='type'])[2]/div/div")).click();
+        pause(2000);
+
+        By peopleType = By.xpath("//div[text()='" + typeName + "']");
+        waitForElement(peopleType);
+
+        if(driver.findElement(peopleType).isDisplayed())
+        {
+            click(peopleType);
+            pause(5000);
+        }
+    }
+
+    public boolean VerifySubmissionChecklistMsg(String msg) {
+        boolean result = false;
+        click(lblSubmissionChecklist);
+        pause(2000);
+
+        By submissionChecklistInnerText = By.xpath("(//div[@class='submission-checklist-list-inner'])[1]");
+        waitForPresence(submissionChecklistInnerText);
+
+        String submissionMsg = driver.findElement(submissionChecklistInnerText).getText();
+        if(Objects.equals(msg, submissionMsg))
+        {
+            result = true;
+        }
+        return result;
     }
 }

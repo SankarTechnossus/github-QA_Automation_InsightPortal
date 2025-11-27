@@ -59,7 +59,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
     }
 
     @Test
-    public void StaffManagement_Admin()
+    public void Staff_Component_Integration_EndUser()
     {
         try
         {
@@ -92,7 +92,8 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             // Add a new People Type and verify in the People Management list
             String peopleTypeName = basePage.GenerateRandomName(6);
             Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList(peopleTypeName));
-            ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : General");
+            String role = peopleManagementExportControlPage.GetRoleName();
+            ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : " + role);
 
             // Verify if External People Type Exist
             String defaultType = JsonDataReader.get(6,"DefaultPeopleType");
@@ -179,10 +180,10 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     ExtentReportListener.getExtentTest().pass("User is able to add new external people : " + lastName + " " + firstName + " with new affiliation : " + newExtAff);
 
                     // Verify new external people is visible in the list
-                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(fullName));
+                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(fullName, newExtAff, defaultType));
                     ExtentReportListener.getExtentTest().pass("New external people : " + fullName + " is visible under people list with new affiliation : " + newExtAff);
 
-                    // Verify If Organization field is disabled for every newly added external people
+                    // Verify If Both Organization & Type fields are disabled for every newly added external people
                     Assert.assertTrue(createExportControlPage.VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(newExtAff, defaultType));
                     ExtentReportListener.getExtentTest().pass("Both Organization and Type fields are disabled for New external people : " + fullName + " with new affiliation : " + newExtAff);
 
@@ -201,10 +202,10 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     ExtentReportListener.getExtentTest().pass("User is able to add new external people : " + lastName + " " + firstName + " with existing affiliation : " + existingExtAff);
 
                     // Verify new external people is visible in the list
-                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(fullName));
+                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(fullName, existingExtAff, defaultType));
                     ExtentReportListener.getExtentTest().pass("New external people : " + fullName + " is visible under people list with existing affiliation : " + existingExtAff);
 
-                    // Verify If Organization & Type field is disabled for newly added external people
+                    // Verify If Both Organization & Type fields are disabled for every newly added external people
                     Assert.assertTrue(createExportControlPage.VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(existingExtAff, defaultType));
                     ExtentReportListener.getExtentTest().pass("Both Organization and Type fields are disabled for New external people : " + fullName + " with existing affiliation : " + existingExtAff);
 
@@ -223,18 +224,18 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     String existingUserExternalAffiliation = JsonDataReader.get(6,"ExistingUserExternalAffiliation");
 
                     // Verify Existing External People details are autopopulated upon user selection
-                    Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(institutionAffiliation, departmentAffiliation, unitAffiliation, existingUserExternalAffiliation));
+                    Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(existingExternalPeople, institutionAffiliation, departmentAffiliation, unitAffiliation, existingUserExternalAffiliation));
                     ExtentReportListener.getExtentTest().pass("Institution Affiliation : " + institutionAffiliation + ", Department Affiliation : " + departmentAffiliation + ", and Unit Affiliation : " + unitAffiliation + " is getting auto populated for existing external people : " + existingExternalPeople + " upon user selection.");
 
                     // Verify user is able to add existing external people
-                    Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExistingExternalPeople(existingExternalPeople));
+                    Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExistingExternalPeople());
                     ExtentReportListener.getExtentTest().pass("User is able to add new existing external people : " + existingExternalPeople);
 
                     // Verify new existing external people is visible in the list
-                    Assert.assertTrue(createExportControlPage.VerifyNewExistingExternalPeopleIsVisibleInTheList(existingExternalPeople));
+                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(existingExternalPeople, existingUserExternalAffiliation, defaultType));
                     ExtentReportListener.getExtentTest().pass("New existing external people : " + existingExternalPeople + " is visible under people list with existing affiliation : " + existingUserExternalAffiliation);
 
-                    // Verify If Organization & Type field is disabled for newly added external people
+                    // Verify If Both Organization & Type field is disabled for newly added external people
                     Assert.assertTrue(createExportControlPage.VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(existingUserExternalAffiliation, defaultType));
                     ExtentReportListener.getExtentTest().pass("Both Organization and Type fields are disabled for New existing external people : " + existingExternalPeople + " with existing affiliation : " + existingUserExternalAffiliation);
 
@@ -250,10 +251,30 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             createExportControlPage.NavigateToAddNewInternalPeopleSection();
             ExtentReportListener.getExtentTest().info("User navigated to Add New Internal People section.");
 
+            String internalPeople = JsonDataReader.get(6,"InternalPeople");
+            String internalPeopleAffiliation = JsonDataReader.get(6,"InternalPeopleAffiliation");
 
+            // Verify if user is able to add new internal people
+            Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddInternalPeople(internalPeople));
+            ExtentReportListener.getExtentTest().pass("User is able to add new internal people : " + internalPeople);
 
+            // Verify new internal people is visible in the list
+            Assert.assertTrue(createExportControlPage.VerifyNewInternalPeopleIsVisibleInTheList(internalPeople, internalPeopleAffiliation));
+            ExtentReportListener.getExtentTest().pass("New internal people : " + internalPeople + " is visible under people list with affiliation : " + internalPeopleAffiliation);
 
+            // Verify If Both Organization & Type fields are enabled and editable for every newly added internal people
+            Assert.assertTrue(createExportControlPage.VerifyBothOrganizationAndTypeFieldsAreEnabledForNewlyAddedInternalPeople(internalPeopleAffiliation));
+            ExtentReportListener.getExtentTest().pass("Both Organization and Type fields are enabled for New Internal people : " + internalPeople + " with affiliation : " + internalPeopleAffiliation);
 
+            // Select the newly created people type for the added internal user
+            createExportControlPage.SelectNewlyCreatedPeopleTypeForTheAddedInternalPeople(peopleTypeName);
+            ExtentReportListener.getExtentTest().info("Newly created people type : " + peopleTypeName + " is added for new internal people : " + internalPeople);
+
+            // Verify Submission Checklist text before completion
+            String submissionChecklistMsgBeforeCompletion = JsonDataReader.get(6,"SubmissionChecklistMsgBeforeCompletion");
+
+            Assert.assertTrue(createExportControlPage.VerifySubmissionChecklistMsg(submissionChecklistMsgBeforeCompletion));
+            ExtentReportListener.getExtentTest().info("Submission checklist message visible before completion is  : " + submissionChecklistMsgBeforeCompletion);
         }
         catch (Exception e)
         {

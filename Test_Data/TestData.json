@@ -39,6 +39,7 @@
     },
     {
       "InternalPeople": "Dhiman, Vivek",
+      "InternalPeopleAffiliation": "MGB > Mass General Brigham",
       "ExistingExternalPeople": "savant, Ranjit",
       "InstitutionAffiliation": "NWH",
       "DepartmentAffiliation": "Medicine",
@@ -46,7 +47,9 @@
       "ExistingUserExternalAffiliation": "Mass General Brigham > NWH > Medicine > Endocrinology/Diabetes",
       "NewExternalAffiliation": "Test External Affiliation",
       "ExistingExternalAffiliation": "Saint Georges University",
-      "DefaultPeopleType": "External"
+      "DefaultPeopleType": "External",
+      "SubmissionChecklistMsgBeforeCompletion": "Please, select role and type for each person",
+      "SubmissionChecklistMsgAfterCompletion": "All validations in this area have been completed"
     }
   ]
 }
