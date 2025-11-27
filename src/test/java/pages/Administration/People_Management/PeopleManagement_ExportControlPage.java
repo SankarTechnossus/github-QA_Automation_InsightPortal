@@ -285,4 +285,54 @@ public class PeopleManagement_ExportControlPage extends BasePage {
         return result;
     }
 
+    public boolean VerifyIfExternalPeopleTypeExist(String typeName) {
+        boolean result = false;
+
+        // Search for the created People Type
+        driver.findElement(inputSearchPeopleType).clear();
+        type(inputSearchPeopleType, typeName);
+        click(buttonSearch);
+        pause(2000);
+
+        String name = driver.findElement(By.xpath("//td[@data-column='name']")).getAttribute("data-value");
+
+        //String role = driver.findElement(By.xpath("//td[@data-column='mappedRoles']/a")).getText();
+
+        if(Objects.equals(name, typeName))
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public String GetStatusOfPeopleType() {
+        return driver.findElement(By.xpath("//td[@data-column='isActive']")).getText();
+    }
+
+    public boolean ActivateRoleAndVerifyInList() {
+        boolean result = false;
+
+        click(linkRoles);
+        pause(2000);
+
+        if(driver.findElement(By.xpath("//header[text()='Edit Roles']")).isDisplayed())
+        {
+            click(buttonEditRole);
+            pause(2000);
+
+            click(dropdownStatus);
+            driver.findElement(By.xpath("//div[text()='Yes']")).click();
+            pause(2000);
+
+            click(buttonSaveRoleEdit);
+            pause(2000);
+
+            if(driver.findElement(By.xpath("//div[text()='Role updated successfully.']")).isDisplayed())
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
 }

@@ -20,6 +20,7 @@ import utils.DriverManager;
 import utils.JsonDataReader;
 
 import java.time.Duration;
+import java.util.Objects;
 
 @Listeners(ExtentReportListener.class)
 
@@ -93,6 +94,34 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList(peopleTypeName));
             ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : General");
 
+            // Verify if External People Type Exist
+            String defaultType = JsonDataReader.get(6,"DefaultPeopleType");
+
+            boolean answer = peopleManagementExportControlPage.VerifyIfExternalPeopleTypeExist(defaultType);
+            System.out.println("Default People Type exist? : " + answer);
+
+            if(answer)
+            {
+                // Check the status, if Active(Yes) do nothing, else, enable it
+                String defaultTypeStatus = peopleManagementExportControlPage.GetStatusOfPeopleType();
+                System.out.println("Default People Type Status? : " + defaultTypeStatus);
+
+                if(!Objects.equals(defaultTypeStatus, "Yes"))
+                {
+                    Assert.assertTrue(peopleManagementExportControlPage.ActivateRoleAndVerifyInList());
+                    ExtentReportListener.getExtentTest().pass("Role : External exist and is Activated");
+                    System.out.println("Default People Type Status Changed to Active.");
+                }
+                else{
+                    ExtentReportListener.getExtentTest().info("Role : External exist and Active by default.");
+                }
+            }
+            else
+            {
+                Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList("External"));
+                ExtentReportListener.getExtentTest().info("Role : External is created and is Active by default.");
+            }
+
             // Navigate back to Dashboard page
             dashboardPage.NavigateBackToDashboardPage();
             ExtentReportListener.getExtentTest().info("User navigated back to dashboard page.");
@@ -123,15 +152,61 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             Assert.assertTrue(createExportControlPage.VerifyExportControlDetailsOnPeoplePage(recordNo, piName, type, status));
             ExtentReportListener.getExtentTest().pass("Created Export Control has PI : " + piName + " with Type : " + type + " and Status : " + status);
 
+            // Verify user is automatically added as a submitter in the staff list
+            Assert.assertTrue(createExportControlPage.VerifyUserIsAutomaticallyAddedAsASubmitterInStaffList(piName));
+            ExtentReportListener.getExtentTest().pass("User : " + piName + " is automatically added as a submitter in the staff list.");
+
+            //********************************** Add New External People Scenarios *******************************
+
+            for(int i=1; i<=2; i++)
+            {
+                String firstName = basePage.GenerateRandomName(6);
+                String lastName = basePage.GenerateRandomName(6);
+                String fullName = lastName + ", " + firstName;
+
+                if(i==1)
+                {
+                    // Verify user is able to add external people with New External Affiliation
+                    String newExtAff = JsonDataReader.get(6,"NewExternalAffiliation");
+
+                    Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExternalPeopleWithNewExternalAffiliation(firstName, lastName, newExtAff));
+                    ExtentReportListener.getExtentTest().pass("User is able to add new external people : " + lastName + " " + firstName + " with affiliation : " + newExtAff);
+
+                    // Verify new external people is visible in the list
+                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(fullName));
+                    ExtentReportListener.getExtentTest().pass("New external people : " + fullName + " is visible under people list with new affiliation : " + newExtAff);
+
+                    // Verify both Organization and Type fields are disabled for every newly added external people
+                    Assert.assertTrue(createExportControlPage.VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(newExtAff, defaultType));
+                    ExtentReportListener.getExtentTest().pass("Both Organization and Type fields are disabled for New external people : " + fullName + " with new affiliation : " + newExtAff);
+                }
+                else
+                {
+                    // Verify user is able to add external people with Existing External Affiliation
+                    String existingExtAff = JsonDataReader.get(6,"ExistingExternalAffiliation");
+
+                    Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExternalPeopleWithExistingExternalAffiliation(firstName, lastName, existingExtAff));
+                    ExtentReportListener.getExtentTest().pass("User is able to add new external people : " + lastName + " " + firstName + " with affiliation : " + existingExtAff);
+
+                    // Verify new external people is visible in the list
+                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(fullName));
+                    ExtentReportListener.getExtentTest().pass("New external people : " + fullName + " is visible under people list with existing affiliation : " + existingExtAff);
+
+                    // Verify both Organization and Type fields are disabled for every newly added external people
+                    Assert.assertTrue(createExportControlPage.VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(existingExtAff, defaultType));
+                    ExtentReportListener.getExtentTest().pass("Both Organization and Type fields are disabled for New external people : " + fullName + " with existing affiliation : " + existingExtAff);
+                }
+
+                // Delete External People
+                Assert.assertTrue(createExportControlPage.DeleteNewlyAddedPeople(fullName));
+                ExtentReportListener.getExtentTest().pass("New external people : " + fullName + " is Deleted successfully.");
+            }
+
+            //********************************** Add New Existing External People Scenarios **********************
 
 
 
-
-
-
-
-
-
+            //********************************** Add New Internal People Scenarios *******************************
 
 
 

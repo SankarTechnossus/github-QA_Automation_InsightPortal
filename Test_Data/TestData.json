@@ -36,6 +36,13 @@
       "DuplicateInstructionErrorMessage": "A page instruction with key and record type already exists.",
       "InvalidOfficeCodeErrorMessage": "Invalid values entered. Please select options only from available options below",
       "InvalidOfficeCode": "TestOfficeCode"
+    },
+    {
+      "NewInternalPeople": "Dhiman, Vivek",
+      "NewExistingExternalPeople": "savant, Ranjit",
+      "NewExternalAffiliation": "Test External Affiliation",
+      "ExistingExternalAffiliation": "Saint Georges University",
+      "DefaultPeopleType": "External"
     }
   ]
 }

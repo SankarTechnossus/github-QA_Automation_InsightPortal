@@ -1,10 +1,12 @@
 package pages.Export_Control.Actions;
 
 import base.BasePage;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.Objects;
 
 public class CreateExportControlPage extends BasePage {
@@ -53,6 +55,15 @@ public class CreateExportControlPage extends BasePage {
 
     //People Locators
     By linkPeople = By.xpath("//span[text()='People']/..");
+    By buttonAddNewPeople = By.xpath("//button[text()=' Add New People']");
+    By inputSearchForUsers = By.xpath("(//div[text()='Search for users']/following::div/input)[1]");
+    By buttonAdd = By.xpath("//button[text()='Add']");
+
+    By buttonAddExternalPeople = By.xpath("//button[text()=' Add External People']");
+    By inputFirstName = By.xpath("//input[@placeholder='First Name']");
+    By inputLastName = By.xpath("//input[@placeholder='Last Name']");
+    By inputAddExternalAffiliation = By.xpath("//input[@placeholder='Add External Affiliation']");
+    By inputExternalAffiliation = By.xpath("(//div[text()='External Affiliation']/following::input)[1]");
 
     // Functions
     public void NavigateToCreateExportControlPage() {
@@ -272,8 +283,7 @@ public class CreateExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean VerifyExportControlDetailsOnPeoplePage(String recordNum, String piName, String ecType, String ecStatus)
-    {
+    public boolean VerifyExportControlDetailsOnPeoplePage(String recordNum, String piName, String ecType, String ecStatus) {
         boolean result = false;
 
         String recordNo = driver.findElement(exportControlRecordNo).getText();
@@ -285,6 +295,110 @@ public class CreateExportControlPage extends BasePage {
         {
             result=true;
         }
+        return result;
+    }
+
+    public boolean VerifyUserIsAutomaticallyAddedAsASubmitterInStaffList(String userName) {
+        return driver.findElement(By.xpath("//div[text()='" + userName + "']")).isDisplayed();
+    }
+
+    public boolean VerifyUserIsAbleToAddExternalPeopleWithNewExternalAffiliation(String firstName, String lastName, String newExternalAffiliation) {
+        boolean result = false;
+
+        // Click on Add New People link
+        click(buttonAddNewPeople);
+
+        // Click Add External People link
+        click(buttonAddExternalPeople);
+
+        // Enter external people details
+        type(inputFirstName, firstName);
+        type(inputLastName, lastName);
+        type(inputAddExternalAffiliation, newExternalAffiliation);
+
+        click(buttonAdd);
+        pause(2000);
+
+        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        {
+            result = true;
+            pause(2000);
+        }
+        return result;
+    }
+
+    public boolean VerifyNewExternalPeopleIsVisibleInTheList(String name) {
+        return driver.findElement(By.xpath("//div[text()='" + name + "']")).isDisplayed();
+    }
+
+    public boolean VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(String orgName, String typeName) {
+        boolean result = false;
+
+        String orgClassName = driver.findElement(By.xpath("//div[text()='"+ orgName + "']/../..")).getAttribute("class");
+        String typeClassName = driver.findElement(By.xpath("//div[text()='"+ typeName + "']/../..")).getAttribute("class");
+
+        if(orgClassName.contains("_controlDisabled") && typeClassName.contains("_controlDisabled"))
+        {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public boolean VerifyUserIsAbleToAddExternalPeopleWithExistingExternalAffiliation(String firstName, String lastName, String existingExternalAffiliation) {
+        boolean result = false;
+
+        // Click on Add New People link
+        click(buttonAddNewPeople);
+
+        // Click Add External People link
+        click(buttonAddExternalPeople);
+
+        // Enter external people details
+        type(inputFirstName, firstName);
+        type(inputLastName, lastName);
+
+        click(inputExternalAffiliation);
+        type(inputExternalAffiliation, existingExternalAffiliation);
+        pause(2000);
+        driver.findElement(By.xpath("//div[text()='" + existingExternalAffiliation + "']")).click();
+        pause(2000);
+
+        click(buttonAdd);
+        pause(2000);
+
+        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        {
+            result = true;
+            pause(2000);
+        }
+        return result;
+    }
+
+    public boolean DeleteNewlyAddedPeople(String name) {
+        boolean result = false;
+
+        driver.findElement(By.xpath("//td[@data-value='" + name + "']/..//button")).click();
+        pause(2000);
+
+        // Switch to alert
+        Alert alert = driver.switchTo().alert();
+
+        // Accept the alert (click 'OK')
+        alert.accept();
+        pause(2000);
+        if(driver.findElement(By.xpath("//div[text()='Instruction Deleted successfully.']")).isDisplayed())
+        {
+            List<WebElement> elements = driver.findElements(By.xpath("//div[text()='" + name + "']"));
+
+            if (!elements.isEmpty()) {
+                elements.get(0).isDisplayed();
+            }
+            {
+                result = true;
+            }
+        }
+
         return result;
     }
 }
