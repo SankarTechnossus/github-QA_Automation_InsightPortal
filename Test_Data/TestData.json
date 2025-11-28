@@ -49,7 +49,10 @@
       "ExistingExternalAffiliation": "Saint Georges University",
       "DefaultPeopleType": "External",
       "SubmissionChecklistMsgBeforeCompletion": "Please, select role and type for each person",
-      "SubmissionChecklistMsgAfterCompletion": "All validations in this area have been completed"
+      "SubmissionChecklistMsgAfterCompletion": "All validations in this area have been completed",
+      "MultiplePIRolesMsg": "There must be only one PD/PI or Contact PI and the type of Key Personnel presented",
+      "SubmitterType": "Key Personnel",
+      "SubmitterRole": "PI"
     }
   ]
 }

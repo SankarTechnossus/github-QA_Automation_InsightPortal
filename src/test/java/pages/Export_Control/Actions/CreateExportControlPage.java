@@ -549,7 +549,7 @@ public class CreateExportControlPage extends BasePage {
         }
     }
 
-    public boolean VerifySubmissionChecklistMsg(String msg) {
+    public boolean VerifySubmissionChecklistMsgBeforeCompletion(String msg) {
         boolean result = false;
         click(lblSubmissionChecklist);
         pause(2000);
@@ -558,6 +558,74 @@ public class CreateExportControlPage extends BasePage {
         waitForPresence(submissionChecklistInnerText);
 
         String submissionMsg = driver.findElement(submissionChecklistInnerText).getText();
+        if(Objects.equals(msg, submissionMsg))
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public void AssignInternalUserRole(String roleName) {
+        driver.findElement(By.xpath("(//td[@data-column='roleId'])[2]/div/div")).click();
+        pause(2000);
+
+        By role = By.xpath("//div[text()='" + roleName + "']");
+        waitForElement(role);
+
+        if(driver.findElement(role).isDisplayed())
+        {
+            click(role);
+            pause(5000);
+        }
+    }
+
+    public boolean VerifySubmissionChecklistMsgAfterCompletion(String msg) {
+        boolean result = false;
+
+        By submissionChecklistSuccessText = By.xpath("(//li[@class='_successMessage_1jkn8_22'])[1]/span");
+        waitForPresence(submissionChecklistSuccessText);
+
+        String submissionMsg = driver.findElement(submissionChecklistSuccessText).getText();
+        if(Objects.equals(msg, submissionMsg))
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean VerifyChecklistMsgIfInternalUserIsAlsoAssignedPIRole(String msg, String typeName, String roleName) {
+        boolean result = false;
+
+        // Assign Type
+        driver.findElement(By.xpath("(//td[@data-column='type'])[2]/div/div")).click();
+        pause(2000);
+
+        By peopleType = By.xpath("//div[text()='" + typeName + "']");
+        waitForElement(peopleType);
+
+        if(driver.findElement(peopleType).isDisplayed())
+        {
+            click(peopleType);
+            pause(5000);
+        }
+
+        // Assign Role
+        driver.findElement(By.xpath("(//td[@data-column='roleId'])[2]/div/div")).click();
+        pause(2000);
+
+        By role = By.xpath("//div[text()='" + roleName + "']");
+        waitForElement(role);
+
+        if(driver.findElement(role).isDisplayed())
+        {
+            click(role);
+            pause(5000);
+        }
+
+        By submissionChecklistErrText = By.xpath("(//div[@class='submission-checklist-list-inner'])[1]");
+        waitForPresence(submissionChecklistErrText);
+
+        String submissionMsg = driver.findElement(submissionChecklistErrText).getText();
         if(Objects.equals(msg, submissionMsg))
         {
             result = true;

@@ -273,8 +273,26 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             // Verify Submission Checklist text before completion
             String submissionChecklistMsgBeforeCompletion = JsonDataReader.get(6,"SubmissionChecklistMsgBeforeCompletion");
 
-            Assert.assertTrue(createExportControlPage.VerifySubmissionChecklistMsg(submissionChecklistMsgBeforeCompletion));
-            ExtentReportListener.getExtentTest().info("Submission checklist message visible before completion is  : " + submissionChecklistMsgBeforeCompletion);
+            Assert.assertTrue(createExportControlPage.VerifySubmissionChecklistMsgBeforeCompletion(submissionChecklistMsgBeforeCompletion));
+            ExtentReportListener.getExtentTest().pass("Submission checklist message visible before completion is  : " + submissionChecklistMsgBeforeCompletion);
+
+            // Use the role assigned to people type for the added internal user
+            createExportControlPage.AssignInternalUserRole(role);
+            ExtentReportListener.getExtentTest().info("Rope : " + role + " assigned to new internal people : " + internalPeople);
+
+            // Verify Submission Checklist text after completion
+            String submissionChecklistMsgAfterCompletion = JsonDataReader.get(6,"SubmissionChecklistMsgAfterCompletion");
+
+            Assert.assertTrue(createExportControlPage.VerifySubmissionChecklistMsgAfterCompletion(submissionChecklistMsgAfterCompletion));
+            ExtentReportListener.getExtentTest().pass("Submission checklist message visible after completion is  : " + submissionChecklistMsgAfterCompletion);
+
+            // Verify checklist message upon assigning PI role to the new internal user
+            String multiplePIRolesMsg = JsonDataReader.get(6,"MultiplePIRolesMsg");
+            String submitterType = JsonDataReader.get(6,"SubmitterType");
+            String submitterRole = JsonDataReader.get(6,"SubmitterRole");
+
+            Assert.assertTrue(createExportControlPage.VerifyChecklistMsgIfInternalUserIsAlsoAssignedPIRole(multiplePIRolesMsg, submitterType, submitterRole));
+            ExtentReportListener.getExtentTest().pass("Submission checklist message if the internal person is also assigned with PI role  : " + multiplePIRolesMsg);
         }
         catch (Exception e)
         {
