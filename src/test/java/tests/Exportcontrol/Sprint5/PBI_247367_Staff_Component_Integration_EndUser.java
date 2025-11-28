@@ -278,7 +278,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
 
             // Use the role assigned to people type for the added internal user
             createExportControlPage.AssignInternalUserRole(role);
-            ExtentReportListener.getExtentTest().info("Rope : " + role + " assigned to new internal people : " + internalPeople);
+            ExtentReportListener.getExtentTest().info("Role : " + role + " assigned to new internal people : " + internalPeople);
 
             // Verify Submission Checklist text after completion
             String submissionChecklistMsgAfterCompletion = JsonDataReader.get(6,"SubmissionChecklistMsgAfterCompletion");

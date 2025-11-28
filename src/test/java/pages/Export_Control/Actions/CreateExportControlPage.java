@@ -600,7 +600,7 @@ public class CreateExportControlPage extends BasePage {
         driver.findElement(By.xpath("(//td[@data-column='type'])[2]/div/div")).click();
         pause(2000);
 
-        By peopleType = By.xpath("//div[text()='" + typeName + "']");
+        By peopleType = By.xpath("(//div[text()='" + typeName + "'])[2]");
         waitForElement(peopleType);
 
         if(driver.findElement(peopleType).isDisplayed())
@@ -613,7 +613,7 @@ public class CreateExportControlPage extends BasePage {
         driver.findElement(By.xpath("(//td[@data-column='roleId'])[2]/div/div")).click();
         pause(2000);
 
-        By role = By.xpath("//div[text()='" + roleName + "']");
+        By role = By.xpath("(//div[text()='" + roleName + "'])[2]");
         waitForElement(role);
 
         if(driver.findElement(role).isDisplayed())
