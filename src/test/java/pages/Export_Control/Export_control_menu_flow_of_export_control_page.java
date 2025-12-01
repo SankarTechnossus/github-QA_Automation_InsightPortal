@@ -17,8 +17,34 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         super(driver);
     }
 
+    // ************************************** Locators ********************************************************************
 
-    //helper
+    By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
+    By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'label')]");
+
+    // Text inputs
+    By recordNumberInput = By.xpath("//label[normalize-space()='Record Number']/following::input[@type='text'][1]");
+    By agreementNumbersInp = By.xpath("//label[normalize-space()='Agreement Numbers']/following::input[@type='text'][1]");
+
+    // Buttons
+    By searchButton = By.xpath("//button[normalize-space()='Search']");
+    By clearSelectionsBtn = By.xpath("//button[normalize-space()='Clear Selections']");
+
+    // Created On
+    By createdFromInput = By.xpath("//label[normalize-space()='Created On']" + "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]");
+    By createdToInput = By.xpath("//label[normalize-space()='Created On']" + "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]");
+
+    // Review date
+    By reviewFromInput = By.xpath("//label[normalize-space()='Review date']" + "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]");
+    By reviewToInput = By.xpath("//label[normalize-space()='Review date']" + "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]");
+    By recordNumberSearchGridLink = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a");
+
+    // ************************************** Functions ********************************************************************
+
+    private By controlRoot(String label) {
+        return By.xpath("//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]");
+    }
+
     private void selectReactSelectSingleByLabel(String label, String optionText) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
@@ -57,35 +83,6 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         wait.until(d -> d.findElement(selectedValueBy).getText().trim().equals(optionText));
     }
 
-
-    //Helper
-
-
-
-// Created On
-    private By createdFromInput = By.xpath(
-            "//label[normalize-space()='Created On']" +
-                    "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]"
-    );
-    private By createdToInput = By.xpath(
-            "//label[normalize-space()='Created On']" +
-                    "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]"
-    );
-
-    // Review date
-    private By reviewFromInput = By.xpath(
-            "//label[normalize-space()='Review date']" +
-                    "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]"
-    );
-    private By reviewToInput = By.xpath(
-            "//label[normalize-space()='Review date']" +
-                    "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]"
-    );
-
-
-    private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-    private String fmt(LocalDate d) { return d.format(DF); }
-
     private void setDate(By inputBy, String value) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(inputBy));
@@ -98,19 +95,14 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         try { el.sendKeys(Keys.ESCAPE); } catch (Exception ignored) {}
     }
 
+    private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    private String fmt(LocalDate d) { return d.format(DF); }
 
     public void setCreatedOnFrom(LocalDate from)  { setDate(createdFromInput, fmt(from)); }
     public void setCreatedOnTo(LocalDate to)      { setDate(createdToInput,   fmt(to)); }
 
     public void setReviewDateFrom(LocalDate from) { setDate(reviewFromInput,  fmt(from)); }
     public void setReviewDateTo(LocalDate to)     { setDate(reviewToInput,    fmt(to)); }
-
-
-
-    private By recordNumberSearchGridLink = By.xpath(
-            "//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a"
-    );
-
 
     public void clickRecordNumberFromSearchGrid() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -121,55 +113,29 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
 
-        // Highlight before clicking
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].style.outline='3px solid red';", link);
+        // Optional highlight
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].style.outline='3px solid red';", link);
+        } catch (StaleElementReferenceException ignored) {}
 
-        pause(1200); // slow visual pause
+        pause(800);
 
-        // Click
+        // Click safely
         try {
             link.click();
         } catch (Exception e) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
         }
 
-        pause(1500);  // slow demo click delay
+        //  DO NOT remove highlight after click → page navigates → element becomes stale
+        // So we wrap it in a try-catch and ignore any error.
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].style.outline='';", link);
+        } catch (Exception ignored) {}
 
-        // Remove highlight
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].style.outline='';", link);
+        // Small buffer only for stability
+        pause(1000);
     }
-
-
-
-
-
-//    /** Created On: enter random From/To (10–14 days ago to +1–5 days, capped at today) */
-//    public String[] enterCreatedOnRandomRange() {
-//        LocalDate today = LocalDate.now();
-//        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(10, 15));
-//        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 6));
-//        if (to.isAfter(today)) to = today;
-//
-//        setDate(createdFromInput, fmt(from));
-//        pause(300); // small settle
-//        setDate(createdToInput, fmt(to));
-//        return new String[] { fmt(from), fmt(to) };
-//    }
-//
-//    /** Review date: enter random From/To (7–10 days ago to +1–3 days, capped at today) */
-//    public String[] enterReviewDateRandomRange() {
-//        LocalDate today = LocalDate.now();
-//        LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(7, 11));
-//        LocalDate to    = from.plusDays(ThreadLocalRandom.current().nextInt(1, 4));
-//        if (to.isAfter(today)) to = today;
-//
-//        setDate(reviewFromInput, fmt(from));
-//        pause(300);
-//        setDate(reviewToInput, fmt(to));
-//        return new String[] { fmt(from), fmt(to) };
-//    }
 
     public String[] enterCreatedOnRandomRange() {
         LocalDate today = LocalDate.now();
@@ -194,33 +160,6 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         setReviewDateTo(to);
         return new String[]{ fmt(from), fmt(to) };
     }
-
-
-
-
-
-
-    //Locators
-
-    private By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
-    private By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'label')]");
-    // React-Select controls by label (generic roots)
-    private By controlRoot(String label) {
-        return By.xpath("//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]");
-    }
-
-    // Text inputs
-    private By recordNumberInput   = By.xpath("//label[normalize-space()='Record Number']/following::input[@type='text'][1]");
-    private By agreementNumbersInp = By.xpath("//label[normalize-space()='Agreement Numbers']/following::input[@type='text'][1]");
-
-    // Buttons
-    private By searchButton        = By.xpath("//button[normalize-space()='Search']");
-    private By clearSelectionsBtn  = By.xpath("//button[normalize-space()='Clear Selections']");
-
-
-
-
-    //Actions
 
     public void setStatusCompleted() {
         selectReactSelectSingleByLabel("Status", "Completed");
@@ -257,7 +196,6 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         pause(700);
     }
 
-
     public void clickSearchLink() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(searchLink));
@@ -273,7 +211,6 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         pause(1000);
     }
 
-
     public void dismissAnyOpenReactSelectMenus() {
         List<WebElement> menus = driver.findElements(
                 By.cssSelector("ul[id^='react-select-'][id$='-listbox'], div[id^='react-select-'][id$='-listbox']")
@@ -286,7 +223,6 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         }
     }
 
-
     public void clickExportControlLink() {
         dismissAnyOpenReactSelectMenus(); // <— add this
         WebElement link = driver.findElement(exportControlLink);
@@ -295,8 +231,4 @@ public class Export_control_menu_flow_of_export_control_page extends BasePage {
         link.click();
         pause(1000);
     }
-
-
-
-
 }

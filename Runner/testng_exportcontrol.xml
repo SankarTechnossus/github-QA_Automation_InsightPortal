@@ -15,4 +15,25 @@
         </packages>
     </test>
 
+    <!-- Sprint 3 -->
+    <test name="ExportControl_Sprint3">
+        <packages>
+            <package name="tests.Exportcontrol.Sprint3"/>
+        </packages>
+    </test>
+
+    <!-- Sprint 4 -->
+    <test name="ExportControl_Sprint4">
+        <packages>
+            <package name="tests.Exportcontrol.Sprint4"/>
+        </packages>
+    </test>
+
+    <!-- Sprint 5 -->
+    <test name="ExportControl_Sprint5">
+        <packages>
+            <package name="tests.Exportcontrol.Sprint5"/>
+        </packages>
+    </test>
+
 </suite>

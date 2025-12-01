@@ -3,7 +3,9 @@
     {
       "URL": "https://hollywood-insight4.partners.org/",
       "Username": "SV1179",
-      "Password": "Devinivetha@1930"
+      "Password": "Devinivetha@1930",
+      "SysAdminBusinessUser": "MC1396",
+      "SysAdminURL": "https://hollywood-insight4.partners.org/public?sys=sysadmin"
     },
     {
       "FormDescription": "Test Form",

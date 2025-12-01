@@ -13,10 +13,24 @@ public class Export_control_My_actions_page extends BasePage {
         super(driver);
     }
 
+    // **************************** Locators *******************************************
+
+    // Left nav – "Action Required" under Export Control
+    By actionRequiredLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a" + "[contains(@class,'label') and normalize-space()='Action Required']");
+
+    // text inputs
+    By recordNumberInput = By.xpath("//label[normalize-space()='Record Number']/following::input[1]");
+    By agreementNumbersInput = By.xpath("//label[normalize-space()='Agreement Numbers']/following::input[1]");
+
+    // buttons
+    By clearSelectionsButton = By.xpath("//button[normalize-space()='Clear Selections']");
+    By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");
+    By firstRecordNumberLink = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]" + "//td[@data-column='_exportControlNumber']//a");
+
+    // ****************** Functions ******************************************************
 
     // inside Export_control_My_actions_page
-
-    private WebElement waitHighlightAndGetClickable(By locator) {
+    public WebElement waitHighlightAndGetClickable(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         WebElement el = wait.until(ExpectedConditions.elementToBeClickable(locator));
@@ -36,11 +50,10 @@ public class Export_control_My_actions_page extends BasePage {
     }
 
     // root div for a React-Select control for a given <label>
-    private By controlRoot(String label) {
+    public By controlRoot(String label) {
         return By.xpath("//label[normalize-space()='" + label + "']" +
                 "/following::div[contains(@class,'select-control')][1]");
     }
-
 
     // ---------- Generic React-Select (single) by <label> ----------
     private void selectReactSelectSingleByLabel(String label, String optionText) {
@@ -97,44 +110,7 @@ public class Export_control_My_actions_page extends BasePage {
         pause(1000);   // after selection pause
     }
 
-
-
-    // ActionRequiredPage.java
-
-    // Left nav – "Action Required" under Export Control
-    private By actionRequiredLink = By.xpath(
-            "//div[contains(@class,'export-control-nav-block')]//a" +
-                    "[contains(@class,'label') and normalize-space()='Action Required']"
-    );
-
-
-    // text inputs
-    private By recordNumberInput = By.xpath(
-            "//label[normalize-space()='Record Number']/following::input[1]"
-    );
-
-    private By agreementNumbersInput = By.xpath(
-            "//label[normalize-space()='Agreement Numbers']/following::input[1]"
-    );
-
-    // buttons
-    private By clearSelectionsButton = By.xpath("//button[normalize-space()='Clear Selections']");
-    private By searchButton          = By.xpath("//button[@type='submit' and normalize-space()='Search']");
-
-    // grid link (first row, record number)
-    private By firstRecordNumberLink = By.xpath(
-            "//table[contains(@class,'item-grid')]//tbody/tr[1]" +
-                    "//td[@data-column='_exportControlNumber']//a"
-    );
-
-
-
     // 1. Click "Action Required" left nav is in some LeftNav page – leaving as you already have.
-
-
-
-
-
     public void clickActionRequiredLink() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
@@ -147,7 +123,6 @@ public class Export_control_My_actions_page extends BasePage {
 
         pause(1500);   // after-click pause
     }
-
 
     // 2. Select Record Type = "Export Control Request"
     public void selectRecordTypeExportControlRequest() {
@@ -204,6 +179,4 @@ public class Export_control_My_actions_page extends BasePage {
         link.click();
         pause(1500);
     }
-
 }
-

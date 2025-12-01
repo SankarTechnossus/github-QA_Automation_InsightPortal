@@ -26,6 +26,25 @@ public class BasePage {
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    public void waitForAdministrationPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait.until(ExpectedConditions.urlContains("/administration"));
+        pause(1000);
+    }
+
+    public void waitForDashboardToLoad() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        // Wait until left navigation menu appears
+        By leftMenu = By.xpath("//nav[contains(@class,'side-nav')] | //div[contains(@class,'menu-item')]");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(leftMenu));
+
+        // Wait until top bar (THIS IS A TEST ENVIRONMENT) is visible
+        By header = By.xpath("//*[contains(text(),'THIS IS A TEST ENVIRONMENT')]");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(header));
+
+        pause(1000); // small buffer
+    }
 
     // Reusable explicit wait method 30 sec
     public WebElement waitForElement50(By locator) {
@@ -33,20 +52,17 @@ public class BasePage {
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-
     // Reusable explicit wait for present
     public void waitForPresence(By locator) {
         new WebDriverWait(driver, Duration.ofSeconds(120))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-
     // Waits until element is visible and clickable, then returns it
     public WebElement waitForVisibleAndClickable(By locator, int timeoutSeconds) {
         WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
         return customWait.until(ExpectedConditions.elementToBeClickable(locator));
     }
-
 
     // Scrolls into view, waits for clickability, and returns the WebElement
     public WebElement scrollAndWaitForClickable(By locator, int timeoutInSeconds) {
@@ -57,7 +73,6 @@ public class BasePage {
                 .until(ExpectedConditions.elementToBeClickable(element));
         return element;
     }
-
 
     public void scrollAndJsClick(By locator, int timeoutInSeconds) {
         WebElement element = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
@@ -89,11 +104,6 @@ public class BasePage {
         }
     }
 
-//    public void switchToFrame(By locator, int timeoutInSeconds) {
-//        WebElement frame = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-//                .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(locator));
-//    }
-
     public void switchToFrame(By locator, int timeoutInSeconds) {
         new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(locator));
@@ -102,16 +112,6 @@ public class BasePage {
     public void switchToDefaultContent() {
         driver.switchTo().defaultContent();
     }
-
-//    public void dragAndDrop(By sourceLocator, By targetLocator, int timeoutInSeconds) {
-//        WebElement source = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-//                .until(ExpectedConditions.presenceOfElementLocated(sourceLocator));
-//        WebElement target = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-//                .until(ExpectedConditions.presenceOfElementLocated(targetLocator));
-//
-//        Actions actions = new Actions(driver);
-//        actions.dragAndDrop(source, target).build().perform();
-//    }
 
     public void dragAndDrop(By sourceLocator, By targetLocator, int timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
@@ -134,7 +134,6 @@ public class BasePage {
                 .build()
                 .perform();
     }
-
 
     // Optional: Add more reusable methods
     public void click(By locator) {
@@ -161,10 +160,6 @@ public class BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(timeout))
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameElement));
     }
-//
-//    public void switchToDefaultContent() {
-//        driver.switchTo().defaultContent();
-//    }
 
     public void waitForStaleness(WebElement element, int timeout) {
         new WebDriverWait(driver, Duration.ofSeconds(timeout))
@@ -199,5 +194,4 @@ public class BasePage {
 
         return name.toString();
     }
-
 }

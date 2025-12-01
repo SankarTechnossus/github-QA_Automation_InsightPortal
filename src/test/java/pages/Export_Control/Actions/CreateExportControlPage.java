@@ -5,16 +5,469 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.Objects;
 
+import java.time.Duration;
+
+
 public class CreateExportControlPage extends BasePage {
+
+    private WebDriverWait wait;
 
     // Constructor
     public CreateExportControlPage(WebDriver driver) {
         super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
+
+    // ****************************** Sankar Locator*************************************************************
+
+    // Left navigation – Actions toggle button
+    By actionsToggleButton = By.xpath("//div[contains(@class,'export-control-nav-block')]//button[@aria-label='Expand Actions']");
+
+    // Left navigation – 'Create Export Control' menu item
+    By createExportControlLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a[contains(@class,'label')]//span[normalize-space()='Create Export Control']");
+
+    // Step 1 – Radio: Export Control Request
+    By exportControlRequestRadio = By.cssSelector("input[name='RadioButtonList1'][value='ExportControlRequest']");
+    By workflowSaveButton = By.xpath("//div[contains(@class,'_workflowEngineActions')]" + "//button[@type='button' and @aria-label='Save']");
+    By workflowSubmitButton = By.xpath("//div[contains(@class,'_workflowEngineActions')]" + "//button[@type='button' and @aria-label='Submit']");
+    By yourNameInput = By.id("dynamic-form-field-input-74877-TextBox1");
+    By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
+
+    // Workflow action buttons
+    By saveButton = By.xpath("//button[@aria-label='Save' and normalize-space()='Save']");
+    By submitButton = By.xpath("//button[@aria-label='Submit' and normalize-space()='Submit']");
+    By nextButton = By.xpath("//button[contains(@class,'next-btn') and starts-with(normalize-space(),'Next')]");
+
+    // Step 2 – PI Name input (typeahead)
+    By piNameInput = By.id("dynamic-form-field-input-74472-PiName");
+    By actionRequiredLink = By.xpath("//div[@id='left-sidebar']//a[contains(@class,'label')][span[normalize-space()='Action Required']]");
+
+    // Step 3 – Create button in right sidebar footer
+    By createButton = By.xpath("//aside//button[normalize-space()='Create']");
+
+    // ****************************** Sankar Functions *************************************************************
+
+    private By dynamicFormFieldByQuestion(String questionText) {
+        return By.xpath(
+                "//div[contains(@class,'dynamic-form-field')]" +
+                        "[.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]");
+    }
+
+    public void clickActionRequired() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement link = wait.until(
+                ExpectedConditions.elementToBeClickable(actionRequiredLink));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+
+        link.click();
+
+        pause(1000);
+    }
+
+    public void selectGenderMale() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement maleRadio = wait.until(ExpectedConditions.elementToBeClickable(genderMaleRadio));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", maleRadio);
+
+        maleRadio.click();
+        pause(500);
+    }
+
+    public void clickSaveButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement saveBtn = wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+        saveBtn.click();
+        pause(1000);
+    }
+
+    public void clickSubmitButton() {
+        // Submit is initially disabled -> wait until it becomes enabled & clickable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(5));
+        WebElement submitBtn = wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", submitBtn);
+        submitBtn.click();
+        pause(1000);
+    }
+
+    // Generic option for PI dropdown – use visible text (e.g., "Chandra, Mohan")
+    private By piOptionByText(String fullName) {
+        // Keep it generic for react-select style options
+        return By.xpath("//div[contains(@class,'menu') or contains(@class,'select')]"
+                + "//div[normalize-space()='" + fullName + "']");
+    }
+
+    public void enterYourName(String name) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(yourNameInput));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(name);
+
+        pause(500);
+    }
+
+    public void selectRadioOptionByQuestion(String questionText, String optionText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1) Locate the whole block for this question
+        By fieldBy = dynamicFormFieldByQuestion(questionText);
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(fieldBy));
+
+        // 2) Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", field);
+
+        // 3) Find option
+        By optionSpanBy = By.xpath(".//div[@role='radiogroup']//span[normalize-space()='" + optionText + "']");
+        WebElement optionSpan = field.findElement(optionSpanBy);
+
+        // 4) Safe click (normal → JS fallback)
+        try {
+            optionSpan.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionSpan);
+        }
+
+        // 5) Pause
+        pause(500);
+    }
+
+    public void clickWorkflowSave() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement saveBtn = wait.until(ExpectedConditions.elementToBeClickable(workflowSaveButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+
+        saveBtn.click();
+        pause(500);
+    }
+
+    public void clickWorkflowSubmit() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement submitBtn = wait.until(ExpectedConditions.elementToBeClickable(workflowSubmitButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", submitBtn);
+
+        submitBtn.click();
+        pause(500);
+    }
+
+    public void selectTextQuestionOption2() {
+        selectRadioOptionByQuestion("Text??", "Option (2)");
+    }
+
+    public void selectQ2Option2() {
+        selectRadioOptionByQuestion("q2", "Option (2)");
+    }
+
+    public void clickNextButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement next = wait.until(ExpectedConditions.elementToBeClickable(nextButton));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", next);
+
+        try {
+            next.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", next);
+        }
+
+        pause(1000);
+    }
+
+    public void enterTextInputByQuestion(String questionText, String value) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1) Locate block for this question (enter age)
+        By fieldBy = dynamicFormFieldByQuestion(questionText);
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(fieldBy));
+
+        // 2) Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", field);
+
+        // 3) Find input inside that block
+        By inputBy = By.xpath(".//input[@type='text' and contains(@class,'text-input')]");
+        WebElement input = field.findElement(inputBy);
+
+        // 4) Type value
+        input.clear();
+        input.sendKeys(value);
+
+        // 5) Small pause
+        pause(500);
+    }
+
+    public void enterAge(String age) {
+        enterTextInputByQuestion("enter age", age);
+    }
+
+    /**
+     * Open Actions and click "Create Export Control" from left navigation.
+     */
+    public void clickCreateExportControl() {
+
+        // 1) Scroll and open Actions dropdown
+        WebElement actionsToggle = wait.until(
+                ExpectedConditions.elementToBeClickable(actionsToggleButton));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", actionsToggle);
+        actionsToggle.click();
+        pause(2000);
+
+        // 2) Wait for and click 'Create Export Control'
+        WebElement createExportControl = wait.until(
+                ExpectedConditions.elementToBeClickable(createExportControlLink));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", createExportControl);
+        createExportControl.click();
+
+        // 3) Small pause for navigation to complete
+        pause(2000);
+    }
+
+    /**
+     * Step 1: Select Export Control Request radio.
+     */
+    public void selectExportControlRequest() {
+        WebElement radio = wait.until(
+                ExpectedConditions.elementToBeClickable(exportControlRequestRadio));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", radio);
+        radio.click();
+        pause(800);
+    }
+
+    /**
+     * Step 2: Type into PI Name and select the full name from dropdown.
+     * Example:
+     *   searchText = "mohan"
+     *   fullNameToSelect = "Chandra mohan"
+     */
+    public void selectPiName(String searchText, String fullNameToSelect) {
+
+        // Focus input
+        WebElement input = wait.until(
+                ExpectedConditions.elementToBeClickable(piNameInput));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
+        input.click();
+        input.clear();
+        input.sendKeys(searchText);
+
+        // Small wait to let dropdown options appear
+        pause(800);
+
+        // Select the desired option from dropdown
+        WebElement option = wait.until(
+                ExpectedConditions.elementToBeClickable(piOptionByText(fullNameToSelect)));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", option);
+        option.click();
+
+        pause(800);
+    }
+
+    // ---- LEFT NAV HELPERS ----
+
+    // Child form link by name under the current record (e.g. "test form")
+    private By leftNavChildFormLink(String formName) {
+        return By.xpath(
+                "//div[@id='left-sidebar']" +
+                        "//div[contains(@class,'-level-2')]" +
+                        "[.//a[contains(@class,'label')]//span[normalize-space()='" + formName + "']]" +
+                        "//a[contains(@class,'label')]"
+        );
+    }
+
+    public void clickLeftNavForm(String formName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement link = wait.until(
+                ExpectedConditions.elementToBeClickable(leftNavChildFormLink(formName)));
+
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", link);
+
+        // Safe click (handle intercepted click)
+        try {
+            link.click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        }
+
+        pause(1000);
+    }
+
+    private By radioOptionByQuestion(String questionText, String optionText) {
+        return By.xpath(
+                "//div[contains(@class,'dynamic-form-field')]" +
+                        "  [.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]" +
+                        "//div[contains(@class,'radio-group')]" +
+                        "//label[contains(@class,'option-label')][.//span[normalize-space()='" + optionText + "']]"
+        );
+    }
+
+    public void selectGender(String optionText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Find the label for the radio and scroll to it
+        By menOptionLabelBy = radioOptionByQuestion("Select gender", optionText);
+        WebElement menOptionLabel = wait.until(
+                ExpectedConditions.elementToBeClickable(menOptionLabelBy));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", menOptionLabel);
+
+        // Safe click – handle intercepted click
+        try {
+            menOptionLabel.click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", menOptionLabel);
+        }
+
+        pause(500);
+    }
+
+    // Convenience wrapper if you always want Men
+    public void selectGenderAsMen() {
+        selectGender("Men");
+    }
+
+    // ---- Dynamic form checkbox helper anchored by question text ----
+    private By checkboxOptionByQuestion(String questionText, String optionText) {
+        return By.xpath(
+                "//div[contains(@class,'dynamic-form-field')]" +
+                        "  [.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]" +
+                        "//div[contains(@class,'checkbox-group')]" +
+                        "//label[contains(@class,'option')][.//span[normalize-space()='" + optionText + "']]" +
+                        "//input[@type='checkbox']"
+        );
+    }
+
+    public void selectCheckboxOption(String questionText, String optionText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        By checkboxBy = checkboxOptionByQuestion(questionText, optionText);
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(checkboxBy));
+
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", checkbox);
+
+        // Click only if not already selected
+        if (!checkbox.isSelected()) {
+            try {
+                checkbox.click();
+            } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
+            }
+        }
+
+        pause(500);
+    }
+
+    // ---------- Numeric input anchored by question text ----------
+    private By numericInputByQuestion(String questionText) {
+        return By.xpath(
+                "//div[contains(@class,'dynamic-form-field')]" +
+                        "  [.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]" +
+                        "//input[contains(@class,'default-input') and @type='text']"
+        );
+    }
+
+    public void enterNumericAnswer(String questionText, String value) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        By inputBy = numericInputByQuestion(questionText);
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(inputBy));
+
+        // Scroll into view
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(value);
+
+        pause(500);
+    }
+
+    // Convenience wrapper for this exact question
+    public void selectTest1Checkbox() {
+        selectCheckboxOption("Select any one?", "Test 1");
+    }
+
+    public void selectRadioOptionByQuestionone(String questionText, String optionText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1) Find the whole block for that question
+        By fieldBy = dynamicFormFieldByQuestion(questionText);
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(fieldBy));
+
+        // 2) Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", field);
+
+        // 3) Find the span with option text ("one" / "two")
+        By optionSpanBy = By.xpath(".//div[contains(@class,'radio-group')]//span[normalize-space()='" + optionText + "']");
+        WebElement optionSpan = field.findElement(optionSpanBy);
+
+        // 4) Click safely (handle intercepted click)
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(optionSpan)).click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionSpan);
+        }
+
+        // 5) Tiny pause
+        pause(500);
+    }
+
+    public void selectOneOptionone() {
+        selectRadioOptionByQuestion("select?", "one");
+    }
+
+    /**
+     * Step 3: Click Create button in sidebar.
+     */
+    public void clickCreateButton() {
+        WebElement createBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(createButton));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", createBtn);
+        createBtn.click();
+        pause(1000);
+    }
+
+
+    // **************************** Sahil Code ************************************************************************
 
     // General Locators
     By buttonActions = By.xpath("//button[text()='Actions']");
