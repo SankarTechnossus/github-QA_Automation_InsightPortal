@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public final class BrowserUtility implements utils.IBrowserUtility {
+public final class BrowserUtility {
     private static final Logger logger = LogManager.getLogger(BrowserUtility.class);
     public static void clickUsingJS(WebDriver driver, WebElement element, String elementName) {
         try {

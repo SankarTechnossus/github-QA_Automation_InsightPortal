@@ -3,7 +3,63 @@
     {
       "URL": "https://hollywood-insight4.partners.org/",
       "Username": "SV1179",
-      "Password": "Devinivetha@1930"
+      "Password": "Devinivetha@1930",
+      "SysAdminBusinessUser": "MC1396",
+      "SysAdminURL": "https://hollywood-insight4.partners.org/public?sys=sysadmin"
+    },
+    {
+      "FormDescription": "Test Form",
+      "FormType": "Export Control Request",
+      "FormCategory": "General",
+      "CategorySeqNo": "1",
+      "FormInstructions": "Test Instructions"
+    },
+    {
+      "PIName": "Chandra, Mohan",
+      "ExportControlType": "Export Control Request",
+      "Status": "Draft"
+    },
+    {
+      "RoleDeactivationErrorMessage": "You must have at-least one role mapped to a type."
+    },
+    {
+      "TestFilesFolderPath": "src/test/java/resources/testfiles",
+      "TestPDFFilePath": "src/test/java/resources/testfiles/Agreement Info 2025_03.pdf",
+      "TestExcelFilePath": "src/test/java/resources/testfiles/testexcel.xlsx",
+      "TestJPGImgFilePath": "src/test/java/resources/testfiles/testjpg.jpg",
+      "TestPNGImgFilePath": "src/test/java/resources/testfiles/img.png",
+      "TestDOCXFilePath": "src/test/java/resources/testfiles/TestData.docx",
+      "FileDescription": "Test Attachment"
+    },
+    {
+      "Page1": "People",
+      "Page2": "Attachments",
+      "Page3": "Review Letter",
+      "OfficeCode": "ExportControlRequest",
+      "Office": "Export Control Request",
+      "Content1": "Test People Instructions",
+      "Content2": "Test Attachment Instructions",
+      "Content3": "Test Review Letter Instructions",
+      "DuplicateInstructionErrorMessage": "A page instruction with key and record type already exists.",
+      "InvalidOfficeCodeErrorMessage": "Invalid values entered. Please select options only from available options below",
+      "InvalidOfficeCode": "TestOfficeCode"
+    },
+    {
+      "InternalPeople": "Dhiman, Vivek",
+      "InternalPeopleAffiliation": "MGB > Mass General Brigham",
+      "ExistingExternalPeople": "savant, Ranjit",
+      "InstitutionAffiliation": "NWH",
+      "DepartmentAffiliation": "Medicine",
+      "UnitAffiliation": "Endocrinology/Diabetes",
+      "ExistingUserExternalAffiliation": "Mass General Brigham > NWH > Medicine > Endocrinology/Diabetes",
+      "NewExternalAffiliation": "Test External Affiliation",
+      "ExistingExternalAffiliation": "Saint Georges University",
+      "DefaultPeopleType": "External",
+      "SubmissionChecklistMsgBeforeCompletion": "Please, select role and type for each person",
+      "SubmissionChecklistMsgAfterCompletion": "All validations in this area have been completed",
+      "MultiplePIRolesMsg": "There must be only one PD/PI or Contact PI and the type of Key Personnel presented",
+      "SubmitterType": "Key Personnel",
+      "SubmitterRole": "PI"
     }
   ]
 }

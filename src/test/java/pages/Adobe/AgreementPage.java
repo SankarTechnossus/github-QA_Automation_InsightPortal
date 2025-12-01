@@ -1,3 +1,4 @@
+
 package pages.Adobe;
 
 import base.BasePage;
@@ -29,9 +30,9 @@ public class AgreementPage extends BasePage {
     private By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
     private By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables/1113382']//span[text()='Test']");
     private By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
-//    private By fileInput = By.xpath("//input[@type='file' and @accept='application/pdf']");
+    //    private By fileInput = By.xpath("//input[@type='file' and @accept='application/pdf']");
 //    private By fileInput = By.xpath("//input[@type='file' and contains(@accept, 'application/pdf')]");
-   private By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
+    private By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
     //    private By fileInput = By.xpath("//div[contains(@class,'agreement-details-section')]//input[@type='file']");
 //private By fileInput = By.xpath("//div[@class='_fileUploadArea_1i6j7_129']//input[@type='file']");
 //    private By fileInput = By.xpath("//div[@class='_fileUploadArea_1i6j7_129']//input[@type='file' and contains(@accept,'application/pdf')]");
@@ -43,7 +44,7 @@ public class AgreementPage extends BasePage {
     private By searchByNameInput = By.xpath("//input[@type='text' and @placeholder='Search by Name' and @maxlength='300' and @value='']");
     private By searchButton01 = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Search']");
     private By clearSelectionsButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-unstyled') and text()='Clear Selections']");
-//    private By exportControlLink = By.xpath("//a[@href='/administration/forms-management-export-control' and span[text()='Export Control']]");
+    //    private By exportControlLink = By.xpath("//a[@href='/administration/forms-management-export-control' and span[text()='Export Control']]");
 //    private By leftSidebar = By.cssSelector("#left-sidebar");
     private By addNewLink = By.xpath("//a[@href='/administration/forms-management-export-control/new' and text()='Add new']");
     private By nameInputField = By.id("name");
@@ -89,6 +90,8 @@ public class AgreementPage extends BasePage {
     // ******** Actions *********
 
 
+
+
     public void selectTypeAsExportControlRequestnew01() {
         WebElement control = new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(typeControlnew01));
@@ -100,7 +103,7 @@ public class AgreementPage extends BasePage {
 
         WebElement option = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//div[contains(@class,'menu')]//div[normalize-space()='Export Control Request']")));
+                        By.xpath("//div[contains(@class,'menu')]//div[normalize-space()='Test1']")));
         option.click();
 
         pause(1000);
