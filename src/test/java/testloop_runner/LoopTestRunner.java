@@ -1,4 +1,4 @@
-package runner;
+package testloop_runner;
 
 import org.testng.TestNG;
 import java.time.Duration;

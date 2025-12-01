@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Objects;
+import utils.UniqueNameGenerator;
 
 public class AttachmentTypes_ExportControlPage extends BasePage {
 

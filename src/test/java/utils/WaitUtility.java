@@ -9,7 +9,7 @@ import java.io.File;
 import java.time.Duration;
 import java.util.Set;
 
-public final class WaitUtility implements utils.IWaitUtility {
+public final class WaitUtility {
 
     private static final Logger logger = LogManager.getLogger(WaitUtility.class);
 
