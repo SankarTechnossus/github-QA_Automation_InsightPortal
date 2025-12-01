@@ -19,17 +19,19 @@ import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_Template_managemnet_Negative_case {
+public class PBI_239498_Export_control_Template_managemnet_Negative_case {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    TemplateManagement_ExportControlPage templateManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,6 +53,7 @@ public class Export_control_Template_managemnet_Negative_case {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        templateManagementExportControlPage = new TemplateManagement_ExportControlPage(driver);
     }
 
     @Test
@@ -82,108 +85,112 @@ public class Export_control_Template_managemnet_Negative_case {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            TemplateManagement_ExportControlPage Export_control_Template_managemnet_Page01 = new TemplateManagement_ExportControlPage(driver);
-
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickTemplateManagementExportControl01();
+            templateManagementExportControlPage.clickTemplateManagementExportControl01();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
 
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            templateManagementExportControlPage.clickAddNewTemplate();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
 
 
             basePage.pause(3000);
-            String generatedTitle = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            String generatedTitle = templateManagementExportControlPage.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle);
 
             basePage.pause(5000);
-            String filePath = System.getProperty("user.dir") + "/Test_Data/testexcel.xlsx";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath);
+
+            // Setting up base Directory
+            String baseDir = System.getProperty("user.dir");
+
+            // Get the file path
+            String filePath = JsonDataReader.get(4,"TestExcelFilePath");
+            String path = Paths.get(baseDir, filePath).toString();
+
+            templateManagementExportControlPage.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: testexcel.xlsx was not successfull");
 
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.clickCancelButton();
+            templateManagementExportControlPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
 
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            templateManagementExportControlPage.clickAddNewTemplate();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
 
 
             basePage.pause(3000);
-            String generatedTitle05 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            String generatedTitle05 = templateManagementExportControlPage.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle05);
 
             basePage.pause(5000);
-            String filePath05 = System.getProperty("user.dir") + "/Test_Data/testjpg.jpg";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath05);
+
+            filePath = JsonDataReader.get(4,"TestJPGImgFilePath");
+            path = Paths.get(baseDir, filePath).toString();
+
+            templateManagementExportControlPage.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: testjpg.jpg was not successfull");
 
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.clickCancelButton();
+            templateManagementExportControlPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
 
-
-
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            templateManagementExportControlPage.clickAddNewTemplate();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
 
-
             basePage.pause(3000);
-            String generatedTitle03 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            String generatedTitle03 = templateManagementExportControlPage.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle03);
 
             basePage.pause(5000);
-            String filePath03 = System.getProperty("user.dir") + "/Test_Data/img.png";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath03);
+
+            filePath = JsonDataReader.get(4,"TestPNGImgFilePath");
+            path = Paths.get(baseDir, filePath).toString();
+
+            templateManagementExportControlPage.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: img.png was not successfully");
 
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.clickCancelButton();
+            templateManagementExportControlPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
 
-
-
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            templateManagementExportControlPage.clickAddNewTemplate();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
 
             basePage.pause(3000);
-            String generatedTitle02 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            String generatedTitle02 = templateManagementExportControlPage.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle02);
 
             basePage.pause(5000);
-            String filePath02 = System.getProperty("user.dir") + "/Test_Data/Testdata.docx";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath02);
+
+            filePath = JsonDataReader.get(4,"TestDOCXFilePath");
+            path = Paths.get(baseDir, filePath).toString();
+
+            templateManagementExportControlPage.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Testdata.docx was uploaded successfully");
 
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickCancelButton();
+            templateManagementExportControlPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
 
-
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            templateManagementExportControlPage.clickAddNewTemplate();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
 
-
             basePage.pause(3000);
-            String generatedTitle01 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            String generatedTitle01 = templateManagementExportControlPage.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
             String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath01);
+            templateManagementExportControlPage.uploadAgreementFile(filePath01);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickCreateButton();
+            templateManagementExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

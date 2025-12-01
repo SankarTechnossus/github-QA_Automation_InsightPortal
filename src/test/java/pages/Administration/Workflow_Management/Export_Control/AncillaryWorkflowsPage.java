@@ -270,5 +270,4 @@ public class AncillaryWorkflowsPage extends BasePage {
         pause(800);
     }
 
-
 }

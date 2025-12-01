@@ -22,13 +22,14 @@ import java.nio.file.Paths;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Export_control_Template_management {
+public class PBI_239498_Export_control_Template_management {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    TemplateManagement_ExportControlPage templateManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -50,6 +51,7 @@ public class Export_control_Template_management {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        templateManagementExportControlPage = new TemplateManagement_ExportControlPage(driver);
     }
 
     @Test
@@ -80,25 +82,19 @@ public class Export_control_Template_management {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
-            TemplateManagement_ExportControlPage Export_control_Template_managemnet_Page01 = new TemplateManagement_ExportControlPage(driver);
-
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickTemplateManagementExportControl01();
+            templateManagementExportControlPage.clickTemplateManagementExportControl01();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
 
-
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickAddNewTemplate();
+            templateManagementExportControlPage.clickAddNewTemplate();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
 
-
             basePage.pause(3000);
-            String generatedTitle01 = Export_control_Template_managemnet_Page01.enterUniqueTitle();
+            String generatedTitle01 = templateManagementExportControlPage.enterUniqueTitle();
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
-            //String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
 
             // Setting up base Directory
             String baseDir = System.getProperty("user.dir");
@@ -107,51 +103,43 @@ public class Export_control_Template_management {
             String filePath = JsonDataReader.get(4,"TestPDFFilePath");
             String path = Paths.get(baseDir, filePath).toString();
 
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(path);
+            templateManagementExportControlPage.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
             basePage.pause(5000);
-            Export_control_Template_managemnet_Page01.clickCreateButton();
+            templateManagementExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
 
-
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
+            templateManagementExportControlPage.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
             ExtentReportListener.getExtentTest().pass("Selected Date Format successfully");
 
             basePage.pause(2000);
-            Export_control_Template_managemnet_Page01.setActiveToNo();
+            templateManagementExportControlPage.setActiveToNo();
             ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
 
-
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.clickSaveButton01();
+            templateManagementExportControlPage.clickSaveButton01();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
             basePage.pause(2000);
-            Export_control_Template_managemnet_Page01.setActive("Yes");
+            templateManagementExportControlPage.setActive("Yes");
             ExtentReportListener.getExtentTest().pass("Active set to 'Yes' successfully");
 
             basePage.pause(2000);
-            Export_control_Template_managemnet_Page01.clickCancelButton();
+            templateManagementExportControlPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-
-            Export_control_Template_managemnet_Page01.clickTemplateByTitle(generatedTitle01);
+            templateManagementExportControlPage.clickTemplateByTitle(generatedTitle01);
             ExtentReportListener.getExtentTest().pass("Opened template '" + generatedTitle01 + "' from the list successfully");
 
-
             basePage.pause(2000);
-            Export_control_Template_managemnet_Page01.setActiveToNo();
+            templateManagementExportControlPage.setActiveToNo();
             ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
 
-
             basePage.pause(3000);
-            Export_control_Template_managemnet_Page01.clickSaveButton01();
+            templateManagementExportControlPage.clickSaveButton01();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
