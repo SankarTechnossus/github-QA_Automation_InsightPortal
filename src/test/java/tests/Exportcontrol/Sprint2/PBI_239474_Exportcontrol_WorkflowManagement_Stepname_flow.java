@@ -12,8 +12,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.StepNamePage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Exportcontrol_WorkflowManagement_StepName_Page;
+import pages.Administration.Workflow_Management.Export_Control.*;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,13 +24,14 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Exportcontrol_WorkflowManagement_Stepname_flow {
+public class PBI_239474_Exportcontrol_WorkflowManagement_Stepname_flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    StepNamePage stepNamePage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,6 +53,7 @@ public class Exportcontrol_WorkflowManagement_Stepname_flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        stepNamePage = new StepNamePage(driver);
     }
 
     @Test
@@ -82,72 +85,66 @@ public class Exportcontrol_WorkflowManagement_Stepname_flow {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            Exportcontrol_WorkflowManagement_StepName_Page stepnamepage = new Exportcontrol_WorkflowManagement_StepName_Page(driver);
-
             basePage.pause(2000);
-            stepnamepage.clickWorkflowManagementstepname();
+            stepNamePage.clickWorkflowManagementstepname();
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
             basePage.pause(5000);
-            stepnamepage.clickExportControlStepName();
+            stepNamePage.clickExportControlStepName();
             ExtentReportListener.getExtentTest().pass("Opened Export Control > Step name (scopeId=3) successfully");
 
 
 
             basePage.pause(5000);
-            stepnamepage.clickAddNewButton();
+            stepNamePage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
 
             basePage.pause(5000);
-            stepnamepage.enterName("Sample Name");
+            stepNamePage.enterName("Sample Name");
             ExtentReportListener.getExtentTest().pass("Entered 'Sample Name' into Name input field successfully");
 
 
 
             basePage.pause(5000);
-            stepnamepage.clickCancelButton();
+            stepNamePage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
 
             basePage.pause(5000);
-            stepnamepage.clickAddNewButton();
+            stepNamePage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
             basePage.pause(5000);
-            String generatedName = stepnamepage.enterUniqueName("Test");
+            String generatedName = stepNamePage.enterUniqueName("Test");
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + generatedName + "' into Name input field successfully");
 
 
             basePage.pause(5000);
-            stepnamepage.clickAddButton();
+            stepNamePage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
 
             basePage.pause(5000);
-            stepnamepage.clickEditButtonForStepName(generatedName);
+            stepNamePage.clickEditButtonForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
 
 
             basePage.pause(5000);
-            stepnamepage.clickCancelForStepName(generatedName);
+            stepNamePage.clickCancelForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for step name '" + generatedName + "' successfully");
 
 
             basePage.pause(5000);
-            stepnamepage.clickEditButtonForStepName(generatedName);
+            stepNamePage.clickEditButtonForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
 
 
             basePage.pause(5000);
-            stepnamepage.clickSaveForStepName(generatedName);
+            stepNamePage.clickSaveForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' for step name '" + generatedName + "' successfully");
-
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

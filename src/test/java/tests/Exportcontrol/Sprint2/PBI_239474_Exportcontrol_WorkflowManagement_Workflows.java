@@ -12,8 +12,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.WorkflowsPage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Exportcontrol_WorkflowManagement_Workflows_Page;
+import pages.Administration.Workflow_Management.Export_Control.*;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,13 +24,14 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Exportcontrol_WorkflowManagement_Workflows {
+public class PBI_239474_Exportcontrol_WorkflowManagement_Workflows {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    WorkflowsPage workflowsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,6 +53,7 @@ public class Exportcontrol_WorkflowManagement_Workflows {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        workflowsPage = new WorkflowsPage(driver);
     }
 
     @Test
@@ -83,135 +86,111 @@ public class Exportcontrol_WorkflowManagement_Workflows {
 
 
             // Work flow page
-            Exportcontrol_WorkflowManagement_Workflows_Page   workflowpage = new Exportcontrol_WorkflowManagement_Workflows_Page(driver);
-
-
             basePage.pause(5000);
-            workflowpage.clickWorkflowManagementLink();
+            workflowsPage.clickWorkflowManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
 
 
             basePage.pause(5000);
-            workflowpage.clickExportControlWorkflows();
+            workflowsPage.clickExportControlWorkflows();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control > Workflows' successfully");
 
 
             basePage.pause(5000);
-            workflowpage.clickAddNewButton();
+            workflowsPage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
             String uniqueName = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
             basePage.pause(5000);
-            workflowpage.enterName(uniqueName);
+            workflowsPage.enterName(uniqueName);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName + "' in the Name input field successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Record Type","Test");
+            workflowsPage.selectOptionFromDropdown("Record Type","Test");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Transaction Type","Test1");
+            workflowsPage.selectOptionFromDropdown("Transaction Type","Test1");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
+            workflowsPage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Export control status dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
+            workflowsPage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
             ExtentReportListener.getExtentTest().pass("Entered Email successfully");
 
             // ** Negative_case **
 
 
             basePage.pause(5000);
-            workflowpage.clickCancelButton();
+            workflowsPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(5000);
-            workflowpage.clickAddNewButton();
+            workflowsPage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
             String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
             basePage.pause(5000);
-            workflowpage.enterName(uniqueName01);
+            workflowsPage.enterName(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Record Type","Test");
+            workflowsPage.selectOptionFromDropdown("Record Type","Test");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Transaction Type","Test1");
+            workflowsPage.selectOptionFromDropdown("Transaction Type","Test1");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
+            workflowsPage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from ExportControl Status successfully");
 
 
             basePage.pause(5000);
-            workflowpage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
+            workflowsPage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
             ExtentReportListener.getExtentTest().pass("Entered Email successfully");
 
-
-//            basePage.pause(5000);
-//            workflowpage.clickSaveButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
             basePage.pause(5000);
-            workflowpage.clickCancelButton();
+            workflowsPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-
-//            basePage.pause(5000);
-//            workflowpage.clickEditButtonForWorkflow(uniqueName01);
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
-
             basePage.pause(3000);
-            workflowpage.clickFirstEdit();
+            workflowsPage.clickFirstEdit();
             ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
 
-
-
             basePage.pause(5000);
-            workflowpage.clickCancelButton();
+            workflowsPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-
-//            basePage.pause(5000);
-//            workflowpage.clickEditButtonForWorkflow(uniqueName01);
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for workflow '" + uniqueName01 + "' successfully");
-
             basePage.pause(3000);
-            workflowpage.clickFirstEdit();
+            workflowsPage.clickFirstEdit();
             ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
 
             basePage.pause(3000);
-            workflowpage.appendSanToName();
+            workflowsPage.appendSanToName();
             ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
 
-
             basePage.pause(3000);
-            workflowpage.clickUpdateButton();
+            workflowsPage.clickUpdateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
 
 
             basePage.pause(5000);
-            workflowpage.clickCancelButton();
+            workflowsPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

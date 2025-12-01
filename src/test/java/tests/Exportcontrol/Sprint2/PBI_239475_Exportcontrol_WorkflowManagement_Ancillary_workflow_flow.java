@@ -12,8 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.AncillaryWorkflowsPage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,13 +23,14 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Exportcontrol_WorkflowManagement_Ancillary_workflow_flow {
+public class PBI_239475_Exportcontrol_WorkflowManagement_Ancillary_workflow_flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AncillaryWorkflowsPage ancillaryWorkflowsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,6 +52,7 @@ public class Exportcontrol_WorkflowManagement_Ancillary_workflow_flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        ancillaryWorkflowsPage = new AncillaryWorkflowsPage(driver);
     }
 
     @Test
@@ -83,88 +85,64 @@ public class Exportcontrol_WorkflowManagement_Ancillary_workflow_flow {
 
 
             //Ancillary workflow
-            Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page ancillaryworkflow = new Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page (driver);
-
-
             basePage.pause(2000);
-            ancillaryworkflow.clickWorkflowManagement();
+            ancillaryWorkflowsPage.clickWorkflowManagement();
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
 
             basePage.pause(2000);
-            ancillaryworkflow.clickAncillaryWorkflowsScope3();
+            ancillaryWorkflowsPage.clickAncillaryWorkflowsScope3();
             ExtentReportListener.getExtentTest().pass("Opened 'Ancillary Workflows' (scopeId=3, workflowType=2)");
 
 
             basePage.pause(2000);
-            ancillaryworkflow.clickAddNew();
+            ancillaryWorkflowsPage.clickAddNew();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
 
             String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
             basePage.pause(5000);
-            ancillaryworkflow.enterNameanc(uniqueName01);
+            ancillaryWorkflowsPage.enterNameanc(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
-
-//            basePage.pause(5000);
-//            ancillaryworkflow.selectOptionFromDropdownancillary("Triggering Rule","testing");
-//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
-
-
             basePage.pause(5000);
-            ancillaryworkflow.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
+            ancillaryWorkflowsPage.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
             basePage.pause(5000);
-            ancillaryworkflow.clickCancelButton();
+            ancillaryWorkflowsPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(2000);
-            ancillaryworkflow.clickAddNew();
+            ancillaryWorkflowsPage.clickAddNew();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
 
 
             String uniqueName02 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
             basePage.pause(5000);
-            ancillaryworkflow.enterNameanc(uniqueName01);
+            ancillaryWorkflowsPage.enterNameanc(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
 
-
-//            basePage.pause(5000);
-//            ancillaryworkflow.selectOptionFromDropdownancillary("Triggering Rule","testing");
-//            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
-
-
             basePage.pause(5000);
-            ancillaryworkflow.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
+            ancillaryWorkflowsPage.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
-
-
             basePage.pause(5000);
-            ancillaryworkflow.clickSaveButton();
+            ancillaryWorkflowsPage.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
-
             basePage.pause(1200);
-            ancillaryworkflow.clickLastEdit();
+            ancillaryWorkflowsPage.clickLastEdit();
             ExtentReportListener.getExtentTest().pass("Clicked last 'Edit' on Ancillary Workflows list");
 
 
             basePage.pause(3000);
-            ancillaryworkflow.appendSanToNameanc();
+            ancillaryWorkflowsPage.appendSanToNameanc();
             ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
 
             basePage.pause(3000);
-            ancillaryworkflow.clickUpdateButtonanc();
+            ancillaryWorkflowsPage.clickUpdateButtonanc();
             ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
-
-
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
