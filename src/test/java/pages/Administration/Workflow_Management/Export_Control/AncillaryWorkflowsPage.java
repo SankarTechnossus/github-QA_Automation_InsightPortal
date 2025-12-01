@@ -9,9 +9,9 @@ import utils.WaitUtility;
 
 import java.time.Duration;
 
-public class Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page  extends BasePage {
+public class AncillaryWorkflowsPage extends BasePage {
 
-    public  Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page (WebDriver driver) {
+    public AncillaryWorkflowsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -31,20 +31,20 @@ public class Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page  extends B
     private By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
     private By saveButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
     private By nameInputFieldanc = By.xpath("//input[@id='name' and @type='text']");
-//    private String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
+    //    private String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
     private By updateButtonanc = By.xpath("//button[normalize-space(text())='Update']");
-//    private By workflowManagementLinkancillary = By.xpath("//a[.//span[text()='Workflow Management'] and contains(@href, '/workflow-management')]");
+    //    private By workflowManagementLinkancillary = By.xpath("//a[.//span[text()='Workflow Management'] and contains(@href, '/workflow-management')]");
 //    private By exportControlWorkflowsLinkanc = By.xpath("//a[contains(@href, '/administration/workflow-management/scopeId/3/workflowType/2/workflows') and text()='Workflows']");
 //    private By exportControlWorkflowsLink = By.xpath("//a[contains(@href, 'workflows-export-control') and text()='Workflows']");
 // Locator (stable: text + href; tolerant of inner <span>)
     private By workflowManagementLink = By.xpath("//nav//a[(normalize-space(.)='Workflow Management' or .//span[normalize-space(.)='Workflow Management'])" + " and contains(@href,'/administration/workflow-management')]");
     // Locator (stable: text + href parts; scoped to nav)
     private By ancillaryWorkflowsScope3 = By.xpath("//nav//a[normalize-space(.)='Ancillary Workflows' " + "and contains(@href,'/administration/workflow-management') " + "and contains(@href,'/scopeId/3/') " + "and contains(@href,'/workflowType/2/') " + "and contains(@href,'/workflows')]");
-//    private String editBtnByDataValueTpl = "//td[@data-column='name' and @data-value='%s']" + "/ancestor::tr[1]//button[@type='button' and contains(normalize-space(.),'Edit')]";
+    //    private String editBtnByDataValueTpl = "//td[@data-column='name' and @data-value='%s']" + "/ancestor::tr[1]//button[@type='button' and contains(normalize-space(.),'Edit')]";
     private String editBtnByDataValueTpl = "//td[@data-column='name' and @data-value='%s']/ancestor::tr[1]" + "//button[@type='button' and normalize-space()='Edit']";
 
     private String editBtnByLinkTextTpl = "//a[normalize-space(.)='%s']/ancestor::tr[1]" + "//button[@type='button' and normalize-space()='Edit']";
-//    private String editButtonForancXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
+    //    private String editButtonForancXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
     private String editButtonForancXpath = "//td[@data-column='name' and @data-value='%s']" + "/ancestor::tr[1]//td[@data-column='_actions']" + "//button[@type='button' and normalize-space(.)='Edit']";
     private By lastRow = By.xpath("(//table//tr[.//td[@data-column='name']])[last()]");
     private By editBtnInRow = By.xpath(".//td[@data-column='_actions']//button[@type='button' and normalize-space()='Edit']");
@@ -269,11 +269,6 @@ public class Exportcontrol_WorkflowManagement_AncillaryWorkflows_Page  extends B
                 ExpectedConditions.urlMatches(".*(/new|/create|/add).*")));
         pause(800);
     }
-
-
-
-
-
 
 
 }

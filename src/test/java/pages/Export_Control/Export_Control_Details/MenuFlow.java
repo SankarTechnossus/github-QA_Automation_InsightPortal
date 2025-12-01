@@ -1,4 +1,4 @@
-package pages.Export_Control;
+package pages.Export_Control.Export_Control_Details;
 
 import base.BasePage;
 import org.openqa.selenium.*;
@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Export_control_menu_flow_of_export_control_page extends BasePage {
+public class MenuFlow extends BasePage {
 
-    public Export_control_menu_flow_of_export_control_page(WebDriver driver) {
+    public MenuFlow(WebDriver driver) {
         super(driver);
     }
 

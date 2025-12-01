@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 
-public class Exportcontrol_WorkflowManagement_Rules_Page extends BasePage {
+public class RulesPage extends BasePage {
 
 
-    public  Exportcontrol_WorkflowManagement_Rules_Page (WebDriver driver) {
+    public RulesPage(WebDriver driver) {
         super(driver);
     }
 
@@ -40,16 +40,16 @@ public class Exportcontrol_WorkflowManagement_Rules_Page extends BasePage {
     private By saveButton = By.xpath("//button[normalize-space()='Save']");
     private By nameInputFieldappend = By.xpath("//input[@id='name' and @type='text']");
     private static final String ARROW_BY_LABEL =
-        "(" +
-                " (//*[self::label or self::div or self::span][normalize-space()='%s']" +
-                "   /ancestor::div[contains(@class,'form') or contains(@class,'row') or contains(@class,'column')][1]" +
-                "   //div[contains(@class,'select-dropdown-indicator') or contains(@class,'_indicatorsContainer')]" +
-                " )" +
-                " | " +
-                " (//*[self::label or self::div or self::span][normalize-space()='%s']" +
-                "   /following::div[contains(@class,'select-dropdown-indicator') or contains(@class,'_indicatorsContainer')][1]" +
-                " )" +
-                ")";
+            "(" +
+                    " (//*[self::label or self::div or self::span][normalize-space()='%s']" +
+                    "   /ancestor::div[contains(@class,'form') or contains(@class,'row') or contains(@class,'column')][1]" +
+                    "   //div[contains(@class,'select-dropdown-indicator') or contains(@class,'_indicatorsContainer')]" +
+                    " )" +
+                    " | " +
+                    " (//*[self::label or self::div or self::span][normalize-space()='%s']" +
+                    "   /following::div[contains(@class,'select-dropdown-indicator') or contains(@class,'_indicatorsContainer')][1]" +
+                    " )" +
+                    ")";
 
     private static final String MENU_XPATH =
             "//div[contains(@class,'select__menu') or contains(@class,'select-menu-outer')]";
@@ -276,10 +276,10 @@ public class Exportcontrol_WorkflowManagement_Rules_Page extends BasePage {
 
 
     public void clickRulesLink() {
-    WebElement link = driver.findElement(rulesLink);
-    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
-    pause(1000);
-    link.click();
+        WebElement link = driver.findElement(rulesLink);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+        pause(1000);
+        link.click();
     }
 
 
@@ -294,15 +294,5 @@ public class Exportcontrol_WorkflowManagement_Rules_Page extends BasePage {
         link.click();
         pause(1000);
     }
-
-
-
-
-
-
-
-
-
-
 
 }

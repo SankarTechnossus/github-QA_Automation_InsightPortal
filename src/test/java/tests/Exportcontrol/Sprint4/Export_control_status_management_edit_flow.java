@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.ExportControl_statusManagement_Page;
+import pages.Administration.Status_Management.StatusManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -81,7 +81,7 @@ public class Export_control_status_management_edit_flow {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
             // StatusManagement Page Actions
-            ExportControl_statusManagement_Page statusManagementPage  = new ExportControl_statusManagement_Page(driver);
+            StatusManagement_ExportControlPage statusManagementPage  = new StatusManagement_ExportControlPage(driver);
 
             basePage.pause(5000);
             statusManagementPage.clickStatusManagementLink();

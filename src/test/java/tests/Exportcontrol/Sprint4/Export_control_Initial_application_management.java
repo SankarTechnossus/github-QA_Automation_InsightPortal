@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Export_control_Initial_application_management_page;
+import pages.Administration.Initial_Application_Management.InitialApplicationManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -81,7 +81,7 @@ public class Export_control_Initial_application_management {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            Export_control_Initial_application_management_page initialappmanagemnet = new Export_control_Initial_application_management_page(driver);
+            InitialApplicationManagement_ExportControlPage initialappmanagemnet = new InitialApplicationManagement_ExportControlPage(driver);
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

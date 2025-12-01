@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Export_control_Template_managemnet_Pages;
+import pages.Administration.Template_Management.TemplateManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -82,7 +82,7 @@ public class Export_control_Template_managemnet_Negative_case {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            Export_control_Template_managemnet_Pages Export_control_Template_managemnet_Page01 = new Export_control_Template_managemnet_Pages(driver);
+            TemplateManagement_ExportControlPage Export_control_Template_managemnet_Page01 = new TemplateManagement_ExportControlPage(driver);
 
             basePage.pause(5000);
             Export_control_Template_managemnet_Page01.clickTemplateManagementExportControl01();

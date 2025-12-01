@@ -11,7 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Adobe.AdobeEsignatureReportpage;
+import pages.Adobe.EsignatureReportpage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -80,7 +80,7 @@ import java.time.Duration;
                 ExtentReportListener.getExtentTest().pass("Clicked 'Agreements' link from sidebar");
 
 
-                AdobeEsignatureReportpage agreementpagesAdobe = new AdobeEsignatureReportpage(driver);
+                EsignatureReportpage agreementpagesAdobe = new EsignatureReportpage(driver);
 
 
                 basePage.pause(5000);

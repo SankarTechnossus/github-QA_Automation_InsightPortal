@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Export_control_Initial_review_workflow_page;
+import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -80,7 +80,7 @@ public class Export_control_Initial_review_workflow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            Export_control_Initial_review_workflow_page initreviewworkflow =new Export_control_Initial_review_workflow_page(driver);
+            InitialReviewWorkflowPage initreviewworkflow =new InitialReviewWorkflowPage(driver);
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

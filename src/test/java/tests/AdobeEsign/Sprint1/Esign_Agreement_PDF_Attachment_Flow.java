@@ -10,7 +10,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import pages.Adobe.Adobe_Deliverables_page;
+import pages.Adobe.DeliverablesPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.Adobe.AgreementPage;
@@ -119,7 +119,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             agreementPage.clickAddNewDeliverable();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
 
-            Adobe_Deliverables_page deliverablepage = new Adobe_Deliverables_page(driver);
+            DeliverablesPage deliverablepage = new DeliverablesPage(driver);
 
             basePage.pause(1000);
 
@@ -260,7 +260,7 @@ public class Esign_Agreement_PDF_Attachment_Flow {
             basePage.switchToFrame(iframeLocator, 20);
             ExtentReportListener.getExtentTest().pass("Successfully Switched to iframe");
 
-            Adobe_Deliverables_page deliverableoage02 =new Adobe_Deliverables_page (driver);
+            DeliverablesPage deliverableoage02 =new DeliverablesPage(driver);
 
             basePage.pause(2000);
             deliverableoage02.clickOnSendButton();

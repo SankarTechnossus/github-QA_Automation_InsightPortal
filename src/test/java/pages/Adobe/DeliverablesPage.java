@@ -11,10 +11,10 @@ import utils.BrowserUtility;
 import java.time.Duration;
 import java.util.Map;
 
-public class Adobe_Deliverables_page extends BasePage {
+public class DeliverablesPage extends BasePage {
 
 
-    public Adobe_Deliverables_page(WebDriver driver) {super(driver);
+    public DeliverablesPage(WebDriver driver) {super(driver);
     }
 
 
@@ -106,7 +106,7 @@ public class Adobe_Deliverables_page extends BasePage {
     // Buttons
     private By cancelBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[normalize-space(.)='Cancel']");
     private By topSearchBtn = By.xpath("//button[normalize-space(.)='Add New Deliverable']/preceding::button[normalize-space(.)='Search'][1]");
-//    private By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
+    //    private By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
     private By submitBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[@type='submit' and normalize-space(.)='Submit']");
     private By deliverablesSearchInput = By.cssSelector("input[placeholder^='Search by deliverables']");
 
@@ -158,7 +158,7 @@ public class Adobe_Deliverables_page extends BasePage {
     private By signatureTool       = By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span");
     private By dropTargetOverlay   = By.xpath("//div[@data-testid='overlay-drop-target']");
     private By circleLoader        = By.cssSelector("[class*='CircleLoader'], [role='progressbar']"); // generic loader
-//    private By modalOverlay        = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
+    //    private By modalOverlay        = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
     private By modalContentWrapper = By.cssSelector("div.modal-content-wrapper");
 
     // Send (outside iframe)
@@ -1148,10 +1148,5 @@ public class Adobe_Deliverables_page extends BasePage {
 
         pause(600);
     }
-
-
-
-
-
 
 }

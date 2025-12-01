@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import pages.Adobe.Adobe_Deliverables_page;
+import pages.Adobe.DeliverablesPage;
 
 import java.io.File;
 import java.time.Duration;
@@ -104,7 +104,7 @@ public class Esign_Review_and_AddSign__Flow {
             // The user waits before selecting the dropdown option
             Thread.sleep(10000);
 
-            Adobe_Deliverables_page Adobedeliverablepage= new Adobe_Deliverables_page(driver);
+            DeliverablesPage Adobedeliverablepage= new DeliverablesPage(driver);
             Adobedeliverablepage.selectSignReasonApprove();
             test.pass("Selected signing reason 'I approve this document' successfully");
 

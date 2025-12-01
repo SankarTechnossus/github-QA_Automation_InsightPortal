@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Adobe.Adobe_Deliverables_page;
+import pages.Adobe.DeliverablesPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -108,7 +108,7 @@ public class AdobeE_sign_Flow {
             agreementPage.clickAddNewDeliverable();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New Deliverable' button successfully");
 
-            Adobe_Deliverables_page deliverablepage = new Adobe_Deliverables_page(driver);
+            DeliverablesPage deliverablepage = new DeliverablesPage(driver);
 
             // 1) Set text with unique generator
             basePage.pause(1000);
@@ -142,7 +142,7 @@ public class AdobeE_sign_Flow {
             deliverablepage.selectReminderEveryDay();
             ExtentReportListener.getExtentTest().pass("Selected Reminders frequency: Every day");
 
-            Adobe_Deliverables_page deliverableoage02 =new Adobe_Deliverables_page (driver);
+            DeliverablesPage deliverableoage02 =new DeliverablesPage(driver);
 
             basePage.pause(5000);
             deliverableoage02.clickDeleteIconemail();

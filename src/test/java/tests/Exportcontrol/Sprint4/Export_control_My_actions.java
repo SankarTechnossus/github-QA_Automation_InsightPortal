@@ -13,8 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Export_Control.Export_control_My_actions_page;
-import pages.Export_Control.Export_control_menu_flow_of_export_control_page;
+import pages.Export_Control.Export_Control_Details.Export_control_My_actions_page;
+import pages.Export_Control.Export_Control_Details.MenuFlow;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -82,7 +82,7 @@ public class Export_control_My_actions {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            Export_control_menu_flow_of_export_control_page menuflowexport = new Export_control_menu_flow_of_export_control_page(driver);
+            MenuFlow menuflowexport = new MenuFlow(driver);
 
             basePage.pause(3000);
             menuflowexport.clickExportControlLink();

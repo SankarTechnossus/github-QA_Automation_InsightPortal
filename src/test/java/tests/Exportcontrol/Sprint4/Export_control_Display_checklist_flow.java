@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Export_Control.Export_control_Display_checklist_flow_page;
+import pages.Export_Control.Export_Control_Details.DisplayChecklistFlowPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -82,7 +82,7 @@ public class Export_control_Display_checklist_flow {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            Export_control_Display_checklist_flow_page displaychecklistflow =new Export_control_Display_checklist_flow_page(driver);
+            DisplayChecklistFlowPage displaychecklistflow =new DisplayChecklistFlowPage(driver);
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

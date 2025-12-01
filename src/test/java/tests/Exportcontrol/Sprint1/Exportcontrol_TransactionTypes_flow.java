@@ -8,8 +8,8 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import pages.Administration.ExportControl_TransactionTypes_Page;
-import pages.Administration.Exportcontrol_RecordTypes_Page;
+import pages.Administration.Transaction_Types.TransactionTypes_ExportControlPage;
+import pages.Administration.Record_Types.RecordTypes_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.Adobe.AgreementPage;
@@ -78,7 +78,7 @@ public class Exportcontrol_TransactionTypes_flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            ExportControl_TransactionTypes_Page transactionTypesPage = new ExportControl_TransactionTypes_Page(driver);
+            TransactionTypes_ExportControlPage transactionTypesPage = new TransactionTypes_ExportControlPage(driver);
 
             basePage.pause(5000);
             transactionTypesPage.clickTransactionTypesLink();
@@ -95,7 +95,7 @@ public class Exportcontrol_TransactionTypes_flow {
             ExtentReportListener.getExtentTest().pass("Entered 'Test' into Transaction Type input field");
 
 
-            Exportcontrol_RecordTypes_Page adminPageRecordtypes = new Exportcontrol_RecordTypes_Page(driver);
+            RecordTypes_ExportControlPage adminPageRecordtypes = new RecordTypes_ExportControlPage(driver);
 
 
             basePage.pause(10000);

@@ -7,14 +7,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Exportcontrol_WorkflowManagement_StepName_Page extends BasePage {
+public class StepNamePage extends BasePage {
 
-    public Exportcontrol_WorkflowManagement_StepName_Page(WebDriver driver) {
+    public StepNamePage(WebDriver driver) {
         super(driver);
     }
 
 
-// Locators
+    // Locators
     private By workflowManagementLinkstepname = By.xpath("//nav//a[(normalize-space(.)='Workflow Management' or .//span[normalize-space(.)='Workflow Management'])" + " and contains(@href,'/administration/workflow-management')]");
     private By stepNameLink = By.xpath("//a[normalize-space(text())='Step name' and contains(@href,'/step-names')]");
     private By addNewButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add New']");

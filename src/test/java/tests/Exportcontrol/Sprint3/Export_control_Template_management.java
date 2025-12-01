@@ -12,12 +12,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Export_control_Template_managemnet_Pages;
+import pages.Administration.Template_Management.TemplateManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
@@ -80,7 +81,7 @@ public class Export_control_Template_management {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
 
-            Export_control_Template_managemnet_Pages  Export_control_Template_managemnet_Page01 = new Export_control_Template_managemnet_Pages(driver);
+            TemplateManagement_ExportControlPage Export_control_Template_managemnet_Page01 = new TemplateManagement_ExportControlPage(driver);
 
             basePage.pause(5000);
             Export_control_Template_managemnet_Page01.clickTemplateManagementExportControl01();
@@ -97,8 +98,16 @@ public class Export_control_Template_management {
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
-            String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
-            Export_control_Template_managemnet_Page01.uploadAgreementFile(filePath01);
+            //String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+
+            // Setting up base Directory
+            String baseDir = System.getProperty("user.dir");
+
+            // Get the file path
+            String filePath = JsonDataReader.get(4,"TestPDFFilePath");
+            String path = Paths.get(baseDir, filePath).toString();
+
+            Export_control_Template_managemnet_Page01.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
             basePage.pause(5000);

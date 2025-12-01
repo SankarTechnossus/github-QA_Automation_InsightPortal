@@ -1,0 +1,142 @@
+package pages.Export_Control.Export_Control_Details;
+
+import base.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+
+public class AmendExportControlPage extends BasePage {
+    private WebDriverWait wait;
+
+    public AmendExportControlPage(WebDriver driver)
+    {
+        super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    //Locators
+    private By initiateAmendmentButton = By.xpath("//button[contains(@class,'_amendmentBtn') and normalize-space()='Initiate Amendment']");
+    private By amendmentOkButton = By.xpath("//button[contains(@class,'_okButton') and normalize-space()='OK']");
+    private By saveButton = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
+    private By submitButton = By.xpath("//button[@aria-label='Submit' and contains(@class,'-positive')]");
+    // "Your Name" text box
+    private By yourNameInput = By.id("dynamic-form-field-input-74877-TextBox1");
+    // Gender = Male radio button
+    private By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
+    private By amendmentAMD1Tab = By.xpath(
+            "//div[contains(@class,'_transactionsTabItem')]" +
+                    "[.//div[contains(@class,'name') and normalize-space()='Amendment (AMD1)']]"
+    );
+    private By saveButton01 = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
+
+
+    //Actions
+
+    public void clickSaveButton() {
+
+        WebElement save = wait.until(
+                ExpectedConditions.elementToBeClickable(saveButton01)
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", save
+        );
+
+        save.click();
+
+        pause(800); // your standard pause
+    }
+
+    public void clickAmendmentAMD1Tab() {
+
+        WebElement tab = wait.until(
+                ExpectedConditions.elementToBeClickable(amendmentAMD1Tab)
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", tab
+        );
+
+        tab.click();
+        pause(800);
+    }
+
+    public void enterYourName(String name) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(yourNameInput));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
+        input.click();
+        input.clear();
+        input.sendKeys(name);
+        pause(500);
+    }
+
+    public void selectGenderMale() {
+        WebElement male = wait.until(ExpectedConditions.elementToBeClickable(genderMaleRadio));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", male);
+        male.click();
+        pause(500);
+    }
+
+    public void clickSubmit() {
+
+        WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});",
+                submit
+        );
+
+        submit.click();
+        pause(800);
+    }
+
+    public void clickSave() {
+
+        WebElement save = wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});",
+                save
+        );
+
+        save.click();
+        pause(800);
+    }
+
+    public void clickAmendmentOkButton() {
+
+        WebElement okBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(amendmentOkButton)
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", okBtn
+        );
+
+        okBtn.click();
+
+        pause(800); // your standard pause
+    }
+
+    public void clickInitiateAmendment() {
+
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(initiateAmendmentButton));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});",
+                btn
+        );
+
+        btn.click();
+
+        pause(1000); // your standard pause
+    }
+}

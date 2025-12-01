@@ -10,9 +10,9 @@ import utils.WaitUtility;
 import java.time.Duration;
 import java.util.List;
 
-public class Exportcontrol_WorkflowManagement_Workflows_Page extends BasePage {
+public class WorkflowsPage extends BasePage {
 
-    public  Exportcontrol_WorkflowManagement_Workflows_Page (WebDriver driver) {
+    public WorkflowsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -25,7 +25,7 @@ public class Exportcontrol_WorkflowManagement_Workflows_Page extends BasePage {
     private By nameInputField = By.xpath("//input[@id='name' and @type='text']");
     private By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
     private By saveButton = By.xpath("//div[contains(@class,'buttons-cell')]//button[normalize-space()='Save']");
-//    private By saveButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
+    //    private By saveButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
     private String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
     private By updateButton = By.xpath("//button[normalize-space(text())='Update']");
     // Scope: the workflows grid/table
@@ -199,10 +199,3 @@ public class Exportcontrol_WorkflowManagement_Workflows_Page extends BasePage {
 
 
 }
-
-
-
-
-
-
-

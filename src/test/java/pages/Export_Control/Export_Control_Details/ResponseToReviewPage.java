@@ -1,4 +1,4 @@
-package pages.Export_Control;
+package pages.Export_Control.Export_Control_Details;
 
 import base.BasePage;
 import org.openqa.selenium.*;
@@ -7,11 +7,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Response_To_Review_Page extends BasePage {
+public class ResponseToReviewPage extends BasePage {
 
     private WebDriverWait wait;
 
-    public Response_To_Review_Page(WebDriver driver) {
+    public ResponseToReviewPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }

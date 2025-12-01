@@ -24,6 +24,7 @@
     },
     {
       "TestFilesFolderPath": "src/test/java/resources/testfiles",
+      "TestPDFFilePath": "src/test/java/resources/testfiles/Agreement Info 2025_03.pdf",
       "FileDescription": "Test Attachment"
     },
     {

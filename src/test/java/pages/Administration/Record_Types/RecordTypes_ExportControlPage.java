@@ -1,4 +1,4 @@
-package pages.Administration;
+package pages.Administration.Record_Types;
 import listeners.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,10 +13,10 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 
 
-public class Exportcontrol_RecordTypes_Page extends BasePage{
+public class RecordTypes_ExportControlPage extends BasePage{
 
 
-    public Exportcontrol_RecordTypes_Page(WebDriver driver) {
+    public RecordTypes_ExportControlPage(WebDriver driver) {
         super(driver);
     }
 
@@ -30,7 +30,7 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     private By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
     private By activeCheckbox = By.id("active");
     private By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
-//    private By cancelButton = By.xpath("//a[contains(@class,'_cancelLink_1i3of_13') and text()='Cancel']");
+    //    private By cancelButton = By.xpath("//a[contains(@class,'_cancelLink_1i3of_13') and text()='Cancel']");
 // safest: text + href (handles CSS-module class churn)
 //    private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/record-types')]");
 // safest: use text + href
@@ -43,10 +43,12 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
 // minimal (only text) — OK if no other 'Cancel' on the page
 // private By cancelButton = By.linkText("Cancel");
 
+    private By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
+
     private By searchByNameInput = By.xpath("//input[@placeholder='Search by Name']");
     private By searchButton = By.xpath("//button[@type='button' and text()='Search']");
     private By clearSelectionsButton = By.xpath("//button[@type='button' and text()='Clear Selections']");
-    private By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
+    //    private By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
     private By categoryDropdown = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
     private final String categoryOptionXpath = "//div[text()='%s']";
     private By refMeaningInput = By.xpath("//input[contains(@class,'default-input') and @type='text']");
@@ -87,10 +89,41 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
             "//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Save']"
     );
 
+    private By cancelCreateCategoryLink = By.xpath(
+            "//a[@href='/administration/record-types' and contains(@class,'_link_ogtko_1') and normalize-space()='Cancel']"
+    );
+
+
 
 
 
     //Actions
+
+    public void clickCreateCategoryCancel() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // Wait until the Cancel link is clickable
+        WebElement cancelLink = wait.until(
+                ExpectedConditions.elementToBeClickable(cancelCreateCategoryLink)
+        );
+
+        // Scroll into view
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelLink);
+        pause(500);
+
+        // Normal click with JS fallback
+        try {
+            cancelLink.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancelLink);
+        }
+
+        // Wait for navigation back to Record Types list
+        wait.until(ExpectedConditions.urlContains("/administration/record-types"));
+        pause(1000);
+    }
+
 
     public void clickSaveOnEditRecordTypeModal() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -169,11 +202,6 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
         pause(500); // optional, matches your pattern
     }
 
-
-
-
-
-
     public void selectModuleAsExportControl() {
         WebElement dropdownArrow = driver.findElement(moduleDropdownArrow);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownArrow);
@@ -192,8 +220,6 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
         pause(1000); // Optional post-click wait
     }
 
-
-
     public void enterRefMeaning(String value) {
         WebElement input = driver.findElement(refMeaningInput);
         input.clear();
@@ -202,32 +228,157 @@ public class Exportcontrol_RecordTypes_Page extends BasePage{
     }
 
 
+//    public void selectCategory(String categoryName) {
+//        WebElement dropdown = driver.findElement(categoryDropdown);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
+//        pause(1000);
+//        dropdown.click(); // Open the dropdown
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        By optionLocator = By.xpath(String.format(categoryOptionXpath, categoryName));
+//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionLocator));
+//        option.click(); // Select the category
+//
+//        ExtentReportListener.getExtentTest().pass("Selected '" + categoryName + "' from Category dropdown successfully");
+//        pause(1000);
+//    }
+
+
+    //
+//    public void selectCategory(String categoryName) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//        // 1️⃣ Locate the React-Select control (not the arrow only)
+//        By control = By.xpath("//label[normalize-space()='Select Record Type']/following::div[contains(@class,'select-control')][1]");
+//        WebElement controlEl = wait.until(ExpectedConditions.elementToBeClickable(control));
+//
+//        // Scroll into view
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", controlEl);
+//        pause(600);
+//
+//        // 2️⃣ Click to open dropdown
+//        controlEl.click();
+//        pause(600);
+//
+//        // 3️⃣ Type the category name in the input box
+//        By inputBy = By.xpath("//label[normalize-space()='Select Record Type']/following::input[@role='combobox'][1]");
+//        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(inputBy));
+//        input.clear();
+//        input.sendKeys(categoryName);
+//        pause(600);
+//
+//        // 4️⃣ Select the option from the dropdown list
+//        By optionBy = By.xpath(String.format("//div[contains(@class,'option') and text()='%s']", categoryName));
+//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionBy));
+//        option.click();
+//
+//        pause(800);
+//    }
     public void selectCategory(String categoryName) {
-        WebElement dropdown = driver.findElement(categoryDropdown);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
-        pause(1000);
-        dropdown.click(); // Open the dropdown
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        By optionLocator = By.xpath(String.format(categoryOptionXpath, categoryName));
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionLocator));
-        option.click(); // Select the category
+        // 1️⃣ Ensure we are on the Create Category page
+        wait.until(ExpectedConditions.urlContains("/administration/record-types/create-category"));
 
-        ExtentReportListener.getExtentTest().pass("Selected '" + categoryName + "' from Category dropdown successfully");
-        pause(1000);
+        // 2️⃣ Wait for the React-Select control to be visible
+        By controlBy = By.xpath(
+                "//label[contains(normalize-space(),'Select Record Type')]" +
+                        "/following::div[contains(@class,'select-control')][1]"
+        );
+
+        WebElement control = wait.until(ExpectedConditions.visibilityOfElementLocated(controlBy));
+
+        // Scroll into view
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        pause(600);
+
+        // 3️⃣ Click to open dropdown (with retry)
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(control)).click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+        }
+        pause(600);
+
+        // 4️⃣ Type the category name in the combobox
+        By inputBy = By.xpath(
+                "//label[contains(normalize-space(),'Select Record Type')]" +
+                        "/following::input[@role='combobox'][1]"
+        );
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(inputBy));
+        input.clear();
+        input.sendKeys(categoryName);
+        pause(600);
+
+        // 5️⃣ Pick the option from the dropdown list
+        By optionBy = By.xpath(
+                String.format("//div[contains(@class,'option') and normalize-space()='%s']", categoryName)
+        );
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionBy));
+        option.click();
+
+        pause(800);
     }
 
 
+
+
+
+//    public void clickAddCategoryLink() {
+//        WebElement link = driver.findElement(addCategoryLink);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+//        pause(1000); // Scroll pause
+//        link.click();
+//        pause(3000); // Wait for navigation
+//        ExtentReportListener.getExtentTest().pass("Clicked 'Add Category' link successfully");
+//    }
 
 
     public void clickAddCategoryLink() {
-        WebElement link = driver.findElement(addCategoryLink);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
-        pause(1000); // Scroll pause
-        link.click();
-        pause(3000); // Wait for navigation
-        ExtentReportListener.getExtentTest().pass("Clicked 'Add Category' link successfully");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // Wait until the link is present & clickable
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(addCategoryLink));
+
+        // Scroll into view
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+
+        pause(800); // small buffer
+
+        try {
+            // Normal click first
+            link.click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            // If something is on top (loader/header), retry with JS click
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+            } catch (Exception ignored) {
+                // Last fallback: re-find and JS click
+                try {
+                    WebElement freshLink =
+                            wait.until(ExpectedConditions.elementToBeClickable(addCategoryLink));
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", freshLink);
+                } catch (Exception ignoredAgain) {
+                    // Swallow – navigation likely already happened
+                }
+            }
+        } catch (org.openqa.selenium.StaleElementReferenceException e) {
+            // Page updated between find & click – re-locate and click via JS
+            try {
+                WebElement freshLink =
+                        wait.until(ExpectedConditions.elementToBeClickable(addCategoryLink));
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", freshLink);
+            } catch (Exception ignored) {
+                // do nothing – if it still fails, we don't want test to die here
+            }
+        }
+
+        // Give time for navigation / modal to appear
+        pause(2000);
     }
+
 
 
     public void clickClearSelectionsButton() {

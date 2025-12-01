@@ -11,15 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AdobeEsignatureReportpage extends BasePage {
+public class EsignatureReportpage extends BasePage {
 
-    public AdobeEsignatureReportpage(WebDriver driver) {super(driver);
+    public EsignatureReportpage(WebDriver driver) {super(driver);
     }
-
-
-
-
-
 
     //*****  Locator   ***************
 
@@ -218,9 +213,6 @@ public class AdobeEsignatureReportpage extends BasePage {
         try { btn.click(); } catch (Exception e) { jsClick(btn); }
     }
 
-
-
-
     public void expandAdministrationMenu() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
@@ -261,12 +253,4 @@ public class AdobeEsignatureReportpage extends BasePage {
         }
         pause(600);
     }
-
-
-
-
-
-
-
-
 }

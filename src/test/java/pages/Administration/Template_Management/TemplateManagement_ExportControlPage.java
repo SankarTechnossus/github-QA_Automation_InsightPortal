@@ -1,4 +1,4 @@
-package pages.Administration;
+package pages.Administration.Template_Management;
 
 import base.BasePage;
 import org.openqa.selenium.*;
@@ -7,9 +7,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Export_control_Template_managemnet_Pages extends BasePage {
+public class TemplateManagement_ExportControlPage extends BasePage {
 
-    public Export_control_Template_managemnet_Pages(WebDriver driver) {
+    public TemplateManagement_ExportControlPage(WebDriver driver) {
         super(driver);
     }
 
@@ -323,12 +323,12 @@ public class Export_control_Template_managemnet_Pages extends BasePage {
                 // 5) Fallback B: type-ahead + ENTER (most reliable for RS)
                 input.clear();
                 input.sendKeys(visibleText);
-             pause(300);          // tiny debounce per your pattern
+                pause(300);          // tiny debounce per your pattern
                 input.sendKeys(Keys.ENTER);
             }
         }
 
-      pause(1000); // settle
+        pause(1000); // settle
     }
 
 

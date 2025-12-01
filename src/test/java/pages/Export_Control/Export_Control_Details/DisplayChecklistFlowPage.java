@@ -1,4 +1,4 @@
-package pages.Export_Control;
+package pages.Export_Control.Export_Control_Details;
 
 import base.BasePage;
 import org.openqa.selenium.By;
@@ -10,11 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Export_control_Display_checklist_flow_page extends BasePage {
+public class DisplayChecklistFlowPage extends BasePage {
 
     private WebDriverWait wait;
 
-    public Export_control_Display_checklist_flow_page(WebDriver driver) {
+    public DisplayChecklistFlowPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }

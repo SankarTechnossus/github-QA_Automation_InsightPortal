@@ -1,4 +1,4 @@
-package pages.Administration;
+package pages.Administration.Status_Management;
 
 
 import listeners.ExtentReportListener;
@@ -9,10 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ExportControl_statusManagement_Page extends BasePage{
+public class StatusManagement_ExportControlPage extends BasePage{
 
 
-    public ExportControl_statusManagement_Page(WebDriver driver) {
+    public StatusManagement_ExportControlPage(WebDriver driver) {
         super(driver);
     }
 
@@ -25,14 +25,14 @@ public class ExportControl_statusManagement_Page extends BasePage{
     private By exportControlSubmenu = By.xpath("//a[.//span[text()='Export Control'] and contains(@class,'_menuItem')]");
     private By addStatusButton = By.xpath("//button[text()='Add Status' and contains(@class,'-primary')]");
     private By statusNameInput = By.xpath("//input[@type='text' and contains(@class,'default-input')]");
-//    private By cancelButton = By.xpath("//button[text()='Cancel' and contains(@class,'-unstyled')]");
+    //    private By cancelButton = By.xpath("//button[text()='Cancel' and contains(@class,'-unstyled')]");
     private By cancelButton = By.xpath(
             "//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Cancel']"
     );
 
     private By addButton = By.xpath("//button[text()='Add' and contains(@class,'-primary')]");
     private By statusNameEditInput = By.xpath("//label[.//span[text()='Status Name']]//input[@type='text']");
-//    private By activeDropdown = By.xpath("//label[.//span[text()='Active']]/following-sibling::div[contains(@class,'select-control')]");
+    //    private By activeDropdown = By.xpath("//label[.//span[text()='Active']]/following-sibling::div[contains(@class,'select-control')]");
 //    private By optionNo = By.xpath("//div[contains(@class,'menuPortal')]//div[text()='No']");
     private By saveButton = By.xpath("//button[text()='Save' and contains(@class,'-primary')]");
     private By activeDropdownArrow = By.xpath("//div[contains(@class,'_indicatorsContainer_') and contains(@class,'css-1wy0on6')]");

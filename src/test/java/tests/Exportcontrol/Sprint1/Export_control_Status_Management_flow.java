@@ -8,7 +8,7 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import pages.Administration.ExportControl_statusManagement_Page;
+import pages.Administration.Status_Management.StatusManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.Adobe.AgreementPage;
@@ -78,7 +78,7 @@ public class Export_control_Status_Management_flow {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
             // StatusManagement Page Actions
-            ExportControl_statusManagement_Page statusManagementPage  = new ExportControl_statusManagement_Page(driver);
+            StatusManagement_ExportControlPage statusManagementPage  = new StatusManagement_ExportControlPage(driver);
 
             basePage.pause(5000);
             statusManagementPage.clickStatusManagementLink();
