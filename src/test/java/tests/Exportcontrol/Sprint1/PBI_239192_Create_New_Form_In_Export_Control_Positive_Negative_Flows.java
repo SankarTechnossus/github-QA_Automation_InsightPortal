@@ -18,7 +18,7 @@ import utils.UniqueNameGenerator;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239192_Create_New_Form_in_Export_control_Positive_Negative_flow {
+public class PBI_239192_Create_New_Form_In_Export_Control_Positive_Negative_Flows {
 
     WebDriver driver;
     WebDriverWait wait;

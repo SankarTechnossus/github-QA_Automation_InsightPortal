@@ -13,7 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Export_control_Amend_Export_control_page;
+import pages.Export_Control.Export_Control_Details.MenuFlow;
+import pages.Export_Control.Export_Control_Details.MyActionsPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,13 +24,16 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_Amend_Export_control {
+public class PBI_239491_Export_Control_My_Actions {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AgreementPage agreementPage;
+    MenuFlow menuFlow;
+    MyActionsPage myActionsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,10 +55,13 @@ public class Export_control_Amend_Export_control {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        agreementPage = new AgreementPage(driver);
+        menuFlow = new MenuFlow(driver);
+        myActionsPage = new MyActionsPage(driver);
     }
 
     @Test
-    public void Export_control_Amend_Export_control() {
+    public void Export_control_My_actions() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -75,13 +82,56 @@ public class Export_control_Amend_Export_control {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            Export_control_Amend_Export_control_page exportamendcontrol = new Export_control_Amend_Export_control_page (driver);
+            basePage.pause(2000);
+            menuFlow.clickExportControlLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+
+            basePage.pause(2000);
+            myActionsPage.clickActionRequiredLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' from Export Control left navigation");
+
+            basePage.pause(2000);
+            // 2. Record Type = Export Control Request
+            myActionsPage.selectRecordTypeExportControlRequest();
+            ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
+
+            basePage.pause(2000);
+            // 3. Record Number
+            myActionsPage.enterRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+
+            basePage.pause(2000);
+            // 4. Transaction Type = Initial Review
+            myActionsPage.selectTransactionTypeInitialReview();
+            ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
+
+            basePage.pause(2000);
+            // 6. Search
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+
+            basePage.pause(2000);
+            myActionsPage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
+
+            basePage.pause(2000);
+            // 3. Record Number
+            myActionsPage.enterRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+
+            basePage.pause(2000);
+            // 6. Search
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+
+            basePage.pause(2000);
+            // 7. Click record link in grid
+            myActionsPage.clickFirstRecordNumberLink();
+            ExtentReportListener.getExtentTest().pass("Clicked first Record Number link '2025E006129' from Action Required grid");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -90,11 +140,9 @@ public class Export_control_Amend_Export_control {
     }
 
     @AfterMethod
-    public void tearDown()
-    {
+    public void tearDown() {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
 }

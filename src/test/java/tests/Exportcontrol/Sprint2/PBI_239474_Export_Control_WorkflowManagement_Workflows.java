@@ -14,7 +14,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.WorkflowsPage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Workflow_Management.Export_Control.*;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -24,7 +23,7 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239474_Exportcontrol_WorkflowManagement_Workflows {
+public class PBI_239474_Export_Control_WorkflowManagement_Workflows {
 
     WebDriver driver;
     WebDriverWait wait;

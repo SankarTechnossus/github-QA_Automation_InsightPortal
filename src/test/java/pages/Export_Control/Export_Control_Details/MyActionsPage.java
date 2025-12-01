@@ -7,9 +7,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Export_control_My_actions_page extends BasePage {
+public class MyActionsPage extends BasePage {
 
-    public Export_control_My_actions_page(WebDriver driver) {
+    public MyActionsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -29,7 +29,7 @@ public class Export_control_My_actions_page extends BasePage {
 
     // ****************** Functions ******************************************************
 
-    // inside Export_control_My_actions_page
+    // inside MyActionsPage
     public WebElement waitHighlightAndGetClickable(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 

@@ -1,4 +1,4 @@
-package tests.Exportcontrol.Sprint2;
+package tests.Exportcontrol.Sprint4;
 
 
 import base.BasePage;
@@ -12,9 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.RulesPage;
+import pages.Administration.Form_Visibility.FormsVisibility_ExportControlPage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Workflow_Management.Export_Control.*;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -22,20 +21,20 @@ import utils.JsonDataReader;
 
 import java.time.Duration;
 
-
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239475_Exportcontrol_WorkflowManagement_Rules_flow {
+
+public class PBI_239492_Export_Control_Forms_Visibility {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    RulesPage rulesPage;
+    FormsVisibility_ExportControlPage formsVisibilityExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -53,11 +52,11 @@ public class PBI_239475_Exportcontrol_WorkflowManagement_Rules_flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        rulesPage = new RulesPage(driver);
+        formsVisibilityExportControlPage = new FormsVisibility_ExportControlPage(driver);
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Rules_Test () {
+    public void Forms_Visibility () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -84,97 +83,78 @@ public class PBI_239475_Exportcontrol_WorkflowManagement_Rules_flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
+            basePage.pause(2000);
+            formsVisibilityExportControlPage.openExportControlUnderFormVisibility();
+            ExtentReportListener.getExtentTest().pass("Opened 'Export Control' under Form Visibility successfully");
 
-            basePage.pause(5000);
-            rulesPage.clickWorkflowManagementLinkrules();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
-
-            basePage.pause(5000);
-            rulesPage.clickRulesLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Rules' link successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.clickAddRuleButton();
+            basePage.pause(2000);
+            formsVisibilityExportControlPage.clickAddRuleButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
 
+            basePage.pause(1000);
+            formsVisibilityExportControlPage.waitForFormVisibilityModal();
+            ExtentReportListener.getExtentTest().pass("Form Visibility modal loaded successfully");
+            // Step 1 – Form
+            basePage.pause(500);
+            formsVisibilityExportControlPage.selectForm("Test");
+            ExtentReportListener.getExtentTest().pass("Selected Form: Test successfully");
 
-            basePage.pause(5000);
-            String generatedName = rulesPage.enterUniqueNameWithTestPrefix();
-            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedName + "' into Name input field successfully");
+            // Step 2 – Access
+            basePage.pause(500);
+            formsVisibilityExportControlPage.selectAccess("Hidden");
+            ExtentReportListener.getExtentTest().pass("Selected Access: Hidden successfully");
 
+            // Step 3 – Query Builder
+            basePage.pause(500);
+            formsVisibilityExportControlPage.selectQueryBuilder("AND");
+            ExtentReportListener.getExtentTest().pass("Selected Query Builder: AND successfully");
 
-            basePage.pause(5000);
-            rulesPage.selectQueryBuilderOperator("Query Builder","AND");
-            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickAddRuleInsideModal();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Rule' button inside the modal successfully");
 
-
-            basePage.pause(5000);
-            rulesPage.clickAddRuleButtonrule();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Rule' button successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.clickRemoveRuleButton();
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickRemoveRule();
             ExtentReportListener.getExtentTest().pass("Clicked 'Remove rule' button successfully");
 
-
-            basePage.pause(5000);
-            rulesPage.clickAddGroupButton();
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickAddGroup();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Group' button successfully");
 
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickRemoveGroup();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Remove Group' button successfully");
 
-            basePage.pause(5000);
-            rulesPage.clickRemoveGroupButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Remove group' button successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.clickMigrationButton();
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickMigration();
             ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
 
-
-            basePage.pause(5000);
-            rulesPage.clickMigrationButton();
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickMigration();
             ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
 
-
-            basePage.pause(5000);
-            rulesPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.clickAddRuleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
-
-
-            basePage.pause(5000);
-            String generatedNamelast = rulesPage.enterUniqueNameWithTestPrefix();
-            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedNamelast + "' into Name input field successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.selectQueryBuilderOperator("Query Builder","AND");
-            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.clickSaveButton();
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickSave();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
+            basePage.pause(500);
+            formsVisibilityExportControlPage.clickCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-            basePage.pause(5000);
-            rulesPage.clickEditButtonForRule(generatedNamelast);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNamelast + "' successfully");
+            basePage.pause(1000);
+            formsVisibilityExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first 'Edit' button successfully");
 
+            basePage.pause(800);
+            formsVisibilityExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-            basePage.pause(5000);
-            rulesPage.appendToNameField("san");
-            ExtentReportListener.getExtentTest().pass("Appended 'san' to Name input field successfully");
+            basePage.pause(1000);
+            formsVisibilityExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first 'Edit' button successfully");
 
-            basePage.pause(5000);
-            rulesPage.clickSaveButton();
+            basePage.pause(800);
+            formsVisibilityExportControlPage.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
@@ -185,11 +165,8 @@ public class PBI_239475_Exportcontrol_WorkflowManagement_Rules_flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

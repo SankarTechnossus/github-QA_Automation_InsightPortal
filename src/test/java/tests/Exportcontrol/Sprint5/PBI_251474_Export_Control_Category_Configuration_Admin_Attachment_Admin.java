@@ -1,4 +1,4 @@
-package tests.Exportcontrol.Sprint4;
+package tests.Exportcontrol.Sprint5;
 
 
 import base.BasePage;
@@ -12,8 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
 import pages.Adobe.AgreementPage;
-import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,16 +23,16 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_Initial_review_workflow {
-
+public class PBI_251474_Export_Control_Category_Configuration_Admin_Attachment_Admin {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
 
     @BeforeMethod
-    public void setupBrowser() {
+    public void setupBrowser(){
         // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
@@ -51,9 +51,11 @@ public class Export_control_Initial_review_workflow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
     }
+
     @Test
-    public void Export_control_Initial_review_workflow() {
+    public void Export_control_Category_Configuration_Admin_Attachment_Admin () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -80,8 +82,59 @@ public class Export_control_Initial_review_workflow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            InitialReviewWorkflowPage initreviewworkflow =new InitialReviewWorkflowPage(driver);
+            basePage.pause(1500);
+            attachmentTypesExportControlPage.expandAttachmentTypes();
+            ExtentReportListener.getExtentTest().pass("Expanded Attachment Types menu");
 
+            basePage.pause(1500);
+            attachmentTypesExportControlPage.clickAttachmentTypesExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked Export Control under Attachment Types successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickAddAttachmentType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickAddAttachmentType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Add button successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+
+            basePage.pause(1000);
+            attachmentTypesExportControlPage.appendTypeNameWithTest();
+            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+
+            attachmentTypesExportControlPage.clickCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+
+            basePage.pause(1000);
+            attachmentTypesExportControlPage.appendTypeNameWithTest();
+            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+
+            attachmentTypesExportControlPage.clickSave();
+            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -95,5 +148,4 @@ public class Export_control_Initial_review_workflow {
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
-
 }

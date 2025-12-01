@@ -1,4 +1,4 @@
-package tests.Exportcontrol.Sprint5;
+package tests.Exportcontrol.Sprint2;
 
 
 import base.BasePage;
@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
+import pages.Administration.ActionNamePage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -21,18 +21,19 @@ import utils.JsonDataReader;
 
 import java.time.Duration;
 
-@Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_251474_Export_control_Category_Configuration_Admin_Attachment_Admin {
+@Listeners(listeners.ExtentReportListener.class)
+public class PBI_239475_Export_Control_WorkflowManagement_ActionName_Flow {
+
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
+    ActionNamePage actionNamePage;
 
     @BeforeMethod
-    public void setupBrowser(){
+    public void setupBrowser() {
         // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
@@ -51,11 +52,11 @@ public class PBI_251474_Export_control_Category_Configuration_Admin_Attachment_A
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
+        actionNamePage = new ActionNamePage(driver);
     }
 
     @Test
-    public void Export_control_Category_Configuration_Admin_Attachment_Admin () {
+    public void Exportcontrol_WorkflowManagement_ActionName_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -82,59 +83,64 @@ public class PBI_251474_Export_control_Category_Configuration_Admin_Attachment_A
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            basePage.pause(1500);
-            attachmentTypesExportControlPage.expandAttachmentTypes();
-            ExtentReportListener.getExtentTest().pass("Expanded Attachment Types menu");
-
-            basePage.pause(1500);
-            attachmentTypesExportControlPage.clickAttachmentTypesExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked Export Control under Attachment Types successfully");
+            basePage.pause(2000);
+            actionNamePage.clickWorkflowManagementaction();
+            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
             basePage.pause(2000);
-            attachmentTypesExportControlPage.clickAddAttachmentType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+            actionNamePage.clickActionNameScope3();
+            ExtentReportListener.getExtentTest().pass("Opened 'Action name' (scopeId=3)");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.enterRandomTypeName(8);
-            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+            basePage.pause(5000);
+            actionNamePage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel successfully");
+            basePage.pause(5000);
+            String uniqueName03 = "Test_" + System.currentTimeMillis();
+            actionNamePage.enterName(uniqueName03);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickAddAttachmentType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+            basePage.pause(5000);
+            actionNamePage.enterHistoryTitle("TestSan");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.enterRandomTypeName(8);
-            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+            basePage.pause(5000);
+            actionNamePage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Add button successfully");
+            basePage.pause(5000);
+            actionNamePage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+            basePage.pause(5000);
+            String uniqueName5 = "Test_" + System.currentTimeMillis();
+            actionNamePage.enterName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
 
-            basePage.pause(1000);
-            attachmentTypesExportControlPage.appendTypeNameWithTest();
-            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+            basePage.pause(5000);
+            actionNamePage.enterHistoryTitle("TestSan");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
 
-            attachmentTypesExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
+            basePage.pause(5000);
+            actionNamePage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+            basePage.pause(5000);
+            actionNamePage.clickEditForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
 
-            basePage.pause(1000);
-            attachmentTypesExportControlPage.appendTypeNameWithTest();
-            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+            basePage.pause(5000);
+            actionNamePage.clickCancelForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for action name '" + uniqueName5 + "' successfully");
 
-            attachmentTypesExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            basePage.pause(5000);
+            actionNamePage.clickEditForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+
+            basePage.pause(5000);
+            actionNamePage.clickSaveForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for action name '" + uniqueName5 + "' successfully");
+
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -143,9 +149,11 @@ public class PBI_251474_Export_control_Category_Configuration_Admin_Attachment_A
 
     @AfterMethod
     public void tearDown() {
-        DriverManager.quitDriver();
+
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
+
 }

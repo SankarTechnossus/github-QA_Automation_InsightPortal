@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Export_control_Review_letter_page;
+import pages.Export_Control.Export_Control_Details.AddChecklistFlowPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,13 +23,14 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_Review_letter {
+public class PBI_246016_Export_Control_Add_Checklist_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AddChecklistFlowPage addChecklistFlowPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,10 +52,11 @@ public class Export_control_Review_letter {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        addChecklistFlowPage = new AddChecklistFlowPage(driver);
     }
 
     @Test
-    public void Export_control_Review_letter () {
+    public void Export_control_Add_Checklist_flow() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -81,7 +83,56 @@ public class Export_control_Review_letter {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            Export_control_Review_letter_page reviewletter =new Export_control_Review_letter_page (driver);
+            basePage.pause(3000);
+            addChecklistFlowPage.openExportControlWorkflows();
+            ExtentReportListener.getExtentTest().pass("Navigated to Workflow Management → Export Control → Workflows successfully");
+
+            basePage.pause(3000);
+            addChecklistFlowPage.clickPersonnelWorkflow();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Personnel' workflow successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickAddNewWorkflowVersion();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully on Versions page");
+
+            // Step X: Enter description for Version 90
+            String versionDescription = "Test01_" + basePage.GenerateRandomName(6);
+
+            basePage.pause(1000);
+            addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);
+            ExtentReportListener.getExtentTest().pass("Entered description for Version 90 as: " + versionDescription);
+
+            basePage.pause(1000);
+            addChecklistFlowPage.clickSaveVersion();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully for Version 90");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickLatestVersionLink();
+            ExtentReportListener.getExtentTest().pass("Clicked latest Version link successfully");
+
+            basePage.pause(3000);
+            addChecklistFlowPage.clickDraftNode();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Draft (draft1)' node successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickActionsTab();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Actions' tab successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickSubmitAction();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' action under Actions list successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickChecklistsToggle();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Checklists' section successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickUpdateButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

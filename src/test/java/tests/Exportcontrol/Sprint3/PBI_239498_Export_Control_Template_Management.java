@@ -1,6 +1,5 @@
 package tests.Exportcontrol.Sprint3;
 
-
 import base.BasePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
@@ -23,8 +22,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-
-public class PBI_239498_Export_control_Template_managemnet_Negative_case {
+public class PBI_239498_Export_Control_Template_Management {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -84,96 +82,9 @@ public class PBI_239498_Export_control_Template_managemnet_Negative_case {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
             basePage.pause(5000);
             templateManagementExportControlPage.clickTemplateManagementExportControl01();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
-
-            basePage.pause(5000);
-            templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
-
-
-            basePage.pause(3000);
-            String generatedTitle = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle);
-
-            basePage.pause(5000);
-
-            // Setting up base Directory
-            String baseDir = System.getProperty("user.dir");
-
-            // Get the file path
-            String filePath = JsonDataReader.get(4,"TestExcelFilePath");
-            String path = Paths.get(baseDir, filePath).toString();
-
-            templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: testexcel.xlsx was not successfull");
-
-            basePage.pause(3000);
-            templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
-
-            basePage.pause(5000);
-            templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
-
-
-            basePage.pause(3000);
-            String generatedTitle05 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle05);
-
-            basePage.pause(5000);
-
-            filePath = JsonDataReader.get(4,"TestJPGImgFilePath");
-            path = Paths.get(baseDir, filePath).toString();
-
-            templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: testjpg.jpg was not successfull");
-
-            basePage.pause(3000);
-            templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
-
-            basePage.pause(5000);
-            templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
-
-            basePage.pause(3000);
-            String generatedTitle03 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle03);
-
-            basePage.pause(5000);
-
-            filePath = JsonDataReader.get(4,"TestPNGImgFilePath");
-            path = Paths.get(baseDir, filePath).toString();
-
-            templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: img.png was not successfully");
-
-            basePage.pause(3000);
-            templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
-
-            basePage.pause(5000);
-            templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
-
-            basePage.pause(3000);
-            String generatedTitle02 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle02);
-
-            basePage.pause(5000);
-
-            filePath = JsonDataReader.get(4,"TestDOCXFilePath");
-            path = Paths.get(baseDir, filePath).toString();
-
-            templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: Testdata.docx was uploaded successfully");
-
-            basePage.pause(5000);
-            templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
 
             basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
@@ -184,13 +95,51 @@ public class PBI_239498_Export_control_Template_managemnet_Negative_case {
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
-            String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
-            templateManagementExportControlPage.uploadAgreementFile(filePath01);
+
+            // Setting up base Directory
+            String baseDir = System.getProperty("user.dir");
+
+            // Get the file path
+            String filePath = JsonDataReader.get(4,"TestPDFFilePath");
+            String path = Paths.get(baseDir, filePath).toString();
+
+            templateManagementExportControlPage.uploadAgreementFile(path);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
             basePage.pause(5000);
             templateManagementExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
+
+            basePage.pause(3000);
+            templateManagementExportControlPage.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
+            ExtentReportListener.getExtentTest().pass("Selected Date Format successfully");
+
+            basePage.pause(2000);
+            templateManagementExportControlPage.setActiveToNo();
+            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
+
+            basePage.pause(3000);
+            templateManagementExportControlPage.clickSaveButton01();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+            basePage.pause(2000);
+            templateManagementExportControlPage.setActive("Yes");
+            ExtentReportListener.getExtentTest().pass("Active set to 'Yes' successfully");
+
+            basePage.pause(2000);
+            templateManagementExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+            templateManagementExportControlPage.clickTemplateByTitle(generatedTitle01);
+            ExtentReportListener.getExtentTest().pass("Opened template '" + generatedTitle01 + "' from the list successfully");
+
+            basePage.pause(2000);
+            templateManagementExportControlPage.setActiveToNo();
+            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
+
+            basePage.pause(3000);
+            templateManagementExportControlPage.clickSaveButton01();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

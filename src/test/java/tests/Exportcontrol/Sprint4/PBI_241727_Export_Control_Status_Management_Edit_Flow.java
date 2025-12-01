@@ -23,13 +23,14 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_status_management_edit_flow {
+public class PBI_241727_Export_Control_Status_Management_Edit_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    StatusManagement_ExportControlPage statusManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,6 +52,7 @@ public class Export_control_status_management_edit_flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        statusManagementExportControlPage = new StatusManagement_ExportControlPage(driver);
     }
 
     @Test
@@ -81,51 +83,47 @@ public class Export_control_status_management_edit_flow {
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
             // StatusManagement Page Actions
-            StatusManagement_ExportControlPage statusManagementPage  = new StatusManagement_ExportControlPage(driver);
-
-            basePage.pause(5000);
-            statusManagementPage.clickStatusManagementLink();
+            basePage.pause(800);
+            statusManagementExportControlPage.clickStatusManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
 
-            basePage.pause(5000);
-            statusManagementPage.clickStatusManagementExportControl();
+            basePage.pause(800);
+            statusManagementExportControlPage.clickStatusManagementExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddStatusButton();
+            basePage.pause(800);
+            statusManagementExportControlPage.clickAddStatusButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
 
-            basePage.pause(5000);
-
+            basePage.pause(800);
             String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
-            statusManagementPage.enterStatusName(statusName);
+            statusManagementExportControlPage.enterStatusName(statusName);
 
             ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddButton();
+            basePage.pause(800);
+            statusManagementExportControlPage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
-            basePage.pause(5000);
-            statusManagementPage.clickDeleteButtonForStatus(statusName);
+            basePage.pause(800);
+            statusManagementExportControlPage.clickDeleteButtonForStatus(statusName);
             ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
 
-            basePage.pause(5000);
-            statusManagementPage.clickEditButtonForStatus(statusName);
+            basePage.pause(800);
+            statusManagementExportControlPage.clickEditButtonForStatus(statusName);
             ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
 
-            basePage.pause(5000);
-            statusManagementPage.appendToStatusName("SAN01");
+            basePage.pause(800);
+            statusManagementExportControlPage.appendToStatusName("SAN01");
             ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
 
-            basePage.pause(3000);
-            statusManagementPage.selectActiveAsNo();
+            basePage.pause(800);
+            statusManagementExportControlPage.selectActiveAsNo();
             ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
 
-            basePage.pause(5000);
-            statusManagementPage.clickSaveButton();
+            basePage.pause(800);
+            statusManagementExportControlPage.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());

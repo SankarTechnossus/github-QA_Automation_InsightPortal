@@ -23,17 +23,18 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_Initial_application_management {
+public class PBI_245940_Export_Control_Initial_Application_Management {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    InitialApplicationManagement_ExportControlPage initialApplicationManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -51,6 +52,7 @@ public class Export_control_Initial_application_management {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        initialApplicationManagementExportControlPage = new InitialApplicationManagement_ExportControlPage(driver);
     }
 
     @Test
@@ -81,7 +83,52 @@ public class Export_control_Initial_application_management {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            InitialApplicationManagement_ExportControlPage initialappmanagemnet = new InitialApplicationManagement_ExportControlPage(driver);
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.openInitialApplicationManagementExportControl();
+            ExtentReportListener.getExtentTest().pass("Opened Initial Application Management > Export Control successfully");
+
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.clickAddInitialApplication();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Initial Application' successfully");
+
+            basePage.pause(1000);
+            String actionName = initialApplicationManagementExportControlPage.enterRandomActionAndSelectEntity();
+            ExtentReportListener.getExtentTest().pass("Entered Action Name: " + actionName);
+
+            // Step 4: Click Cancel
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.clickCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel on modal");
+
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.clickAddInitialApplication();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Initial Application' successfully");
+
+            basePage.pause(1000);
+            String actionName01 = initialApplicationManagementExportControlPage.enterRandomActionAndSelectEntity();
+            ExtentReportListener.getExtentTest().pass("Entered Action Name: " + actionName01);
+
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+
+            // Step : Click first Edit button
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for the first Initial Application row successfully");
+
+            basePage.pause(800);
+            initialApplicationManagementExportControlPage.clickInlineCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel on the inline edit row successfully");
+
+            // Step : Click first Edit button
+            basePage.pause(1000);
+            initialApplicationManagementExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for the first Initial Application row successfully");
+
+            basePage.pause(800);
+            initialApplicationManagementExportControlPage.clickInlineSave();
+            ExtentReportListener.getExtentTest().pass("Clicked Save on the inline edit row successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -94,7 +141,5 @@ public class Export_control_Initial_application_management {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }
