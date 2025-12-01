@@ -8,23 +8,24 @@ import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
+import pages.Administration.Forms_Management.FormsManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Exportcontrol_formBuilder_Page;
 import utils.DriverManager;
 import utils.JsonDataReader;
 import utils.UniqueNameGenerator;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Create_New_Form_in_Export_control_Positive_Negative_flow {
+public class PBI_239192_Create_New_Form_in_Export_control_Positive_Negative_flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    FormsManagement_ExportControlPage formsManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -46,6 +47,7 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        formsManagementExportControlPage = new FormsManagement_ExportControlPage(driver);
     }
 
     @Test
@@ -159,138 +161,134 @@ public class Create_New_Form_in_Export_control_Positive_Negative_flow {
             ExtentReportListener.getExtentTest().pass("Clicked on 'Version 1' link");
 
 
-            // Agreement Page Actions
-            Exportcontrol_formBuilder_Page formBuilderPage01 = new Exportcontrol_formBuilder_Page(driver);
-
-
             basePage.pause(9000);
-            formBuilderPage01.clickAddRootLevelQuestionButton();
+            formsManagementExportControlPage.clickAddRootLevelQuestionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add root level question' button");
 
 
             basePage.pause(9000);
-            formBuilderPage01.clickRadioButtonGroupOption();
+            formsManagementExportControlPage.clickRadioButtonGroupOption();
             ExtentReportListener.getExtentTest().pass("Clicked 'Radio button group' in Add Question Modal");
 
 
             basePage.pause(7000);
-            formBuilderPage01.enterRadioOption1Text("Yes");
+            formsManagementExportControlPage.enterRadioOption1Text("Yes");
             ExtentReportListener.getExtentTest().pass("Entered text 'Yes' into the first radio option input");
 
 
             basePage.pause(5000);
-            formBuilderPage01.clickAddOptionButton();
+            formsManagementExportControlPage.clickAddOptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add option' button to add new radio choice");
 
 
             basePage.pause(5000);
-            formBuilderPage01.enterRadioOption2Text("No");
+            formsManagementExportControlPage.enterRadioOption2Text("No");
             ExtentReportListener.getExtentTest().pass("Entered text 'No' into the second radio option input");
 
 
             basePage.pause(8000);
-            formBuilderPage01.checkReadOnly();
+            formsManagementExportControlPage.checkReadOnly();
             ExtentReportListener.getExtentTest().pass("Checked the 'Read only' checkbox");
 
 
             basePage.pause(5000);
-            formBuilderPage01.enterHelpText("test13");
+            formsManagementExportControlPage.enterHelpText("test13");
             ExtentReportListener.getExtentTest().pass("Entered help text as 'test01'");
 
 
             basePage.pause(5000);
-            formBuilderPage01.clickApplyButton();
+            formsManagementExportControlPage.clickApplyButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Apply' button");
 
 
             basePage.pause(5000);
-            formBuilderPage01.clickPreviewLink();
+            formsManagementExportControlPage.clickPreviewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Preview' link");
 
             basePage.pause(5000);
-            formBuilderPage01.clickClosePreviewLink();
+            formsManagementExportControlPage.clickClosePreviewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Close preview' link");
 
             basePage.pause(5000);
-            formBuilderPage01.clickSaveButton();
+            formsManagementExportControlPage.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button");
 
             //********** Negative_case ************
 
             basePage.pause(10000);
-            formBuilderPage01.clickAddChildQuestion();
+            formsManagementExportControlPage.clickAddChildQuestion();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add child question' button successfully");
 
 
             basePage.pause(10000);
-            formBuilderPage01.clickOutsidePopupByOffset();
+            formsManagementExportControlPage.clickOutsidePopupByOffset();
             ExtentReportListener.getExtentTest().pass("Clicked outside popup using offset successfully");
 
 
             basePage.pause(10000);
-            formBuilderPage01.clickMoveButton();
+            formsManagementExportControlPage.clickMoveButton();
             ExtentReportListener.getExtentTest().pass(" Clicked 'Move' button successfully");
 
 
             basePage.pause(10000);
-            formBuilderPage01.clickCancelMovingButton();
+            formsManagementExportControlPage.clickCancelMovingButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel moving' button successfully");
 
             basePage.pause(10000);
-            formBuilderPage01.clickEditButton();
+            formsManagementExportControlPage.clickEditButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button successfully");
 
             basePage.pause(8000);
-            formBuilderPage01.clickCancelButton();
+            formsManagementExportControlPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(8000);
-            formBuilderPage01.clickRemoveButton();
+            formsManagementExportControlPage.clickRemoveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Remove' button successfully");
 
 
             basePage.pause(9000);
-            formBuilderPage01.clickUndoButton();
+            formsManagementExportControlPage.clickUndoButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Undo' button successfully");
 
 
             basePage.pause(8000);
-            formBuilderPage01.clickTestFormLink();
+            formsManagementExportControlPage.clickTestFormLink();
             ExtentReportListener.getExtentTest().pass("Clicked on test form link successfully");
 
 
             basePage.pause(10000);
-            formBuilderPage01.clickEditDescriptionButton();
+            formsManagementExportControlPage.clickEditDescriptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
 
 
             basePage.pause(10000);
-            formBuilderPage01.clickCancelButtononversionedit01();
+            formsManagementExportControlPage.clickCancelButtononversionedit01();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(10000);
-            formBuilderPage01.clickEditDescriptionButton();
+            formsManagementExportControlPage.clickEditDescriptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
 
             basePage.pause(10000);
-            formBuilderPage01.enterVersionText("Sanversion01");
+            formsManagementExportControlPage.enterVersionText("Sanversion01");
             ExtentReportListener.getExtentTest().pass("Entered text 'Sanversion' into version description box successfully");
 
             basePage.pause(10000);
-            formBuilderPage01.clickSaveButtonsmall();
+            formsManagementExportControlPage.clickSaveButtonsmall();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
             basePage.pause(9000);
-            formBuilderPage01.clickAddNewButton();
+            formsManagementExportControlPage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully");
 
 
             basePage.pause(9000);
-            formBuilderPage01.clickCancelButtonaddnewcancel();
+            formsManagementExportControlPage.clickCancelButtonaddnewcancel();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(5000);
-            formBuilderPage01.clickFormManagementLink();
+            formsManagementExportControlPage.clickFormManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Form Management' link successfully");
 
 

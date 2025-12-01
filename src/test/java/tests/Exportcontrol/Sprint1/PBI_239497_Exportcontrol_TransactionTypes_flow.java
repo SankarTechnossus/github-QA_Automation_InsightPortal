@@ -20,17 +20,20 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Exportcontrol_TransactionTypes_flow {
+public class PBI_239497_Exportcontrol_TransactionTypes_flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AgreementPage agreementPage;
+    TransactionTypes_ExportControlPage transactionTypesExportControlPage;
+    RecordTypes_ExportControlPage recordTypesExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+        //User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -48,6 +51,9 @@ public class Exportcontrol_TransactionTypes_flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        agreementPage = new AgreementPage(driver);
+        transactionTypesExportControlPage = new TransactionTypes_ExportControlPage(driver);
+        recordTypesExportControlPage = new RecordTypes_ExportControlPage(driver);
     }
 
     @Test
@@ -71,104 +77,71 @@ public class Exportcontrol_TransactionTypes_flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
             basePage.pause(10000);
+
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            TransactionTypes_ExportControlPage transactionTypesPage = new TransactionTypes_ExportControlPage(driver);
-
-            basePage.pause(5000);
-            transactionTypesPage.clickTransactionTypesLink();
+            basePage.pause(800);
+            transactionTypesExportControlPage.clickTransactionTypesLink();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Transaction Types' link from left navigation");
 
-
-            basePage.pause(5000);
-            transactionTypesPage.clickAddNewTransactionType();
+            basePage.pause(800);
+            transactionTypesExportControlPage.clickAddNewTransactionType();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Transaction Types page");
 
-
-            basePage.pause(5000);
-            transactionTypesPage.enterTransactionType("Test");
+            basePage.pause(800);
+            transactionTypesExportControlPage.enterTransactionType("Test");
             ExtentReportListener.getExtentTest().pass("Entered 'Test' into Transaction Type input field");
 
-
-            RecordTypes_ExportControlPage adminPageRecordtypes = new RecordTypes_ExportControlPage(driver);
-
-
-            basePage.pause(10000);
-            transactionTypesPage.checkActiveCheckbox();
+            basePage.pause(1000);
+            transactionTypesExportControlPage.checkActiveCheckbox();
             ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
 
-//
-//
-//            basePage.pause(5000);
-//            adminPageRecordtypes.clickCreateButton();
-//            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+            basePage.pause(1000);
+            transactionTypesExportControlPage.clickCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel link successfully");
 
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
-
-
-            basePage.pause(5000);
-            transactionTypesPage.clickAddNewTransactionType();
+            basePage.pause(800);
+            transactionTypesExportControlPage.clickAddNewTransactionType();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Transaction Types page");
 
-
-            basePage.pause(10000);
-            String transactionTypeName = transactionTypesPage.generateUniqueTransactionTypeName();
-            transactionTypesPage.enterTransactionType(transactionTypeName);
+            basePage.pause(1000);
+            String transactionTypeName = transactionTypesExportControlPage.generateUniqueTransactionTypeName();
+            transactionTypesExportControlPage.enterTransactionType(transactionTypeName);
             ExtentReportListener.getExtentTest().pass("Entered '" + transactionTypeName + "' into Transaction Type input field");
 
-
-
-            basePage.pause(10000);
-            transactionTypesPage.checkActiveCheckbox();
+            basePage.pause(800);
+            transactionTypesExportControlPage.checkActiveCheckbox();
             ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
 
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCreateButton();
+            basePage.pause(800);
+            recordTypesExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
-
             basePage.pause(10000);
-            transactionTypesPage.enterSearchByName("Test");
+            transactionTypesExportControlPage.enterSearchByName("Test");
             ExtentReportListener.getExtentTest().pass("Entered 'Test001' into Search by Name input field");
 
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickSearchButton();
+            basePage.pause(800);
+            recordTypesExportControlPage.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
 
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickClearSelectionsButton();
+            basePage.pause(800);
+            recordTypesExportControlPage.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
-
-
-            basePage.pause(10000);
-            transactionTypesPage.enterSearchByName("@@@@@@@@@@");
+            basePage.pause(800);
+            transactionTypesExportControlPage.enterSearchByName("@@@@@@@@@@");
             ExtentReportListener.getExtentTest().pass("Entered 'Test001' into Search by Name input field");
 
-
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickSearchButton();
+            basePage.pause(800);
+            recordTypesExportControlPage.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
 
-
-
-            basePage.pause(5000);
-            adminPageRecordtypes.clickClearSelectionsButton();
+            basePage.pause(800);
+            recordTypesExportControlPage.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
-
-
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -178,8 +151,7 @@ public class Exportcontrol_TransactionTypes_flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 

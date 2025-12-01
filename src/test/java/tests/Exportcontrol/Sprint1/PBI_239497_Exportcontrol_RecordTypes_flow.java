@@ -19,7 +19,7 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class Exportcontrol_RecordTypes_flow {
+public class PBI_239497_Exportcontrol_RecordTypes_flow {
 
     WebDriver driver;
     WebDriverWait wait;
