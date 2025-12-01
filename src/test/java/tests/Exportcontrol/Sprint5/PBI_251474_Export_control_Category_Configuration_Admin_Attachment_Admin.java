@@ -12,9 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
 import pages.Adobe.AgreementPage;
-import pages.Export_Control.Export_Control_Details.MenuFlow;
-import pages.Export_Control.Export_Control_Details.NotesPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -24,16 +23,16 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class Export_control_Notes {
-
+public class PBI_251474_Export_control_Category_Configuration_Admin_Attachment_Admin {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
 
     @BeforeMethod
-    public void setupBrowser() {
+    public void setupBrowser(){
         // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
@@ -52,9 +51,11 @@ public class Export_control_Notes {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
     }
+
     @Test
-    public void Export_control_Notes () {
+    public void Export_control_Category_Configuration_Admin_Attachment_Admin () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -81,76 +82,59 @@ public class Export_control_Notes {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
+            basePage.pause(1500);
+            attachmentTypesExportControlPage.expandAttachmentTypes();
+            ExtentReportListener.getExtentTest().pass("Expanded Attachment Types menu");
 
-            NotesPage exportcontrolnotes = new NotesPage(driver);
+            basePage.pause(1500);
+            attachmentTypesExportControlPage.clickAttachmentTypesExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked Export Control under Attachment Types successfully");
 
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickAddAttachmentType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
 
-            MenuFlow menuflowexport = new MenuFlow(driver);
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
 
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel successfully");
 
-            basePage.pause(3000);
-            menuflowexport.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickAddAttachmentType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
 
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Add button successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
 
             basePage.pause(1000);
-            menuflowexport.clickSearchLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
+            attachmentTypesExportControlPage.appendTypeNameWithTest();
+            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+
+            attachmentTypesExportControlPage.clickCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
+
+            basePage.pause(2000);
+            attachmentTypesExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
 
             basePage.pause(1000);
-            menuflowexport.setStatusCompleted();
-            ExtentReportListener.getExtentTest().pass("Selected Status: Completed");
+            attachmentTypesExportControlPage.appendTypeNameWithTest();
+            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
 
-            basePage.pause(2000);
-            menuflowexport.setRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-
-            basePage.pause(3000);
-            String[] created = menuflowexport.enterCreatedOnRandomRange();
-            ExtentReportListener.getExtentTest().pass("Created On  From: " + created[0] + "  To: " + created[1]);
-
-            String[] review = menuflowexport.enterReviewDateRandomRange();
-            ExtentReportListener.getExtentTest().pass("Review date From: " + review[0] + "  To: " + review[1]);
-
-            basePage.pause(2000);
-            menuflowexport.setAgreementNumbers("01");
-            ExtentReportListener.getExtentTest().pass("Entered Agreement Numbers: 01");
-
-            basePage.pause(2000);
-            menuflowexport.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search");
-
-            basePage.pause(2000);
-            menuflowexport.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
-
-            basePage.pause(2000);
-            menuflowexport.setRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-            basePage.pause(2000);
-            menuflowexport.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search");
-
-            basePage.pause(2000);
-            menuflowexport.clickRecordNumberFromSearchGrid();
-            ExtentReportListener.getExtentTest().pass("Clicked Record Number link 2025E006129 from Search grid");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            attachmentTypesExportControlPage.clickSave();
+            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -159,11 +143,9 @@ public class Export_control_Notes {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
-
 }
