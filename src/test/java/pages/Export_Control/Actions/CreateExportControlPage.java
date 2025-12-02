@@ -540,8 +540,8 @@ public class CreateExportControlPage extends BasePage {
 
         // Select PI Name
         type(inputSelectPI, pi);
-        pause(1000);
-        click(piSelection);
+        pause(3000);
+        driver.findElement(By.xpath("//div[text()='" + pi + "']/..")).click();
         pause(2000);
 
         // Click Create button

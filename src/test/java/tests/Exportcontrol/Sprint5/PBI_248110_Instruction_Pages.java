@@ -18,6 +18,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.WaitUtility;
 
 import java.time.Duration;
 
@@ -32,6 +33,7 @@ public class PBI_248110_Instruction_Pages {
     DashboardPage dashboardPage;
     CreateExportControlPage createExportControlPage;
     InstructionsManagement_ExportControlPage instructionsManagementExportControlPage;
+    WaitUtility waitUtility;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -55,6 +57,7 @@ public class PBI_248110_Instruction_Pages {
         dashboardPage = new DashboardPage(driver);
         createExportControlPage = new CreateExportControlPage(driver);
         instructionsManagementExportControlPage = new InstructionsManagement_ExportControlPage(driver);
+        waitUtility = new WaitUtility(driver);
     }
 
     @Test
@@ -75,6 +78,7 @@ public class PBI_248110_Instruction_Pages {
 
             // Login into the application
             loginPage.LoginIntoApplication(userName, password);
+            waitUtility.waitUntilPageLoad(driver, 120);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
@@ -84,6 +88,8 @@ public class PBI_248110_Instruction_Pages {
             ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
 
             // Navigate to Export Control under Instructions Management module
+            waitUtility.waitUntilPageLoad(driver, 120);
+
             instructionsManagementExportControlPage.NavigateToInstructionsManagementExportControlPage();
             Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/instructions-management");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Instructions Management.");

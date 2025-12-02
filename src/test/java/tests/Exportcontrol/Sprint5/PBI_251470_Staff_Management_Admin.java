@@ -17,6 +17,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.WaitUtility;
 
 import java.time.Duration;
 
@@ -30,6 +31,7 @@ public class PBI_251470_Staff_Management_Admin {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     PeopleManagement_ExportControlPage peopleManagementExportControlPage;
+    WaitUtility waitUtility;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -52,6 +54,7 @@ public class PBI_251470_Staff_Management_Admin {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         peopleManagementExportControlPage = new PeopleManagement_ExportControlPage(driver);
+        waitUtility = new WaitUtility(driver);
     }
 
     @Test
@@ -73,6 +76,7 @@ public class PBI_251470_Staff_Management_Admin {
             // Login into the application
             loginPage.LoginIntoApplication(userName, password);
 
+            waitUtility.waitUntilPageLoad(driver, 120);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
@@ -81,6 +85,7 @@ public class PBI_251470_Staff_Management_Admin {
             ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
 
             // Navigate to Export Control under People Management
+            waitUtility.waitUntilPageLoad(driver, 120);
             peopleManagementExportControlPage.NavigateToPeopleManagementExportControlPage();
             Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/people-management");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under People Management.");

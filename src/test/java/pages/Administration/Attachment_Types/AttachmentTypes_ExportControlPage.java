@@ -60,8 +60,13 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     public void NavigateToAttachmentTypesExportControlPage() {
 
         //Click on Attachment Types navigation link
-        waitForPresence(linkAttachmentTypes);
-        click(linkAttachmentTypes);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkAttachmentTypes));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        link.click();
+
+        //waitForPresence(linkAttachmentTypes);
+        //click(linkAttachmentTypes);
         pause(5000);
 
         //Click on Export Control under People Management

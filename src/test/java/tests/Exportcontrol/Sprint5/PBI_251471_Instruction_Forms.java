@@ -19,6 +19,7 @@ import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 import utils.UniqueNameGenerator;
+import utils.WaitUtility;
 
 import java.time.Duration;
 
@@ -33,6 +34,7 @@ public class PBI_251471_Instruction_Forms {
     DashboardPage dashboardPage;
     FormsManagement_ExportControlPage formsManagementExportControlPage;
     CreateExportControlPage createExportControlPage;
+    WaitUtility waitUtility;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -56,6 +58,7 @@ public class PBI_251471_Instruction_Forms {
         dashboardPage = new DashboardPage(driver);
         formsManagementExportControlPage = new FormsManagement_ExportControlPage(driver);
         createExportControlPage = new CreateExportControlPage(driver);
+        waitUtility = new WaitUtility(driver);
     }
 
     @Test
@@ -77,6 +80,7 @@ public class PBI_251471_Instruction_Forms {
             // Login into the application
             loginPage.LoginIntoApplication(userName, password);
 
+            waitUtility.waitUntilPageLoad(driver, 120);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
@@ -85,6 +89,7 @@ public class PBI_251471_Instruction_Forms {
             ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
 
             // Navigate to Export Control under Forms Management
+            waitUtility.waitUntilPageLoad(driver, 120);
             formsManagementExportControlPage.NavigateToFormsManagementExportControlPage();
             Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/forms-management-export-control");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Forms Management.");
