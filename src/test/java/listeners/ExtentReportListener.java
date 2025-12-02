@@ -29,28 +29,48 @@ public class ExtentReportListener implements ITestListener {
         return test.get();
     }
 
-    private void configureReport(ITestContext context) {
-    String className = context.getAllTestMethods()[0].getRealClass().getSimpleName();
-    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    String reportFileName = className + "_" + timeStamp + ".html";
+    private void configureReport(ITestContext context)
+    {
+        // Determine the best report base name
+        String baseName;
 
-    String reportsDirPath = System.getProperty("user.dir") + "/test_reports";
-    File reportsDir = new File(reportsDirPath);
-    if (!reportsDir.exists()) reportsDir.mkdirs();
+        if (context.getSuite() != null && context.getSuite().getName() != null) {
+            // Running from runner.xml → use suite name
+            baseName = context.getSuite().getName();
+        }
+        else if (context.getName() != null) {
+            // Test-level fallback
+            baseName = context.getName();
+        }
+        else if (context.getAllTestMethods().length > 0) {
+            // Class-level fallback
+            baseName = context.getAllTestMethods()[0].getRealClass().getSimpleName();
+        }
+        else {
+            baseName = "AutomationReport";
+        }
 
-    ExtentSparkReporter spark = new ExtentSparkReporter(reportsDirPath + "/" + reportFileName);
-    spark.config().setDocumentTitle(className + " Report");
+        //String className = context.getAllTestMethods()[0].getRealClass().getSimpleName();
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        String reportFileName = baseName + "_" + timeStamp + ".html";
 
-    spark.config().setReportName("MGB Automation Report");
-    spark.config().setTheme(Theme.DARK);
+        String reportsDirPath = System.getProperty("user.dir") + "/test_reports";
+        File reportsDir = new File(reportsDirPath);
+        if (!reportsDir.exists()) reportsDir.mkdirs();
 
-    extent = new ExtentReports();
-    extent.attachReporter(spark);
+        ExtentSparkReporter spark = new ExtentSparkReporter(reportsDirPath + "/" + reportFileName);
+        spark.config().setDocumentTitle(baseName + " Report");
 
-    extent.setSystemInfo("Host Name", "Automation Host");
-    extent.setSystemInfo("Environment", "QA");
-    extent.setSystemInfo("User", "Shankar");
-}
+        spark.config().setReportName("MGB Automation Report");
+        spark.config().setTheme(Theme.DARK);
+
+        extent = new ExtentReports();
+        extent.attachReporter(spark);
+
+        extent.setSystemInfo("Host Name", "Automation Host");
+        extent.setSystemInfo("Environment", "QA");
+        extent.setSystemInfo("User", "Shankar");
+    }
 
     @Override
     public synchronized void onStart(ITestContext context) {
