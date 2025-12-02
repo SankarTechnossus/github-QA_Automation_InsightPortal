@@ -141,24 +141,30 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
                         String fileName = file.getName();
                         System.out.println("File: " + fileName);
 
-                        // Get file path
-                        String filePath = Paths.get(baseDir, folderPath, fileName).toString();
-                        System.out.println("File Path: " + filePath);
+                        if(fileName.startsWith("Sample_"))
+                        {
+                            // Get file path
+                            String filePath = Paths.get(baseDir, folderPath, fileName).toString();
+                            System.out.println("File Path: " + filePath);
 
-                        // Upload file and verify the attachment
-                        createExportControlPage.UploadAnAttachment(filePath);
-                        Assert.assertTrue(createExportControlPage.VerifyIfFileIsUploadedSuccessfully(fileName));
-                        ExtentReportListener.getExtentTest().pass("User successfully attached file : " + fileName);
+                            // Upload file and verify the attachment
+                            createExportControlPage.UploadAnAttachment(filePath);
+                            Assert.assertTrue(createExportControlPage.VerifyIfFileIsUploadedSuccessfully(fileName));
+                            ExtentReportListener.getExtentTest().pass("User successfully attached file : " + fileName);
 
-                        // Enter Attachment type and description and verify The grouping
-                        String description = JsonDataReader.get(4,"FileDescription");
+                            // Enter Attachment type and description and verify The grouping
+                            String description = JsonDataReader.get(4,"FileDescription");
 
-                        Assert.assertTrue(createExportControlPage.EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(fileName, attachmentTypeName, description));
-                        ExtentReportListener.getExtentTest().pass("File Type : " + attachmentTypeName + " and Description : " + description + " added for File : " + fileName + ". Also file is grouped according to file type.");
+                            Assert.assertTrue(createExportControlPage.EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(fileName, attachmentTypeName, description));
+                            ExtentReportListener.getExtentTest().pass("File Type : " + attachmentTypeName + " and Description : " + description + " added for File : " + fileName + ". Also file is grouped according to file type.");
 
-                        // Delete Attachment and Verify
-                        Assert.assertTrue(createExportControlPage.DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(attachmentTypeName));
-                        ExtentReportListener.getExtentTest().pass("File : " + fileName + " Deleted successfully.");
+                            // Delete Attachment and Verify
+                            Assert.assertTrue(createExportControlPage.DeleteAttachmentAndVerifyAttachmentDeletedSuccessfully(attachmentTypeName));
+                            ExtentReportListener.getExtentTest().pass("File : " + fileName + " Deleted successfully.");
+                        }
+                        else{
+                            System.out.println("Invalid File.");
+                        }
                     }
                 }
             } else

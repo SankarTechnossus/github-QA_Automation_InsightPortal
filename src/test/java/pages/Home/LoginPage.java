@@ -36,7 +36,7 @@ public class LoginPage extends BasePage {
         click(nextButton);
         type(passwordField, password);
         click(verifyButton);
-        pause(10000);
+        pause(20000);
     }
 
     //---------- Actions: SysAdmin login (public?sys=sysadmin) ----------

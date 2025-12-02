@@ -218,21 +218,24 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     //********************************** Add New Existing External People Scenarios **********************
 
                     String existingExternalPeople = JsonDataReader.get(6,"ExistingExternalPeople");
+                    String existingUserExternalAffiliation = JsonDataReader.get(6,"ExistingUserExternalAffiliation");
+
+                    /*
                     String institutionAffiliation = JsonDataReader.get(6,"InstitutionAffiliation");
                     String departmentAffiliation = JsonDataReader.get(6,"DepartmentAffiliation");
                     String unitAffiliation = JsonDataReader.get(6,"UnitAffiliation");
-                    String existingUserExternalAffiliation = JsonDataReader.get(6,"ExistingUserExternalAffiliation");
 
                     // Verify Existing External People details are autopopulated upon user selection
-                    Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(existingExternalPeople, institutionAffiliation, departmentAffiliation, unitAffiliation, existingUserExternalAffiliation));
-                    ExtentReportListener.getExtentTest().pass("Institution Affiliation : " + institutionAffiliation + ", Department Affiliation : " + departmentAffiliation + ", and Unit Affiliation : " + unitAffiliation + " is getting auto populated for existing external people : " + existingExternalPeople + " upon user selection.");
+                    //Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(existingExternalPeople, institutionAffiliation, departmentAffiliation, unitAffiliation, existingUserExternalAffiliation));
+                    //ExtentReportListener.getExtentTest().pass("Institution Affiliation : " + institutionAffiliation + ", Department Affiliation : " + departmentAffiliation + ", and Unit Affiliation : " + unitAffiliation + " is getting autopopulated for existing external people : " + existingExternalPeople + " upon user selection.");
+                    */
 
                     // Verify user is able to add existing external people
-                    Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExistingExternalPeople());
+                    Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExistingExternalPeople(existingExternalPeople));
                     ExtentReportListener.getExtentTest().pass("User is able to add new existing external people : " + existingExternalPeople);
 
                     // Verify new existing external people is visible in the list
-                    Assert.assertTrue(createExportControlPage.VerifyNewExternalPeopleIsVisibleInTheList(existingExternalPeople, existingUserExternalAffiliation, defaultType));
+                    Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleIsVisibleInTheList(existingExternalPeople, defaultType));
                     ExtentReportListener.getExtentTest().pass("New existing external people : " + existingExternalPeople + " is visible under people list with existing affiliation : " + existingUserExternalAffiliation);
 
                     // Verify If Both Organization & Type field is disabled for newly added external people

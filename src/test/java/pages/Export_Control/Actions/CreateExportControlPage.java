@@ -796,6 +796,22 @@ public class CreateExportControlPage extends BasePage {
         return result;
     }
 
+    public boolean VerifyExistingExternalPeopleIsVisibleInTheList(String name, String type) {
+        boolean result = false;
+
+        By elementUserName = By.xpath("//div[text()='" + name + "']");
+        waitForPresence(elementUserName);
+
+        By elementTypeName = By.xpath("//div[text()='" + type + "']");
+        waitForPresence(elementUserName);
+
+        if(driver.findElement(elementUserName).isDisplayed() && driver.findElement(elementTypeName).isDisplayed())
+        {
+            result = true;
+        }
+        return result;
+    }
+
     public boolean VerifyBothOrganizationAndTypeFieldsAreDisabledForNewlyAddedExternalPeople(String orgName, String typeName) {
         boolean result = false;
 
@@ -883,8 +899,18 @@ public class CreateExportControlPage extends BasePage {
         pause(1000);
     }
 
-    public boolean VerifyUserIsAbleToAddExistingExternalPeople() {
+    public boolean VerifyUserIsAbleToAddExistingExternalPeople(String existingExternalPeople) {
         boolean result = false;
+
+        // Select Existing External People
+        click(inputSearchForUsers);
+        type(inputSearchForUsers, existingExternalPeople);
+        pause(2000);
+
+        By elementUser = By.xpath("//div[text()='" + existingExternalPeople + "']");
+        click(elementUser);
+
+        pause(2000);
 
         click(buttonAdd);
         pause(2000);

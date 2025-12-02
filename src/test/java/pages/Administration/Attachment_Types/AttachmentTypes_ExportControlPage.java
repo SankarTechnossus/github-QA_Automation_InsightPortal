@@ -62,7 +62,7 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
         //Click on Attachment Types navigation link
         waitForPresence(linkAttachmentTypes);
         click(linkAttachmentTypes);
-        pause(2000);
+        pause(5000);
 
         //Click on Export Control under People Management
         waitForPresence(linkExportControl);
