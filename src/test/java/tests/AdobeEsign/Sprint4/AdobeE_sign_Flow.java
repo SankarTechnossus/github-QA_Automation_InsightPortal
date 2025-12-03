@@ -133,7 +133,8 @@ public class AdobeE_sign_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Adobe integration icon");
 
-            String agreementFileName01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            String folderPath = JsonDataReader.get(4,"TestFilesFolderPath");
+            String agreementFileName01 = System.getProperty("user.dir") + folderPath + "/Agreement Info 2025_03.pdf";
             agreementPage.uploadAgreementPdf(agreementFileName01);
             basePage.pause(5000); // Optional, for stability
             ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025_03.pdf'");
@@ -165,7 +166,7 @@ public class AdobeE_sign_Flow {
             basePage.pause(5000);
             ExtentReportListener.getExtentTest().pass("Clicked Adobe integration icon");
 
-            String agreementFileName = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            String agreementFileName = System.getProperty("user.dir") + folderPath + "/Agreement Info 2025_03.pdf";
             agreementPage.uploadAgreementPdf(agreementFileName);
             basePage.pause(5000); // Optional, for stability
             ExtentReportListener.getExtentTest().pass("Successfully uploaded 'Agreement Info 2025_03.pdf'");

@@ -184,7 +184,9 @@ public class PBI_239498_Export_Control_Template_Management_Negative_Cases {
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
-            String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            filePath = JsonDataReader.get(4,"TestPDFFilePath");
+
+            String filePath01 = System.getProperty("user.dir") + filePath;
             templateManagementExportControlPage.uploadAgreementFile(filePath01);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
