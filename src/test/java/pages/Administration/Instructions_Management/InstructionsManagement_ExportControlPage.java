@@ -1,10 +1,11 @@
 package pages.Administration.Instructions_Management;
 
 import base.BasePage;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Objects;
 
 public class InstructionsManagement_ExportControlPage extends BasePage {
@@ -30,8 +31,13 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
     public void NavigateToInstructionsManagementExportControlPage() {
 
         //Click on Instructions Management navigation link
-        waitForPresence(linkInstructionsManagement);
-        click(linkInstructionsManagement);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkInstructionsManagement));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        link.click();
+
+        //waitForPresence(linkInstructionsManagement);
+        //click(linkInstructionsManagement);
         pause(2000);
 
         //Click on Export Control under Forms Management
@@ -162,5 +168,4 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
         click(navBackLinkInstructionsManagement);
         pause(2000);
     }
-
 }

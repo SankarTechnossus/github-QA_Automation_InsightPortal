@@ -1,5 +1,6 @@
 package utils;
 
+import base.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -9,7 +10,12 @@ import java.io.File;
 import java.time.Duration;
 import java.util.Set;
 
-public final class WaitUtility {
+public final class WaitUtility extends BasePage {
+
+    // Constructor
+    public WaitUtility(WebDriver driver) {
+        super(driver);
+    }
 
     private static final Logger logger = LogManager.getLogger(WaitUtility.class);
 
@@ -152,7 +158,6 @@ public final class WaitUtility {
             throw e;
         }
     }
-
 
     public static void waitForFrameToBeAvailableAndSwitchToIt(WebDriver driver, By frameLocator, int timeoutSeconds, String frameName) {
         logger.info("Waiting for frame '{}' to be available and switching to it", frameName);
@@ -356,5 +361,12 @@ public final class WaitUtility {
         }
     }
 
-
+    public void waitUntilPageLoad(WebDriver driver, int timeoutInSeconds) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds)).until(
+                webDriver -> ((JavascriptExecutor) webDriver)
+                        .executeScript("return document.readyState")
+                        .toString()
+                        .equals("complete")
+        );
+    }
 }

@@ -2,8 +2,13 @@ package pages.Administration.People_Management;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -54,8 +59,13 @@ public class PeopleManagement_ExportControlPage extends BasePage {
     public void NavigateToPeopleManagementExportControlPage() {
 
         //Click on People Management navigation link
-        waitForPresence(linkPeopleManagement);
-        click(linkPeopleManagement);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkPeopleManagement));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        link.click();
+
+        //waitForPresence(linkPeopleManagement);
+        //click(linkPeopleManagement);
         pause(2000);
 
         //Click on Export Control under People Management

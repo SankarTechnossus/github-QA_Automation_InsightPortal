@@ -540,8 +540,8 @@ public class CreateExportControlPage extends BasePage {
 
         // Select PI Name
         type(inputSelectPI, pi);
-        pause(1000);
-        click(piSelection);
+        pause(3000);
+        driver.findElement(By.xpath("//div[text()='" + pi + "']/..")).click();
         pause(2000);
 
         // Click Create button
@@ -761,15 +761,15 @@ public class CreateExportControlPage extends BasePage {
         type(inputFirstName, firstName);
         type(inputLastName, lastName);
         type(inputAddExternalAffiliation, newExternalAffiliation);
-        pause(1000);
+        pause(3000);
 
         click(buttonAdd);
         pause(2000);
 
-        By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
-        waitForPresence(userAdditionMsg);
+        //By userAdditionMsg = ;
+        //waitForPresence(userAdditionMsg);
 
-        if(driver.findElement(userAdditionMsg).isDisplayed())
+        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
         {
             result = true;
             pause(2000);
@@ -790,6 +790,22 @@ public class CreateExportControlPage extends BasePage {
         waitForPresence(elementUserName);
 
         if(driver.findElement(elementUserName).isDisplayed() && driver.findElement(elementOrgName).isDisplayed() && driver.findElement(elementTypeName).isDisplayed())
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean VerifyExistingExternalPeopleIsVisibleInTheList(String name, String type) {
+        boolean result = false;
+
+        By elementUserName = By.xpath("//div[text()='" + name + "']");
+        waitForPresence(elementUserName);
+
+        By elementTypeName = By.xpath("//div[text()='" + type + "']");
+        waitForPresence(elementUserName);
+
+        if(driver.findElement(elementUserName).isDisplayed() && driver.findElement(elementTypeName).isDisplayed())
         {
             result = true;
         }
@@ -883,8 +899,18 @@ public class CreateExportControlPage extends BasePage {
         pause(1000);
     }
 
-    public boolean VerifyUserIsAbleToAddExistingExternalPeople() {
+    public boolean VerifyUserIsAbleToAddExistingExternalPeople(String existingExternalPeople) {
         boolean result = false;
+
+        // Select Existing External People
+        click(inputSearchForUsers);
+        type(inputSearchForUsers, existingExternalPeople);
+        pause(2000);
+
+        By elementUser = By.xpath("//div[text()='" + existingExternalPeople + "']");
+        click(elementUser);
+
+        pause(2000);
 
         click(buttonAdd);
         pause(2000);

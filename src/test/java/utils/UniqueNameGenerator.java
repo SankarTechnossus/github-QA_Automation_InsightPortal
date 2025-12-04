@@ -8,7 +8,7 @@ public class UniqueNameGenerator {
 
     private static final String BASE_NAME = "TestSan";
     private static final int PAD_LENGTH = 4;
-    private static final String FILE_PATH = "Test_Data/uniqueNameIndex.txt";
+    private static final String FILE_PATH = "src/test/resources/testfiles/uniqueNameIndex.txt";
 
     public static String generateNextName() {
         int currentNumber = readCurrentNumber();

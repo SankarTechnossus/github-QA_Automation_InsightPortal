@@ -401,8 +401,14 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
     public void NavigateToFormsManagementExportControlPage() {
         //Click on Forms Management navigation link
-        waitForPresence(linkFormsManagement);
-        click(linkFormsManagement);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkFormsManagement));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        link.click();
+
+        //waitForPresence(linkFormsManagement);
+        //click(linkFormsManagement);
         pause(2000);
 
         //Click on Export Control under Forms Management
@@ -455,6 +461,8 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
     public boolean VerifyFormIsCreatedSuccessfully(String formName) {
         boolean result = false;
+
+        pause(5000);
 
         String name = driver.findElement(By.xpath("//div[@class='simple-bread-crumbs']//span[3]")).getText();
         String versionNo = driver.findElement(By.xpath("//header[text()='Form Versions']/span")).getText();
