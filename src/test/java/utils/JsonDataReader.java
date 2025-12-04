@@ -16,8 +16,8 @@ public class JsonDataReader {
             // Get Base Dir
             String baseDir = System.getProperty("user.dir");
 
-            /* Equivalent path: <project-root>/Test_Data/TestData.json */
-            String path = Paths.get(baseDir, "Test_Data", "TestData.json").toString();
+            /* Equivalent path: <project-root>/src/test/resources/testfiles/TestData.json */
+            String path = Paths.get(baseDir, "src/test/resources/testfiles", "TestData.json").toString();
 
             var path1 = Paths.get(path);
             if (!Files.exists(path1)) {

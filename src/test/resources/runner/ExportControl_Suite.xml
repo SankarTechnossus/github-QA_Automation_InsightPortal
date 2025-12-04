@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="ExportControl_Sprint5_Suite" verbose="2" parallel="false">
+<suite name="Sahil_ExportControl_Sprint5_Suite" verbose="2" parallel="false">
 
     <!-- Sprint 5 -->
     <test name="Sprint5_PBIs">

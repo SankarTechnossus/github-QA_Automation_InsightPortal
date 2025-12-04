@@ -761,15 +761,15 @@ public class CreateExportControlPage extends BasePage {
         type(inputFirstName, firstName);
         type(inputLastName, lastName);
         type(inputAddExternalAffiliation, newExternalAffiliation);
-        pause(1000);
+        pause(3000);
 
         click(buttonAdd);
         pause(2000);
 
-        By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
-        waitForPresence(userAdditionMsg);
+        //By userAdditionMsg = ;
+        //waitForPresence(userAdditionMsg);
 
-        if(driver.findElement(userAdditionMsg).isDisplayed())
+        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
         {
             result = true;
             pause(2000);

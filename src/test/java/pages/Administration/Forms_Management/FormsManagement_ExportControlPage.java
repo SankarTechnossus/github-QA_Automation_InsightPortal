@@ -462,6 +462,8 @@ public class FormsManagement_ExportControlPage extends BasePage {
     public boolean VerifyFormIsCreatedSuccessfully(String formName) {
         boolean result = false;
 
+        pause(5000);
+
         String name = driver.findElement(By.xpath("//div[@class='simple-bread-crumbs']//span[3]")).getText();
         String versionNo = driver.findElement(By.xpath("//header[text()='Form Versions']/span")).getText();
         String createdOn = driver.findElement(By.xpath("//dt[text()='Created on:']/following::dd/span")).getText();
