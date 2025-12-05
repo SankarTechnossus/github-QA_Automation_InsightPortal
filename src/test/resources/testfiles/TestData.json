@@ -10,6 +10,7 @@
     {
       "FormDescription": "Test Form",
       "FormType": "Export Control Request",
+      "FormType2": "Personnel Exclusion",
       "FormCategory": "General",
       "CategorySeqNo": "1",
       "FormInstructions": "Test Instructions"

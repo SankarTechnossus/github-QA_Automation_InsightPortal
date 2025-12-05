@@ -551,6 +551,25 @@ public class CreateExportControlPage extends BasePage {
         waitForPresence(lblExportControlSuccessfulCreation);
     }
 
+    public void CreateExportControlRequest(String pi, String requestType) {
+        // Select Export Control Type
+
+        driver.findElement(By.xpath("//span[text()='" + requestType +"']/../input")).click();
+        pause(1000);
+
+        // Select PI Name
+        type(inputSelectPI, pi);
+        pause(3000);
+        driver.findElement(By.xpath("//div[text()='" + pi + "']/..")).click();
+        pause(2000);
+
+        // Click Create button
+        click(buttonCreate);
+        pause(2000);
+
+        waitForPresence(lblExportControlSuccessfulCreation);
+    }
+
     public boolean VerifyExportControlIsCreatedSuccessfully() {
         pause(5000);
         waitForPresence(lblExportControlRecordNum);

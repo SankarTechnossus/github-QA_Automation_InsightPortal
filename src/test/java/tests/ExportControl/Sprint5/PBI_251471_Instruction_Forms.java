@@ -25,7 +25,7 @@ import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
 
-@Test (groups = {"regression"})
+@Test (groups = {"regression, integration"})
 public class PBI_251471_Instruction_Forms {
 
     WebDriver driver;
@@ -63,7 +63,7 @@ public class PBI_251471_Instruction_Forms {
     }
 
     @Test
-    public void InstructionForms ()
+    public void TC_256634_CreateAndActivateFormsInAdminAndVerifyEndUserCanViewThemUnderExportControl ()
     {
         try
         {
@@ -85,72 +85,82 @@ public class PBI_251471_Instruction_Forms {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Navigate to Administration module
-            dashboardPage.NavigateToAdministrationModule();
-            ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
-
-            // Navigate to Export Control under Forms Management
-            waitUtility.waitUntilPageLoad(driver, 120);
-            formsManagementExportControlPage.NavigateToFormsManagementExportControlPage();
-            Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/forms-management-export-control");
-            ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Forms Management.");
-
-            // Click on Add New link to Add a new Form
-            formsManagementExportControlPage.ClickAddNewLink();
-            Assert.assertTrue(formsManagementExportControlPage.VerifyUserIsOnNewFormPage());
-            ExtentReportListener.getExtentTest().pass("User clicked on Add New link and landed on add new form page.");
-
+            String piName = JsonDataReader.get(2,"PIName");
             String description = JsonDataReader.get(1,"FormDescription");
-            String formType = JsonDataReader.get(1,"FormType");
             String formCat = JsonDataReader.get(1,"FormCategory");
             String formCatSeqNo = JsonDataReader.get(1,"CategorySeqNo");
             String formInst = JsonDataReader.get(1,"FormInstructions");
+            String formType="";
 
-            // Create new form
-            String formName = UniqueNameGenerator.generateNextName();
-            formsManagementExportControlPage.CreateNewForm(formName, description, formType, formCat, formCatSeqNo);
-            Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
-            ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName);
+            for (int i=1; i<=2; i++)
+            {
+                // Navigate to Administration module
+                dashboardPage.NavigateToAdministrationModule();
+                ExtentReportListener.getExtentTest().info("User navigated to Administration module.");
 
-            // Activate the form and verify status
-            Assert.assertTrue(formsManagementExportControlPage.ChangeFormStatusToActiveAndVerifyStatus());
-            ExtentReportListener.getExtentTest().pass("Form status has been changed to: Active");
+                // Navigate to Export Control under Forms Management
+                waitUtility.waitUntilPageLoad(driver, 120);
+                formsManagementExportControlPage.NavigateToFormsManagementExportControlPage();
+                Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/forms-management-export-control");
+                ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Forms Management.");
 
-            // Click on the Active version to add the instructions
-            formsManagementExportControlPage.ClickOnTheActiveVersion();
-            ExtentReportListener.getExtentTest().info("User clicked on the Active Version link in order to add the instructions.");
+                // Click on Add New link to Add a new Form
+                formsManagementExportControlPage.ClickAddNewLink();
+                Assert.assertTrue(formsManagementExportControlPage.VerifyUserIsOnNewFormPage());
+                ExtentReportListener.getExtentTest().pass("User clicked on Add New link and landed on add new form page.");
 
-            //Enter instructions and save form
-            Assert.assertTrue(formsManagementExportControlPage.AddInstructionsAndVerifyItIsSavedSuccessfully(formInst, formName));
-            ExtentReportListener.getExtentTest().pass("Form Saved successfully with instructions: " + formInst);
+                if(i==1)
+                {
+                    formType = JsonDataReader.get(1,"FormType");
+                }
+                else {
+                    formType = JsonDataReader.get(1,"FormType2");
+                }
 
-            // Navigate back to Dashboard page
-            dashboardPage.NavigateBackToDashboardPage();
-            ExtentReportListener.getExtentTest().info("User navigated back to dashboard page.");
+                // Create new form
+                String formName = UniqueNameGenerator.generateNextName();
+                formsManagementExportControlPage.CreateNewForm(formName, description, formType, formCat, formCatSeqNo);
+                Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
+                ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName + " and form type : " + formType);
 
-            // Navigate back to Export Control module
-            dashboardPage.NavigateToExportControlModule();
-            ExtentReportListener.getExtentTest().info("User navigated to Export Control module.");
+                // Activate the form and verify status
+                Assert.assertTrue(formsManagementExportControlPage.ChangeFormStatusToActiveAndVerifyStatus());
+                ExtentReportListener.getExtentTest().pass("Form status has been changed to: Active");
 
-            // Navigate to Create Export Control page
-            createExportControlPage.NavigateToCreateExportControlPage();
-            ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
+                // Click on the Active version to add the instructions
+                formsManagementExportControlPage.ClickOnTheActiveVersion();
+                ExtentReportListener.getExtentTest().info("User clicked on the Active Version link in order to add the instructions.");
 
-            // Create Export Control
-            String piName = JsonDataReader.get(2,"PIName");
+                //Enter instructions and save form
+                Assert.assertTrue(formsManagementExportControlPage.AddInstructionsAndVerifyItIsSavedSuccessfully(formInst, formName));
+                ExtentReportListener.getExtentTest().pass("Form Saved successfully with instructions: " + formInst);
 
-            createExportControlPage.CreateExportControl(piName);
-            Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
-            String recordNo = createExportControlPage.GetExportControlRecordNumber();
-            ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);
+                // Navigate back to Dashboard page
+                dashboardPage.NavigateBackToDashboardPage();
+                ExtentReportListener.getExtentTest().info("User navigated back to dashboard page.");
 
-            // Verify created form is visible for the newly created Export Control
-            Assert.assertTrue(createExportControlPage.VerifyCreatedFormIsVisible(formName));
-            ExtentReportListener.getExtentTest().pass("Form : " + formName + " is visible for the newly created Export Control with Record Number : " + recordNo);
+                // Navigate back to Export Control module
+                dashboardPage.NavigateToExportControlModule();
+                ExtentReportListener.getExtentTest().info("User navigated to Export Control module.");
 
-            // Verify the instructions mentioned in the form is visible in the Export Control to the End user
-            Assert.assertTrue(createExportControlPage.VerifyInstructionsAssociatedWithFormIsVisibleUnderExportControl(formName, formInst));
-            ExtentReportListener.getExtentTest().pass("Instructions : " + formInst + " mentioned in the form : " + formName + " is visible for the created Export Control with Record Number: " + recordNo);
+                // Navigate to Create Export Control page
+                createExportControlPage.NavigateToCreateExportControlPage();
+                ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
+
+                // Create Export Control
+                createExportControlPage.CreateExportControlRequest(piName, formType);
+                Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
+                String recordNo = createExportControlPage.GetExportControlRecordNumber();
+                ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);
+
+                // Verify created form is visible for the newly created Export Control
+                Assert.assertTrue(createExportControlPage.VerifyCreatedFormIsVisible(formName));
+                ExtentReportListener.getExtentTest().pass("Form : " + formName + " is visible for the newly created Export Control with Record Number : " + recordNo);
+
+                // Verify the instructions mentioned in the form is visible in the Export Control to the End user
+                Assert.assertTrue(createExportControlPage.VerifyInstructionsAssociatedWithFormIsVisibleUnderExportControl(formName, formInst));
+                ExtentReportListener.getExtentTest().pass("Instructions : " + formInst + " mentioned in the form : " + formName + " is visible for the created Export Control with Record Number: " + recordNo);
+            }
         }
         catch (Exception e)
         {
