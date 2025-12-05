@@ -90,7 +90,7 @@ public class PBI_251471_Instruction_Forms {
             String formCat = JsonDataReader.get(1,"FormCategory");
             String formCatSeqNo = JsonDataReader.get(1,"CategorySeqNo");
             String formInst = JsonDataReader.get(1,"FormInstructions");
-            String formType="";
+            String formType;
 
             for (int i=1; i<=2; i++)
             {
