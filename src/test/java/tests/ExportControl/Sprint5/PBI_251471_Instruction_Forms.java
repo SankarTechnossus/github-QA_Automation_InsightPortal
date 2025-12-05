@@ -123,9 +123,13 @@ public class PBI_251471_Instruction_Forms {
                 Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
                 ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName + " and form type : " + formType);
 
+                waitUtility.waitUntilPageLoad(driver, 120);
+
                 // Activate the form and verify status
                 Assert.assertTrue(formsManagementExportControlPage.ChangeFormStatusToActiveAndVerifyStatus());
                 ExtentReportListener.getExtentTest().pass("Form status has been changed to: Active");
+
+                waitUtility.waitUntilPageLoad(driver, 120);
 
                 // Click on the Active version to add the instructions
                 formsManagementExportControlPage.ClickOnTheActiveVersion();
@@ -134,6 +138,8 @@ public class PBI_251471_Instruction_Forms {
                 //Enter instructions and save form
                 Assert.assertTrue(formsManagementExportControlPage.AddInstructionsAndVerifyItIsSavedSuccessfully(formInst, formName));
                 ExtentReportListener.getExtentTest().pass("Form Saved successfully with instructions: " + formInst);
+
+                waitUtility.waitUntilPageLoad(driver, 120);
 
                 // Navigate back to Dashboard page
                 dashboardPage.NavigateBackToDashboardPage();
@@ -149,6 +155,8 @@ public class PBI_251471_Instruction_Forms {
 
                 // Create Export Control
                 createExportControlPage.CreateExportControlRequest(piName, formType);
+                waitUtility.waitUntilPageLoad(driver, 120);
+
                 Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
                 String recordNo = createExportControlPage.GetExportControlRecordNumber();
                 ExtentReportListener.getExtentTest().pass("Export Control created successfully with Record Number : " + recordNo);

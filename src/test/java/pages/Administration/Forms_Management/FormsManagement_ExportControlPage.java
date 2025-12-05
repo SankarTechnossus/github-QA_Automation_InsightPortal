@@ -453,6 +453,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
         //Enter category seq no
         type(inputCategorySeqNo, seqNo);
+        pause(1000);
 
         //Click on Create button
         click(buttonCreate);
@@ -515,6 +516,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
     public boolean AddInstructionsAndVerifyItIsSavedSuccessfully(String instructions, String formName) {
         boolean result = false;
+        pause(2000);
 
         waitForPresence(inputInstructions);
         click(inputInstructions);
@@ -537,6 +539,11 @@ public class FormsManagement_ExportControlPage extends BasePage {
             pause(2000);
 
             result = true;
+            pause(2000);
+        }
+        else {
+            type(inputInstructions, instructions);
+            click(buttonSave);
             pause(2000);
         }
         return result;
