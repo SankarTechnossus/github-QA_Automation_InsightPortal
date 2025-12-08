@@ -85,11 +85,11 @@ public class PBI_251471_Instruction_Forms {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            String piName = JsonDataReader.get(2,"PIName");
-            String description = JsonDataReader.get(1,"FormDescription");
-            String formCat = JsonDataReader.get(1,"FormCategory");
-            String formCatSeqNo = JsonDataReader.get(1,"CategorySeqNo");
-            String formInst = JsonDataReader.get(1,"FormInstructions");
+            String piName = JsonDataReader.get(3,"PIName");
+            String description = JsonDataReader.get(2,"FormDescription");
+            String formCat = JsonDataReader.get(2,"FormCategory");
+            String formCatSeqNo = JsonDataReader.get(2,"CategorySeqNo");
+            String formInst = JsonDataReader.get(2,"FormInstructions");
             String formType;
 
             for (int i=1; i<=2; i++)
