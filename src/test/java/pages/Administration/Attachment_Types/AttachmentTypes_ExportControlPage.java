@@ -25,27 +25,17 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     // *********************** Sankar Locators **********************************************
 
     //Locators
-    private By attachmentTypesMenu = By.xpath("//span[normalize-space()='Attachment Types']/parent::a");
-    private By addAttachmentTypeButton = By.xpath("//button[normalize-space()='Add Attachment Type']");
-    private By typeNameInput = By.xpath("//span[normalize-space()='Type Name']/following::input[@type='text'][1]");
-    private By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
-    private By addButton = By.xpath("//button[normalize-space()='Add']");
-    private By firstEditButton = By.xpath("//table//tr[1]//button[.//div[contains(@class,'_icon-edit-grid')]]");
-    private By typeNameInput01 = By.xpath("//label[span[normalize-space()='Type Name']]//input");
-    private By saveButton01 = By.xpath("//button[normalize-space()='Save']");
-    private By cancelButton01 = By.xpath("//button[normalize-space()='Cancel']");
-    // "Export Control" under Attachment Types (opened submenu)
-
-    private By attachmentTypesToggle = By.xpath(
-            "//span[normalize-space()='Attachment Types']" +
-                    "/ancestor::div[contains(@class,'menu-item-holder')]" +
-                    "//button[contains(@class,'toggle-menu-icon-button')]"
-    );
-
-    private By attachmentTypesExportControl = By.xpath(
-            "//div[contains(@class,'toggleable-menu-children') and contains(@class,'-opened')]" +
-                    "//span[normalize-space()='Export Control']/parent::a"
-    );
+    By attachmentTypesMenu = By.xpath("//span[normalize-space()='Attachment Types']/parent::a");
+    By addAttachmentTypeButton = By.xpath("//button[normalize-space()='Add Attachment Type']");
+    By typeNameInput = By.xpath("//span[normalize-space()='Type Name']/following::input[@type='text'][1]");
+    By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
+    By addButton = By.xpath("//button[normalize-space()='Add']");
+    By firstEditButton = By.xpath("//table//tr[1]//button[.//div[contains(@class,'_icon-edit-grid')]]");
+    By typeNameInput01 = By.xpath("//label[span[normalize-space()='Type Name']]//input");
+    By saveButton01 = By.xpath("//button[normalize-space()='Save']");
+    By cancelButton01 = By.xpath("//button[normalize-space()='Cancel']");
+    By attachmentTypesToggle = By.xpath("//span[normalize-space()='Attachment Types']" + "/ancestor::div[contains(@class,'menu-item-holder')]" +"//button[contains(@class,'toggle-menu-icon-button')]");
+    By attachmentTypesExportControl = By.xpath("//div[contains(@class,'toggleable-menu-children') and contains(@class,'-opened')]" + "//span[normalize-space()='Export Control']/parent::a");
 
     // ********************* Sahil Locators *****************************************
 

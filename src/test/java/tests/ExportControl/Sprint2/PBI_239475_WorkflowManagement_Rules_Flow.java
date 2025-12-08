@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.RulesPage;
+import pages.Administration.Workflow_Management.RulesPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -85,7 +85,7 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
 
 
             basePage.pause(5000);
-            rulesPage.clickWorkflowManagementLinkrules();
+            rulesPage.clickWorkflowManagementLinkRules();
             ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
 
             basePage.pause(5000);
@@ -109,7 +109,7 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
 
 
             basePage.pause(5000);
-            rulesPage.clickAddRuleButtonrule();
+            rulesPage.clickAddRuleButtonRule();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Rule' button successfully");
 
 

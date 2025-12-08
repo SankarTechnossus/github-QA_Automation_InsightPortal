@@ -1,4 +1,4 @@
-package pages.Administration;
+package pages.Administration.Workflow_Management;
 
 import base.BasePage;
 import org.openqa.selenium.*;
@@ -13,54 +13,21 @@ public class StepNamePage extends BasePage {
         super(driver);
     }
 
-
     // Locators
-    private By workflowManagementLinkstepname = By.xpath("//nav//a[(normalize-space(.)='Workflow Management' or .//span[normalize-space(.)='Workflow Management'])" + " and contains(@href,'/administration/workflow-management')]");
-    private By stepNameLink = By.xpath("//a[normalize-space(text())='Step name' and contains(@href,'/step-names')]");
-    private By addNewButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add New']");
-    private By nameInputField = By.xpath("//input[@id='name' and contains(@class,'default-input') and @type='text']");
-    private By cancelButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-unstyled') and normalize-space(text())='Cancel']");
-    private By nameInputFielduni = By.xpath("//input[@id='name' and contains(@class,'default-input') and @type='text']");
-    private By addButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add']");
-    private String editButtonForStepNameXpath = "//tr[.//td[@data-column='name' and @data-value='%s']]//button[normalize-space(text())='Edit']";
-    private String cancelBtnForStepNameXpath =
-            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
-                    "//td[@data-column='_actions']//button[normalize-space(text())='Cancel']";
+    By workflowManagementLinkStepName = By.xpath("//nav//a[(normalize-space(.)='Workflow Management' or .//span[normalize-space(.)='Workflow Management'])" + " and contains(@href,'/administration/workflow-management')]");
+    By stepNameLink = By.xpath("//a[normalize-space(text())='Step name' and contains(@href,'/step-names')]");
+    By addNewButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add New']");
+    By nameInputField = By.xpath("//input[@id='name' and contains(@class,'default-input') and @type='text']");
+    By cancelButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-unstyled') and normalize-space(text())='Cancel']");
+    By nameInputFieldUni = By.xpath("//input[@id='name' and contains(@class,'default-input') and @type='text']");
+    By addButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add']");
+    String editButtonForStepNameXpath = "//tr[.//td[@data-column='name' and @data-value='%s']]//button[normalize-space(text())='Edit']";
+    String cancelBtnForStepNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[normalize-space(text())='Cancel']";
+    String saveBtnForStepNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[(normalize-space(text())='Save' or @aria-label='Save item')]";
+    By exportControlHeaderBtn = By.xpath("//button[contains(@class,'label') and normalize-space(.)='Export Control']");
+    By exportControlStepNameLink = By.xpath("//button[contains(@class,'label') and normalize-space(.)='Export Control']" + "/ancestor::div[contains(@class,'-level-1')][1]" + "/following-sibling::div[contains(@class,'toggleable-menu-children')][1]" + "//a[normalize-space(.)='Step name' and contains(@href,'/scopeId/3/step-names')]");
 
-
-    private String saveBtnForStepNameXpath =
-            "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" +
-                    "//td[@data-column='_actions']//button[(normalize-space(text())='Save' or @aria-label='Save item')]";
-//
-//
-//    private By exportControlToggle =
-//            By.xpath("//div[contains(@class,'menu-item')][.//button[contains(@class,'label') and normalize-space()='Export Control']]//button[contains(@class,'label')]");
-//
-//    // The 'Step name' under *Export Control* only (uses the sliding-container right after the group)
-//    private By exportControlStepNameLink =
-//            By.xpath("//div[contains(@class,'menu-item')][.//button[contains(@class,'label') and normalize-space()='Export Control']]" +
-//                    "/following-sibling::div[contains(@class,'sliding-container')][1]" +
-//                    "//a[normalize-space()='Step name' and contains(@href,'/step-names')]");
-
-
-    // The "Export Control" header button in the left nav
-    private By exportControlHeaderBtn = By.xpath(
-            "//button[contains(@class,'label') and normalize-space(.)='Export Control']"
-    );
-
-    // The "Step name" link under Export Control (scopeId=3 only)
-    private By exportControlStepNameLink = By.xpath(
-            "//button[contains(@class,'label') and normalize-space(.)='Export Control']" +
-                    "/ancestor::div[contains(@class,'-level-1')][1]" +
-                    "/following-sibling::div[contains(@class,'toggleable-menu-children')][1]" +
-                    "//a[normalize-space(.)='Step name' and contains(@href,'/scopeId/3/step-names')]"
-    );
-
-
-
-
-//Actions
-
+    //Actions
 
     public void clickExportControlStepName() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -89,37 +56,6 @@ public class StepNamePage extends BasePage {
         pause(800);
     }
 
-
-
-//
-//    public void clickExportControlStepName() {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//        // 1) Ensure the Export Control group is visible
-//        WebElement toggle = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlToggle));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", toggle);
-//
-//        // 2) Expand if collapsed (aria-expanded != true)
-//        String expanded = toggle.getAttribute("aria-expanded");
-//        if (expanded == null || !expanded.equalsIgnoreCase("true")) {
-//            toggle.click();
-//            pause(500);
-//        }
-//
-//        // 3) Click the scoped 'Step name' inside Export Control
-//        WebElement stepName = wait.until(ExpectedConditions.elementToBeClickable(exportControlStepNameLink));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", stepName);
-//
-//        try {
-//            stepName.click();
-//        } catch (ElementClickInterceptedException e) {
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", stepName);
-//        }
-//
-//        pause(1000);
-//    }
-
-
     public void clickSaveForStepName(String stepName) {
         By saveLocator = By.xpath(String.format(saveBtnForStepNameXpath, stepName, stepName));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -143,7 +79,6 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-
     public void clickCancelForStepName(String stepName) {
         By cancelLocator = By.xpath(String.format(cancelBtnForStepNameXpath, stepName, stepName));
 
@@ -160,7 +95,6 @@ public class StepNamePage extends BasePage {
 
         pause(1000);
     }
-
 
     public void clickEditButtonForStepName(String stepName) {
         By editButtonLocator = By.xpath(String.format(editButtonForStepNameXpath, stepName));
@@ -180,8 +114,6 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-
-
     public void clickAddButton() {
         WebElement button = driver.findElement(addButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -198,15 +130,14 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-
     public String enterUniqueName(String baseName) {
         String uniqueName = baseName + "_" + System.currentTimeMillis();
 
-        WebElement input = driver.findElement(nameInputFielduni);
+        WebElement input = driver.findElement(nameInputFieldUni);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInputFielduni));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInputFieldUni));
 
         input.clear();
         input.sendKeys(uniqueName);
@@ -214,10 +145,6 @@ public class StepNamePage extends BasePage {
         pause(1000);
         return uniqueName; // return so the test can reuse it if needed
     }
-
-
-
-
 
     public void clickCancelButton() {
         WebElement button = driver.findElement(cancelButton);
@@ -235,8 +162,6 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-
-
     public void enterName(String name) {
         WebElement input = driver.findElement(nameInputField);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
@@ -249,8 +174,6 @@ public class StepNamePage extends BasePage {
 
         pause(1000);
     }
-
-
 
     public void clickAddNewButton() {
         WebElement button = driver.findElement(addNewButton);
@@ -268,7 +191,6 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-
     public void clickStepNameLink() {
         WebElement link = driver.findElement(stepNameLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
@@ -285,18 +207,13 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-
     // Action (scroll → wait → click → confirm; no logging here)
-    public void clickWorkflowManagementstepname() {
+    public void clickWorkflowManagementStepName() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(workflowManagementLinkstepname));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(workflowManagementLinkStepName));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         link.click();
         wait.until(ExpectedConditions.urlContains("/administration/workflow-management"));
         pause(600);
     }
-
-
-
-
 }

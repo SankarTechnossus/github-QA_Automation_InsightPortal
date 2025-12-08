@@ -15,14 +15,22 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-
     //Locators
 
-    By inputBy = By.xpath("(//input[@role='combobox' and @id='entityTypeId'])[last()]");
+    By actionNameInput = By.id("name");
+    By initialAppMgmtMain = By.xpath("//div[@id='left-sidebar']" + "//span[normalize-space()='Initial Application Management']" + "/ancestor::*[self::a or self::button][1]");
+    By initialAppMgmtArrow = By.xpath("//div[@id='left-sidebar']" + "//span[normalize-space()='Initial Application Management']" + "/ancestor::div[contains(@class,'-level-1') and contains(@class,'menu-item')]" + "//button[contains(@class,'toggle-menu-icon-button')]");
+    By initialAppMgmtExportControl = By.xpath("//div[contains(@class,'_applicationManagementMenu')]//a[normalize-space()='Export Control']");
+    By addInitialApplicationButton = By.xpath("//button[normalize-space()='Add Initial Application']");
+    By addButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space()='Add']");
+    By modalAddButton = By.xpath("//div[contains(@class,'ReactModal__Content')]//button[normalize-space()='Add']");
+    By modalCancelButton = By.xpath("//div[contains(@class,'ReactModal__Content')]//button[normalize-space()='Cancel']");
+    By entityTypeCombobox = By.xpath("//div[contains(@class,'ReactModal__Content--after-open')]" + "//input[@id='entityTypeId' and @role='combobox']");
+    By firstEditButton = By.xpath("(//table[contains(@class,'item-grid')]//tbody//button[normalize-space()='Edit'])[1]");
+    By inlineCancelButton = By.xpath("(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Undo item'])[1]");
+    By inlineSaveButton = By.xpath("(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Save item'])[1]");
 
-    private By actionNameInput = By.id("name");   // from your HTML: id="name"
-
-    // Method
+    //Actions
     public void enterRandomActionName(String actionName) {
         WebElement input = wait.until(
                 ExpectedConditions.elementToBeClickable(actionNameInput)
@@ -33,62 +41,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         input.clear();
         input.sendKeys(actionName);
     }
-
-
-    // Step 1: Main "Initial Application Management" entry (works for <a> or <button>)
-    private By initialAppMgmtMain = By.xpath(
-            "//div[@id='left-sidebar']" +
-                    "//span[normalize-space()='Initial Application Management']" +
-                    "/ancestor::*[self::a or self::button][1]"
-    );
-
-    // Step 2: Arrow icon for Initial Application Management (if present)
-    private By initialAppMgmtArrow = By.xpath(
-            "//div[@id='left-sidebar']" +
-                    "//span[normalize-space()='Initial Application Management']" +
-                    "/ancestor::div[contains(@class,'-level-1') and contains(@class,'menu-item')]" +
-                    "//button[contains(@class,'toggle-menu-icon-button')]"
-    );
-    // Step 3: "Export Control" under Initial Application Management
-    private By initialAppMgmtExportControl = By.xpath(
-            "//div[contains(@class,'_applicationManagementMenu')]//a[normalize-space()='Export Control']"
-    );
-    // Step 1: Add Initial Application button
-    private By addInitialApplicationButton = By.xpath(
-            "//button[normalize-space()='Add Initial Application']"
-    );
-    private By addButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space()='Add']");
-
-
-    // --- Modal buttons ---
-    private By modalAddButton = By.xpath(
-            "//div[contains(@class,'ReactModal__Content')]//button[normalize-space()='Add']");
-
-    private By modalCancelButton = By.xpath(
-            "//div[contains(@class,'ReactModal__Content')]//button[normalize-space()='Cancel']");
-
-    // put in class-level locators section
-    private By entityTypeCombobox = By.xpath(
-            "//div[contains(@class,'ReactModal__Content--after-open')]"
-                    + "//input[@id='entityTypeId' and @role='combobox']"
-    );
-
-    // First row "Edit" button in Initial Application Management > Export Control
-    private By firstEditButton = By.xpath(
-            "(//table[contains(@class,'item-grid')]//tbody//button[normalize-space()='Edit'])[1]"
-    );
-
-    private By inlineCancelButton = By.xpath(
-            "(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Undo item'])[1]"
-    );
-
-    private By inlineSaveButton = By.xpath(
-            "(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Save item'])[1]"
-    );
-
-
-
-    //Actions
 
     public void clickInlineCancel() {
         WebElement cancel = wait.until(ExpectedConditions.elementToBeClickable(inlineCancelButton));
@@ -104,7 +56,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         pause(800);
     }
 
-
     public void clickFirstEditButton() {
         WebElement editBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(firstEditButton)
@@ -116,7 +67,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
 
         editBtn.click();
     }
-
 
     public void clickAddButton() {
 
@@ -133,7 +83,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         // Step 3: Pause (your standard)
         pause(1000);
     }
-
 
     public void selectEntityType() {
 
@@ -157,8 +106,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         input.sendKeys(Keys.ENTER);
     }
 
-
-
     public String enterRandomActionAndSelectEntity() {
 
         // Step 1: Generate random name using your BasePage method
@@ -180,10 +127,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
 
         return randomName;
     }
-
-
-
-
 
     public void clickCancel() {
         driver.findElement(modalCancelButton).click();
@@ -241,10 +184,4 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         exportControl.click();
         pause(1000);
     }
-
-
-
-
-
-
 }

@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.StepNamePage;
+import pages.Administration.Workflow_Management.StepNamePage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -85,7 +85,7 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
 
 
             basePage.pause(2000);
-            stepNamePage.clickWorkflowManagementstepname();
+            stepNamePage.clickWorkflowManagementStepName();
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
             basePage.pause(5000);

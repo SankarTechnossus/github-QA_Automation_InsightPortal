@@ -4,7 +4,6 @@ import base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.SkipException;
 
 import java.time.Duration;
 
@@ -17,117 +16,26 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
     }
 
     //Locator
-
-    // Notice Group control box inside the modal
-    private By noticeGroupControl = By.xpath(
-            "//div[contains(@class,'form-cell') and contains(@class,'-group')]" +
-                    "//div[contains(@class,'select-control')]"
-    );
-
-    // Notice Group input inside that control
-    private By noticeGroupInput = By.xpath(
-            "//div[contains(@class,'form-cell') and contains(@class,'-group')]" +
-                    "//input[@id='group']"
-    );
-
-
-    // "Add New Template" modal wrapper – you already have this
-    private By addNewTemplateModal = By.xpath(
-            "//div[contains(@class,'modal-content-wrapper')]" +
-                    "[.//strong[normalize-space()='Add New Template']]"
-    );
-
-
-
-    private By communicationManagementToggle = By.xpath(
-            "//button[@aria-label='Expand Communication Management' or @aria-label='Collapse Communication Management']"
-    );
-
-
-    // Export Control under Communication Management (level-2 item)
-    private By communicationExportControlLink = By.xpath(
-            "//div[contains(@class,'-level-2') and .//span[normalize-space()='Export Control']]" +
-                    "//a[contains(@href,'/administration/communication-management/export-control')]"
-    );
-
-    private By addNewTemplateButton = By.xpath("//button[@class='button -primary' and normalize-space()='Add New Template']");
-
-
-    // Add New Template modal – fields & buttons
-
-    // Step 1 – Template Name
-    private By templateNameInput = By.id("name");
-
-
-
-    // Reminder Frequency input inside "Add New Template" modal
-    private By reminderFrequencyInput = By.xpath(
-            "//div[contains(@class,'modal-content-wrapper')]" +
-                    "[.//strong[normalize-space()='Add New Template']]" +
-                    "//input[@id='reminderSettings.intervalDays']"
-    );
-
-    // Step 5 – Create Template button
-    private By createTemplateButton = By.xpath(
-            "//button[@type='submit' and contains(@class,'-primary') and normalize-space()='Create Template']"
-    );
-
-    // Step 6 – Cancel button (bottom-right of modal)
-    private By cancelTemplateButton = By.xpath(
-            "//div[contains(@class,'_flexJustifyEnd')]/button[normalize-space()='Cancel']"
-    );
-
-
-
-    // Layout input inside that control
-    private By layoutInput = By.xpath(
-            "//div[contains(@class,'form-cell') and contains(@class,'-layout-id')]" +
-                    "//input[@id='layoutId']"
-    );
-
-    // Layout control box inside the Layout form cell
-    private By layoutControl = By.xpath(
-            "//div[contains(@class,'form-cell') and contains(@class,'-layout-id')]" +
-                    "//div[contains(@class,'select-control')]"
-    );
-
-
-
-    private By notificationTypeInput = By.id("id");
-
-
-    private By cancelButton = By.xpath(
-            "//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Cancel']");
-
-    private By saveButton = By.xpath(
-            "//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Save']");
-
-    private By addNotificationTemplateButton = By.xpath(
-            "//button[normalize-space()='Add Notification Template']"
-    );
-
-    // Notifications button (tab)
-    private By notificationsButton = By.xpath(
-            "//button[contains(@class,'button') and normalize-space()='Notifications']"
-    );
-
-
-    // Left navigation – Notifications menu link
-    private By notificationsMenuLink = By.xpath(
-            "//a[contains(@class,'label') and @href='/export-control/notifications']//span[normalize-space()='Notifications']"
-    );
-
-    // + button (first row expand icon)
-    private By firstPlusButton = By.xpath("(//button[contains(@class,'plus-button')])[1]");
-
-
-    private By collapseButton = By.xpath("(//button[@aria-label='Collapse details'])[1]");
-
-
-
-
-
-
+    By noticeGroupControl = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-group')]" + "//div[contains(@class,'select-control')]");
+    By noticeGroupInput = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-group')]" + "//input[@id='group']");
+    By addNewTemplateModal = By.xpath("//div[contains(@class,'modal-content-wrapper')]" + "[.//strong[normalize-space()='Add New Template']]");
+    By communicationManagementToggle = By.xpath("//button[@aria-label='Expand Communication Management' or @aria-label='Collapse Communication Management']");
+    By communicationExportControlLink = By.xpath("//div[contains(@class,'-level-2') and .//span[normalize-space()='Export Control']]" + "//a[contains(@href,'/administration/communication-management/export-control')]");
+    By addNewTemplateButton = By.xpath("//button[@class='button -primary' and normalize-space()='Add New Template']");
+    By templateNameInput = By.id("name");
+    By reminderFrequencyInput = By.xpath("//div[contains(@class,'modal-content-wrapper')]" + "[.//strong[normalize-space()='Add New Template']]" + "//input[@id='reminderSettings.intervalDays']");
+    By createTemplateButton = By.xpath("//button[@type='submit' and contains(@class,'-primary') and normalize-space()='Create Template']");
+    By cancelTemplateButton = By.xpath("//div[contains(@class,'_flexJustifyEnd')]/button[normalize-space()='Cancel']");
+    By layoutInput = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-layout-id')]" + "//input[@id='layoutId']");
+    By layoutControl = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-layout-id')]" + "//div[contains(@class,'select-control')]");
+    By notificationTypeInput = By.id("id");
+    By cancelButton = By.xpath("//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Cancel']");
+    By saveButton = By.xpath("//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Save']");
+    By addNotificationTemplateButton = By.xpath("//button[normalize-space()='Add Notification Template']");
+    By notificationsButton = By.xpath("//button[contains(@class,'button') and normalize-space()='Notifications']");
+    By notificationsMenuLink = By.xpath("//a[contains(@class,'label') and @href='/export-control/notifications']//span[normalize-space()='Notifications']");
+    By firstPlusButton = By.xpath("(//button[contains(@class,'plus-button')])[1]");
+    By collapseButton = By.xpath("(//button[@aria-label='Collapse details'])[1]");
 
     //Action
 
@@ -146,7 +54,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(800);
     }
 
-
     public void clickFirstPlusButton() {
         WebElement plusBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(firstPlusButton));
@@ -158,7 +65,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
 
         pause(1000);
     }
-
 
     public void clickNotificationsMenu() {
         WebElement notifMenu = wait.until(
@@ -173,7 +79,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
 
         pause(1000); // small wait for Notifications page to load
     }
-
 
     public void clickNotificationsButton() {
         WebElement notifBtn = wait.until(
@@ -190,10 +95,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(1000);
     }
 
-
-    // In CommunicationManagementPage (or NotificationTemplatePage)
-
-
     public void openNotificationTemplateForm() {
         WebElement addBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(addNotificationTemplateButton));
@@ -207,8 +108,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("id")));
         pause(1000);
     }
-
-
 
     // Step 1 – Select Notification Type: "Export Control Approved"
     public void selectNotificationType(String notificationTypeText) {
@@ -258,7 +157,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(1000);
     }
 
-
     public void selectLayout(String layoutName) {
 
         WebElement control = wait.until(
@@ -277,37 +175,8 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(800);
     }
 
-//    // Step 3: Select Layout (e.g., "Green")
-//    public void selectLayout(String layoutName) {
-//
-//        // 1) Get the Layout control (visible), then JS-click it to open dropdown
-//        WebElement control = wait.until(
-//                ExpectedConditions.visibilityOfElementLocated(layoutControl));
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].scrollIntoView({block:'center'});", control);
-//
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
-//
-//        // 2) Find the input inside this control and type layout name
-//        WebElement input = control.findElement(By.xpath(".//input[@id='layoutId']"));
-//        input.clear();
-//        input.sendKeys(layoutName);   // e.g., "Green"
-//
-//        // Small wait to let React-Select match the option
-//        pause(600);
-//
-//        // 3) Press ENTER to select the highlighted option ("Green")
-//        input.sendKeys(Keys.ENTER);
-//
-//        // Optional: tiny pause for the value to appear in the control
-//        pause(800);
-//    }
-
-
-
-
     // Step 2: Select Notice Group (e.g. "ExportControl Workflow")
-// This method stays fully inside the modal and does NOT click outside
+    // This method stays fully inside the modal and does NOT click outside
     public void selectNoticeGroup(String searchText) {
 
         // 1) Click the Notice Group control box to open the dropdown
@@ -343,7 +212,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(600);
     }
 
-
     // Step 6: Click Cancel (close modal)
     public void clickCancelTemplateButton() {
 
@@ -359,7 +227,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
 
         pause(800);
     }
-
 
     // Step 5: Click Create Template
     public void clickCreateTemplateButton() {
@@ -399,9 +266,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(500);
     }
 
-
-
-
     // Step 1: Set Template Name
     public void setTemplateName(String templateName) {
 
@@ -418,7 +282,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
 
         pause(500);
     }
-
 
     public void clickAddNewTemplate() {
 
@@ -449,8 +312,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         pause(800);
     }
 
-
-
     public void expandCommunicationManagement() {
 
         WebElement toggle = wait.until(
@@ -469,5 +330,4 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
             pause(800);
         }
     }
-
 }

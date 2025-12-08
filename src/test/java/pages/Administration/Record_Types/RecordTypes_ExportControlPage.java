@@ -13,89 +13,34 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 
 
-public class RecordTypes_ExportControlPage extends BasePage{
-
+public class RecordTypes_ExportControlPage extends BasePage {
 
     public RecordTypes_ExportControlPage(WebDriver driver) {
         super(driver);
     }
 
-
-
     // Locators
 
-    private By recordTypesLink = By.xpath("//a[@class='label' and @href='/administration/record-types/record-type' and span[text()='Record Types']]");
-    private By exportControlLink = By.xpath("//a[span[text()='Record Types']]/ancestor::div[contains(@class,'menu-item')]/following-sibling::div//span[text()='Export Control']");
-    private By addRecordTypeLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Record Type']");
-    private By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
-    private By activeCheckbox = By.id("active");
-    private By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
-    //    private By cancelButton = By.xpath("//a[contains(@class,'_cancelLink_1i3of_13') and text()='Cancel']");
-// safest: text + href (handles CSS-module class churn)
-//    private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/record-types')]");
-// safest: use text + href
-//private By cancelButton = By.xpath("//a[normalize-space()='Cancel' and starts-with(@href,'/administration/transaction-types')]");
-    private By cancelButton = By.xpath("//div[contains(@class,'buttons-cell')]//a[normalize-space()='Cancel' and contains(@href,'/administration/record-types')]");
-
-    // or, if you don’t care about href, just text:
-//    private By cancelButton = By.linkText("Cancel");
-
-// minimal (only text) — OK if no other 'Cancel' on the page
-// private By cancelButton = By.linkText("Cancel");
-
-    private By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
-
-    private By searchByNameInput = By.xpath("//input[@placeholder='Search by Name']");
-    private By searchButton = By.xpath("//button[@type='button' and text()='Search']");
-    private By clearSelectionsButton = By.xpath("//button[@type='button' and text()='Clear Selections']");
-    //    private By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
-    private By categoryDropdown = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
-    private final String categoryOptionXpath = "//div[text()='%s']";
-    private By refMeaningInput = By.xpath("//input[contains(@class,'default-input') and @type='text']");
-    private By moduleDropdownArrow = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
-    private final String moduleOptionXpath = "//div[text()='%s']";
-
-    // Top-level "Record Types" (level-1)
-    private By recordTypesLink02 = By.xpath(
-            "//div[contains(@class,'-level-1') and contains(@class,'menu-item')]//a[contains(@class,'label') and contains(@href,'/administration/record-types')]//span[normalize-space()='Record Types']"
-    );
-
-    // The caret/expand button for "Record Types"
-    private By recordTypesToggle = By.xpath(
-            "//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]//div[contains(@class,'menu-item-side-element')]//button[contains(@class,'toggle-menu-icon-button')]"
-    );
-
-    // Child "Export Control" under Record Types (level-2), *scoped to the Record Types branch*
-    private By recordTypesExportControl = By.xpath(
-            "//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]"
-                    + "/following-sibling::div[contains(@class,'toggleable-menu-children')]"
-                    + "//a[contains(@class,'label')]//span[normalize-space()='Export Control']"
-    );
-
-
-
-    // First row Edit (pen) button in Record Types grid
-    private By firstRowEditButton = By.xpath(
-            "//table[contains(@class,'item-grid')]//tbody/tr[1]" +
-                    "//td[@data-column='_actions']//button[.//div[@aria-label='Edit']]"
-    );
-
-    // Cancel button on the "Edit Record Type" modal
-    private By editRecordTypeCancelButton = By.xpath(
-            "//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Cancel']"
-    );
-
-    private By editRecordTypeSaveButton = By.xpath(
-            "//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Save']"
-    );
-
-    private By cancelCreateCategoryLink = By.xpath(
-            "//a[@href='/administration/record-types' and contains(@class,'_link_ogtko_1') and normalize-space()='Cancel']"
-    );
-
-
-
-
+    By recordTypesLink = By.xpath("//a[@class='label' and @href='/administration/record-types/record-type' and span[text()='Record Types']]");
+    By exportControlLink = By.xpath("//a[span[text()='Record Types']]/ancestor::div[contains(@class,'menu-item')]/following-sibling::div//span[text()='Export Control']");
+    By addRecordTypeLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Record Type']");
+    By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
+    By activeCheckbox = By.id("active");
+    By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
+    By cancelButton = By.xpath("//div[contains(@class,'buttons-cell')]//a[normalize-space()='Cancel' and contains(@href,'/administration/record-types')]");
+    By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
+    By searchByNameInput = By.xpath("//input[@placeholder='Search by Name']");
+    By searchButton = By.xpath("//button[@type='button' and text()='Search']");
+    By clearSelectionsButton = By.xpath("//button[@type='button' and text()='Clear Selections']");
+    By refMeaningInput = By.xpath("//input[contains(@class,'default-input') and @type='text']");
+    By moduleDropdownArrow = By.xpath("//div[contains(@class,'select-dropdown-indicator')]");
+    By recordTypesLink02 = By.xpath("//div[contains(@class,'-level-1') and contains(@class,'menu-item')]//a[contains(@class,'label') and contains(@href,'/administration/record-types')]//span[normalize-space()='Record Types']");
+    By recordTypesToggle = By.xpath("//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]//div[contains(@class,'menu-item-side-element')]//button[contains(@class,'toggle-menu-icon-button')]");
+    By recordTypesExportControl = By.xpath("//div[contains(@class,'-level-1') and contains(@class,'menu-item')][.//span[normalize-space()='Record Types']]" + "/following-sibling::div[contains(@class,'toggleable-menu-children')]" + "//a[contains(@class,'label')]//span[normalize-space()='Export Control']");
+    By firstRowEditButton = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]" + "//td[@data-column='_actions']//button[.//div[@aria-label='Edit']]");
+    By editRecordTypeCancelButton = By.xpath("//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Cancel']");
+    By editRecordTypeSaveButton = By.xpath("//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Save']");
+    By cancelCreateCategoryLink = By.xpath("//a[@href='/administration/record-types' and contains(@class,'_link_ogtko_1') and normalize-space()='Cancel']");
 
     //Actions
 
@@ -124,7 +69,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         pause(1000);
     }
 
-
     public void clickSaveOnEditRecordTypeModal() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -138,7 +82,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         saveBtn.click();
         pause(1000);   // your pattern
     }
-
 
     public void clickFirstRecordTypeEditIcon() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -167,8 +110,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         cancelBtn.click();
         pause(1000);
     }
-
-
 
     public void openRecordTypesExportControl() {
         // ensure the parent row is in view
@@ -212,6 +153,7 @@ public class RecordTypes_ExportControlPage extends BasePage{
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Wait for dropdown options to render
+        String moduleOptionXpath = "//div[text()='%s']";
         By exportControlOption = By.xpath(String.format(moduleOptionXpath, "Export Control"));
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(exportControlOption));
         option.click(); // Select the option
@@ -227,65 +169,12 @@ public class RecordTypes_ExportControlPage extends BasePage{
 
     }
 
-
-//    public void selectCategory(String categoryName) {
-//        WebElement dropdown = driver.findElement(categoryDropdown);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
-//        pause(1000);
-//        dropdown.click(); // Open the dropdown
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        By optionLocator = By.xpath(String.format(categoryOptionXpath, categoryName));
-//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionLocator));
-//        option.click(); // Select the category
-//
-//        ExtentReportListener.getExtentTest().pass("Selected '" + categoryName + "' from Category dropdown successfully");
-//        pause(1000);
-//    }
-
-
-    //
-//    public void selectCategory(String categoryName) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//        // 1️⃣ Locate the React-Select control (not the arrow only)
-//        By control = By.xpath("//label[normalize-space()='Select Record Type']/following::div[contains(@class,'select-control')][1]");
-//        WebElement controlEl = wait.until(ExpectedConditions.elementToBeClickable(control));
-//
-//        // Scroll into view
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", controlEl);
-//        pause(600);
-//
-//        // 2️⃣ Click to open dropdown
-//        controlEl.click();
-//        pause(600);
-//
-//        // 3️⃣ Type the category name in the input box
-//        By inputBy = By.xpath("//label[normalize-space()='Select Record Type']/following::input[@role='combobox'][1]");
-//        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(inputBy));
-//        input.clear();
-//        input.sendKeys(categoryName);
-//        pause(600);
-//
-//        // 4️⃣ Select the option from the dropdown list
-//        By optionBy = By.xpath(String.format("//div[contains(@class,'option') and text()='%s']", categoryName));
-//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionBy));
-//        option.click();
-//
-//        pause(800);
-//    }
     public void selectCategory(String categoryName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // 1️⃣ Ensure we are on the Create Category page
         wait.until(ExpectedConditions.urlContains("/administration/record-types/create-category"));
-
-        // 2️⃣ Wait for the React-Select control to be visible
-        By controlBy = By.xpath(
-                "//label[contains(normalize-space(),'Select Record Type')]" +
-                        "/following::div[contains(@class,'select-control')][1]"
-        );
-
+        By controlBy = By.xpath("//label[contains(normalize-space(),'Select Record Type')]" + "/following::div[contains(@class,'select-control')][1]");
         WebElement control = wait.until(ExpectedConditions.visibilityOfElementLocated(controlBy));
 
         // Scroll into view
@@ -320,20 +209,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
 
         pause(800);
     }
-
-
-
-
-
-//    public void clickAddCategoryLink() {
-//        WebElement link = driver.findElement(addCategoryLink);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
-//        pause(1000); // Scroll pause
-//        link.click();
-//        pause(3000); // Wait for navigation
-//        ExtentReportListener.getExtentTest().pass("Clicked 'Add Category' link successfully");
-//    }
-
 
     public void clickAddCategoryLink() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -379,8 +254,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         pause(2000);
     }
 
-
-
     public void clickClearSelectionsButton() {
         WebElement button = driver.findElement(clearSelectionsButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -389,8 +262,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         pause(2000); // Wait for reset action
         ExtentReportListener.getExtentTest().pass("Clicked 'Clear Selections' button successfully");
     }
-
-
 
     public void clickSearchButton() {
         WebElement button = driver.findElement(searchButton);
@@ -401,8 +272,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         ExtentReportListener.getExtentTest().pass("Clicked 'Search' button successfully");
     }
 
-
-
     public void searchRecordByName(String name) {
         WebElement input = driver.findElement(searchByNameInput);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
@@ -412,7 +281,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         pause(2000); // Optional wait to let results filter
         ExtentReportListener.getExtentTest().pass("Entered '" + name + "' in 'Search by Name' input field");
     }
-
 
     public void clickCancelButton() {
         WebElement cancel = driver.findElement(cancelButton);
@@ -425,8 +293,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button and navigated back to Record Types list");
     }
 
-
-
     public void clickCreateButton() {
         WebElement button = driver.findElement(createButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -437,8 +303,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
 
         ExtentReportListener.getExtentTest().pass("Clicked 'Create' button successfully");
     }
-
-
 
     public void tickActiveCheckbox() {
         WebElement checkbox = driver.findElement(activeCheckbox);
@@ -455,8 +319,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         pause(1000); // Optional after click
     }
 
-
-
     public void enterRecordType(String recordTypeName) {
         WebElement input = driver.findElement(recordTypeInput);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
@@ -467,9 +329,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
     }
 
-
-
-
     public void clickAddRecordTypeLink() {
         WebElement link = driver.findElement(addRecordTypeLink);
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -479,9 +338,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         pause(3000); // Wait for navigation
     }
 
-
-
-
     public void clickRecordTypesLink() {
         WebElement link = driver.findElement(recordTypesLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link); // Optional scroll
@@ -489,7 +345,6 @@ public class RecordTypes_ExportControlPage extends BasePage{
         link.click();
         pause(3000); // Wait for navigation
     }
-
 
     public void clickExportControlUnderRecordTypes() {
         WebElement link = driver.findElement(exportControlLink);
@@ -503,6 +358,4 @@ public class RecordTypes_ExportControlPage extends BasePage{
         // Assertion inside method (optional)
         Assert.assertTrue(driver.getCurrentUrl().contains("record-types"), "Export Control page did not load properly");
     }
-
-
 }

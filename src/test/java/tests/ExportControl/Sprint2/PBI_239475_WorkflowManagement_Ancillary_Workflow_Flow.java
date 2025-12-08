@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.AncillaryWorkflowsPage;
+import pages.Administration.Workflow_Management.AncillaryWorkflowsPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -101,11 +101,11 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
             String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
             basePage.pause(5000);
-            ancillaryWorkflowsPage.enterNameanc(uniqueName01);
+            ancillaryWorkflowsPage.enterNameAnc(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
             basePage.pause(5000);
-            ancillaryWorkflowsPage.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
+            ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From","insighthelpdesk@partners.org");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
 
@@ -120,11 +120,11 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
             String uniqueName02 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
             basePage.pause(5000);
-            ancillaryWorkflowsPage.enterNameanc(uniqueName01);
+            ancillaryWorkflowsPage.enterNameAnc(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
 
             basePage.pause(5000);
-            ancillaryWorkflowsPage.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
+            ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From","insighthelpdesk@partners.org");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
 
             basePage.pause(5000);
@@ -137,11 +137,11 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
 
             basePage.pause(3000);
-            ancillaryWorkflowsPage.appendSanToNameanc();
+            ancillaryWorkflowsPage.appendSanToNameAnc();
             ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
 
             basePage.pause(3000);
-            ancillaryWorkflowsPage.clickUpdateButtonanc();
+            ancillaryWorkflowsPage.clickUpdateButtonAnc();
             ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
 
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package pages.Administration;
+package pages.Administration.Workflow_Management;
 
 import base.BasePage;
 import org.openqa.selenium.*;
@@ -16,29 +16,20 @@ public class WorkflowsPage extends BasePage {
         super(driver);
     }
 
+    // Locators
 
-// Locators
+    By workflowManagementLink = By.xpath("//a[.//span[text()='Workflow Management'] and contains(@href, '/workflow-management')]");
+    By exportControlWorkflowsLink = By.xpath("//a[contains(@href, 'workflows-export-control') and text()='Workflows']");
+    By addNewButton = By.xpath("//button[@type='button' and contains(@class,'-primary') and text()='Add New']");
+    By nameInputField = By.xpath("//input[@id='name' and @type='text']");
+    By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
+    By saveButton = By.xpath("//div[contains(@class,'buttons-cell')]//button[normalize-space()='Save']");
+    String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
+    By updateButton = By.xpath("//button[normalize-space(text())='Update']");
+    By workflowGrid = By.cssSelector("div.panel.-table, div.list, table");
+    By editControls = By.xpath(".//a[normalize-space()='Edit' or @title='Edit']" + " | .//button[normalize-space()='Edit' or @title='Edit' or .//i[contains(@class,'edit')]]");
 
-    private By workflowManagementLink = By.xpath("//a[.//span[text()='Workflow Management'] and contains(@href, '/workflow-management')]");
-    private By exportControlWorkflowsLink = By.xpath("//a[contains(@href, 'workflows-export-control') and text()='Workflows']");
-    private By addNewButton = By.xpath("//button[@type='button' and contains(@class,'-primary') and text()='Add New']");
-    private By nameInputField = By.xpath("//input[@id='name' and @type='text']");
-    private By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
-    private By saveButton = By.xpath("//div[contains(@class,'buttons-cell')]//button[normalize-space()='Save']");
-    //    private By saveButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Save']");
-    private String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
-    private By updateButton = By.xpath("//button[normalize-space(text())='Update']");
-    // Scope: the workflows grid/table
-    private By workflowGrid = By.cssSelector("div.panel.-table, div.list, table"); // adjust if you have a stable class
-
-    // Any Edit control in the grid (link or button, text or title)
-    private By editControls = By.xpath(
-            ".//a[normalize-space()='Edit' or @title='Edit']" +
-                    " | .//button[normalize-space()='Edit' or @title='Edit' or .//i[contains(@class,'edit')]]"
-    );
-
-
-//Actions
+    //Actions
 
     public void clickFirstEdit() {
         WebElement grid = new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -52,6 +43,7 @@ public class WorkflowsPage extends BasePage {
                 });
 
         // Pick the first *displayed* one
+        assert edits != null;
         WebElement first = edits.stream().filter(WebElement::isDisplayed).findFirst().orElse(edits.get(0));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", first);
@@ -67,15 +59,12 @@ public class WorkflowsPage extends BasePage {
         pause(2000);
     }
 
-
     public void clickUpdateButton() {
         WebElement button = driver.findElement(updateButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
         button.click();
         pause(1000);
     }
-
-
 
     public void appendSanToName() {
         WebElement input = driver.findElement(nameInputField);
@@ -88,9 +77,6 @@ public class WorkflowsPage extends BasePage {
         pause(1000);
     }
 
-
-
-
     public void clickEditButtonForWorkflow(String workflowName) {
         By editButtonLocator = By.xpath(String.format(editButtonForWorkflowXpath, workflowName));
         WebElement editButton = driver.findElement(editButtonLocator);
@@ -99,7 +85,6 @@ public class WorkflowsPage extends BasePage {
         pause(1000);
     }
 
-
     public void clickSaveButton() {
         WebElement button = driver.findElement(saveButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -107,14 +92,12 @@ public class WorkflowsPage extends BasePage {
         pause(1000);
     }
 
-
     public void clickCancelButton() {
         WebElement button = driver.findElement(cancelButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
         button.click();
         pause(1000);
     }
-
 
     public void selectOptionFromDropdown(String dropDownName,String optionToSelect){
         String dropdownXpath = "//label[normalize-space(text())='"+dropDownName+"']//following-sibling::div//div[contains(@class,'_indicatorsContainer')]";
@@ -126,8 +109,7 @@ public class WorkflowsPage extends BasePage {
 
     }
 
-
-    public void selectOptionFromDropdownExportcontrolstatus(String dropDownName,String optionToSelect){
+    public void selectOptionFromDropdownExportControlStatus(String dropDownName, String optionToSelect){
         String dropdownXpath = "//label[normalize-space(text())='"+dropDownName+"']//following-sibling::div//div[contains(@class,'_indicatorsContainer')]";
         String menuListXpath = "//div[contains(@class,'select-menu-outer')]";
         String optionXpath = "//div[contains(@class,'select-menu-outer')]//div[normalize-space(text())='"+optionToSelect+"']";
@@ -137,8 +119,6 @@ public class WorkflowsPage extends BasePage {
         BrowserUtility.click(driver, By.xpath(dropdownXpath), dropDownName); // collapse
 
     }
-
-
 
     public void enterName(String name) {
         WebElement input = driver.findElement(nameInputField);
@@ -152,10 +132,6 @@ public class WorkflowsPage extends BasePage {
         pause(1000);
     }
 
-
-
-
-
     public void clickAddNewButton() {
         WebElement button = driver.findElement(addNewButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -166,9 +142,6 @@ public class WorkflowsPage extends BasePage {
         button.click();
         pause(1000);
     }
-
-
-
 
     public void clickExportControlWorkflows() {
         WebElement link = driver.findElement(exportControlWorkflowsLink);
@@ -181,9 +154,6 @@ public class WorkflowsPage extends BasePage {
         pause(1000);
     }
 
-
-
-
     public void clickWorkflowManagementLink() {
         WebElement link = driver.findElement(workflowManagementLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
@@ -194,8 +164,4 @@ public class WorkflowsPage extends BasePage {
         link.click();
         pause(1000);
     }
-
-
-
-
 }

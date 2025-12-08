@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.WorkflowsPage;
+import pages.Administration.Workflow_Management.WorkflowsPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -117,7 +117,7 @@ public class PBI_239474_WorkflowManagement_Workflows {
 
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
+            workflowsPage.selectOptionFromDropdownExportControlStatus("ExportControl Status","Draft");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from Export control status dropdown successfully");
 
 
@@ -154,7 +154,7 @@ public class PBI_239474_WorkflowManagement_Workflows {
 
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdownExportcontrolstatus("ExportControl Status","Draft");
+            workflowsPage.selectOptionFromDropdownExportControlStatus("ExportControl Status","Draft");
             ExtentReportListener.getExtentTest().pass("Selected 'Test' from ExportControl Status successfully");
 
 
