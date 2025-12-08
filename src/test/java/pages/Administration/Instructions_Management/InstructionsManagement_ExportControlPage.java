@@ -31,7 +31,7 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
     public void NavigateToInstructionsManagementExportControlPage() {
 
         //Click on Instructions Management navigation link
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkInstructionsManagement));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         link.click();

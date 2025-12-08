@@ -94,21 +94,21 @@ public class PBI_248110_Instruction_Pages {
             Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/instructions-management");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Instructions Management.");
 
-            String officeCode = JsonDataReader.get(5,"OfficeCode");
-            String office = JsonDataReader.get(5,"Office");
-            String content1 = JsonDataReader.get(5,"Content1");
-            String content2 = JsonDataReader.get(5,"Content2");
-            String content3 = JsonDataReader.get(5,"Content3");
-            String errorMsg1 = JsonDataReader.get(5,"DuplicateInstructionErrorMessage");
-            String errorMsg2 = JsonDataReader.get(5,"InvalidOfficeCodeErrorMessage");
-            String invalidOffCode = JsonDataReader.get(5,"InvalidOfficeCode");
+            String officeCode = JsonDataReader.get(6,"OfficeCode");
+            String office = JsonDataReader.get(6,"Office");
+            String content1 = JsonDataReader.get(6,"Content1");
+            String content2 = JsonDataReader.get(6,"Content2");
+            String content3 = JsonDataReader.get(6,"Content3");
+            String errorMsg1 = JsonDataReader.get(6,"DuplicateInstructionErrorMessage");
+            String errorMsg2 = JsonDataReader.get(6,"InvalidOfficeCodeErrorMessage");
+            String invalidOffCode = JsonDataReader.get(6,"InvalidOfficeCode");
 
             String pageName = "";
 
             for (int i=1; i<=3; i++) {
                 if(i==1)
                 {
-                    pageName = JsonDataReader.get(5,"Page1");
+                    pageName = JsonDataReader.get(6,"Page1");
 
                     // Delete previously added instructions if any
                     instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
@@ -133,7 +133,7 @@ public class PBI_248110_Instruction_Pages {
 
                 } else if (i==2)
                 {
-                    pageName = JsonDataReader.get(5,"Page2");
+                    pageName = JsonDataReader.get(6,"Page2");
 
                     // Delete previously added instructions if any
                     instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
@@ -147,7 +147,7 @@ public class PBI_248110_Instruction_Pages {
                 }
                 else
                 {
-                    pageName = JsonDataReader.get(5,"Page3");
+                    pageName = JsonDataReader.get(6,"Page3");
 
                     // Delete previously added instructions if any
                     instructionsManagementExportControlPage.DeleteInstructionsIfAlreadyExist(pageName);
@@ -174,7 +174,7 @@ public class PBI_248110_Instruction_Pages {
             ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
 
             // Create Export Control
-            String piName = JsonDataReader.get(2,"PIName");
+            String piName = JsonDataReader.get(3,"PIName");
 
             createExportControlPage.CreateExportControl(piName);
             Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());

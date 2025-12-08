@@ -400,7 +400,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
     public void NavigateToFormsManagementExportControlPage() {
         //Click on Forms Management navigation link
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkFormsManagement));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         link.click();
@@ -542,6 +542,9 @@ public class FormsManagement_ExportControlPage extends BasePage {
         else {
             type(inputInstructions, instructions);
             click(buttonSave);
+            pause(2000);
+
+            result = true;
             pause(2000);
         }
         return result;

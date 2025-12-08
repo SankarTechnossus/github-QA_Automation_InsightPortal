@@ -102,7 +102,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : " + role);
 
             // Verify if External People Type Exist
-            String defaultType = JsonDataReader.get(6,"DefaultPeopleType");
+            String defaultType = JsonDataReader.get(7,"DefaultPeopleType");
 
             boolean answer = peopleManagementExportControlPage.VerifyIfExternalPeopleTypeExist(defaultType);
             System.out.println("Default People Type exist? : " + answer);
@@ -142,9 +142,9 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
 
             // Create Export Control
-            String piName = JsonDataReader.get(2,"PIName");
-            String type = JsonDataReader.get(2,"ExportControlType");
-            String status = JsonDataReader.get(2,"Status");
+            String piName = JsonDataReader.get(3,"PIName");
+            String type = JsonDataReader.get(3,"ExportControlType");
+            String status = JsonDataReader.get(3,"Status");
 
             createExportControlPage.CreateExportControl(piName);
             Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
@@ -180,7 +180,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     //********************************** Add New External People with New External Affiliation Scenarios **********************
 
                     // Verify user is able to add external people with New External Affiliation
-                    String newExtAff = JsonDataReader.get(6,"NewExternalAffiliation");
+                    String newExtAff = JsonDataReader.get(7,"NewExternalAffiliation");
 
                     Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExternalPeopleWithNewExternalAffiliation(firstName, lastName, newExtAff));
                     ExtentReportListener.getExtentTest().pass("User is able to add new external people : " + lastName + " " + firstName + " with new affiliation : " + newExtAff);
@@ -202,7 +202,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     //********************************** Add New External People with Existing External Affiliation Scenarios **********************
 
                     // Verify user is able to add external people with Existing External Affiliation
-                    String existingExtAff = JsonDataReader.get(6,"ExistingExternalAffiliation");
+                    String existingExtAff = JsonDataReader.get(7,"ExistingExternalAffiliation");
 
                     Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExternalPeopleWithExistingExternalAffiliation(firstName, lastName, existingExtAff));
                     ExtentReportListener.getExtentTest().pass("User is able to add new external people : " + lastName + " " + firstName + " with existing affiliation : " + existingExtAff);
@@ -223,13 +223,13 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                 {
                     //********************************** Add New Existing External People Scenarios **********************
 
-                    String existingExternalPeople = JsonDataReader.get(6,"ExistingExternalPeople");
-                    String existingUserExternalAffiliation = JsonDataReader.get(6,"ExistingUserExternalAffiliation");
+                    String existingExternalPeople = JsonDataReader.get(7,"ExistingExternalPeople");
+                    String existingUserExternalAffiliation = JsonDataReader.get(7,"ExistingUserExternalAffiliation");
 
                     /*
-                    String institutionAffiliation = JsonDataReader.get(6,"InstitutionAffiliation");
-                    String departmentAffiliation = JsonDataReader.get(6,"DepartmentAffiliation");
-                    String unitAffiliation = JsonDataReader.get(6,"UnitAffiliation");
+                    String institutionAffiliation = JsonDataReader.get(7,"InstitutionAffiliation");
+                    String departmentAffiliation = JsonDataReader.get(7,"DepartmentAffiliation");
+                    String unitAffiliation = JsonDataReader.get(7,"UnitAffiliation");
 
                     // Verify Existing External People details are autopopulated upon user selection
                     //Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(existingExternalPeople, institutionAffiliation, departmentAffiliation, unitAffiliation, existingUserExternalAffiliation));
@@ -260,8 +260,8 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             createExportControlPage.NavigateToAddNewInternalPeopleSection();
             ExtentReportListener.getExtentTest().info("User navigated to Add New Internal People section.");
 
-            String internalPeople = JsonDataReader.get(6,"InternalPeople");
-            String internalPeopleAffiliation = JsonDataReader.get(6,"InternalPeopleAffiliation");
+            String internalPeople = JsonDataReader.get(7,"InternalPeople");
+            String internalPeopleAffiliation = JsonDataReader.get(7,"InternalPeopleAffiliation");
 
             // Verify if user is able to add new internal people
             Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddInternalPeople(internalPeople));
@@ -280,7 +280,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().info("Newly created people type : " + peopleTypeName + " is added for new internal people : " + internalPeople);
 
             // Verify Submission Checklist text before completion
-            String submissionChecklistMsgBeforeCompletion = JsonDataReader.get(6,"SubmissionChecklistMsgBeforeCompletion");
+            String submissionChecklistMsgBeforeCompletion = JsonDataReader.get(7,"SubmissionChecklistMsgBeforeCompletion");
 
             Assert.assertTrue(createExportControlPage.VerifySubmissionChecklistMsgBeforeCompletion(submissionChecklistMsgBeforeCompletion));
             ExtentReportListener.getExtentTest().pass("Submission checklist message visible before completion is  : " + submissionChecklistMsgBeforeCompletion);
@@ -290,15 +290,15 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().info("Role : " + role + " assigned to new internal people : " + internalPeople);
 
             // Verify Submission Checklist text after completion
-            String submissionChecklistMsgAfterCompletion = JsonDataReader.get(6,"SubmissionChecklistMsgAfterCompletion");
+            String submissionChecklistMsgAfterCompletion = JsonDataReader.get(7,"SubmissionChecklistMsgAfterCompletion");
 
             Assert.assertTrue(createExportControlPage.VerifySubmissionChecklistMsgAfterCompletion(submissionChecklistMsgAfterCompletion));
             ExtentReportListener.getExtentTest().pass("Submission checklist message visible after completion is  : " + submissionChecklistMsgAfterCompletion);
 
             // Verify checklist message upon assigning PI role to the new internal user
-            String multiplePIRolesMsg = JsonDataReader.get(6,"MultiplePIRolesMsg");
-            String submitterType = JsonDataReader.get(6,"SubmitterType");
-            String submitterRole = JsonDataReader.get(6,"SubmitterRole");
+            String multiplePIRolesMsg = JsonDataReader.get(7,"MultiplePIRolesMsg");
+            String submitterType = JsonDataReader.get(7,"SubmitterType");
+            String submitterRole = JsonDataReader.get(7,"SubmitterRole");
 
             Assert.assertTrue(createExportControlPage.VerifyChecklistMsgIfInternalUserIsAlsoAssignedPIRole(multiplePIRolesMsg, submitterType, submitterRole));
             ExtentReportListener.getExtentTest().pass("Submission checklist message if the internal person is also assigned with PI role  : " + multiplePIRolesMsg);
