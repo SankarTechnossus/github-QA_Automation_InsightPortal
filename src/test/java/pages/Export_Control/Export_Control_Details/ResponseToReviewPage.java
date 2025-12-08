@@ -9,7 +9,7 @@ import java.time.Duration;
 
 public class ResponseToReviewPage extends BasePage {
 
-    private WebDriverWait wait;
+    public final WebDriverWait wait;
 
     public ResponseToReviewPage(WebDriver driver) {
         super(driver);

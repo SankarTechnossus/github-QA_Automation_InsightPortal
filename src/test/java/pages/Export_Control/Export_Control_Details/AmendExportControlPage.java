@@ -12,7 +12,7 @@ import java.time.Duration;
 
 
 public class AmendExportControlPage extends BasePage {
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public AmendExportControlPage(WebDriver driver)
     {
@@ -21,23 +21,16 @@ public class AmendExportControlPage extends BasePage {
     }
 
     //Locators
-    private By initiateAmendmentButton = By.xpath("//button[contains(@class,'_amendmentBtn') and normalize-space()='Initiate Amendment']");
-    private By amendmentOkButton = By.xpath("//button[contains(@class,'_okButton') and normalize-space()='OK']");
-    private By saveButton = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
-    private By submitButton = By.xpath("//button[@aria-label='Submit' and contains(@class,'-positive')]");
-    // "Your Name" text box
-    private By yourNameInput = By.id("dynamic-form-field-input-74877-TextBox1");
-    // Gender = Male radio button
-    private By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
-    private By amendmentAMD1Tab = By.xpath(
-            "//div[contains(@class,'_transactionsTabItem')]" +
-                    "[.//div[contains(@class,'name') and normalize-space()='Amendment (AMD1)']]"
-    );
-    private By saveButton01 = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
-
+    By initiateAmendmentButton = By.xpath("//button[contains(@class,'_amendmentBtn') and normalize-space()='Initiate Amendment']");
+    By amendmentOkButton = By.xpath("//button[contains(@class,'_okButton') and normalize-space()='OK']");
+    By saveButton = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
+    By submitButton = By.xpath("//button[@aria-label='Submit' and contains(@class,'-positive')]");
+    By yourNameInput = By.id("dynamic-form-field-input-74877-TextBox1");
+    By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
+    By amendmentAMD1Tab = By.xpath("//div[contains(@class,'_transactionsTabItem')]" + "[.//div[contains(@class,'name') and normalize-space()='Amendment (AMD1)']]");
+    By saveButton01 = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
 
     //Actions
-
     public void clickSaveButton() {
 
         WebElement save = wait.until(
