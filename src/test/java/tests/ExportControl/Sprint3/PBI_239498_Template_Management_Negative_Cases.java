@@ -35,7 +35,7 @@ public class PBI_239498_Template_Management_Negative_Cases {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -57,7 +57,7 @@ public class PBI_239498_Template_Management_Negative_Cases {
     }
 
     @Test
-    public void Exportcontrol_Templatemanagement_Test() {
+    public void ExportControl_TemplateManagement_Test() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -104,11 +104,11 @@ public class PBI_239498_Template_Management_Negative_Cases {
             String baseDir = System.getProperty("user.dir");
 
             // Get the file path
-            String filePath = JsonDataReader.get(4,"TestExcelFilePath");
+            String filePath = JsonDataReader.get(5,"TestExcelFilePath");
             String path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: testexcel.xlsx was not successfull");
+            ExtentReportListener.getExtentTest().pass("Uploaded file: testexcel.xlsx was not successful");
 
             basePage.pause(3000);
             templateManagementExportControlPage.clickCancelButton();
@@ -125,11 +125,11 @@ public class PBI_239498_Template_Management_Negative_Cases {
 
             basePage.pause(5000);
 
-            filePath = JsonDataReader.get(4,"TestJPGImgFilePath");
+            filePath = JsonDataReader.get(5,"TestJPGImgFilePath");
             path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: testjpg.jpg was not successfull");
+            ExtentReportListener.getExtentTest().pass("Uploaded file: testjpg.jpg was not successful");
 
             basePage.pause(3000);
             templateManagementExportControlPage.clickCancelButton();
@@ -145,7 +145,7 @@ public class PBI_239498_Template_Management_Negative_Cases {
 
             basePage.pause(5000);
 
-            filePath = JsonDataReader.get(4,"TestPNGImgFilePath");
+            filePath = JsonDataReader.get(5,"TestPNGImgFilePath");
             path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
@@ -165,7 +165,7 @@ public class PBI_239498_Template_Management_Negative_Cases {
 
             basePage.pause(5000);
 
-            filePath = JsonDataReader.get(4,"TestDOCXFilePath");
+            filePath = JsonDataReader.get(5,"TestDOCXFilePath");
             path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
@@ -184,9 +184,7 @@ public class PBI_239498_Template_Management_Negative_Cases {
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
-            filePath = JsonDataReader.get(4,"TestPDFFilePath");
-
-            String filePath01 = System.getProperty("user.dir") + filePath;
+            String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
             templateManagementExportControlPage.uploadAgreementFile(filePath01);
             ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
@@ -202,11 +200,8 @@ public class PBI_239498_Template_Management_Negative_Cases {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

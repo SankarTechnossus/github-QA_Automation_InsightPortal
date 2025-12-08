@@ -26,10 +26,11 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     FormsManagement_ExportControlPage formsManagementExportControlPage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -51,12 +52,22 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
     }
 
     @Test
-    public void createFormFlowExportcontrol() {
+    public void createFormFlowExportControl() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            // === Form & flow test data ===
+            String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
+            String negativeSearchText = JsonDataReader.get(1, "NegativeSearchText");
+            String formDescription    = JsonDataReader.get(1, "FormDescription");
+            String formCategorySeqNo  = JsonDataReader.get(1, "CategorySeqNo");
+            String radioYes           = JsonDataReader.get(1, "RadioOptionYes");
+            String radioNo            = JsonDataReader.get(1, "RadioOptionNo");
+            String helpText           = JsonDataReader.get(1, "HelpText");
+            String versionDesc        = JsonDataReader.get(1, "VersionDescription");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -72,12 +83,10 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
-
+            Assert.assertTrue(agreementPage.isAdministrationPageDisplayed(), "Administration page is not displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Administration page.");
 
             basePage.pause(10000);
             agreementPage.clickFormsManagementLink();
@@ -87,26 +96,20 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             agreementPage.scrollSidebarToExportControlAndClick();
             ExtentReportListener.getExtentTest().pass("Scrolled and clicked on 'Export Control' from left navigation.");
 
-            // Now use the new input field
-            agreementPage.enterSearchText("Test");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test' in Search by Name input");
-
+            agreementPage.enterSearchText(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered '" + positiveSearchText + "' in Search by Name input");
 
             basePage.pause(10000);
             agreementPage.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("Clicked Search button");
-
 
             basePage.pause(10000);
             agreementPage.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("Clicked Clear Selections button");
 
             //**** Negative case ***
-
-            // Now use the new input field
-            agreementPage.enterSearchText("@@@@@");
-            ExtentReportListener.getExtentTest().pass("Entered '@@@@' in Search by Name input passed a special character");
-
+            agreementPage.enterSearchText(negativeSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered '" + negativeSearchText + "' in Search by Name input");
 
             basePage.pause(5000);
             agreementPage.clickSearchButton();
@@ -121,85 +124,65 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             agreementPage.clickAddNewLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Export Control page");
 
-
-
             String dynamicName = UniqueNameGenerator.generateNextName();
             agreementPage.enterName(dynamicName);
             ExtentReportListener.getExtentTest().pass("Entered '" + dynamicName + "' into Name input field");
 
-
-            basePage.pause(5000);  // Optional initial wait
-            agreementPage.enterDescription("santest");
-            ExtentReportListener.getExtentTest().pass("Entered 'santest01' into Description text area");
-
-
+            basePage.pause(5000);
+            agreementPage.enterDescription(formDescription);
+            ExtentReportListener.getExtentTest().pass("Entered '" + formDescription + "' into Description text area");
 
             basePage.pause(5000);
             agreementPage.selectTypeAsExportControlRequestnew01();
             ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' from Type dropdown successfully");
 
-
-
             basePage.pause(5000);
             agreementPage.selectCategoryAsGeneral();
             ExtentReportListener.getExtentTest().pass("Selected 'General' from Category dropdown");
 
-
-
             basePage.pause(5000);
-            agreementPage.enterCategorySequenceNo("1");
-            ExtentReportListener.getExtentTest().pass("Entered '1' into Category Sequence No field");
-
+            agreementPage.enterCategorySequenceNo(formCategorySeqNo);
+            ExtentReportListener.getExtentTest().pass("Entered '" + formCategorySeqNo + "' into Category Sequence No field");
 
             basePage.pause(5000);
             agreementPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("Clicked the 'Create' button");
 
-
             basePage.pause(5000);
             agreementPage.clickVersion1Link();
             ExtentReportListener.getExtentTest().pass("Clicked on 'Version 1' link");
-
 
             basePage.pause(9000);
             formsManagementExportControlPage.clickAddRootLevelQuestionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add root level question' button");
 
-
             basePage.pause(9000);
             formsManagementExportControlPage.clickRadioButtonGroupOption();
             ExtentReportListener.getExtentTest().pass("Clicked 'Radio button group' in Add Question Modal");
 
-
             basePage.pause(7000);
-            formsManagementExportControlPage.enterRadioOption1Text("Yes");
+            formsManagementExportControlPage.enterRadioOption1Text(radioYes);
             ExtentReportListener.getExtentTest().pass("Entered text 'Yes' into the first radio option input");
-
 
             basePage.pause(5000);
             formsManagementExportControlPage.clickAddOptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add option' button to add new radio choice");
 
-
             basePage.pause(5000);
-            formsManagementExportControlPage.enterRadioOption2Text("No");
+            formsManagementExportControlPage.enterRadioOption2Text(radioNo);
             ExtentReportListener.getExtentTest().pass("Entered text 'No' into the second radio option input");
-
 
             basePage.pause(8000);
             formsManagementExportControlPage.checkReadOnly();
             ExtentReportListener.getExtentTest().pass("Checked the 'Read only' checkbox");
 
-
             basePage.pause(5000);
-            formsManagementExportControlPage.enterHelpText("test13");
+            formsManagementExportControlPage.enterHelpText(helpText);
             ExtentReportListener.getExtentTest().pass("Entered help text as 'test01'");
-
 
             basePage.pause(5000);
             formsManagementExportControlPage.clickApplyButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Apply' button");
-
 
             basePage.pause(5000);
             formsManagementExportControlPage.clickPreviewLink();
@@ -219,16 +202,13 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             formsManagementExportControlPage.clickAddChildQuestion();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add child question' button successfully");
 
-
             basePage.pause(10000);
             formsManagementExportControlPage.clickOutsidePopupByOffset();
             ExtentReportListener.getExtentTest().pass("Clicked outside popup using offset successfully");
 
-
             basePage.pause(10000);
             formsManagementExportControlPage.clickMoveButton();
             ExtentReportListener.getExtentTest().pass(" Clicked 'Move' button successfully");
-
 
             basePage.pause(10000);
             formsManagementExportControlPage.clickCancelMovingButton();
@@ -246,21 +226,17 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             formsManagementExportControlPage.clickRemoveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Remove' button successfully");
 
-
             basePage.pause(9000);
             formsManagementExportControlPage.clickUndoButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Undo' button successfully");
-
 
             basePage.pause(8000);
             formsManagementExportControlPage.clickTestFormLink();
             ExtentReportListener.getExtentTest().pass("Clicked on test form link successfully");
 
-
             basePage.pause(10000);
             formsManagementExportControlPage.clickEditDescriptionButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
-
 
             basePage.pause(10000);
             formsManagementExportControlPage.clickCancelButtononversionedit01();
@@ -271,8 +247,8 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit description' button successfully");
 
             basePage.pause(10000);
-            formsManagementExportControlPage.enterVersionText("Sanversion01");
-            ExtentReportListener.getExtentTest().pass("Entered text 'Sanversion' into version description box successfully");
+            formsManagementExportControlPage.enterVersionText(versionDesc);
+            ExtentReportListener.getExtentTest().pass("Entered version description '" + versionDesc + "' successfully");
 
             basePage.pause(10000);
             formsManagementExportControlPage.clickSaveButtonsmall();
@@ -282,7 +258,6 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             formsManagementExportControlPage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully");
 
-
             basePage.pause(9000);
             formsManagementExportControlPage.clickCancelButtonaddnewcancel();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
@@ -290,8 +265,6 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             basePage.pause(5000);
             formsManagementExportControlPage.clickFormManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Form Management' link successfully");
-
-
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -300,11 +273,8 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

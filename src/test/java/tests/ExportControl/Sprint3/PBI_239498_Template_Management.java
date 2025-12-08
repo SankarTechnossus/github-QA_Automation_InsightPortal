@@ -33,7 +33,7 @@ public class PBI_239498_Template_Management {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -55,12 +55,20 @@ public class PBI_239498_Template_Management {
     }
 
     @Test
-    public void Exportcontrol_Templatemanagement_Test() {
+    public void ExportControl_TemplateManagement_Test() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String templateDateFormat = JsonDataReader.get(1, "TemplateDateFormat");   // e.g. "01/01/2020 (MM/DD/YYYY)"
+            String templateActiveYes = JsonDataReader.get(1, "TemplateActiveYes");     // e.g. "Yes"
+
+            // File test data (index 4 – as per your current usage)
+            String baseDir = System.getProperty("user.dir");
+            String filePath = JsonDataReader.get(5, "TestPDFFilePath");
+            String fullFilePath = Paths.get(baseDir, filePath).toString();
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -95,16 +103,8 @@ public class PBI_239498_Template_Management {
             ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
 
             basePage.pause(5000);
-
-            // Setting up base Directory
-            String baseDir = System.getProperty("user.dir");
-
-            // Get the file path
-            String filePath = JsonDataReader.get(4,"TestPDFFilePath");
-            String path = Paths.get(baseDir, filePath).toString();
-
-            templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+            templateManagementExportControlPage.uploadAgreementFile(fullFilePath);
+            ExtentReportListener.getExtentTest().pass("Uploaded file from path: " + filePath);
 
             basePage.pause(5000);
             templateManagementExportControlPage.clickCreateButton();
@@ -123,8 +123,8 @@ public class PBI_239498_Template_Management {
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
             basePage.pause(2000);
-            templateManagementExportControlPage.setActive("Yes");
-            ExtentReportListener.getExtentTest().pass("Active set to 'Yes' successfully");
+            templateManagementExportControlPage.setActive(templateActiveYes);
+            ExtentReportListener.getExtentTest().pass("Active set to '" + templateActiveYes + "' successfully");
 
             basePage.pause(2000);
             templateManagementExportControlPage.clickCancelButton();
@@ -149,11 +149,8 @@ public class PBI_239498_Template_Management {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+//import pages.Administration.workflowsPageNew;
 import pages.Administration.Workflow_Management.WorkflowsPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
@@ -30,11 +31,11 @@ public class PBI_239474_WorkflowManagement_Workflows {
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    WorkflowsPage workflowsPage;
+
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -52,16 +53,23 @@ public class PBI_239474_WorkflowManagement_Workflows {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        workflowsPage = new WorkflowsPage(driver);
+
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Workflows_Test () {
+    public void ExportControl_WorkflowManagement_Workflows_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String workflowNamePrefix = JsonDataReader.get(1, "WorkflowNamePrefix");                     // "Test_"
+            String workflowRecordTypeOption = JsonDataReader.get(1, "WorkflowRecordTypeOption");         // "Test1"
+            String workflowTransactionTypeOption = JsonDataReader.get(1, "WorkflowTransactionTypeOption"); // "tesss"
+            String workflowExportControlStatusOption = JsonDataReader.get(1, "WorkflowExportControlStatusOption"); // "Draft"
+            String workflowEmailFrom = JsonDataReader.get(1, "WorkflowEmailFrom");                       // "insighthelpdesk@partners.org"
+            String workflowNameAppendText = JsonDataReader.get(1, "WorkflowNameAppendText");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -78,6 +86,7 @@ public class PBI_239474_WorkflowManagement_Workflows {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
+            WorkflowsPage workflowsPageNew = new WorkflowsPage(driver);
 
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
@@ -86,109 +95,95 @@ public class PBI_239474_WorkflowManagement_Workflows {
 
             // Work flow page
             basePage.pause(5000);
-            workflowsPage.clickWorkflowManagementLink();
+            workflowsPageNew.clickWorkflowManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
 
 
             basePage.pause(5000);
-            workflowsPage.clickExportControlWorkflows();
+            workflowsPageNew.clickExportControlWorkflows();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control > Workflows' successfully");
 
 
             basePage.pause(5000);
-            workflowsPage.clickAddNewButton();
+            workflowsPageNew.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
-            String uniqueName = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
+            String uniqueName = workflowNamePrefix + System.currentTimeMillis();
             basePage.pause(5000);
-            workflowsPage.enterName(uniqueName);
+            workflowsPageNew.enterName(uniqueName);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName + "' in the Name input field successfully");
 
+            basePage.pause(5000);
+            workflowsPageNew.selectOptionFromDropdown("Record Type", workflowRecordTypeOption);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowRecordTypeOption + "' from Record Type dropdown successfully");
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdown("Record Type","Test");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
-
-            basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdown("Transaction Type","Test1");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
-
+            workflowsPageNew.selectOptionFromDropdown("Transaction Type", workflowTransactionTypeOption);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowTransactionTypeOption + "' from Transaction Type dropdown successfully");
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdownExportControlStatus("ExportControl Status","Draft");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Export control status dropdown successfully");
-
+            workflowsPageNew.selectOptionFromDropdownExportControlStatus("Export Control Status", workflowExportControlStatusOption);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowExportControlStatusOption + "' from Export Control Status dropdown successfully");
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Entered Email successfully");
+            workflowsPageNew.selectOptionFromDropdown("Email From", workflowEmailFrom);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowEmailFrom + "' from Email From dropdown successfully");
 
             // ** Negative_case **
-
-
             basePage.pause(5000);
-            workflowsPage.clickCancelButton();
+            workflowsPageNew.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(5000);
-            workflowsPage.clickAddNewButton();
+            workflowsPageNew.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
 
-            String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
+            String uniqueName01 = workflowNamePrefix + System.currentTimeMillis();
             basePage.pause(5000);
-            workflowsPage.enterName(uniqueName01);
+            workflowsPageNew.enterName(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdown("Record Type","Test");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
-
-            basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdown("Transaction Type","Test1");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Transaction Type dropdown successfully");
-
+            workflowsPageNew.selectOptionFromDropdown("Record Type", workflowRecordTypeOption);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowRecordTypeOption + "' from Record Type dropdown successfully");
 
             basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdownExportControlStatus("ExportControl Status","Draft");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from ExportControl Status successfully");
-
-
-            basePage.pause(5000);
-            workflowsPage.selectOptionFromDropdown("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Entered Email successfully");
+            workflowsPageNew.selectOptionFromDropdown("Transaction Type", workflowTransactionTypeOption);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowTransactionTypeOption + "' from Transaction Type dropdown successfully");
 
             basePage.pause(5000);
-            workflowsPage.clickCancelButton();
+            workflowsPageNew.selectOptionFromDropdownExportControlStatus("Export Control Status", workflowExportControlStatusOption);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowExportControlStatusOption + "' from Export Control Status dropdown successfully");
+
+            basePage.pause(5000);
+            workflowsPageNew.selectOptionFromDropdown("Email From", workflowEmailFrom);
+            ExtentReportListener.getExtentTest().pass("Selected '" + workflowEmailFrom + "' from Email From dropdown successfully");
+
+            basePage.pause(5000);
+            workflowsPageNew.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(3000);
-            workflowsPage.clickFirstEdit();
+            workflowsPageNew.clickFirstEdit();
             ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
 
             basePage.pause(5000);
-            workflowsPage.clickCancelButton();
+            workflowsPageNew.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
             basePage.pause(3000);
-            workflowsPage.clickFirstEdit();
+            workflowsPageNew.clickFirstEdit();
             ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
 
             basePage.pause(3000);
-            workflowsPage.appendSanToName();
-            ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
-
-            basePage.pause(3000);
-            workflowsPage.clickUpdateButton();
+            workflowsPageNew.clickUpdateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
 
-
             basePage.pause(5000);
-            workflowsPage.clickCancelButton();
+            workflowsPageNew.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
         } catch (Exception e) {
@@ -199,11 +194,8 @@ public class PBI_239474_WorkflowManagement_Workflows {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

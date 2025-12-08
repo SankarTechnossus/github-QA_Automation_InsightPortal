@@ -34,7 +34,7 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+        //User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -56,12 +56,16 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Ancillary_workflow_Test () {
+    public void ExportControl_WorkflowManagement_Ancillary_workflow_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String ancillaryNamePrefix = JsonDataReader.get(1, "AncillaryWorkflowNamePrefix");           // "Test_"
+            String ancillaryEmailFrom = JsonDataReader.get(1, "AncillaryWorkflowEmailFrom");             // "insighthelpdesk@partners.org"
+            String ancillaryNameAppendText = JsonDataReader.get(1, "AncillaryWorkflowNameAppendText");   // "San"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -83,31 +87,27 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
             //Ancillary workflow
             basePage.pause(2000);
             ancillaryWorkflowsPage.clickWorkflowManagement();
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
-
             basePage.pause(2000);
             ancillaryWorkflowsPage.clickAncillaryWorkflowsScope3();
             ExtentReportListener.getExtentTest().pass("Opened 'Ancillary Workflows' (scopeId=3, workflowType=2)");
-
 
             basePage.pause(2000);
             ancillaryWorkflowsPage.clickAddNew();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
 
-            String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
+            String uniqueName01 = ancillaryNamePrefix + System.currentTimeMillis();
             basePage.pause(5000);
             ancillaryWorkflowsPage.enterNameAnc(uniqueName01);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
             basePage.pause(5000);
-            ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
+            ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From", ancillaryEmailFrom);
+            ExtentReportListener.getExtentTest().pass("Selected '" + ancillaryEmailFrom + "' from Email From dropdown successfully");
 
             basePage.pause(5000);
             ancillaryWorkflowsPage.clickCancelButton();
@@ -117,15 +117,14 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
             ancillaryWorkflowsPage.clickAddNew();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
 
-
-            String uniqueName02 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
+            String uniqueName02 = ancillaryNamePrefix + System.currentTimeMillis();
             basePage.pause(5000);
-            ancillaryWorkflowsPage.enterNameAnc(uniqueName01);
+            ancillaryWorkflowsPage.enterNameAnc(uniqueName02);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
 
             basePage.pause(5000);
-            ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
+            ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From", ancillaryEmailFrom);
+            ExtentReportListener.getExtentTest().pass("Selected '" + ancillaryEmailFrom + "' from Email From dropdown successfully");
 
             basePage.pause(5000);
             ancillaryWorkflowsPage.clickSaveButton();
@@ -134,11 +133,6 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
             basePage.pause(1200);
             ancillaryWorkflowsPage.clickLastEdit();
             ExtentReportListener.getExtentTest().pass("Clicked last 'Edit' on Ancillary Workflows list");
-
-
-            basePage.pause(3000);
-            ancillaryWorkflowsPage.appendSanToNameAnc();
-            ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
 
             basePage.pause(3000);
             ancillaryWorkflowsPage.clickUpdateButtonAnc();
@@ -152,11 +146,8 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

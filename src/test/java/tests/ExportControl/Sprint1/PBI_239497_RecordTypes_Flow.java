@@ -26,10 +26,11 @@ public class PBI_239497_RecordTypes_Flow {
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
-       // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -50,12 +51,18 @@ public class PBI_239497_RecordTypes_Flow {
     }
 
     @Test
-    public void Exportcontrol_RecordTypes_Test() {
+    public void ExportControl_RecordTypes_Test() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String initialRecordType = JsonDataReader.get(1, "InitialRecordType");
+            String recordTypePrefix = JsonDataReader.get(1, "RecordTypePrefix");
+            String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
+            String negativeSearchText = JsonDataReader.get(1, "NegativeSearchText");
+            String refMeaningValue = JsonDataReader.get(1, "RefMeaningValue");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -71,7 +78,6 @@ public class PBI_239497_RecordTypes_Flow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
 
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
@@ -96,8 +102,8 @@ public class PBI_239497_RecordTypes_Flow {
             ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
 
             basePage.pause(5000);
-            adminPageRecordtypes.enterRecordType("Test01");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test' into Record Type input field");
+            adminPageRecordtypes.enterRecordType(initialRecordType);
+            ExtentReportListener.getExtentTest().pass("Entered '" + initialRecordType + "' into Record Type input field");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickCancelButton();
@@ -120,11 +126,9 @@ public class PBI_239497_RecordTypes_Flow {
             adminPageRecordtypes.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
-            String searchKeyword = "Test";
-
             basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(searchKeyword);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword + "'");
+            adminPageRecordtypes.searchRecordByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + positiveSearchText + "'");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickSearchButton();
@@ -134,37 +138,29 @@ public class PBI_239497_RecordTypes_Flow {
             adminPageRecordtypes.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
-            String searchKeyword01 = "@@@@@@@";
-
             basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(searchKeyword01);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword01 + "'");
-
+            adminPageRecordtypes.searchRecordByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + negativeSearchText + "'");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
 
-
             basePage.pause(5000);
             adminPageRecordtypes.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
-
 
             basePage.pause(5000);
             adminPageRecordtypes.clickAddCategoryLink();
             ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
 
-
             basePage.pause(5000);
             adminPageRecordtypes.selectCategory(recordTypeName);
             ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
 
-
-            String refValue = "1";
             basePage.pause(2000);
-            adminPageRecordtypes.enterRefMeaning(refValue);
-            ExtentReportListener.getExtentTest().pass("Entered '" + refValue + "' into Ref Meaning input field");
+            adminPageRecordtypes.enterRefMeaning(refMeaningValue);
+            ExtentReportListener.getExtentTest().pass("Entered '" + refMeaningValue + "' into Ref Meaning input field");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickCancelButton();
@@ -174,27 +170,21 @@ public class PBI_239497_RecordTypes_Flow {
             adminPageRecordtypes.clickAddCategoryLink();
             ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
 
-
             basePage.pause(5000);
             adminPageRecordtypes.selectCategory(recordTypeName);
             ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
 
-
-            String refValue01 = "1";
             basePage.pause(2000);
-            adminPageRecordtypes.enterRefMeaning(refValue01);
-            ExtentReportListener.getExtentTest().pass("Entered '" + refValue01 + "' into Ref Meaning input field");
+            adminPageRecordtypes.enterRefMeaning(refMeaningValue);
+            ExtentReportListener.getExtentTest().pass("Entered '" + refMeaningValue + "' into Ref Meaning input field");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
-            String searchKeyword02 = "Test";
-
             basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(searchKeyword02);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword02 + "'");
-
+            adminPageRecordtypes.searchRecordByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + positiveSearchText + "'");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickSearchButton();
@@ -204,18 +194,13 @@ public class PBI_239497_RecordTypes_Flow {
             adminPageRecordtypes.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
-
-            String searchKeyword03 = "@@@@@@@";
-
             basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(searchKeyword03);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword03 + "'");
-
+            adminPageRecordtypes.searchRecordByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + negativeSearchText + "'");
 
             basePage.pause(5000);
             adminPageRecordtypes.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
-
 
             basePage.pause(5000);
             adminPageRecordtypes.clickClearSelectionsButton();
@@ -229,11 +214,8 @@ public class PBI_239497_RecordTypes_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

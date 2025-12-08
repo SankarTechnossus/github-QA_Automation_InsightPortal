@@ -29,7 +29,7 @@ public class PBI_239497_Status_Management_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -56,6 +56,9 @@ public class PBI_239497_Status_Management_Flow {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String statusNamePrefix = JsonDataReader.get(1, "StatusNamePrefix");  // e.g. "Test"
+            String statusNameSuffix = JsonDataReader.get(1, "StatusNameSuffix");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -94,9 +97,8 @@ public class PBI_239497_Status_Management_Flow {
 
             basePage.pause(5000);
 
-            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+            String statusName = statusNamePrefix + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
             statusManagementPage.enterStatusName(statusName);
-
             ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
 
             basePage.pause(5000);
@@ -112,8 +114,9 @@ public class PBI_239497_Status_Management_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
 
             basePage.pause(5000);
-            statusManagementPage.appendToStatusName("SAN01");
-            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
+            statusManagementPage.appendToStatusName(statusNameSuffix);
+            ExtentReportListener.getExtentTest().pass("Appended '" + statusNameSuffix + "' to Status Name input field");
+
 
             basePage.pause(3000);
             statusManagementPage.selectActiveAsNo();
@@ -131,11 +134,8 @@ public class PBI_239497_Status_Management_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

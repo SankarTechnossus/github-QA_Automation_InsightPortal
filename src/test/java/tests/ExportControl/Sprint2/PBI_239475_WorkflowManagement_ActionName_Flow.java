@@ -34,7 +34,7 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -56,12 +56,15 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_ActionName_Test () {
+    public void ExportControl_WorkflowManagement_ActionName_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String actionNamePrefix = JsonDataReader.get(1, "ActionNamePrefix");       // e.g. "Test_"
+            String actionHistoryTitle = JsonDataReader.get(1, "ActionHistoryTitle");   // e.g. "TestSan"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -96,13 +99,13 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
             basePage.pause(5000);
-            String uniqueName03 = "Test_" + System.currentTimeMillis();
+            String uniqueName03 = actionNamePrefix + System.currentTimeMillis();
             actionNamePage.enterName(uniqueName03);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
 
             basePage.pause(5000);
-            actionNamePage.enterHistoryTitle("TestSan");
-            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+            actionNamePage.enterHistoryTitle(actionHistoryTitle);
+            ExtentReportListener.getExtentTest().pass("Entered '" + actionHistoryTitle + "' into History Title input field successfully");
 
             basePage.pause(5000);
             actionNamePage.clickCancelButton();
@@ -113,13 +116,13 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
             basePage.pause(5000);
-            String uniqueName5 = "Test_" + System.currentTimeMillis();
+            String uniqueName5 = actionNamePrefix + System.currentTimeMillis();
             actionNamePage.enterName(uniqueName5);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
 
             basePage.pause(5000);
-            actionNamePage.enterHistoryTitle("TestSan");
-            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+            actionNamePage.enterHistoryTitle(actionHistoryTitle);
+            ExtentReportListener.getExtentTest().pass("Entered '" + actionHistoryTitle + "' into History Title input field successfully");
 
             basePage.pause(5000);
             actionNamePage.clickAddButton();
@@ -149,11 +152,8 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

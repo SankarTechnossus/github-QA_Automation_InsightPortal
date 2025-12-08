@@ -34,7 +34,7 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+        //User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -56,12 +56,16 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Stepname_Test () {
+    public void ExportControl_WorkflowManagement_StepName_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            // Step name test data from JSON (index 1)
+            String stepNameInitial = JsonDataReader.get(1, "StepNameInitial");   // e.g. "Sample Name"
+            String stepNamePrefix = JsonDataReader.get(1, "StepNamePrefix");     // e.g. "Test"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -83,7 +87,6 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
             basePage.pause(2000);
             stepNamePage.clickWorkflowManagementStepName();
             ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
@@ -92,54 +95,41 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
             stepNamePage.clickExportControlStepName();
             ExtentReportListener.getExtentTest().pass("Opened Export Control > Step name (scopeId=3) successfully");
 
-
-
             basePage.pause(5000);
             stepNamePage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
-
-
             basePage.pause(5000);
-            stepNamePage.enterName("Sample Name");
-            ExtentReportListener.getExtentTest().pass("Entered 'Sample Name' into Name input field successfully");
-
-
+            stepNamePage.enterName(stepNameInitial);
+            ExtentReportListener.getExtentTest().pass("Entered '" + stepNameInitial + "' into Name input field successfully");
 
             basePage.pause(5000);
             stepNamePage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-
             basePage.pause(5000);
             stepNamePage.clickAddNewButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
-
             basePage.pause(5000);
-            String generatedName = stepNamePage.enterUniqueName("Test");
+            String generatedName = stepNamePage.enterUniqueName(stepNamePrefix);
             ExtentReportListener.getExtentTest().pass("Entered unique name '" + generatedName + "' into Name input field successfully");
-
 
             basePage.pause(5000);
             stepNamePage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
-
             basePage.pause(5000);
             stepNamePage.clickEditButtonForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
-
 
             basePage.pause(5000);
             stepNamePage.clickCancelForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for step name '" + generatedName + "' successfully");
 
-
             basePage.pause(5000);
             stepNamePage.clickEditButtonForStepName(generatedName);
             ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
-
 
             basePage.pause(5000);
             stepNamePage.clickSaveForStepName(generatedName);
@@ -153,11 +143,8 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

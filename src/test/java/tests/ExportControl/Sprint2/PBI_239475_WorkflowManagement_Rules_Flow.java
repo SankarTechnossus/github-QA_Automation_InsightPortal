@@ -34,7 +34,7 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -56,12 +56,16 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Rules_Test () {
+    public void ExportControl_WorkflowManagement_Rules_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String rulesQueryBuilderSection = JsonDataReader.get(1, "RulesQueryBuilderSection");   // "Query Builder"
+            String rulesQueryBuilderOperator = JsonDataReader.get(1, "RulesQueryBuilderOperator"); // "AND"
+
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -83,7 +87,6 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
             basePage.pause(5000);
             rulesPage.clickWorkflowManagementLinkRules();
             ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
@@ -92,85 +95,73 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
             rulesPage.clickRulesLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Rules' link successfully");
 
-
             basePage.pause(5000);
             rulesPage.clickAddRuleButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
-
 
             basePage.pause(5000);
             String generatedName = rulesPage.enterUniqueNameWithTestPrefix();
             ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedName + "' into Name input field successfully");
 
-
             basePage.pause(5000);
-            rulesPage.selectQueryBuilderOperator("Query Builder","AND");
-            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
-
+            rulesPage.selectQueryBuilderOperator(rulesQueryBuilderSection, rulesQueryBuilderOperator);
+            ExtentReportListener.getExtentTest().pass("Selected '" + rulesQueryBuilderOperator + "' from " + rulesQueryBuilderSection + " dropdown successfully");
 
             basePage.pause(5000);
             rulesPage.clickAddRuleButtonRule();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Rule' button successfully");
 
-
             basePage.pause(5000);
             rulesPage.clickRemoveRuleButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Remove rule' button successfully");
-
 
             basePage.pause(5000);
             rulesPage.clickAddGroupButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Group' button successfully");
 
-
             basePage.pause(5000);
             rulesPage.clickRemoveGroupButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Remove group' button successfully");
 
-
             basePage.pause(5000);
             rulesPage.clickMigrationButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
 
-
             basePage.pause(5000);
             rulesPage.clickMigrationButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
-
 
             basePage.pause(5000);
             rulesPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-
             basePage.pause(5000);
             rulesPage.clickAddRuleButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
 
+            basePage.pause(5000);
+            String generatedNameLast = rulesPage.enterUniqueNameWithTestPrefix();
+            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedNameLast + "' into Name input field successfully");
 
             basePage.pause(5000);
-            String generatedNamelast = rulesPage.enterUniqueNameWithTestPrefix();
-            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedNamelast + "' into Name input field successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.selectQueryBuilderOperator("Query Builder","AND");
-            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
-
+            rulesPage.selectQueryBuilderOperator(rulesQueryBuilderSection, rulesQueryBuilderOperator);
+            ExtentReportListener.getExtentTest().pass("Selected '" + rulesQueryBuilderOperator + "' from " + rulesQueryBuilderSection + " dropdown successfully");
 
             basePage.pause(5000);
             rulesPage.clickSaveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
+            basePage.pause(5000);
+            rulesPage.clickEditButtonForRule(generatedNameLast);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNameLast + "' successfully");
+
+            basePage.pause(2000);
+            rulesPage.clickWorkflowsCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on Workflows popup successfully");
 
             basePage.pause(5000);
-            rulesPage.clickEditButtonForRule(generatedNamelast);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNamelast + "' successfully");
-
-
-            basePage.pause(5000);
-            rulesPage.appendToNameField("san");
-            ExtentReportListener.getExtentTest().pass("Appended 'san' to Name input field successfully");
+            rulesPage.clickEditButtonForRule(generatedNameLast);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNameLast + "' successfully");
 
             basePage.pause(5000);
             rulesPage.clickSaveButton();
@@ -184,11 +175,8 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

@@ -16,81 +16,60 @@ public class AgreementPage extends BasePage {
     }
 
     // Locators
-    // Sidebar container (current module)
-    private By leftSidebar = By.cssSelector("div[class*='administrationSubmenu'][class*='current-module']");
-
-    // Exact link for Forms Management > Export Control
-    private By exportControlLink = By.cssSelector("a[href='/administration/forms-management-export-control']");
-
-    private By agreementsLink = By.xpath("//a[contains(text(),'Agreements')]");
-    private By agreementNumberInput = By.xpath("//input[@id='agreementNumber']");
-    private By searchButton = By.xpath("//button[text()='Search']");
-    private By agreementSpan = By.xpath("//span[text()='2025A019384']");
-    private By deliverablesTab = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables']//span[text()='Deliverables']");
-    private By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
-    private By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables/1113382']//span[text()='Test']");
-    private By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
-    //    private By fileInput = By.xpath("//input[@type='file' and @accept='application/pdf']");
-//    private By fileInput = By.xpath("//input[@type='file' and contains(@accept, 'application/pdf')]");
-    private By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
-    //    private By fileInput = By.xpath("//div[contains(@class,'agreement-details-section')]//input[@type='file']");
-//private By fileInput = By.xpath("//div[@class='_fileUploadArea_1i6j7_129']//input[@type='file']");
-//    private By fileInput = By.xpath("//div[@class='_fileUploadArea_1i6j7_129']//input[@type='file' and contains(@accept,'application/pdf')]");
-    private By addRecipientButton = By.xpath("//button[text()='Add Recipient']");
-    private By emailInput = By.xpath("//input[@placeholder='Email' and @type='email']");
-    private By previewButton = By.xpath("//div[contains(@class, 'add-recipients-section')]//button[normalize-space(text())='Preview']");
-    private By administrationLink = By.xpath("//a[contains(@href, '/administration') and contains(., 'Administration')]");
-    private By formsManagementLink = By.xpath("//a[contains(@href, '/administration/forms-management-agreements') and contains(., 'Forms Management')]");
-    private By searchByNameInput = By.xpath("//input[@type='text' and @placeholder='Search by Name' and @maxlength='300' and @value='']");
-    private By searchButton01 = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Search']");
-    private By clearSelectionsButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-unstyled') and text()='Clear Selections']");
-    //    private By exportControlLink = By.xpath("//a[@href='/administration/forms-management-export-control' and span[text()='Export Control']]");
-//    private By leftSidebar = By.cssSelector("#left-sidebar");
-    private By addNewLink = By.xpath("//a[@href='/administration/forms-management-export-control/new' and text()='Add new']");
-    private By nameInputField = By.id("name");
-    private By descriptionTextArea = By.id("description");
-    private By typeDropdown = By.id("type");  // the input element used to type/select
-    private By checklistOption = By.xpath("//div[contains(@class,'option') and text()='Checklist']");
-    private By categoryDropdown = By.id("category");  // Input element to activate dropdown
-    private By generalOption = By.xpath("//div[contains(@class,'option') and text()='General']");
-    private By categorySequenceNoInput = By.id("categorySequenceNo");
-    private By createButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Create']");
-    private By version1Link = By.xpath("//a[text()='Version 1']");
-    private By reminderDropdown = By.xpath("//div[@id='react-select-17-placeholder' and text()='Select frequency']");
-    private By reminderOptionEveryDay = By.xpath("//div[contains(text(),'Every day') and contains(@class,'menu')]");
-    private By uploadedFileLabel = By.xpath("//div[contains(@class,'_attachedFile')]/span[contains(text(),'.pdf')]");
-    private By uploadedFileName = By.xpath("//span[contains(text(),'Agreement Info 2025_03.pdf')]");
-    private By hiddenFileInput = By.xpath("//div[contains(@class,'_fileUploader')]/input[@type='file']");
-    private By advancedButton = By.xpath("//button[normalize-space(text())='Advanced (0)']");
-    private By closeButton = By.xpath("//button[normalize-space(text())='Close']");
-    private By clearSelectionsButton01 = By.xpath("//button[normalize-space(text())='Clear Selections']");
-
-    private By advancedBtn = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[normalize-space(.)='Search']/following-sibling::button[contains(.,'Advanced')]");
-    private By advancedBtnAlt = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[contains(normalize-space(.),'Advanced (')]");
-    private By addNewDeliverableBtn = By.xpath("//button[contains(@class,'add-deliverable-button') and normalize-space(.)='Add New Deliverable']");
-
-
-    // --- Type dropdown (React-Select) ---
-    private By typeControl = By.xpath("//label[@for='type']/following::div[contains(@class,'select-control')][1]");
-    private By typeInput   = By.id("type"); // the hidden text input inside the control
-
-    // React-Select menu container (appears after opening)
-    private By rsMenu      = By.xpath("//div[contains(@class,'menu')]");
-
-    // Build an option locator by visible text (trim-safe)
-    private By optionBy(String text) {
-        return By.xpath("//div[contains(@class,'menu')]//div[contains(@class,'option')][normalize-space()='" + text + "']");
-    }
-
-
-    private By typeControlnew01 = By.xpath("//label[@for='type']/following::div[contains(@class,'select-control')][1]");
-
-
+    By leftSidebar = By.cssSelector("div[class*='administrationSubmenu'][class*='current-module']");
+    By exportControlLink = By.cssSelector("a[href='/administration/forms-management-export-control']");
+    By agreementsLink = By.xpath("//a[contains(text(),'Agreements')]");
+    By agreementNumberInput = By.xpath("//input[@id='agreementNumber']");
+    By searchButton = By.xpath("//button[text()='Search']");
+    By agreementSpan = By.xpath("//span[text()='2025A019384']");
+    By deliverablesTab = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables']//span[text()='Deliverables']");
+    By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
+    By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables/1113382']//span[text()='Test']");
+    By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
+    By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
+    By addRecipientButton = By.xpath("//button[text()='Add Recipient']");
+    By emailInput = By.xpath("//input[@placeholder='Email' and @type='email']");
+    By previewButton = By.xpath("//div[contains(@class, 'add-recipients-section')]//button[normalize-space(text())='Preview']");
+    By administrationLink = By.xpath("//a[contains(@href, '/administration') and contains(., 'Administration')]");
+    By formsManagementLink = By.xpath("//a[contains(@href, '/administration/forms-management-agreements') and contains(., 'Forms Management')]");
+    By searchByNameInput = By.xpath("//input[@type='text' and @placeholder='Search by Name' and @maxlength='300' and @value='']");
+    By searchButton01 = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Search']");
+    By clearSelectionsButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-unstyled') and text()='Clear Selections']");
+    By addNewLink = By.xpath("//a[@href='/administration/forms-management-export-control/new' and text()='Add new']");
+    By nameInputField = By.id("name");
+    By descriptionTextArea = By.id("description");
+    By typeDropdown = By.id("type");  // the input element used to type/select
+    By checklistOption = By.xpath("//div[contains(@class,'option') and text()='Checklist']");
+    By categoryDropdown = By.id("category");  // Input element to activate dropdown
+    By generalOption = By.xpath("//div[contains(@class,'option') and text()='General']");
+    By categorySequenceNoInput = By.id("categorySequenceNo");
+    By createButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(@class, '-primary') and text()='Create']");
+    By version1Link = By.xpath("//a[text()='Version 1']");
+    By reminderDropdown = By.xpath("//div[@id='react-select-17-placeholder' and text()='Select frequency']");
+    By reminderOptionEveryDay = By.xpath("//div[contains(text(),'Every day') and contains(@class,'menu')]");
+    By uploadedFileLabel = By.xpath("//div[contains(@class,'_attachedFile')]/span[contains(text(),'.pdf')]");
+    By uploadedFileName = By.xpath("//span[contains(text(),'Agreement Info 2025_03.pdf')]");
+    By hiddenFileInput = By.xpath("//div[contains(@class,'_fileUploader')]/input[@type='file']");
+    By advancedButton = By.xpath("//button[normalize-space(text())='Advanced (0)']");
+    By closeButton = By.xpath("//button[normalize-space(text())='Close']");
+    By clearSelectionsButton01 = By.xpath("//button[normalize-space(text())='Clear Selections']");
+    By advancedBtn = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[normalize-space(.)='Search']/following-sibling::button[contains(.,'Advanced')]");
+    By advancedBtnAlt = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[contains(normalize-space(.),'Advanced (')]");
+    By addNewDeliverableBtn = By.xpath("//button[contains(@class,'add-deliverable-button') and normalize-space(.)='Add New Deliverable']");
+    By typeControlnew01 = By.xpath("//label[@for='type']/following::div[contains(@class,'select-control')][1]");
+    By administrationHeader = By.xpath("//h1[normalize-space()='Administration']");
 
     // ******** Actions *********
 
-
-
+    public boolean isAdministrationPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(administrationHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 
     public void selectTypeAsExportControlRequestnew01() {
         WebElement control = new WebDriverWait(driver, Duration.ofSeconds(30))
@@ -109,41 +88,6 @@ public class AgreementPage extends BasePage {
         pause(1000);
     }
 
-
-
-//    public void selectType(String visibleText) {
-//        WebElement control = new WebDriverWait(driver, Duration.ofSeconds(30))
-//                .until(ExpectedConditions.visibilityOfElementLocated(typeControl));
-//
-//        // Scroll into view (center) per your pattern
-//        ((JavascriptExecutor) driver).executeScript(
-//                "arguments[0].scrollIntoView({block:'center'});", control);
-//
-//        // Open dropdown (React-Select)
-//        control.click();
-//
-//        // Wait for menu to render
-//        new WebDriverWait(driver, Duration.ofSeconds(10))
-//                .until(ExpectedConditions.visibilityOfElementLocated(rsMenu));
-//
-//        // Click the desired option by text
-//        WebElement opt = new WebDriverWait(driver, Duration.ofSeconds(10))
-//                .until(ExpectedConditions.elementToBeClickable(optionBy(visibleText)));
-//        opt.click();
-//
-//        // small controlled pause
-//        pause(1000);
-//    }
-
-//    // Convenience wrapper to match your usual call style
-//    public void selectTypeAsExportControlRequest() {
-//        selectType("Export Control Request");
-//    }
-//
-
-
-
-
     public void clickAddNewDeliverable() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(addNewDeliverableBtn));
@@ -151,8 +95,6 @@ public class AgreementPage extends BasePage {
         btn.click();
         pause(1000);
     }
-
-
 
     public void clickAdvanced() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -171,8 +113,6 @@ public class AgreementPage extends BasePage {
         pause(1000);
     }
 
-
-
     public void clickClearSelectionsButton01() {
         WebElement button = driver.findElement(clearSelectionsButton01);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -183,9 +123,6 @@ public class AgreementPage extends BasePage {
         button.click();
         pause(1000);
     }
-
-
-
 
     public void clickCloseButton() {
         WebElement button = driver.findElement(closeButton);
@@ -198,9 +135,6 @@ public class AgreementPage extends BasePage {
         pause(1000);
     }
 
-
-
-
     public void clickAdvancedButton() {
         WebElement button = driver.findElement(advancedButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
@@ -212,10 +146,6 @@ public class AgreementPage extends BasePage {
         pause(1000);
     }
 
-
-
-
-
     public void uploadAgreementPdf(String filePath) {
         WebElement uploadInput = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.presenceOfElementLocated(hiddenFileInput));
@@ -223,20 +153,11 @@ public class AgreementPage extends BasePage {
         ExtentReportListener.getExtentTest().pass("Uploaded file: " + filePath);
     }
 
-
-
-
-
     public void waitForUploadedFileToAppear() {
         By uploadedFileLocator = By.xpath("//span[contains(text(),'Agreement Info') and contains(text(),'.pdf')]");
         waitForPresence(uploadedFileLocator); // Uses your 120s wait method in BasePage
         ExtentReportListener.getExtentTest().pass("Waited for uploaded file to appear successfully");
     }
-
-
-
-
-
 
     public void uploadPDFToAgreement(String filePath) {
         WebElement input = driver.findElement(fileInput);
@@ -250,10 +171,6 @@ public class AgreementPage extends BasePage {
         ExtentReportListener.getExtentTest().pass("Uploaded file successfully: " + filePath);
     }
 
-
-
-
-
     public void selectReminderAsEveryDay() {
         WebElement dropdown = driver.findElement(reminderDropdown);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
@@ -266,8 +183,6 @@ public class AgreementPage extends BasePage {
 
         pause(1000);
     }
-
-
 
     public void clickVersion1Link() {
         By version1Link = By.linkText("Version 1");
@@ -290,11 +205,9 @@ public class AgreementPage extends BasePage {
 
 
         } catch (Exception e) {
-            throw new RuntimeException("❌ Unable to click 'Version 1' link: " + e.getMessage(), e);
+            throw new RuntimeException(" Unable to click 'Version 1' link: " + e.getMessage(), e);
         }
     }
-
-
 
     public void clickCreateButton() {
         WebElement button = driver.findElement(createButton);
@@ -304,15 +217,12 @@ public class AgreementPage extends BasePage {
         pause(3000);  // Wait for navigation or action to complete
     }
 
-
     public void enterCategorySequenceNo(String number) {
         WebElement input = driver.findElement(categorySequenceNoInput);
         input.clear();             // Clear existing value
         input.sendKeys(number);    // Enter the desired number
         pause(1000);               // Optional wait
     }
-
-
 
     public void selectCategoryAsGeneral() {
         WebElement dropdown = driver.findElement(categoryDropdown);
@@ -327,9 +237,6 @@ public class AgreementPage extends BasePage {
         pause(1000);  // Allow selection to register
     }
 
-
-
-
     public void selectTypeAsChecklist() {
         WebElement dropdown = driver.findElement(typeDropdown);
 
@@ -343,15 +250,12 @@ public class AgreementPage extends BasePage {
         pause(1000);  // Allow time to register selection
     }
 
-
-
     public void enterDescription(String text) {
         WebElement textarea = driver.findElement(descriptionTextArea);
         textarea.clear();           // Optional: clears any existing text
         textarea.sendKeys(text);    // Sends the input text
         pause(1000);                // Optional wait
     }
-
 
     public void enterName(String name) {
         WebElement input = driver.findElement(nameInputField);
@@ -360,7 +264,6 @@ public class AgreementPage extends BasePage {
         pause(1000);  // Optional: wait after entering
     }
 
-
     public void clickAddNewLink() {
         WebElement link = driver.findElement(addNewLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link); // Optional scroll
@@ -368,7 +271,6 @@ public class AgreementPage extends BasePage {
         link.click();
         pause(3000); // Wait for navigation
     }
-
 
     public void scrollSidebarToExportControlOnly() {
         WebElement sidebar = driver.findElement(leftSidebar);
@@ -381,7 +283,6 @@ public class AgreementPage extends BasePage {
 
         pause(2000); // Allow time for scrolling effect
     }
-
 
     public void scrollSidebarToExportControlAndClick() {
         WebElement sidebar = driver.findElement(leftSidebar);
@@ -398,18 +299,15 @@ public class AgreementPage extends BasePage {
         pause(5000);  // Wait for new content to load
     }
 
-
     public void clickClearSelectionsButton() {
         click(clearSelectionsButton);  // Uses your reusable click() method
         pause(5000); // Optional wait after click
     }
 
-
     public void clickSearchButton() {
         click(searchButton01);  // Assuming click() is your basePage reusable method
         pause(5000); // Optional wait after click
     }
-
 
     public void enterSearchText(String name) {
         type(searchByNameInput, name);  // Assuming you have a `type()` wrapper method in basePage
@@ -433,14 +331,6 @@ public class AgreementPage extends BasePage {
         pause(5000);
     }
 
-//    public void clickAgreementsLink() {
-//        WebElement element = waitForElement(agreementsLink); // no need for basePage. — it's inherited
-//        element.click();
-//        pause(5000);
-//    }
-
-
-
     public void clickAgreementsLink() {
         WebElement link = new WebDriverWait(driver, Duration.ofSeconds(240))
                 .until(ExpectedConditions.visibilityOfElementLocated(agreementsLink));
@@ -453,9 +343,6 @@ public class AgreementPage extends BasePage {
         link.click();
         pause(5000);
     }
-
-
-
 
     public void enterAgreementNumber(String number) {
         WebElement element = waitForElement50(agreementNumberInput);
@@ -492,12 +379,6 @@ public class AgreementPage extends BasePage {
         click(adobeIcon);
         pause(5000);
     }
-
-//    public void uploadAgreementPdf(String filePath) {
-//        WebElement file = waitForPresence(fileInput);
-//        file.sendKeys(filePath);
-//        pause(5000);
-//    }
 
     public void clickAddRecipient() {
         click(addRecipientButton);

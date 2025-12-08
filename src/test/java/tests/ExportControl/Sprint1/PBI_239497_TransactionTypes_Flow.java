@@ -33,7 +33,7 @@ public class PBI_239497_TransactionTypes_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-        //User will setup and configure the Chrome WebDriver using WebDriverManager
+        //User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -57,12 +57,17 @@ public class PBI_239497_TransactionTypes_Flow {
     }
 
     @Test
-    public void Exportcontrol_TransactionTypes_Test () {
+    public void ExportControl_TransactionTypes_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String transactionTypeInitial = JsonDataReader.get(1, "TransactionTypeInitial");   // e.g. "Test"
+            String transactionTypePrefix = JsonDataReader.get(1, "TransactionTypePrefix");     // e.g. "Test"
+            String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");           // e.g. "Test"
+            String negativeSearchText = JsonDataReader.get(1, "NegativeSearchText");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -120,8 +125,8 @@ public class PBI_239497_TransactionTypes_Flow {
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
             basePage.pause(10000);
-            transactionTypesExportControlPage.enterSearchByName("Test");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test001' into Search by Name input field");
+            transactionTypesExportControlPage.enterSearchByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered '" + positiveSearchText + "' into Search by Name input field");
 
             basePage.pause(800);
             recordTypesExportControlPage.clickSearchButton();
@@ -132,8 +137,8 @@ public class PBI_239497_TransactionTypes_Flow {
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
             basePage.pause(800);
-            transactionTypesExportControlPage.enterSearchByName("@@@@@@@@@@");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test001' into Search by Name input field");
+            transactionTypesExportControlPage.enterSearchByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered '" + negativeSearchText + "' into Search by Name input field");
 
             basePage.pause(800);
             recordTypesExportControlPage.clickSearchButton();
@@ -156,5 +161,4 @@ public class PBI_239497_TransactionTypes_Flow {
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
-
 }
