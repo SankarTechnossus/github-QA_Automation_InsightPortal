@@ -142,9 +142,9 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
 
             // Create Export Control
-            String piName = JsonDataReader.get(2,"PIName");
-            String type = JsonDataReader.get(2,"ExportControlType");
-            String status = JsonDataReader.get(2,"Status");
+            String piName = JsonDataReader.get(3,"PIName");
+            String type = JsonDataReader.get(3,"ExportControlType");
+            String status = JsonDataReader.get(3,"Status");
 
             createExportControlPage.CreateExportControl(piName);
             Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());

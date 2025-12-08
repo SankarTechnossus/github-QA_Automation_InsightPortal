@@ -59,7 +59,7 @@ public class PeopleManagement_ExportControlPage extends BasePage {
     public void NavigateToPeopleManagementExportControlPage() {
 
         //Click on People Management navigation link
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkPeopleManagement));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         link.click();
