@@ -12,7 +12,7 @@ import java.time.Duration;
 
 public class DisplayChecklistFlowPage extends BasePage {
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public DisplayChecklistFlowPage(WebDriver driver) {
         super(driver);
@@ -27,8 +27,39 @@ public class DisplayChecklistFlowPage extends BasePage {
     By saveActionButton = By.xpath("//button[normalize-space()='Save']");
     By submitActionButton = By.xpath("//button[normalize-space()='Submit']");
     By option1Radio = By.xpath("//span[normalize-space()='Option (1)']/preceding-sibling::input[@type='radio']");
+    By nameInput = By.xpath("//div[contains(@class,'dynamic-form-field')]" + "[.//div[contains(@class,'fr-element') and normalize-space()='What is your Name?']]" + "//input[@type='text']");
+    By phoneInput = By.xpath("//div[contains(@class,'dynamic-form-field')]" + "[.//div[contains(@class,'fr-element') and normalize-space()='What is Your Number']]" + "//input[@type='tel']");
+
 
     //Actions
+
+    public void enterName(String nameValue) {
+        WebElement input = wait.until(
+                ExpectedConditions.elementToBeClickable(nameInput));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(nameValue);
+
+        pause(500);
+    }
+
+    public void enterPhoneNumber01(String phoneNumber) {
+        WebElement input = wait.until(
+                ExpectedConditions.elementToBeClickable(phoneInput));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(phoneNumber);
+
+        pause(500);
+    }
 
     public void selectOption1() {
         WebElement radio = wait.until(

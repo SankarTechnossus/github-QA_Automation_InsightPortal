@@ -8,26 +8,232 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class MyActionsPage extends BasePage {
+    private final WebDriverWait wait;
 
     public MyActionsPage(WebDriver driver) {
         super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     // **************************** Locators *******************************************
 
     // Left nav – "Action Required" under Export Control
-    By actionRequiredLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a" + "[contains(@class,'label') and normalize-space()='Action Required']");
 
-    // text inputs
+    // Already have:
+    By openDropdownPanel = By.xpath("//div[contains(@class,'menu') and contains(@class,'select')]");
+    By submitterInput = By.xpath("//label[normalize-space()='Submitter']/following::input[contains(@id,'react-select')][1]");
+    String submitterOptionXpath = "//div[contains(@id,'react-select') and contains(@id,'listbox')]" + "//div[contains(@class,'option') and contains(normalize-space(),'OPTION_TEXT')]";
+    By reviewerDropdown = By.xpath("//label[normalize-space()='Reviewer']/following::div[contains(@class,'select-control')][1]");
+    By reviewerInput = By.xpath("//label[normalize-space()='Reviewer']/following::input[contains(@id,'react-select')][1]");
+    String reviewerOptionXpath = "//div[contains(@id,'react-select') and contains(@id,'listbox')]" + "//div[contains(@class,'option') and contains(normalize-space(),'OPTION_TEXT')]";
+    By actionRequiredLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a" + "[contains(@class,'label') and normalize-space()='Action Required']");
     By recordNumberInput = By.xpath("//label[normalize-space()='Record Number']/following::input[1]");
     By agreementNumbersInput = By.xpath("//label[normalize-space()='Agreement Numbers']/following::input[1]");
-
     // buttons
     By clearSelectionsButton = By.xpath("//button[normalize-space()='Clear Selections']");
     By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");
     By firstRecordNumberLink = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]" + "//td[@data-column='_exportControlNumber']//a");
+    // Created On - From
+    By createdOnFromInput = By.xpath("//label[normalize-space()='Created On']/following::input[@type='text'][1]");
+    By createdOnToInput = By.xpath("//label[normalize-space()='Created On']/following::input[@type='text'][2]");
+    By reviewDateToInput = By.xpath("//label[normalize-space()='Review date']/following::input[@type='text'][2]");
+    // Review Date - From
+    By reviewDateFromInput = By.xpath("//label[normalize-space()='Review date']/following::input[@type='text'][1]");
+    // Submitter dropdown (already populated with MA1279)
+    By submitterDropdown = By.xpath("//label[normalize-space()='Submitter']/following::div[contains(@class,'select-control')]");
+    // Record Number input
+    By recordNumberInput01 = By.xpath("//label[normalize-space()='Record Number']/following::input");
+    // Clear Selection button
+    By clearSelectionButton = By.xpath("//button[@type='button' and contains(.,'Clear Selections')]");
+    // Search button
+    By searchButton01 = By.xpath("//button[@type='submit' and normalize-space()='Search']");
 
     // ****************** Functions ******************************************************
+
+    public void selectSubmitter(String searchText, String optionToSelect) {
+
+        // We assume clickSubmitterFilter() already called from test
+
+        // Step 1: Type submitter code
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(submitterInput));
+        input.click();
+        input.clear();
+        input.sendKeys(searchText);
+        pause(1000);
+
+        // Step 2: Try to click the suggestion from dropdown
+        By dynamicOption = By.xpath(submitterOptionXpath.replace("OPTION_TEXT", optionToSelect));
+
+        try {
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement option = shortWait.until(
+                    ExpectedConditions.visibilityOfElementLocated(dynamicOption));
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView({block:'center'});", option);
+            option.click();
+        } catch (TimeoutException e) {
+            // Fallback for "traditional" behaviour => just confirm with ENTER
+            input.sendKeys(Keys.ENTER);
+        }
+
+        pause(1000);
+    }
+
+    public void clickSubmitterFilter() {
+
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(openDropdownPanel));
+        } catch (TimeoutException e) {
+            // ignore if no open dropdown
+        }
+
+        WebElement input = wait.until(
+                ExpectedConditions.elementToBeClickable(submitterInput));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
+
+        try {
+            input.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input);
+        }
+
+        pause(500);
+    }
+
+    public void selectReviewer(String searchText, String optionToSelect) {
+
+        // Step 1: Open the dropdown
+        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(reviewerDropdown));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", dropdown);
+        dropdown.click();
+        pause(500);
+
+        // Step 2: Type reviewer code
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(reviewerInput));
+        input.click();
+        input.clear();
+        input.sendKeys(searchText);
+        pause(1000);
+
+        // Step 3: Try to click the suggestion from the popup
+        By dynamicOption = By.xpath(reviewerOptionXpath.replace("OPTION_TEXT", optionToSelect));
+
+        try {
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement option = shortWait.until(ExpectedConditions
+                    .visibilityOfElementLocated(dynamicOption));
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView({block:'center'});", option);
+            option.click();
+        } catch (TimeoutException e) {
+            // Fallback for “traditional” behaviour:
+            // listbox not found / auto-select on enter -> just hit ENTER
+            input.sendKeys(Keys.ENTER);
+        }
+
+        // Optional: click somewhere to blur the field if needed
+        // driver.findElement(By.xpath("//label[normalize-space()='Record Number']")).click();
+
+        pause(1000);
+    }
+
+    public void selectReviewer(String reviewerName) {
+        WebElement input = wait.until(
+                ExpectedConditions.elementToBeClickable(reviewerInput));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(reviewerName);
+
+        // select option etc...
+
+        // ✅ after selecting reviewer, wait for dropdown to disappear
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(openDropdownPanel));
+        pause(500);
+    }
+
+    public void enterReviewDateTo(String dateValue) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(reviewDateToInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(dateValue);
+        pause(500);
+    }
+
+    public void enterCreatedOnTo(String dateValue) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(createdOnToInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(dateValue);
+        pause(500);
+    }
+
+    public void enterCreatedOnFrom(String dateValue) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(createdOnFromInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(dateValue);
+        pause(500);
+    }
+
+    public void enterReviewDateFrom(String dateValue) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(reviewDateFromInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(dateValue);
+        pause(500);
+    }
+
+    public void selectReviewer() {
+        WebElement dd = wait.until(ExpectedConditions.elementToBeClickable(reviewerDropdown));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", dd);
+        dd.click();
+        pause(500);
+    }
+
+    public void selectSubmitter() {
+        WebElement dd = wait.until(ExpectedConditions.elementToBeClickable(submitterDropdown));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", dd);
+        dd.click();
+        pause(500);
+    }
+
+    public void enterRecordNumber(String recordNo) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(recordNumberInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.clear();
+        input.sendKeys(recordNo);
+        pause(500);
+    }
+
+    public void clickClearSelections() {
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(clearSelectionButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+        btn.click();
+        pause(1000);
+    }
+
+    public void clickSearchButton() {
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+        btn.click();
+        pause(2000);
+    }
 
     // inside MyActionsPage
     public WebElement waitHighlightAndGetClickable(By locator) {
@@ -131,9 +337,9 @@ public class MyActionsPage extends BasePage {
     }
 
     // 3. Enter Record Number
-    public void enterRecordNumber(String recordNumber) {
+    public void enterRecordNumber01(String recordNumber) {
         WebElement input = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(recordNumberInput));
+                .until(ExpectedConditions.visibilityOfElementLocated(recordNumberInput01));
         input.clear();
         input.sendKeys(recordNumber);
         pause(500);
@@ -155,7 +361,7 @@ public class MyActionsPage extends BasePage {
     }
 
     // 6. Click Clear Selections
-    public void clickClearSelections() {
+    public void clickClearSelections01() {
         WebElement btn = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(clearSelectionsButton));
         btn.click();
@@ -163,9 +369,9 @@ public class MyActionsPage extends BasePage {
     }
 
     // 7. Click Search
-    public void clickSearchButton() {
+    public void clickSearchButton01() {
         WebElement btn = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(searchButton));
+                .until(ExpectedConditions.elementToBeClickable(searchButton01));
         btn.click();
         pause(2000);
     }

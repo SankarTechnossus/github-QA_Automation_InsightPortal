@@ -17,19 +17,15 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         super(driver);
     }
 
-
     // Locators
-//    private By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types/transaction-type']/span[text()='Transaction Types']");
-    private By exportControlTransactionTypeLink = By.xpath("//span[text()='Export Control']/parent::a");
-    //    private By exportControlTransactionTypeLink = By.xpath("//a[@href='/administration/transaction-types/transaction-type']/span[text()='Export Control']");
-    private By addNewTransactionTypeLink = By.xpath("//a[@href='/administration/transaction-types/transaction-new' and normalize-space(text())='Add new']");
-    private By transactionTypeInput = By.xpath("//input[@id='name' and contains(@class,'text-input') and contains(@class,'default-input')]");
-    private By searchByNameInput = By.xpath("//input[@placeholder='Search by Name' and contains(@class,'text-input') and contains(@class,'default-input')]");
-    private By activeCheckbox = By.id("isActive");
-    private By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types']//span[normalize-space()='Transaction Types']");
-    private By cancelLink = By.xpath("//a[contains(@href,'/administration/transaction-types') and contains(text(),'Cancel')]");
 
-
+    By exportControlTransactionTypeLink = By.xpath("//span[text()='Export Control']/parent::a");
+    By addNewTransactionTypeLink = By.xpath("//a[@href='/administration/transaction-types/transaction-new' and normalize-space(text())='Add new']");
+    By transactionTypeInput = By.xpath("//input[@id='name' and contains(@class,'text-input') and contains(@class,'default-input')]");
+    By searchByNameInput = By.xpath("//input[@placeholder='Search by Name' and contains(@class,'text-input') and contains(@class,'default-input')]");
+    By activeCheckbox = By.id("isActive");
+    By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types']//span[normalize-space()='Transaction Types']");
+    By cancelLink = By.xpath("//a[contains(@href,'/administration/transaction-types') and contains(text(),'Cancel')]");
 
     //Actions
 
@@ -47,8 +43,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         pause(1000); // Your BasePage pause pattern
     }
 
-
-
     public void checkActiveCheckbox() {
         WebElement checkbox = driver.findElement(activeCheckbox);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
@@ -64,7 +58,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         pause(1000);
     }
 
-
     public void enterSearchByName(String name) {
         WebElement input = driver.findElement(searchByNameInput);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
@@ -75,16 +68,9 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         ExtentReportListener.getExtentTest().pass("Entered '" + name + "' into Search by Name input field");
     }
 
-
-
-
     public String generateUniqueTransactionTypeName() {
         return "Test " + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
     }
-
-
-
-
 
     public void enterTransactionType(String transactionName) {
         WebElement input = driver.findElement(transactionTypeInput);
@@ -96,10 +82,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         ExtentReportListener.getExtentTest().pass("Entered '" + transactionName + "' into Transaction Type input field");
     }
 
-
-
-
-
     public void clickAddNewTransactionType() {
         WebElement addNewLink = driver.findElement(addNewTransactionTypeLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", addNewLink);
@@ -107,7 +89,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         addNewLink.click();
         pause(1000);
     }
-
 
     public void clickExportControlTransactionType() {
         WebElement link = driver.findElement(exportControlTransactionTypeLink);
@@ -117,7 +98,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         pause(1000); // Optional wait
     }
 
-
     public void clickTransactionTypesLink() {
         WebElement link = driver.findElement(transactionTypesLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
@@ -125,9 +105,4 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         link.click();
         pause(1000);
     }
-
-
-
-
-
 }

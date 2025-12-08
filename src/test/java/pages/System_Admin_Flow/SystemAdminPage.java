@@ -10,67 +10,43 @@ import java.time.Duration;
 
 public class SystemAdminPage extends BasePage {
 
-
-    private WebDriverWait wait;
+    public final WebDriverWait wait;
 
     public SystemAdminPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
+
     //locator
 
-
     // First Record Number link in the Action Required grid
-    private By firstRecordNumberLink = By.xpath(
-            "(//table[contains(@class,'item-grid')]//tbody" +
-                    "//td[@data-column='_exportControlNumber']//a)[1]");
-
-    private By approveButton = By.xpath("//button[@type='button' and @aria-label='Approve']");
-    private By commentsButton = By.xpath("//span[normalize-space()='Comments']/parent::div");
-    // Comments modal – Froala editor body
-    private By commentsEditor = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-view') and @contenteditable='true']");
-
+    By firstRecordNumberLink = By.xpath("(//table[contains(@class,'item-grid')]//tbody" + "//td[@data-column='_exportControlNumber']//a)[1]");
+    By approveButton = By.xpath("//button[@type='button' and @aria-label='Approve']");
+    By commentsButton = By.xpath("//span[normalize-space()='Comments']/parent::div");
+    By commentsEditor = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-view') and @contenteditable='true']");
     // Comments modal – "Comment" button
-    private By commentModalButton = By.xpath("//button[contains(@class,'comment-btn') and normalize-space()='Comment']");
+    By commentModalButton = By.xpath("//button[contains(@class,'comment-btn') and normalize-space()='Comment']");
     // Left nav – "Response To Review" menu item (under current record)
-    private By responseToReviewMenu = By.xpath("//div[@id='left-sidebar']//a[@class='label'][span[normalize-space()='Response To Review']]");
-
-    private By checklistForm = By.xpath("//button[contains(@class,'content-toggler-button')]//span[span[normalize-space()='Checklist form']]");
+    By responseToReviewMenu = By.xpath("//div[@id='left-sidebar']//a[@class='label'][span[normalize-space()='Response To Review']]");
+    By checklistForm = By.xpath("//button[contains(@class,'content-toggler-button')]//span[span[normalize-space()='Checklist form']]");
     // User dropdown (Mohan C)
-    private By userDropdown = By.xpath("//div[contains(@class,'current-user-name')]");
-
+    By userDropdown = By.xpath("//div[contains(@class,'current-user-name')]");
     // Logout link
-    private By logoutLink = By.xpath("//a[span[normalize-space()='Logout']]");
+    By logoutLink = By.xpath("//a[span[normalize-space()='Logout']]");
+    By recordNumberValue = By.xpath("//dt[normalize-space()='Record #:']/following-sibling::dd");
+    By valueInput = By.xpath("//input[@aria-label='Value']");
 
-    private By recordNumberValue = By.xpath("//dt[normalize-space()='Record #:']/following-sibling::dd");
-
-
-
-
-    private By valueInput = By.xpath("//input[@aria-label='Value']");
-    // Record Number link in results grid – dynamic by record number text
-    private By recordNumberLink(String recordNumber) {
-        return By.xpath(
-                "//table[contains(@class,'item-grid')]//tbody//tr" +
-                        "//td[@data-column='_exportControlNumber']" +
-                        "//a[span[normalize-space()='" + recordNumber + "']]");
-    }
-
-    // Checklist form toggle button
-    private By checklistFormToggleButton = By.xpath(
-            "//div[contains(@class,'toggleable-title')]//button" +
-                    "[contains(@class,'content-toggler-button')]" +
-                    "[.//span[normalize-space()='Checklist form']]");
-
-    private By downloadButton = By.xpath("//button[contains(@class,'button') and .//span[normalize-space()='Download']]");
-    private By optionOneRadio = By.xpath("//input[@name='RadioButtonList1' and @value='Option1']");
-
-
-
-
+    By checklistFormToggleButton = By.xpath("//div[contains(@class,'toggleable-title')]//button" + "[contains(@class,'content-toggler-button')]" + "[.//span[normalize-space()='Checklist form']]");
+    By downloadButton = By.xpath("//button[contains(@class,'button') and .//span[normalize-space()='Download']]");
+    By optionOneRadio = By.xpath("//input[@name='RadioButtonList1' and @value='Option1']");
 
 
     //method
+
+    // Record Number link in results grid – dynamic by record number text
+    public By recordNumberLink(String recordNumber) {
+        return By.xpath("//table[contains(@class,'item-grid')]//tbody//tr" + "//td[@data-column='_exportControlNumber']" + "//a[span[normalize-space()='" + recordNumber + "']]");
+    }
 
     public void selectOptionOne() {
 
@@ -85,7 +61,6 @@ public class SystemAdminPage extends BasePage {
 
         pause(500);  // follow your standard pause
     }
-
 
     public void clickDownloadButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -102,7 +77,6 @@ public class SystemAdminPage extends BasePage {
         pause(1000);
     }
 
-
     public void clickChecklistFormToggle() {
         WebElement toggleBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(checklistFormToggleButton)
@@ -115,7 +89,6 @@ public class SystemAdminPage extends BasePage {
         pause(1000);
     }
 
-
     public void clickRecordNumber(String recordNumber) {
         WebElement link = wait.until(
                 ExpectedConditions.elementToBeClickable(recordNumberLink(recordNumber))
@@ -127,7 +100,6 @@ public class SystemAdminPage extends BasePage {
         link.click();
         pause(1000);
     }
-
 
     public void enterValueField(String value) {
         WebElement input = wait.until(
@@ -172,8 +144,6 @@ public class SystemAdminPage extends BasePage {
         throw new RuntimeException("Record # not found or empty");
     }
 
-
-
     public void clickLogout() {
         // Step 1: Click dropdown
         WebElement dropdown = wait.until(
@@ -205,7 +175,6 @@ public class SystemAdminPage extends BasePage {
         pause(1000);
     }
 
-
     public void clickResponseToReviewMenu() {
         WebElement menuItem = wait.until(
                 ExpectedConditions.elementToBeClickable(responseToReviewMenu));
@@ -217,7 +186,6 @@ public class SystemAdminPage extends BasePage {
 
         pause(1000);
     }
-
 
     public void enterCommentInModal(String commentText) {
         WebElement editor = wait.until(
@@ -264,7 +232,6 @@ public class SystemAdminPage extends BasePage {
         pause(1000);
     }
 
-
     public void clickApproveButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
@@ -290,22 +257,4 @@ public class SystemAdminPage extends BasePage {
 
         pause(1000);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

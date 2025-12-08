@@ -23,35 +23,33 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
     // ********************* Sankar Locators **********************************
 
-    private By addRootLevelQuestionButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(., 'Add root level question')]");
-    private By radioButtonGroupCard = By.xpath("//div[contains(@class,'possible-question') and .//text()[contains(., 'Radio button group')]]");
-    private By radioOption1Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option1']");
-    private By addOptionButton = By.xpath("//button[@type='button' and div/i[contains(@class, 'fi-add')] and contains(., 'Add option')]");
-    private By radioOption2Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option2']");
-    private By readOnlyCheckbox = By.xpath("//label[contains(normalize-space(), 'Read only')]/input[@type='checkbox']");
-    private By helpTextArea = By.xpath("//span[text()='Help text:']/following-sibling::textarea");
-    private By applyButton = By.xpath("//button[contains(@class,'-primary') and contains(@class,'-submission') and contains(@class,'-small') and text()='Apply']");
-    private By previewLink = By.xpath("//a[contains(@href, '/preview') and text()='Preview']");
-    private By closePreviewLink = By.xpath("//a[contains(@href, '/edit') and text()='Close preview']");
-    private By saveButton = By.xpath("//button[@type='button' and contains(@class, '-submission') and text()='Save']");
-    private By addChildQuestionButton = By.xpath("//button[normalize-space()='Add child question']");
-    private By cancelAddingButton = By.xpath("//button[normalize-space()='Cancel adding']");
-    private By moveButton = By.xpath("//button[normalize-space()='Move']");
-    private By cancelMovingButton = By.xpath("//button[normalize-space()='Cancel moving']");
-    private By editButton = By.xpath("//button[normalize-space()='Edit']");
-    private By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
-    private By removeButton = By.xpath("//button[normalize-space()='Remove']");
-    private By undoButton = By.xpath("//button[normalize-space()='Undo']");
-    private By formManagementLink = By.xpath("//a[@class='_link_ogtko_1' and contains(@href, '/forms-management-export-control') and normalize-space()='Form Management']");
-    private By testFormLink = By.xpath("//a[contains(@class, '_link_ogtko_1') and contains(@href, '/administration/forms-management-export-control/edit/')]");
-    private By editDescriptionButton = By.xpath("//button[normalize-space()='Edit description']");
-    private By cancelButtononversionedit = By.xpath("//button[normalize-space()='Cancel']");
-    //    private By versionTextArea = By.xpath("//textarea[contains(@class,'default-input') and contains(@class,'textarea')]");
-    //  private By versionTextArea = By.xpath("//div[contains(@class, 'versionHeader')]/following-sibling::div//textarea[contains(@class,'default-input')]");
-    private By versionTextArea = By.xpath("(//textarea[contains(@class,'default-input')])[last()]");
-    private By saveButtonsmall = By.xpath("//button[@class='button -primary -small' and normalize-space()='Save']");
-    private By addNewButton = By.xpath("//button[@class='button -primary -small' and normalize-space()='Add new']");
-    private By cancelButtonaddnewcancel = By.xpath("//button[@class='button -small -unstyled' and normalize-space()='Cancel']");
+    By addRootLevelQuestionButton = By.xpath("//button[@type='button' and contains(@class, 'button') and contains(., 'Add root level question')]");
+    By radioButtonGroupCard = By.xpath("//div[contains(@class,'possible-question') and .//text()[contains(., 'Radio button group')]]");
+    By radioOption1Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option1']");
+    By addOptionButton = By.xpath("//button[@type='button' and div/i[contains(@class, 'fi-add')] and contains(., 'Add option')]");
+    By radioOption2Input = By.xpath("//input[@class='value-input text-input default-input' and @value='Option2']");
+    By readOnlyCheckbox = By.xpath("//label[contains(normalize-space(), 'Read only')]/input[@type='checkbox']");
+    By helpTextArea = By.xpath("//span[text()='Help text:']/following-sibling::textarea");
+    By applyButton = By.xpath("//button[contains(@class,'-primary') and contains(@class,'-submission') and contains(@class,'-small') and text()='Apply']");
+    By previewLink = By.xpath("//a[contains(@href, '/preview') and text()='Preview']");
+    By closePreviewLink = By.xpath("//a[contains(@href, '/edit') and text()='Close preview']");
+    By saveButton = By.xpath("//button[@type='button' and contains(@class, '-submission') and text()='Save']");
+    By addChildQuestionButton = By.xpath("//button[normalize-space()='Add child question']");
+    By cancelAddingButton = By.xpath("//button[normalize-space()='Cancel adding']");
+    By moveButton = By.xpath("//button[normalize-space()='Move']");
+    By cancelMovingButton = By.xpath("//button[normalize-space()='Cancel moving']");
+    By editButton = By.xpath("//button[normalize-space()='Edit']");
+    By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
+    By removeButton = By.xpath("//button[normalize-space()='Remove']");
+    By undoButton = By.xpath("//button[normalize-space()='Undo']");
+    By formManagementLink = By.xpath("//a[@class='_link_ogtko_1' and contains(@href, '/forms-management-export-control') and normalize-space()='Form Management']");
+    By testFormLink = By.xpath("//a[contains(@class, '_link_ogtko_1') and contains(@href, '/administration/forms-management-export-control/edit/')]");
+    By editDescriptionButton = By.xpath("//button[normalize-space()='Edit description']");
+    By cancelButtononversionedit = By.xpath("//button[normalize-space()='Cancel']");
+    By versionTextArea = By.xpath("(//textarea[contains(@class,'default-input')])[last()]");
+    By saveButtonsmall = By.xpath("//button[@class='button -primary -small' and normalize-space()='Save']");
+    By addNewButton = By.xpath("//button[@class='button -primary -small' and normalize-space()='Add new']");
+    By cancelButtonaddnewcancel = By.xpath("//button[@class='button -small -unstyled' and normalize-space()='Cancel']");
 
     // ********************************* Sahil Locators *******************************************************************
 
@@ -453,6 +451,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
         //Enter category seq no
         type(inputCategorySeqNo, seqNo);
+        pause(1000);
 
         //Click on Create button
         click(buttonCreate);
@@ -515,6 +514,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
 
     public boolean AddInstructionsAndVerifyItIsSavedSuccessfully(String instructions, String formName) {
         boolean result = false;
+        pause(2000);
 
         waitForPresence(inputInstructions);
         click(inputInstructions);
@@ -537,6 +537,11 @@ public class FormsManagement_ExportControlPage extends BasePage {
             pause(2000);
 
             result = true;
+            pause(2000);
+        }
+        else {
+            type(inputInstructions, instructions);
+            click(buttonSave);
             pause(2000);
         }
         return result;

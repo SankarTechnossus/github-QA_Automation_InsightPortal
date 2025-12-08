@@ -17,28 +17,12 @@ public class NotesPage extends BasePage {
         super(driver);
     }
 
-
     //Locators
-    private By notesSectionHeader = By.xpath("//header[.//span[normalize-space()='Notes']]");
-
-    private By notesTextArea = By.xpath(
-            "//div[contains(@class,'toggleable-section')]" +
-                    "[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]" +
-                    "//textarea");
-
-    // 'Add' button in Notes section
-    private By notesAddButton = By.xpath(
-            "//div[contains(@class,'toggleable-section')]" +
-                    "[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]" +
-                    "//div[contains(@class,'note-form-buttons')]//button[normalize-space()='Add']");
-
-    // "Add Note" button (with + icon)
-    private By addNoteButton = By.xpath(
-            "//button[contains(@class,'button') and .//div[@aria-label='Add'] and normalize-space()='Add Note']");
-
-    private By notesToggleHeader = By.xpath(
-            "//header[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]");
-
+    By notesSectionHeader = By.xpath("//header[.//span[normalize-space()='Notes']]");
+    By notesTextArea = By.xpath("//div[contains(@class,'toggleable-section')]" + "[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]" + "//textarea");
+    By notesAddButton = By.xpath("//div[contains(@class,'toggleable-section')]" + "[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]" + "//div[contains(@class,'note-form-buttons')]//button[normalize-space()='Add']");
+    By addNoteButton = By.xpath("//button[contains(@class,'button') and .//div[@aria-label='Add'] and normalize-space()='Add Note']");
+    By notesToggleHeader = By.xpath("//header[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]");
 
     //Actions
 
@@ -56,8 +40,6 @@ public class NotesPage extends BasePage {
 
         pause(800);
     }
-
-
 
     public void clickAddNoteButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

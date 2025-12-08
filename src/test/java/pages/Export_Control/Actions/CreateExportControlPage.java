@@ -17,7 +17,7 @@ import java.time.Duration;
 
 public class CreateExportControlPage extends BasePage {
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     // Constructor
     public CreateExportControlPage(WebDriver driver) {
@@ -29,18 +29,12 @@ public class CreateExportControlPage extends BasePage {
 
     // Left navigation – Actions toggle button
     By actionsToggleButton = By.xpath("//div[contains(@class,'export-control-nav-block')]//button[@aria-label='Expand Actions']");
-
-    // Left navigation – 'Create Export Control' menu item
     By createExportControlLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a[contains(@class,'label')]//span[normalize-space()='Create Export Control']");
-
-    // Step 1 – Radio: Export Control Request
     By exportControlRequestRadio = By.cssSelector("input[name='RadioButtonList1'][value='ExportControlRequest']");
     By workflowSaveButton = By.xpath("//div[contains(@class,'_workflowEngineActions')]" + "//button[@type='button' and @aria-label='Save']");
     By workflowSubmitButton = By.xpath("//div[contains(@class,'_workflowEngineActions')]" + "//button[@type='button' and @aria-label='Submit']");
     By yourNameInput = By.id("dynamic-form-field-input-74877-TextBox1");
     By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
-
-    // Workflow action buttons
     By saveButton = By.xpath("//button[@aria-label='Save' and normalize-space()='Save']");
     By submitButton = By.xpath("//button[@aria-label='Submit' and normalize-space()='Submit']");
     By nextButton = By.xpath("//button[contains(@class,'next-btn') and starts-with(normalize-space(),'Next')]");
@@ -54,7 +48,7 @@ public class CreateExportControlPage extends BasePage {
 
     // ****************************** Sankar Functions *************************************************************
 
-    private By dynamicFormFieldByQuestion(String questionText) {
+    public By dynamicFormFieldByQuestion(String questionText) {
         return By.xpath(
                 "//div[contains(@class,'dynamic-form-field')]" +
                         "[.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]");
@@ -107,7 +101,7 @@ public class CreateExportControlPage extends BasePage {
     }
 
     // Generic option for PI dropdown – use visible text (e.g., "Chandra, Mohan")
-    private By piOptionByText(String fullName) {
+    public By piOptionByText(String fullName) {
         // Keep it generic for react-select style options
         return By.xpath("//div[contains(@class,'menu') or contains(@class,'select')]"
                 + "//div[normalize-space()='" + fullName + "']");
@@ -296,7 +290,7 @@ public class CreateExportControlPage extends BasePage {
     // ---- LEFT NAV HELPERS ----
 
     // Child form link by name under the current record (e.g. "test form")
-    private By leftNavChildFormLink(String formName) {
+    public By leftNavChildFormLink(String formName) {
         return By.xpath(
                 "//div[@id='left-sidebar']" +
                         "//div[contains(@class,'-level-2')]" +
@@ -325,7 +319,7 @@ public class CreateExportControlPage extends BasePage {
         pause(1000);
     }
 
-    private By radioOptionByQuestion(String questionText, String optionText) {
+    public By radioOptionByQuestion(String questionText, String optionText) {
         return By.xpath(
                 "//div[contains(@class,'dynamic-form-field')]" +
                         "  [.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]" +
@@ -361,7 +355,7 @@ public class CreateExportControlPage extends BasePage {
     }
 
     // ---- Dynamic form checkbox helper anchored by question text ----
-    private By checkboxOptionByQuestion(String questionText, String optionText) {
+    public By checkboxOptionByQuestion(String questionText, String optionText) {
         return By.xpath(
                 "//div[contains(@class,'dynamic-form-field')]" +
                         "  [.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]" +
@@ -394,7 +388,7 @@ public class CreateExportControlPage extends BasePage {
     }
 
     // ---------- Numeric input anchored by question text ----------
-    private By numericInputByQuestion(String questionText) {
+    public By numericInputByQuestion(String questionText) {
         return By.xpath(
                 "//div[contains(@class,'dynamic-form-field')]" +
                         "  [.//div[contains(@class,'fr-element') and normalize-space()='" + questionText + "']]" +
@@ -518,8 +512,7 @@ public class CreateExportControlPage extends BasePage {
     By inputLastName = By.xpath("//input[@placeholder='Last Name']");
     By inputAddExternalAffiliation = By.xpath("//input[@placeholder='Add External Affiliation']");
     By inputExternalAffiliation = By.xpath("(//div[text()='External Affiliation']/following::input)[1]");
-
-
+    By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
 
     // Functions
     public void NavigateToCreateExportControlPage() {
@@ -536,6 +529,25 @@ public class CreateExportControlPage extends BasePage {
         // Select Export Control Type
         waitForPresence(inputExportControlRequest);
         click(inputExportControlRequest);
+        pause(1000);
+
+        // Select PI Name
+        type(inputSelectPI, pi);
+        pause(3000);
+        driver.findElement(By.xpath("//div[text()='" + pi + "']/..")).click();
+        pause(2000);
+
+        // Click Create button
+        click(buttonCreate);
+        pause(2000);
+
+        waitForPresence(lblExportControlSuccessfulCreation);
+    }
+
+    public void CreateExportControlRequest(String pi, String requestType) {
+        // Select Export Control Type
+
+        driver.findElement(By.xpath("//span[text()='" + requestType +"']/../input")).click();
         pause(1000);
 
         // Select PI Name
@@ -766,10 +778,9 @@ public class CreateExportControlPage extends BasePage {
         click(buttonAdd);
         pause(2000);
 
-        //By userAdditionMsg = ;
-        //waitForPresence(userAdditionMsg);
+        waitForPresence(userAdditionMsg);
 
-        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        if(driver.findElement(userAdditionMsg).isDisplayed())
         {
             result = true;
             pause(2000);

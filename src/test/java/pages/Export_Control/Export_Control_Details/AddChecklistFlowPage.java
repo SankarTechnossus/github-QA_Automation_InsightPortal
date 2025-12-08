@@ -10,7 +10,7 @@ import java.time.Duration;
 public class AddChecklistFlowPage extends BasePage {
 
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public AddChecklistFlowPage(WebDriver driver) {
         super(driver);
@@ -18,39 +18,12 @@ public class AddChecklistFlowPage extends BasePage {
     }
 
     //Locators
-    // Administration → Workflow Management (left sidebar)
     By workflowManagementMenu = By.xpath("//div[@id='left-sidebar']//a[@href='/administration/workflow-management']" + "/span[normalize-space()='Workflow Management']");
-
-    // Export Control → Workflows (inside Workflow Management module)
-    By exportControlWorkflowsLink = By.xpath(
-            "//button[normalize-space()='Export Control']" +
-                    "/ancestor::div[contains(@class,'menu-item-holder')][1]" +
-                    "//a[contains(@href,'/administration/workflow-management') and contains(@href,'workflows-export-control') " +
-                    " and normalize-space(text())='Workflows']"
-    );
-
-    By personnelWorkflowLink = By.xpath(
-            "//td[@data-column='name' and @data-value='Personnel']//a[normalize-space()='Personnel']"
-    );
-
-    // "Add New" button on Export Control Workflows page
-    By addNewWorkflowButton = By.xpath(
-            "//div[contains(@class,'top-bar')][.//header[normalize-space()='Workflows']]" +
-                    "//button[contains(@class,'button') and contains(@class,'-primary')]"
-    );
-
-    By addNewWorkflowVersionButton = By.xpath(
-            "//div[contains(@class,'top-bar')][.//header[normalize-space()='Versions']]" +
-                    "//button[contains(@class,'-primary')][normalize-space()='Add new']"
-    );
-
-    // Description textarea for the newly added (editable) version – Version 90
-    By editableVersionDescription = By.xpath(
-            "//div[contains(@class,'_versionsList')]" +
-                    "//textarea[contains(@class,'_descriptionField') and not(@disabled)]"
-    );
-
-    // Save button for the editable version (Version 90)
+    By exportControlWorkflowsLink = By.xpath("//button[normalize-space()='Export Control']" + "/ancestor::div[contains(@class,'menu-item-holder')][1]" + "//a[contains(@href,'/administration/workflow-management') and contains(@href,'workflows-export-control') " + " and normalize-space(text())='Workflows']");
+    By personnelWorkflowLink = By.xpath("//td[@data-column='name' and @data-value='Personnel']//a[normalize-space()='Personnel']");
+    By addNewWorkflowButton = By.xpath("//div[contains(@class,'top-bar')][.//header[normalize-space()='Workflows']]" + "//button[contains(@class,'button') and contains(@class,'-primary')]");
+    By addNewWorkflowVersionButton = By.xpath("//div[contains(@class,'top-bar')][.//header[normalize-space()='Versions']]" + "//button[contains(@class,'-primary')][normalize-space()='Add new']");
+    By editableVersionDescription = By.xpath("//div[contains(@class,'_versionsList')]" + "//textarea[contains(@class,'_descriptionField') and not(@disabled)]");
     By saveVersionButton = By.xpath("//div[contains(@class,'_versionItemHeader')]" + "//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space()='Save']");
     By latestVersionLink = By.xpath("(//div[contains(@class,'_versionItemHeader')]//a)[1]");
     By draftNodeBox = By.xpath("//p[normalize-space()='Draft (draft1)']/ancestor::div[contains(@class,'_workflowNode')]");

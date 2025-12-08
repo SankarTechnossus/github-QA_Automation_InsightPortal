@@ -41,11 +41,11 @@ public class MenuFlow extends BasePage {
 
     // ************************************** Functions ********************************************************************
 
-    private By controlRoot(String label) {
+    public By controlRoot(String label) {
         return By.xpath("//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]");
     }
 
-    private void selectReactSelectSingleByLabel(String label, String optionText) {
+    public void selectReactSelectSingleByLabel(String label, String optionText) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         WebElement root = wait.until(ExpectedConditions.elementToBeClickable(controlRoot(label)));
@@ -96,7 +96,7 @@ public class MenuFlow extends BasePage {
     }
 
     private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-    private String fmt(LocalDate d) { return d.format(DF); }
+    public String fmt(LocalDate d) { return d.format(DF); }
 
     public void setCreatedOnFrom(LocalDate from)  { setDate(createdFromInput, fmt(from)); }
     public void setCreatedOnTo(LocalDate to)      { setDate(createdToInput,   fmt(to)); }

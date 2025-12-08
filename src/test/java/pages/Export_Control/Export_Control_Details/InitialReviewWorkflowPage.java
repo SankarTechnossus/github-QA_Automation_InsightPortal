@@ -12,7 +12,7 @@ import java.time.Duration;
 
 public class InitialReviewWorkflowPage extends BasePage {
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public InitialReviewWorkflowPage(WebDriver driver) {
         super(driver);
@@ -20,25 +20,23 @@ public class InitialReviewWorkflowPage extends BasePage {
     }
 
     //Locators
+    By initialReviewLink = By.xpath("//div[@class='name' and normalize-space()='Initial Review (IR)']");
+    By expandGroupButton = By.xpath("//button[@aria-label='Expand group']");
+    By reviewLetterPdfButton = By.xpath("//button[@aria-label='Download review letter']");
+    By reviewerChecklistPdfButton = By.xpath("//button[@aria-label='Download reviewer checklist']");
+    By nameInput = By.xpath("//div[@data-name='TextBox1']//input[@type='text']");
 
-    private By initialReviewLink = By.xpath("//div[@class='name' and normalize-space()='Initial Review (IR)']");
-    private By expandGroupButton = By.xpath("//button[@aria-label='Expand group']");
-    // First PDF (Review Letter)
-    private By reviewLetterPdfButton = By.xpath("//button[@aria-label='Download review letter']");
-    // Second PDF (Reviewer Checklist)
-    private By reviewerChecklistPdfButton = By.xpath("//button[@aria-label='Download reviewer checklist']");
-    // Textbox under a question label (e.g. "Your Name")
-    private By textInputByQuestionLabel(String questionLabel) {
+    //Actions
+
+    public By textInputByQuestionLabel(String questionLabel) {
         return By.xpath(
                 "//div[contains(@class,'dynamic-form-field')" +
                         "  and .//div[contains(@class,'_questionLabelContainer')]" +
                         "           //div[contains(@class,'fr-element') and normalize-space()='" + questionLabel + "']]" +
-                        "//input[@type='text']"
-        );
+                        "//input[@type='text']");
     }
 
-    // Radio option under a question label (e.g. "Gender" -> "Male")
-    private By radioOptionByQuestionLabel(String questionLabel, String optionText) {
+    public By radioOptionByQuestionLabel(String questionLabel, String optionText) {
         return By.xpath(
                 "//div[contains(@class,'dynamic-form-field')" +
                         "  and .//div[contains(@class,'_questionLabelContainer')]" +
@@ -48,13 +46,42 @@ public class InitialReviewWorkflowPage extends BasePage {
         );
     }
 
+    public By genderOption(String genderText) {
+        return By.xpath(
+                "//div[@id='dynamic-form-field-input-74921-RadioButtonList1']" +
+                        "//label[contains(@class,'option-label')]//span[normalize-space()='" + genderText + "']/preceding-sibling::input"
+        );
+    }
 
+    public void enterName(String name) {
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(nameInput));
 
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", input);
 
+        input.click();
+        input.clear();
+        input.sendKeys(name);
 
-    //Actions
+        pause(1000);
+    }
 
-    // Name: "Test_Auto"
+    public void selectGender(String genderText) {
+        By genderLocator = genderOption(genderText);
+        WebElement radioInput = wait.until(ExpectedConditions.elementToBeClickable(genderLocator));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", radioInput);
+
+        try {
+            radioInput.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", radioInput);
+        }
+
+        pause(1000);
+    }
+
     public void enterYourName(String name) {
         By inputBy = textInputByQuestionLabel("Your Name");
 
@@ -71,24 +98,9 @@ public class InitialReviewWorkflowPage extends BasePage {
         pause(500);
     }
 
-    // Gender: "Male"
-    public void selectGender(String gender) {
-        By radioBy = radioOptionByQuestionLabel("Gender", gender);
-
-        WebElement radio = wait.until(
-                ExpectedConditions.elementToBeClickable(radioBy)
-        );
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
-
-        if (!radio.isSelected()) {
-            radio.click();
-        }
-
-        pause(500);
+    public void selectGenderMale() {
+        selectGender("Male");
     }
-
-
 
     public void clickReviewLetterPDF() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -149,9 +161,4 @@ public class InitialReviewWorkflowPage extends BasePage {
 
         pause(800);
     }
-
-
-
-
-
 }
