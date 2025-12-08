@@ -1,21 +1,17 @@
-package tests.ExportControl.Sprint2;
-
-
+package tests.ExportControl.Sprint1;
 import base.BasePage;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import listeners.ExtentReportListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import listeners.ExtentReportListener;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
-import pages.Administration.StepNamePage;
-import pages.Adobe.AgreementPage;
+import pages.Administration.Status_Management.StatusManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
+import pages.Adobe.AgreementPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
@@ -23,18 +19,17 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239474_Export_Control_WorkflowManagement_Stepname_Flow {
+public class PBI_239497_Status_Management_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    StepNamePage stepNamePage;
 
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -52,11 +47,10 @@ public class PBI_239474_Export_Control_WorkflowManagement_Stepname_Flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        stepNamePage = new StepNamePage(driver);
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Stepname_Test () {
+    public void Export_control_Status_Management_Test() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -83,67 +77,51 @@ public class PBI_239474_Export_Control_WorkflowManagement_Stepname_Flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-
-            basePage.pause(2000);
-            stepNamePage.clickWorkflowManagementstepname();
-            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
+            // StatusManagement Page Actions
+            StatusManagement_ExportControlPage statusManagementPage  = new StatusManagement_ExportControlPage(driver);
 
             basePage.pause(5000);
-            stepNamePage.clickExportControlStepName();
-            ExtentReportListener.getExtentTest().pass("Opened Export Control > Step name (scopeId=3) successfully");
-
-
+            statusManagementPage.clickStatusManagementLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
 
             basePage.pause(5000);
-            stepNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
-
-
+            statusManagementPage.clickStatusManagementExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
 
             basePage.pause(5000);
-            stepNamePage.enterName("Sample Name");
-            ExtentReportListener.getExtentTest().pass("Entered 'Sample Name' into Name input field successfully");
-
-
+            statusManagementPage.clickAddStatusButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
 
             basePage.pause(5000);
-            stepNamePage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
+            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+            statusManagementPage.enterStatusName(statusName);
 
-            basePage.pause(5000);
-            stepNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
-
+            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
 
             basePage.pause(5000);
-            String generatedName = stepNamePage.enterUniqueName("Test");
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + generatedName + "' into Name input field successfully");
-
-
-            basePage.pause(5000);
-            stepNamePage.clickAddButton();
+            statusManagementPage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
+            basePage.pause(5000);
+            statusManagementPage.clickDeleteButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
 
             basePage.pause(5000);
-            stepNamePage.clickEditButtonForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
-
-
-            basePage.pause(5000);
-            stepNamePage.clickCancelForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for step name '" + generatedName + "' successfully");
-
+            statusManagementPage.clickEditButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
 
             basePage.pause(5000);
-            stepNamePage.clickEditButtonForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
+            statusManagementPage.appendToStatusName("SAN01");
+            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
 
+            basePage.pause(3000);
+            statusManagementPage.selectActiveAsNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
 
             basePage.pause(5000);
-            stepNamePage.clickSaveForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for step name '" + generatedName + "' successfully");
+            statusManagementPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

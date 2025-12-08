@@ -23,7 +23,7 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_246016_Export_Control_Display_Checklist_Flow {
+public class PBI_246016_Display_Checklist_Flow {
 
     WebDriver driver;
     WebDriverWait wait;

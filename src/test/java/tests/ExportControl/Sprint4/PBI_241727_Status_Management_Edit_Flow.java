@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Initial_Application_Management.InitialApplicationManagement_ExportControlPage;
+import pages.Administration.Status_Management.StatusManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,18 +23,18 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_245940_Export_Control_Initial_Application_Management {
+public class PBI_241727_Status_Management_Edit_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    InitialApplicationManagement_ExportControlPage initialApplicationManagementExportControlPage;
+    StatusManagement_ExportControlPage statusManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will set up and configure the Chrome WebDriver using WebDriverManager
+        // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -52,11 +52,11 @@ public class PBI_245940_Export_Control_Initial_Application_Management {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        initialApplicationManagementExportControlPage = new InitialApplicationManagement_ExportControlPage(driver);
+        statusManagementExportControlPage = new StatusManagement_ExportControlPage(driver);
     }
 
     @Test
-    public void Export_control_Initial_application_management() {
+    public void Export_control_status_management_edit_flow() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -78,58 +78,52 @@ public class PBI_245940_Export_Control_Initial_Application_Management {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
-
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.openInitialApplicationManagementExportControl();
-            ExtentReportListener.getExtentTest().pass("Opened Initial Application Management > Export Control successfully");
+            // StatusManagement Page Actions
+            basePage.pause(800);
+            statusManagementExportControlPage.clickStatusManagementLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
 
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.clickAddInitialApplication();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Initial Application' successfully");
+            basePage.pause(800);
+            statusManagementExportControlPage.clickStatusManagementExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
 
-            basePage.pause(1000);
-            String actionName = initialApplicationManagementExportControlPage.enterRandomActionAndSelectEntity();
-            ExtentReportListener.getExtentTest().pass("Entered Action Name: " + actionName);
+            basePage.pause(800);
+            statusManagementExportControlPage.clickAddStatusButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
 
-            // Step 4: Click Cancel
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel on modal");
+            basePage.pause(800);
+            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+            statusManagementExportControlPage.enterStatusName(statusName);
 
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.clickAddInitialApplication();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Initial Application' successfully");
+            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
 
-            basePage.pause(1000);
-            String actionName01 = initialApplicationManagementExportControlPage.enterRandomActionAndSelectEntity();
-            ExtentReportListener.getExtentTest().pass("Entered Action Name: " + actionName01);
-
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.clickAddButton();
+            basePage.pause(800);
+            statusManagementExportControlPage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
-            // Step : Click first Edit button
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for the first Initial Application row successfully");
+            basePage.pause(800);
+            statusManagementExportControlPage.clickDeleteButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
 
             basePage.pause(800);
-            initialApplicationManagementExportControlPage.clickInlineCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel on the inline edit row successfully");
-
-            // Step : Click first Edit button
-            basePage.pause(1000);
-            initialApplicationManagementExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for the first Initial Application row successfully");
+            statusManagementExportControlPage.clickEditButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
 
             basePage.pause(800);
-            initialApplicationManagementExportControlPage.clickInlineSave();
-            ExtentReportListener.getExtentTest().pass("Clicked Save on the inline edit row successfully");
+            statusManagementExportControlPage.appendToStatusName("SAN01");
+            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
 
+            basePage.pause(800);
+            statusManagementExportControlPage.selectActiveAsNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
+
+            basePage.pause(800);
+            statusManagementExportControlPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -141,5 +135,6 @@ public class PBI_245940_Export_Control_Initial_Application_Management {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
+
     }
 }

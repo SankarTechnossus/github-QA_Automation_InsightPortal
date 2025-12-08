@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.ActionNamePage;
+import pages.Administration.RulesPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
@@ -23,14 +23,14 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239475_Export_Control_WorkflowManagement_ActionName_Flow {
+public class PBI_239475_WorkflowManagement_Rules_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    ActionNamePage actionNamePage;
+    RulesPage rulesPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -52,11 +52,11 @@ public class PBI_239475_Export_Control_WorkflowManagement_ActionName_Flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        actionNamePage = new ActionNamePage(driver);
+        rulesPage = new RulesPage(driver);
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_ActionName_Test () {
+    public void Exportcontrol_WorkflowManagement_Rules_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -83,63 +83,98 @@ public class PBI_239475_Export_Control_WorkflowManagement_ActionName_Flow {
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            basePage.pause(2000);
-            actionNamePage.clickWorkflowManagementaction();
-            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
-
-            basePage.pause(2000);
-            actionNamePage.clickActionNameScope3();
-            ExtentReportListener.getExtentTest().pass("Opened 'Action name' (scopeId=3)");
 
             basePage.pause(5000);
-            actionNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+            rulesPage.clickWorkflowManagementLinkrules();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
 
             basePage.pause(5000);
-            String uniqueName03 = "Test_" + System.currentTimeMillis();
-            actionNamePage.enterName(uniqueName03);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
+            rulesPage.clickRulesLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Rules' link successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.enterHistoryTitle("TestSan");
-            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+            rulesPage.clickAddRuleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.clickCancelButton();
+            String generatedName = rulesPage.enterUniqueNameWithTestPrefix();
+            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedName + "' into Name input field successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.selectQueryBuilderOperator("Query Builder","AND");
+            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickAddRuleButtonrule();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Rule' button successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickRemoveRuleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Remove rule' button successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickAddGroupButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Group' button successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickRemoveGroupButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Remove group' button successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickMigrationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickMigrationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+
+
+            basePage.pause(5000);
+            rulesPage.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
 
-            basePage.pause(5000);
-            actionNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
             basePage.pause(5000);
-            String uniqueName5 = "Test_" + System.currentTimeMillis();
-            actionNamePage.enterName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
+            rulesPage.clickAddRuleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.enterHistoryTitle("TestSan");
-            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+            String generatedNamelast = rulesPage.enterUniqueNameWithTestPrefix();
+            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedNamelast + "' into Name input field successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            rulesPage.selectQueryBuilderOperator("Query Builder","AND");
+            ExtentReportListener.getExtentTest().pass("Selected 'AND' from Record Type dropdown successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.clickEditForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+            rulesPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.clickCancelForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for action name '" + uniqueName5 + "' successfully");
+            rulesPage.clickEditButtonForRule(generatedNamelast);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNamelast + "' successfully");
+
 
             basePage.pause(5000);
-            actionNamePage.clickEditForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+            rulesPage.appendToNameField("san");
+            ExtentReportListener.getExtentTest().pass("Appended 'san' to Name input field successfully");
 
             basePage.pause(5000);
-            actionNamePage.clickSaveForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for action name '" + uniqueName5 + "' successfully");
+            rulesPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

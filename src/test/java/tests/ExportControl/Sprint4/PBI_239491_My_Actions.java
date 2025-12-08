@@ -1,31 +1,39 @@
-package tests.ExportControl.Sprint1;
+package tests.ExportControl.Sprint4;
+
+
 import base.BasePage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import listeners.ExtentReportListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import listeners.ExtentReportListener;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import pages.Administration.Status_Management.StatusManagement_ExportControlPage;
+import org.testng.annotations.Test;
+import pages.Adobe.AgreementPage;
+import pages.Export_Control.Export_Control_Details.MenuFlow;
+import pages.Export_Control.Export_Control_Details.MyActionsPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
-import pages.Adobe.AgreementPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
 import java.time.Duration;
 
-
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239497_Export_Control_Status_Management_Flow {
+
+public class PBI_239491_My_Actions {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AgreementPage agreementPage;
+    MenuFlow menuFlow;
+    MyActionsPage myActionsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -47,10 +55,13 @@ public class PBI_239497_Export_Control_Status_Management_Flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        agreementPage = new AgreementPage(driver);
+        menuFlow = new MenuFlow(driver);
+        myActionsPage = new MyActionsPage(driver);
     }
 
     @Test
-    public void Export_control_Status_Management_Test() {
+    public void Export_control_My_actions() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -71,57 +82,56 @@ public class PBI_239497_Export_Control_Status_Management_Flow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            // StatusManagement Page Actions
-            StatusManagement_ExportControlPage statusManagementPage  = new StatusManagement_ExportControlPage(driver);
+            basePage.pause(2000);
+            menuFlow.clickExportControlLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(5000);
-            statusManagementPage.clickStatusManagementLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
+            basePage.pause(2000);
+            myActionsPage.clickActionRequiredLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' from Export Control left navigation");
 
-            basePage.pause(5000);
-            statusManagementPage.clickStatusManagementExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
+            basePage.pause(2000);
+            // 2. Record Type = Export Control Request
+            myActionsPage.selectRecordTypeExportControlRequest();
+            ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddStatusButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
+            basePage.pause(2000);
+            // 3. Record Number
+            myActionsPage.enterRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
 
-            basePage.pause(5000);
+            basePage.pause(2000);
+            // 4. Transaction Type = Initial Review
+            myActionsPage.selectTransactionTypeInitialReview();
+            ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
 
-            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
-            statusManagementPage.enterStatusName(statusName);
+            basePage.pause(2000);
+            // 6. Search
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
 
-            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
+            basePage.pause(2000);
+            myActionsPage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            basePage.pause(2000);
+            // 3. Record Number
+            myActionsPage.enterRecordNumber("2025E006129");
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
 
-            basePage.pause(5000);
-            statusManagementPage.clickDeleteButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
+            basePage.pause(2000);
+            // 6. Search
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
 
-            basePage.pause(5000);
-            statusManagementPage.clickEditButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
-
-            basePage.pause(5000);
-            statusManagementPage.appendToStatusName("SAN01");
-            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
-
-            basePage.pause(3000);
-            statusManagementPage.selectActiveAsNo();
-            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
-
-            basePage.pause(5000);
-            statusManagementPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            basePage.pause(2000);
+            // 7. Click record link in grid
+            myActionsPage.clickFirstRecordNumberLink();
+            ExtentReportListener.getExtentTest().pass("Clicked first Record Number link '2025E006129' from Action Required grid");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -131,11 +141,8 @@ public class PBI_239497_Export_Control_Status_Management_Flow {
 
     @AfterMethod
     public void tearDown() {
-
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

@@ -1,5 +1,4 @@
-package tests.ExportControl.Sprint2;
-
+package tests.ExportControl.Sprint3;
 
 import base.BasePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -12,29 +11,29 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.AncillaryWorkflowsPage;
 import pages.Adobe.AgreementPage;
+import pages.Administration.Template_Management.TemplateManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 
-
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239475_Export_Control_WorkflowManagement_Ancillary_Workflow_Flow {
+public class PBI_239498_Template_Management {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    AncillaryWorkflowsPage ancillaryWorkflowsPage;
+    TemplateManagement_ExportControlPage templateManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-//         User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -52,11 +51,11 @@ public class PBI_239475_Export_Control_WorkflowManagement_Ancillary_Workflow_Flo
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        ancillaryWorkflowsPage = new AncillaryWorkflowsPage(driver);
+        templateManagementExportControlPage = new TemplateManagement_ExportControlPage(driver);
     }
 
     @Test
-    public void Exportcontrol_WorkflowManagement_Ancillary_workflow_Test () {
+    public void Exportcontrol_Templatemanagement_Test() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -83,66 +82,64 @@ public class PBI_239475_Export_Control_WorkflowManagement_Ancillary_Workflow_Flo
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
+            basePage.pause(5000);
+            templateManagementExportControlPage.clickTemplateManagementExportControl01();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
 
-            //Ancillary workflow
+            basePage.pause(5000);
+            templateManagementExportControlPage.clickAddNewTemplate();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+
+            basePage.pause(3000);
+            String generatedTitle01 = templateManagementExportControlPage.enterUniqueTitle();
+            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
+
+            basePage.pause(5000);
+
+            // Setting up base Directory
+            String baseDir = System.getProperty("user.dir");
+
+            // Get the file path
+            String filePath = JsonDataReader.get(4,"TestPDFFilePath");
+            String path = Paths.get(baseDir, filePath).toString();
+
+            templateManagementExportControlPage.uploadAgreementFile(path);
+            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+
+            basePage.pause(5000);
+            templateManagementExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
+
+            basePage.pause(3000);
+            templateManagementExportControlPage.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
+            ExtentReportListener.getExtentTest().pass("Selected Date Format successfully");
+
             basePage.pause(2000);
-            ancillaryWorkflowsPage.clickWorkflowManagement();
-            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
+            templateManagementExportControlPage.setActiveToNo();
+            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
 
-
-            basePage.pause(2000);
-            ancillaryWorkflowsPage.clickAncillaryWorkflowsScope3();
-            ExtentReportListener.getExtentTest().pass("Opened 'Ancillary Workflows' (scopeId=3, workflowType=2)");
-
-
-            basePage.pause(2000);
-            ancillaryWorkflowsPage.clickAddNew();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
-
-            String uniqueName01 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
-            basePage.pause(5000);
-            ancillaryWorkflowsPage.enterNameanc(uniqueName01);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
-
-            basePage.pause(5000);
-            ancillaryWorkflowsPage.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
-
-            basePage.pause(5000);
-            ancillaryWorkflowsPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
-
-            basePage.pause(2000);
-            ancillaryWorkflowsPage.clickAddNew();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
-
-
-            String uniqueName02 = "Test_" + System.currentTimeMillis(); // Timestamp-based unique name
-            basePage.pause(5000);
-            ancillaryWorkflowsPage.enterNameanc(uniqueName01);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
-
-            basePage.pause(5000);
-            ancillaryWorkflowsPage.selectOptionFromDropdownancillary("Email From","insighthelpdesk@partners.org");
-            ExtentReportListener.getExtentTest().pass("Selected 'Test' from Record Type dropdown successfully");
-
-            basePage.pause(5000);
-            ancillaryWorkflowsPage.clickSaveButton();
+            basePage.pause(3000);
+            templateManagementExportControlPage.clickSaveButton01();
             ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
-            basePage.pause(1200);
-            ancillaryWorkflowsPage.clickLastEdit();
-            ExtentReportListener.getExtentTest().pass("Clicked last 'Edit' on Ancillary Workflows list");
+            basePage.pause(2000);
+            templateManagementExportControlPage.setActive("Yes");
+            ExtentReportListener.getExtentTest().pass("Active set to 'Yes' successfully");
 
+            basePage.pause(2000);
+            templateManagementExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+            templateManagementExportControlPage.clickTemplateByTitle(generatedTitle01);
+            ExtentReportListener.getExtentTest().pass("Opened template '" + generatedTitle01 + "' from the list successfully");
+
+            basePage.pause(2000);
+            templateManagementExportControlPage.setActiveToNo();
+            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
 
             basePage.pause(3000);
-            ancillaryWorkflowsPage.appendSanToNameanc();
-            ExtentReportListener.getExtentTest().pass("Appended 'San' to Name field successfully");
-
-            basePage.pause(3000);
-            ancillaryWorkflowsPage.clickUpdateButtonanc();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
+            templateManagementExportControlPage.clickSaveButton01();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

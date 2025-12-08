@@ -1,4 +1,4 @@
-package tests.ExportControl.Sprint4;
+package tests.ExportControl.Sprint5;
 
 
 import base.BasePage;
@@ -12,9 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
 import pages.Adobe.AgreementPage;
-import pages.Export_Control.Export_Control_Details.MenuFlow;
-import pages.Export_Control.Export_Control_Details.MyActionsPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -24,19 +23,16 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_239491_Export_Control_My_Actions {
-
+public class PBI_251474_Category_Configuration_Attachment_Admin {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    AgreementPage agreementPage;
-    MenuFlow menuFlow;
-    MyActionsPage myActionsPage;
+    AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
 
     @BeforeMethod
-    public void setupBrowser() {
+    public void setupBrowser(){
         // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
@@ -55,13 +51,11 @@ public class PBI_239491_Export_Control_My_Actions {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        agreementPage = new AgreementPage(driver);
-        menuFlow = new MenuFlow(driver);
-        myActionsPage = new MyActionsPage(driver);
+        attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
     }
 
     @Test
-    public void Export_control_My_actions() {
+    public void Export_control_Category_Configuration_Admin_Attachment_Admin () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -82,57 +76,65 @@ public class PBI_239491_Export_Control_My_Actions {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
+            AgreementPage agreementPage = new AgreementPage(driver);
+
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            basePage.pause(2000);
-            menuFlow.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            basePage.pause(1500);
+            attachmentTypesExportControlPage.expandAttachmentTypes();
+            ExtentReportListener.getExtentTest().pass("Expanded Attachment Types menu");
+
+            basePage.pause(1500);
+            attachmentTypesExportControlPage.clickAttachmentTypesExportControl();
+            ExtentReportListener.getExtentTest().pass("Clicked Export Control under Attachment Types successfully");
 
             basePage.pause(2000);
-            myActionsPage.clickActionRequiredLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' from Export Control left navigation");
+            attachmentTypesExportControlPage.clickAddAttachmentType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
 
             basePage.pause(2000);
-            // 2. Record Type = Export Control Request
-            myActionsPage.selectRecordTypeExportControlRequest();
-            ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
+            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
 
             basePage.pause(2000);
-            // 3. Record Number
-            myActionsPage.enterRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+            attachmentTypesExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel successfully");
 
             basePage.pause(2000);
-            // 4. Transaction Type = Initial Review
-            myActionsPage.selectTransactionTypeInitialReview();
-            ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
+            attachmentTypesExportControlPage.clickAddAttachmentType();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
 
             basePage.pause(2000);
-            // 6. Search
-            myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
 
             basePage.pause(2000);
-            myActionsPage.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
+            attachmentTypesExportControlPage.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Add button successfully");
 
             basePage.pause(2000);
-            // 3. Record Number
-            myActionsPage.enterRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+            attachmentTypesExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+
+            basePage.pause(1000);
+            attachmentTypesExportControlPage.appendTypeNameWithTest();
+            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+
+            attachmentTypesExportControlPage.clickCancel();
+            ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
 
             basePage.pause(2000);
-            // 6. Search
-            myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+            attachmentTypesExportControlPage.clickFirstEditButton();
+            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
 
-            basePage.pause(2000);
-            // 7. Click record link in grid
-            myActionsPage.clickFirstRecordNumberLink();
-            ExtentReportListener.getExtentTest().pass("Clicked first Record Number link '2025E006129' from Action Required grid");
+            basePage.pause(1000);
+            attachmentTypesExportControlPage.appendTypeNameWithTest();
+            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
 
+            attachmentTypesExportControlPage.clickSave();
+            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -144,5 +146,6 @@ public class PBI_239491_Export_Control_My_Actions {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
+
     }
 }

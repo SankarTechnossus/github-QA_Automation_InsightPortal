@@ -23,7 +23,7 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_239502_Export_Control_Menu_Flow {
+public class PBI_239502_Menu_Flow {
 
     WebDriver driver;
     WebDriverWait wait;

@@ -1,4 +1,4 @@
-package tests.ExportControl.Sprint5;
+package tests.ExportControl.Sprint4;
 
 
 import base.BasePage;
@@ -12,8 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Administration.Attachment_Types.AttachmentTypes_ExportControlPage;
 import pages.Adobe.AgreementPage;
+import pages.Export_Control.Export_Control_Details.AddChecklistFlowPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -23,16 +23,17 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_251474_Export_Control_Category_Configuration_Admin_Attachment_Admin {
+public class PBI_246016_Add_Checklist_Flow {
+
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
+    AddChecklistFlowPage addChecklistFlowPage;
 
     @BeforeMethod
-    public void setupBrowser(){
+    public void setupBrowser() {
         // User will setup and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
@@ -51,11 +52,11 @@ public class PBI_251474_Export_Control_Category_Configuration_Admin_Attachment_A
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
+        addChecklistFlowPage = new AddChecklistFlowPage(driver);
     }
 
     @Test
-    public void Export_control_Category_Configuration_Admin_Attachment_Admin () {
+    public void Export_control_Add_Checklist_flow() {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -82,59 +83,57 @@ public class PBI_251474_Export_Control_Category_Configuration_Admin_Attachment_A
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            basePage.pause(1500);
-            attachmentTypesExportControlPage.expandAttachmentTypes();
-            ExtentReportListener.getExtentTest().pass("Expanded Attachment Types menu");
+            basePage.pause(3000);
+            addChecklistFlowPage.openExportControlWorkflows();
+            ExtentReportListener.getExtentTest().pass("Navigated to Workflow Management → Export Control → Workflows successfully");
 
-            basePage.pause(1500);
-            attachmentTypesExportControlPage.clickAttachmentTypesExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked Export Control under Attachment Types successfully");
-
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickAddAttachmentType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+            basePage.pause(3000);
+            addChecklistFlowPage.clickPersonnelWorkflow();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Personnel' workflow successfully");
 
             basePage.pause(2000);
-            attachmentTypesExportControlPage.enterRandomTypeName(8);
-            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+            addChecklistFlowPage.clickAddNewWorkflowVersion();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully on Versions page");
 
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel successfully");
-
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickAddAttachmentType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
-
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.enterRandomTypeName(8);
-            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
-
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Add button successfully");
-
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+            // Step X: Enter description for Version 90
+            String versionDescription = "Test01_" + basePage.GenerateRandomName(6);
 
             basePage.pause(1000);
-            attachmentTypesExportControlPage.appendTypeNameWithTest();
-            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
-
-            attachmentTypesExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
-
-            basePage.pause(2000);
-            attachmentTypesExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+            addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);
+            ExtentReportListener.getExtentTest().pass("Entered description for Version 90 as: " + versionDescription);
 
             basePage.pause(1000);
-            attachmentTypesExportControlPage.appendTypeNameWithTest();
-            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+            addChecklistFlowPage.clickSaveVersion();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully for Version 90");
 
-            attachmentTypesExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            basePage.pause(2000);
+            addChecklistFlowPage.clickLatestVersionLink();
+            ExtentReportListener.getExtentTest().pass("Clicked latest Version link successfully");
+
+            basePage.pause(3000);
+            addChecklistFlowPage.clickDraftNode();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'Draft (draft1)' node successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickActionsTab();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Actions' tab successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickSubmitAction();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' action under Actions list successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickChecklistsToggle();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Checklists' section successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickUpdateButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
+
+            basePage.pause(2000);
+            addChecklistFlowPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -148,4 +147,5 @@ public class PBI_251474_Export_Control_Category_Configuration_Admin_Attachment_A
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
+
 }

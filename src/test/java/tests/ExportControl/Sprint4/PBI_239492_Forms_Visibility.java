@@ -23,7 +23,7 @@ import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_239492_Export_Control_Forms_Visibility {
+public class PBI_239492_Forms_Visibility {
 
     WebDriver driver;
     WebDriverWait wait;

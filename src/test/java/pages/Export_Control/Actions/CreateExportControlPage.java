@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WaitUtility;
 
 import java.util.List;
 import java.util.Objects;
@@ -518,6 +519,7 @@ public class CreateExportControlPage extends BasePage {
     By inputLastName = By.xpath("//input[@placeholder='Last Name']");
     By inputAddExternalAffiliation = By.xpath("//input[@placeholder='Add External Affiliation']");
     By inputExternalAffiliation = By.xpath("(//div[text()='External Affiliation']/following::input)[1]");
+    By userAdditionMsg = By.xpath("//div[text()='External People successfully added.']");
 
 
 
@@ -785,10 +787,9 @@ public class CreateExportControlPage extends BasePage {
         click(buttonAdd);
         pause(2000);
 
-        //By userAdditionMsg = ;
-        //waitForPresence(userAdditionMsg);
+        waitForPresence(userAdditionMsg);
 
-        if(driver.findElement(By.xpath("//div[text()='External People successfully added.']")).isDisplayed())
+        if(driver.findElement(userAdditionMsg).isDisplayed())
         {
             result = true;
             pause(2000);

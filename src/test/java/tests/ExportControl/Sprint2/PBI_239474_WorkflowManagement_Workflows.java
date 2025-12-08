@@ -23,7 +23,7 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
-public class PBI_239474_Export_Control_WorkflowManagement_Workflows {
+public class PBI_239474_WorkflowManagement_Workflows {
 
     WebDriver driver;
     WebDriverWait wait;

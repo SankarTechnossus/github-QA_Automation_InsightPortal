@@ -1,4 +1,4 @@
-package tests.ExportControl.Sprint4;
+package tests.ExportControl.Sprint2;
 
 
 import base.BasePage;
@@ -12,8 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.ActionNamePage;
 import pages.Adobe.AgreementPage;
-import pages.Administration.Status_Management.StatusManagement_ExportControlPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -21,16 +21,16 @@ import utils.JsonDataReader;
 
 import java.time.Duration;
 
-@Listeners(listeners.ExtentReportListener.class)
 
-public class PBI_241727_Export_Control_Status_Management_Edit_Flow {
+@Listeners(listeners.ExtentReportListener.class)
+public class PBI_239475_WorkflowManagement_ActionName_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    StatusManagement_ExportControlPage statusManagementExportControlPage;
+    ActionNamePage actionNamePage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -52,11 +52,11 @@ public class PBI_241727_Export_Control_Status_Management_Edit_Flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        statusManagementExportControlPage = new StatusManagement_ExportControlPage(driver);
+        actionNamePage = new ActionNamePage(driver);
     }
 
     @Test
-    public void Export_control_status_management_edit_flow() {
+    public void Exportcontrol_WorkflowManagement_ActionName_Test () {
         ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
@@ -78,52 +78,69 @@ public class PBI_241727_Export_Control_Status_Management_Edit_Flow {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
+
             basePage.pause(10000);
             agreementPage.clickAdministrationLink();
             ExtentReportListener.getExtentTest().pass("Clicked Administration link");
 
-            // StatusManagement Page Actions
-            basePage.pause(800);
-            statusManagementExportControlPage.clickStatusManagementLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
+            basePage.pause(2000);
+            actionNamePage.clickWorkflowManagementaction();
+            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.clickStatusManagementExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
+            basePage.pause(2000);
+            actionNamePage.clickActionNameScope3();
+            ExtentReportListener.getExtentTest().pass("Opened 'Action name' (scopeId=3)");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.clickAddStatusButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
+            basePage.pause(5000);
+            actionNamePage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
 
-            basePage.pause(800);
-            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
-            statusManagementExportControlPage.enterStatusName(statusName);
+            basePage.pause(5000);
+            String uniqueName03 = "Test_" + System.currentTimeMillis();
+            actionNamePage.enterName(uniqueName03);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
 
-            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
+            basePage.pause(5000);
+            actionNamePage.enterHistoryTitle("TestSan");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.clickAddButton();
+            basePage.pause(5000);
+            actionNamePage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+
+            basePage.pause(5000);
+            actionNamePage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+
+            basePage.pause(5000);
+            String uniqueName5 = "Test_" + System.currentTimeMillis();
+            actionNamePage.enterName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
+
+            basePage.pause(5000);
+            actionNamePage.enterHistoryTitle("TestSan");
+            ExtentReportListener.getExtentTest().pass("Entered 'Sample History Title' into History Title input field successfully");
+
+            basePage.pause(5000);
+            actionNamePage.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.clickDeleteButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
+            basePage.pause(5000);
+            actionNamePage.clickEditForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.clickEditButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
+            basePage.pause(5000);
+            actionNamePage.clickCancelForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for action name '" + uniqueName5 + "' successfully");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.appendToStatusName("SAN01");
-            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
+            basePage.pause(5000);
+            actionNamePage.clickEditForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.selectActiveAsNo();
-            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
+            basePage.pause(5000);
+            actionNamePage.clickSaveForActionName(uniqueName5);
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for action name '" + uniqueName5 + "' successfully");
 
-            basePage.pause(800);
-            statusManagementExportControlPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
@@ -132,9 +149,11 @@ public class PBI_241727_Export_Control_Status_Management_Edit_Flow {
 
     @AfterMethod
     public void tearDown() {
-        DriverManager.quitDriver();
+
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
 
     }
+
 }
