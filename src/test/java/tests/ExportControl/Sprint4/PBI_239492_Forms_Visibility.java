@@ -63,6 +63,10 @@ public class PBI_239492_Forms_Visibility {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
+            String formVisibilityForm = JsonDataReader.get(1, "FormVisibilityForm");                         // e.g. "Test"
+            String formVisibilityAccess = JsonDataReader.get(1, "FormVisibilityAccess");                     // e.g. "Hidden"
+            String formVisibilityQueryBuilderOp = JsonDataReader.get(1, "FormVisibilityQueryBuilderOperator"); // e.g. "AND"
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -94,20 +98,21 @@ public class PBI_239492_Forms_Visibility {
             basePage.pause(1000);
             formsVisibilityExportControlPage.waitForFormVisibilityModal();
             ExtentReportListener.getExtentTest().pass("Form Visibility modal loaded successfully");
+
             // Step 1 – Form
             basePage.pause(500);
-            formsVisibilityExportControlPage.selectForm("Test");
-            ExtentReportListener.getExtentTest().pass("Selected Form: Test successfully");
+            formsVisibilityExportControlPage.selectForm(formVisibilityForm);
+            ExtentReportListener.getExtentTest().pass("Selected Form: " + formVisibilityForm + " successfully");
 
             // Step 2 – Access
             basePage.pause(500);
-            formsVisibilityExportControlPage.selectAccess("Hidden");
-            ExtentReportListener.getExtentTest().pass("Selected Access: Hidden successfully");
+            formsVisibilityExportControlPage.selectAccess(formVisibilityAccess);
+            ExtentReportListener.getExtentTest().pass("Selected Access: " + formVisibilityAccess + " successfully");
 
             // Step 3 – Query Builder
             basePage.pause(500);
-            formsVisibilityExportControlPage.selectQueryBuilder("AND");
-            ExtentReportListener.getExtentTest().pass("Selected Query Builder: AND successfully");
+            formsVisibilityExportControlPage.selectQueryBuilder(formVisibilityQueryBuilderOp);
+            ExtentReportListener.getExtentTest().pass("Selected Query Builder: " + formVisibilityQueryBuilderOp + " successfully");
 
             basePage.pause(500);
             formsVisibilityExportControlPage.clickAddRuleInsideModal();
@@ -133,13 +138,9 @@ public class PBI_239492_Forms_Visibility {
             formsVisibilityExportControlPage.clickMigration();
             ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
 
-            basePage.pause(500);
-            formsVisibilityExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
-            basePage.pause(500);
+            basePage.pause(1000);
             formsVisibilityExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on the modal successfully");
 
             basePage.pause(1000);
             formsVisibilityExportControlPage.clickFirstEditButton();

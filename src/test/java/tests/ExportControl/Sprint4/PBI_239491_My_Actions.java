@@ -37,7 +37,7 @@ public class PBI_239491_My_Actions {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -68,6 +68,16 @@ public class PBI_239491_My_Actions {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
+            String createdOnFrom = JsonDataReader.get(1, "MyActionsCreatedOnFrom");
+            String createdOnTo = JsonDataReader.get(1, "MyActionsCreatedOnTo");
+            String reviewDateFrom = JsonDataReader.get(1, "MyActionsReviewDateFrom");
+            String reviewDateTo = JsonDataReader.get(1, "MyActionsReviewDateTo");
+            String reviewerCode = JsonDataReader.get(1, "MyActionsReviewerCode");
+            String reviewerDisplay = JsonDataReader.get(1, "MyActionsReviewerDisplay");
+            String submitterCode = JsonDataReader.get(1, "MyActionsSubmitterCode");
+            String submitterDisplay = JsonDataReader.get(1, "MyActionsSubmitterDisplay");
+            String recordNumber = JsonDataReader.get(1, "MyActionsRecordNumber");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -94,20 +104,50 @@ public class PBI_239491_My_Actions {
             myActionsPage.clickActionRequiredLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' from Export Control left navigation");
 
-            basePage.pause(2000);
-            // 2. Record Type = Export Control Request
-            myActionsPage.selectRecordTypeExportControlRequest();
-            ExtentReportListener.getExtentTest().pass("Selected Record Type: Export Control Request");
+            // Date filters
+//            basePage.pause(2000);
+//            myActionsPage.enterCreatedOnFrom(createdOnFrom);
+//            ExtentReportListener.getExtentTest().pass("Entered Created On From date: " + createdOnFrom);
+//
+//            myActionsPage.enterCreatedOnTo(createdOnTo);
+//            ExtentReportListener.getExtentTest().pass("Entered Created On To date: " + createdOnTo);
+//
+//            myActionsPage.enterReviewDateFrom(reviewDateFrom);
+//            ExtentReportListener.getExtentTest().pass("Entered Review Date From date: " + reviewDateFrom);
+//
+//            myActionsPage.enterReviewDateTo(reviewDateTo);
+//            ExtentReportListener.getExtentTest().pass("Entered Review Date To date: " + reviewDateTo);
 
-            basePage.pause(2000);
-            // 3. Record Number
-            myActionsPage.enterRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
+            // Reviewer
+            basePage.pause(1000);
+            myActionsPage.selectReviewer(reviewerCode, reviewerDisplay);
+            ExtentReportListener.getExtentTest().pass("Selected Reviewer '" + reviewerDisplay + "' successfully");
 
+            // Record number
+            basePage.pause(1000);
+            myActionsPage.enterRecordNumber(recordNumber);
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
+
+            basePage.pause(1000);
+            myActionsPage.clickSubmitterFilter();
+            ExtentReportListener.getExtentTest().pass("Clicked Submitter filter successfully");
+
+            basePage.pause(1000);
+            myActionsPage.selectSubmitter(submitterCode, submitterDisplay);
+            ExtentReportListener.getExtentTest().pass("Selected Submitter '" + submitterDisplay + "' successfully");
+
+            basePage.pause(1000);
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button successfully");
+
+            basePage.pause(1000);
+            myActionsPage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections successfully");
+
+            // Record number search again
             basePage.pause(2000);
-            // 4. Transaction Type = Initial Review
-            myActionsPage.selectTransactionTypeInitialReview();
-            ExtentReportListener.getExtentTest().pass("Selected Transaction Type: Initial Review");
+            myActionsPage.enterRecordNumber(recordNumber);
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
 
             basePage.pause(2000);
             // 6. Search
@@ -118,17 +158,6 @@ public class PBI_239491_My_Actions {
             myActionsPage.clickClearSelections();
             ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
 
-            basePage.pause(2000);
-            // 3. Record Number
-            myActionsPage.enterRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-            basePage.pause(2000);
-            // 6. Search
-            myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
-
-            basePage.pause(2000);
             // 7. Click record link in grid
             myActionsPage.clickFirstRecordNumberLink();
             ExtentReportListener.getExtentTest().pass("Clicked first Record Number link '2025E006129' from Action Required grid");

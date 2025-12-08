@@ -14,6 +14,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Adobe.AgreementPage;
 import pages.Export_Control.Export_Control_Details.MenuFlow;
+import pages.Export_Control.Export_Control_Details.MyActionsPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -31,10 +32,12 @@ public class PBI_239502_Menu_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     MenuFlow menuFlow;
+    MyActionsPage myActionsPage;
+
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -53,6 +56,7 @@ public class PBI_239502_Menu_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         menuFlow = new MenuFlow(driver);
+        myActionsPage = new MyActionsPage(driver);
     }
 
     @Test
@@ -62,6 +66,16 @@ public class PBI_239502_Menu_Flow {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+            String submitterCode    = JsonDataReader.get(1, "MyActionsSubmitterCode");
+            String submitterDisplay = JsonDataReader.get(1, "MyActionsSubmitterDisplay");
+            String reviewerCode    = JsonDataReader.get(1, "MyActionsReviewerCode");
+            String reviewerDisplay = JsonDataReader.get(1, "MyActionsReviewerDisplay");
+            String createdOnFrom = JsonDataReader.get(1, "MyActionsCreatedOnFrom");
+            String createdOnTo = JsonDataReader.get(1, "MyActionsCreatedOnTo");
+            String reviewDateFrom = JsonDataReader.get(1, "MyActionsReviewDateFrom");
+            String reviewDateTo = JsonDataReader.get(1, "MyActionsReviewDateTo");
+            String recordNumber = JsonDataReader.get(1, "MyActionsRecordNumber");
+
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -91,29 +105,53 @@ public class PBI_239502_Menu_Flow {
             menuFlow.clickSearchLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
 
+//            basePage.pause(2000);
+//            myActionsPage.enterCreatedOnFrom(createdOnFrom);
+//            ExtentReportListener.getExtentTest().pass("Entered Created On From date: " + createdOnFrom);
+//
+//            myActionsPage.enterCreatedOnTo(createdOnTo);
+//            ExtentReportListener.getExtentTest().pass("Entered Created On To date: " + createdOnTo);
+//
+//            myActionsPage.enterReviewDateFrom(reviewDateFrom);
+//            ExtentReportListener.getExtentTest().pass("Entered Review Date From date: " + reviewDateFrom);
+//
+//            myActionsPage.enterReviewDateTo(reviewDateTo);
+//            ExtentReportListener.getExtentTest().pass("Entered Review Date To date: " + reviewDateTo);
+
+            basePage.pause(1000);
+            myActionsPage.selectReviewer(reviewerCode, reviewerDisplay);
+            ExtentReportListener.getExtentTest().pass("Selected Reviewer '" + reviewerDisplay + "' successfully");
+
+            // Record number
+            basePage.pause(1000);
+            myActionsPage.enterRecordNumber(recordNumber);
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
+
+            basePage.pause(1000);
+            myActionsPage.clickSubmitterFilter();
+            ExtentReportListener.getExtentTest().pass("Clicked Submitter filter successfully");
+
+            basePage.pause(500);
+            myActionsPage.selectSubmitter(submitterCode, submitterDisplay);
+            ExtentReportListener.getExtentTest().pass("Selected Submitter '" + submitterDisplay + "' successfully");
+
+            basePage.pause(1000);
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search button successfully");
+
+            basePage.pause(1000);
+            myActionsPage.clickClearSelections();
+            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections successfully");
+
+            // Record number search again
             basePage.pause(2000);
-            menuFlow.setStatusCompleted();
-            ExtentReportListener.getExtentTest().pass("Selected Status: Completed");
+            myActionsPage.enterRecordNumber(recordNumber);
+            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
 
             basePage.pause(2000);
-            menuFlow.setRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-            basePage.pause(2000);
-            menuFlow.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search");
-
-            basePage.pause(2000);
-            menuFlow.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
-
-            basePage.pause(2000);
-            menuFlow.setRecordNumber("2025E006129");
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: 2025E006129");
-
-            basePage.pause(2000);
-            menuFlow.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search");
+            // 6. Search
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
 
             basePage.pause(2000);
             menuFlow.clickRecordNumberFromSearchGrid();
@@ -127,7 +165,7 @@ public class PBI_239502_Menu_Flow {
 
     @AfterMethod
     public void tearDown() {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

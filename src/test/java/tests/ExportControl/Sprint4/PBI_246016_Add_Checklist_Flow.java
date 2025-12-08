@@ -34,7 +34,7 @@ public class PBI_246016_Add_Checklist_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -145,7 +145,5 @@ public class PBI_246016_Add_Checklist_Flow {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

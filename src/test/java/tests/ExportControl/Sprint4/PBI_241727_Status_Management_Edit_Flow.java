@@ -63,6 +63,9 @@ public class PBI_241727_Status_Management_Edit_Flow {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
+            String statusNamePrefix = JsonDataReader.get(1, "StatusNamePrefix");   // e.g. "Test"
+            String statusNameSuffix = JsonDataReader.get(1, "StatusNameSuffix");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -95,10 +98,10 @@ public class PBI_241727_Status_Management_Edit_Flow {
             statusManagementExportControlPage.clickAddStatusButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
 
+            // Generate dynamic status name using prefix from JSON
             basePage.pause(800);
-            String statusName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+            String statusName = statusNamePrefix + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
             statusManagementExportControlPage.enterStatusName(statusName);
-
             ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
 
             basePage.pause(800);
@@ -114,8 +117,8 @@ public class PBI_241727_Status_Management_Edit_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
 
             basePage.pause(800);
-            statusManagementExportControlPage.appendToStatusName("SAN01");
-            ExtentReportListener.getExtentTest().pass("Appended 'SAN01' to Status Name input field");
+            statusManagementExportControlPage.appendToStatusName(statusNameSuffix);
+            ExtentReportListener.getExtentTest().pass("Appended '" + statusNameSuffix + "' to Status Name input field");
 
             basePage.pause(800);
             statusManagementExportControlPage.selectActiveAsNo();

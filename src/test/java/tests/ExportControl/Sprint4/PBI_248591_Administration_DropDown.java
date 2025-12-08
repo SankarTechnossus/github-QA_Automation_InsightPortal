@@ -34,7 +34,7 @@ public class PBI_248591_Administration_DropDown {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -53,7 +53,6 @@ public class PBI_248591_Administration_DropDown {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         recordTypesExportControlPage = new RecordTypes_ExportControlPage(driver);
-
     }
 
     @Test
@@ -63,6 +62,12 @@ public class PBI_248591_Administration_DropDown {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
+
+            String initialRecordType   = JsonDataReader.get(1, "InitialRecordType");     // "Test01"
+            String recordTypePrefix    = JsonDataReader.get(1, "RecordTypePrefix");      // "Test"
+            String positiveSearchText  = JsonDataReader.get(1, "PositiveSearchText");    // "Test"
+            String negativeSearchText  = JsonDataReader.get(1, "NegativeSearchText");    // "@@@@@@@"
+            String refMeaningValue     = JsonDataReader.get(1, "RefMeaningValue");       // "1"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -101,8 +106,8 @@ public class PBI_248591_Administration_DropDown {
             ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
 
             basePage.pause(5000);
-            recordTypesExportControlPage.enterRecordType("Test01");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test' into Record Type input field");
+            recordTypesExportControlPage.enterRecordType(initialRecordType);
+            ExtentReportListener.getExtentTest().pass("Entered initial record type '" + initialRecordType + "' into Record Type input field");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickCancelButton();
@@ -121,15 +126,14 @@ public class PBI_248591_Administration_DropDown {
             recordTypesExportControlPage.enterRecordType(recordTypeName);
             ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
 
+
             basePage.pause(5000);
             recordTypesExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
-            String searchKeyword = "Test";
-
             basePage.pause(5000);
-            recordTypesExportControlPage.searchRecordByName(searchKeyword);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword + "'");
+            recordTypesExportControlPage.searchRecordByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + positiveSearchText + "'");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickSearchButton();
@@ -139,11 +143,9 @@ public class PBI_248591_Administration_DropDown {
             recordTypesExportControlPage.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
-            String searchKeyword01 = "@@@@@@@";
-
             basePage.pause(5000);
-            recordTypesExportControlPage.searchRecordByName(searchKeyword01);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword01 + "'");
+            recordTypesExportControlPage.searchRecordByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + negativeSearchText + "'");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickSearchButton();
@@ -177,10 +179,9 @@ public class PBI_248591_Administration_DropDown {
             recordTypesExportControlPage.selectCategory(recordTypeName);
             ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
 
-            String refValue = "1";
             basePage.pause(2000);
-            recordTypesExportControlPage.enterRefMeaning(refValue);
-            ExtentReportListener.getExtentTest().pass("Entered '" + refValue + "' into Ref Meaning input field");
+            recordTypesExportControlPage.enterRefMeaning(refMeaningValue);
+            ExtentReportListener.getExtentTest().pass("Entered Ref Meaning value '" + refMeaningValue + "' into Ref Meaning input field");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickCancelButton();
@@ -194,20 +195,17 @@ public class PBI_248591_Administration_DropDown {
             recordTypesExportControlPage.selectCategory(recordTypeName);
             ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
 
-            String refValue01 = "1";
             basePage.pause(2000);
-            recordTypesExportControlPage.enterRefMeaning(refValue01);
-            ExtentReportListener.getExtentTest().pass("Entered '" + refValue01 + "' into Ref Meaning input field");
+            recordTypesExportControlPage.enterRefMeaning(refMeaningValue);
+            ExtentReportListener.getExtentTest().pass("Entered Ref Meaning value '" + refMeaningValue + "' into Ref Meaning input field");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
 
-            String searchKeyword02 = "Test";
-
             basePage.pause(5000);
-            recordTypesExportControlPage.searchRecordByName(searchKeyword02);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword02 + "'");
+            recordTypesExportControlPage.searchRecordByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + positiveSearchText + "'");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickSearchButton();
@@ -217,11 +215,9 @@ public class PBI_248591_Administration_DropDown {
             recordTypesExportControlPage.clickClearSelectionsButton();
             ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
 
-            String searchKeyword03 = "@@@@@@@";
-
             basePage.pause(5000);
-            recordTypesExportControlPage.searchRecordByName(searchKeyword03);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + searchKeyword03 + "'");
+            recordTypesExportControlPage.searchRecordByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().pass("Search executed with name '" + negativeSearchText + "'");
 
             basePage.pause(5000);
             recordTypesExportControlPage.clickSearchButton();
@@ -257,7 +253,5 @@ public class PBI_248591_Administration_DropDown {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
-
 }

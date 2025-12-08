@@ -63,6 +63,9 @@ public class PBI_245940_Initial_Application_Management {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
+            String initialAppActionPrefix = JsonDataReader.get(1, "InitialAppActionPrefix");
+            String initialAppEntityName  = JsonDataReader.get(1, "InitialAppEntityName");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
