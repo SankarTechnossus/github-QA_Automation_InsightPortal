@@ -115,7 +115,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().info("User navigated to Create Export Control page.");
 
             // Create Export Control
-            String piName = JsonDataReader.get(2,"PIName");
+            String piName = JsonDataReader.get(3,"PIName");
 
             createExportControlPage.CreateExportControl(piName);
             Assert.assertTrue(createExportControlPage.VerifyExportControlIsCreatedSuccessfully());
@@ -128,7 +128,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
 
             // Build absolute path from project
             String baseDir = System.getProperty("user.dir");
-            String folderPath = JsonDataReader.get(4,"TestFilesFolderPath");
+            String folderPath = JsonDataReader.get(5,"TestFilesFolderPath");
 
             // Create folder object
             File folder = new File(folderPath);
@@ -160,7 +160,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
                             ExtentReportListener.getExtentTest().pass("User successfully attached file : " + fileName);
 
                             // Enter Attachment type and description and verify The grouping
-                            String description = JsonDataReader.get(4,"FileDescription");
+                            String description = JsonDataReader.get(5,"FileDescription");
 
                             Assert.assertTrue(createExportControlPage.EnterAttachmentTypeAndDescriptionAndVerifyTheGrouping(fileName, attachmentTypeName, description));
                             ExtentReportListener.getExtentTest().pass("File Type : " + attachmentTypeName + " and Description : " + description + " added for File : " + fileName + ". Also file is grouped according to file type.");

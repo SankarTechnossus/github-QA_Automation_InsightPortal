@@ -121,7 +121,7 @@ public class PBI_251470_Staff_Management_Admin {
             ExtentReportListener.getExtentTest().pass("New Role with name : " + newRoleName + " has been deactivated successfully for people type : " + newTypeName);
 
             // Try to deactivate all associated roles and verify error message
-            String msg = JsonDataReader.get(3,"RoleDeactivationErrorMessage");
+            String msg = JsonDataReader.get(4,"RoleDeactivationErrorMessage");
 
             Assert.assertTrue(peopleManagementExportControlPage.TryToDeactivateAllRolesAndVerifyCorrectErrorMessageIsDisplayed(msg));
             ExtentReportListener.getExtentTest().pass("Upon trying to deactivate all associated roles, user is getting an alert with message :  " + msg);

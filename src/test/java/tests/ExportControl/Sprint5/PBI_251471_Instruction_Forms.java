@@ -111,10 +111,10 @@ public class PBI_251471_Instruction_Forms {
 
                 if(i==1)
                 {
-                    formType = JsonDataReader.get(1,"FormType");
+                    formType = JsonDataReader.get(2,"FormType");
                 }
                 else {
-                    formType = JsonDataReader.get(1,"FormType2");
+                    formType = JsonDataReader.get(2,"FormType2");
                 }
 
                 // Create new form
