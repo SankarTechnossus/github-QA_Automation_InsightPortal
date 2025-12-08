@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
 import pages.Export_Control.Export_Control_Details.NotesPage;
 import pages.Export_Control.Export_Control_Details.DisplayChecklistFlowPage;
 import pages.Export_Control.Export_Control_Details.MenuFlow;
@@ -34,13 +35,15 @@ public class PBI_248109_Notes {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     DisplayChecklistFlowPage displayChecklistFlowPage;
+    InitialReviewWorkflowPage initialReviewWorkflowPage;
     MenuFlow menuFlow;
     NotesPage notesPage;
     SystemAdminPage systemAdminPage;
+    CreateExportControlPage createExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -59,9 +62,12 @@ public class PBI_248109_Notes {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         displayChecklistFlowPage = new DisplayChecklistFlowPage(driver);
+        initialReviewWorkflowPage = new InitialReviewWorkflowPage(driver);
         menuFlow = new MenuFlow(driver);
         notesPage = new NotesPage(driver);
         systemAdminPage = new SystemAdminPage(driver);
+        createExportControlPage = new CreateExportControlPage(driver);
+
     }
 
     @Test
@@ -72,7 +78,14 @@ public class PBI_248109_Notes {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
-
+            String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
+            String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
+            String linkText          = JsonDataReader.get(3, "InitialReviewLinkText");     // "New Test 07"
+            String phoneNumber       = JsonDataReader.get(3, "InitialReviewPhoneNumber");  // "7550309189"
+            String personName        = JsonDataReader.get(3, "InitialReviewName");         // "Test01"
+            String amendCommentText  = JsonDataReader.get(3, "AmendCommentText");
+            String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
+            String NotesData         = JsonDataReader.get(1, "NotesData");
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -91,40 +104,38 @@ public class PBI_248109_Notes {
             dashboardpagenew.clickExportControlLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
-            CreateExportControlPage exportcontrolenduser = new CreateExportControlPage(driver);
-
             basePage.pause(3000);
-            exportcontrolenduser.clickCreateExportControl();
+            createExportControlPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked Actions → Create Export Control from left navigation successfully");
 
             basePage.pause(2000);
             displayChecklistFlowPage.selectPersonnelExclusion();
             ExtentReportListener.getExtentTest().pass("Selected Personnel Exclusion radio button successfully");
 
-            // Step 2: Select PI Name (type 'mohan' and choose 'Chandra mohan')
+            // Step: Select PI Name (from JSON)
             basePage.pause(2000);
-            exportcontrolenduser.selectPiName("mohan", "Chandra, Mohan");
-            ExtentReportListener.getExtentTest().pass("Typed 'mohan' and selected PI as 'Chandra mohan' successfully");
+            createExportControlPage.selectPiName(piSearchText, piFullName);
+            ExtentReportListener.getExtentTest().pass("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
 
             // Step 3: Click Create button
             basePage.pause(2000);
-            exportcontrolenduser.clickCreateButton();
+            createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Create' button on Create Export Control sidebar successfully");
 
             basePage.pause(14000);
             ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
 
             basePage.pause(2000);
-            displayChecklistFlowPage.clickNewTest07();
-            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
+//            displayChecklistFlowPage.clickNewTest07();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
 
-            basePage.pause(1000);
-            displayChecklistFlowPage.enterPhoneNumber("7550309189");
-            ExtentReportListener.getExtentTest().pass("Entered phone number '7550309189' successfully");
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + phoneNumber + "' successfully");
 
             // Step 2: Click Next
             basePage.pause(2000);
-            exportcontrolenduser.clickNextButton();
+            createExportControlPage.clickNextButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
 
             // Step 1: Click Save
@@ -137,9 +148,23 @@ public class PBI_248109_Notes {
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
 
+            basePage.pause(5000);
+            initialReviewWorkflowPage.enterName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
+
             basePage.pause(2000);
-            displayChecklistFlowPage.selectOption1();
-            ExtentReportListener.getExtentTest().pass("Selected Option (1) radio button successfully");
+            initialReviewWorkflowPage.selectGenderMale();
+            ExtentReportListener.getExtentTest().pass("Selected gender as 'Male' successfully");
+//
+//            // Step 1: Enter Name
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterName(personName);
+//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
+//
+//            // Step 2: Enter Phone Number
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + phoneNumber + "' successfully");
 
             // Step 1: Click Save
             basePage.pause(2000);
@@ -150,6 +175,46 @@ public class PBI_248109_Notes {
             basePage.pause(2000);
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+
+
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickNewTest07();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
+//
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + phoneNumber + "' successfully");
+//
+//            // Step 2: Click Next
+//            basePage.pause(2000);
+//            createExportControlPage.clickNextButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
+//
+//            // Step 1: Click Save
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickSaveAction();
+//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+//
+//            // Enter Name (from JSON)
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterName(personName);
+//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
+//
+//            // Enter Phone (from JSON)
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + phoneNumber + "' successfully");
+//            // Step 1: Click Save
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickSaveAction();
+//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+//
+//            // Step 2: Click Submit
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickSubmitAction();
+//            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            basePage.pause(14000);
+            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
 
             basePage.pause(2000);
             notesPage.clickNotesSection();
@@ -178,7 +243,7 @@ public class PBI_248109_Notes {
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
             basePage.pause(2000);
-            exportcontrolenduser.clickActionRequired();
+            createExportControlPage.clickActionRequired();
             ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' menu successfully");
 
             basePage.pause(2000);
@@ -201,19 +266,20 @@ public class PBI_248109_Notes {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Note' button successfully");
 
             basePage.pause(2000);
-            notesPage.enterNotesAndClickAdd("Test_Notes");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test_Notes' in Notes and clicked 'Add' successfully");
+            notesPage.enterNotesAndClickAdd(NotesData);
+            ExtentReportListener.getExtentTest().pass("Entered  " + NotesData + " successfully");
+
 
             basePage.pause(2000);
             ExtentReportListener.getExtentTest().pass("Wait until the page notes is getting loaded");
 
+            // Step 1: Fetch record
+            String recordNum01 = systemAdminPage.getRecordNumber();
+            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum01);
+
             basePage.pause(2000);
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
-
-            // Step 1: Fetch record
-            String recordNum = systemAdminPage.getRecordNumber();
-            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
             basePage.pause(2000);
             systemAdminPage.clickLogout();
@@ -247,8 +313,8 @@ public class PBI_248109_Notes {
             ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
 
             basePage.pause(2000);
-            systemAdminPage.enterValueField(recordNum);
-            ExtentReportListener.getExtentTest().pass("Successfully entered dynamic record number: " + recordNum);
+            systemAdminPage.enterValueField(recordNum01);
+            ExtentReportListener.getExtentTest().pass("Successfully entered dynamic record number: " + recordNum01);
 
             basePage.pause(2000);
             menuFlow.clickSearchButton();
@@ -256,8 +322,8 @@ public class PBI_248109_Notes {
 
             // After you search and the grid is loaded:
             basePage.pause(2000);
-            systemAdminPage.clickRecordNumber(recordNum);
-            ExtentReportListener.getExtentTest().pass("Clicked Record Number link in grid: " + recordNum);
+            systemAdminPage.clickRecordNumber(recordNum01);
+            ExtentReportListener.getExtentTest().pass("Clicked Record Number link in grid: " + recordNum01);
 
             basePage.pause(14000);
             ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
@@ -277,7 +343,6 @@ public class PBI_248109_Notes {
     public void tearDown()
     {
         DriverManager.quitDriver();
-
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

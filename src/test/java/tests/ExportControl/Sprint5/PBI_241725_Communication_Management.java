@@ -51,7 +51,7 @@ public class PBI_241725_Communication_Management {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -89,6 +89,12 @@ public class PBI_241725_Communication_Management {
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
 
+            String templateNamePrefix              = JsonDataReader.get(1, "TemplateNamePrefix");
+            String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
+            String templateLayout                  = JsonDataReader.get(1, "TemplateLayout");
+            String templateReminderFrequency       = JsonDataReader.get(1, "TemplateReminderFrequency");
+            String notificationTypeApproved        = JsonDataReader.get(1, "NotificationTypeApproved");
+            String workflowVersionDescriptionPref  = JsonDataReader.get(1, "WorkflowVersionDescriptionPrefix");
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -129,18 +135,16 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().pass("Entered Template Name as '" + templateName + "'");
 
             basePage.pause(1000);
-            communicationManagementExportControlPage.selectNoticeGroup("ExportControl Workflow"); // use the exact UI text
-            ExtentReportListener.getExtentTest().pass("Selected Notice Group successfully");
+            communicationManagementExportControlPage.selectNoticeGroup(templateNoticeGroup);
+            ExtentReportListener.getExtentTest().pass("Selected Notice Group: '" + templateNoticeGroup + "'");
 
-            // Step 3 – Layout: Green
             basePage.pause(800);
-            communicationManagementExportControlPage.selectLayout("Green");
-            ExtentReportListener.getExtentTest().pass("Selected Layout: 'Green'");
+            communicationManagementExportControlPage.selectLayout(templateLayout);
+            ExtentReportListener.getExtentTest().pass("Selected Layout: '" + templateLayout + "'");
 
-            // Step 4 – Reminder Frequency (days): 1
             basePage.pause(2000);
-            communicationManagementExportControlPage.setReminderFrequency("1");
-            ExtentReportListener.getExtentTest().pass("Set Reminder Frequency (days) to '1'");
+            communicationManagementExportControlPage.setReminderFrequency(templateReminderFrequency);
+            ExtentReportListener.getExtentTest().pass("Set Reminder Frequency (days) to '" + templateReminderFrequency + "'");
 
             // Step 6 – Click Cancel (if requirement is to close modal after creation)
             basePage.pause(2000);
@@ -154,24 +158,21 @@ public class PBI_241725_Communication_Management {
             // Step 1: Generate random template name using your method
             String templateName02 = basePage.GenerateRandomName(8);
 
-            // Step 1 – Template Name
             basePage.pause(1000);
             communicationManagementExportControlPage.setTemplateName(templateName02);
             ExtentReportListener.getExtentTest().pass("Entered Template Name as '" + templateName02 + "'");
 
             basePage.pause(1000);
-            communicationManagementExportControlPage.selectNoticeGroup("ExportControl Workflow"); // use the exact UI text
-            ExtentReportListener.getExtentTest().pass("Selected Notice Group successfully");
+            communicationManagementExportControlPage.selectNoticeGroup(templateNoticeGroup);
+            ExtentReportListener.getExtentTest().pass("Selected Notice Group: '" + templateNoticeGroup + "'");
 
-            // Step 3 – Layout: Green
             basePage.pause(800);
-            communicationManagementExportControlPage.selectLayout("Green");
-            ExtentReportListener.getExtentTest().pass("Selected Layout: 'Green'");
+            communicationManagementExportControlPage.selectLayout(templateLayout);
+            ExtentReportListener.getExtentTest().pass("Selected Layout: '" + templateLayout + "'");
 
-            // Step 4 – Reminder Frequency (days): 1
             basePage.pause(800);
-            communicationManagementExportControlPage.setReminderFrequency("1");
-            ExtentReportListener.getExtentTest().pass("Set Reminder Frequency (days) to '1'");
+            communicationManagementExportControlPage.setReminderFrequency(templateReminderFrequency);
+            ExtentReportListener.getExtentTest().pass("Set Reminder Frequency (days) to '" + templateReminderFrequency + "'");
 
             // Step 5 – Click Create Template
             basePage.pause(800);
@@ -180,8 +181,8 @@ public class PBI_241725_Communication_Management {
 
             // Step 1 – Notification Type: Export Control Approved
             basePage.pause(3000);
-            communicationManagementExportControlPage.selectNotificationType("Export Control Approved");
-            ExtentReportListener.getExtentTest().pass("Selected Notification Type as 'Export Control Approved' successfully");
+            communicationManagementExportControlPage.selectNotificationType(notificationTypeApproved);
+            ExtentReportListener.getExtentTest().pass("Selected Notification Type as '" + notificationTypeApproved + "' successfully");
 
             // Step 2 – Click Cancel
             basePage.pause(2000);
@@ -200,10 +201,9 @@ public class PBI_241725_Communication_Management {
             communicationManagementExportControlPage.clickCommunicationExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' under Communication Management successfully");
 
-            // Step 3 – Notification Type again: Export Control Approved
             basePage.pause(2000);
-            communicationManagementExportControlPage.selectNotificationType("Export Control Approved");
-            ExtentReportListener.getExtentTest().pass("Selected Notification Type as 'Export Control Approved' successfully after reopening form");
+            communicationManagementExportControlPage.selectNotificationType(notificationTypeApproved);
+            ExtentReportListener.getExtentTest().pass("Selected Notification Type as '" + notificationTypeApproved + "' successfully after reopening form");
 
             // Step 4 – Click Save
             basePage.pause(3000);
@@ -285,7 +285,6 @@ public class PBI_241725_Communication_Management {
     public void tearDown()
     {
         DriverManager.quitDriver();
-
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

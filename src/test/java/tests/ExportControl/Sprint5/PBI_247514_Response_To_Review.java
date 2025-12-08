@@ -42,7 +42,7 @@ public class PBI_247514_Response_To_Review {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance
@@ -70,12 +70,16 @@ public class PBI_247514_Response_To_Review {
     }
 
     @Test
-    public void PBI_247514_Responce_to_review ()
+    public void Response_To_Review ()
     {
         try {
             String url = JsonDataReader.get(0, "URL");
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
+            String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");// "Test_Auto"
+            String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
+            String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
+
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -153,10 +157,11 @@ public class PBI_247514_Response_To_Review {
             displayChecklistFlowPage.selectPersonnelExclusion();
             ExtentReportListener.getExtentTest().pass("Selected Personnel Exclusion radio button successfully");
 
-            // Step 2: Select PI Name (type 'mohan' and choose 'Chandra mohan')
+
+            // Step: Select PI Name (from JSON)
             basePage.pause(2000);
-            createExportControlPage.selectPiName("mohan", "Chandra, Mohan");
-            ExtentReportListener.getExtentTest().pass("Typed 'mohan' and selected PI as 'Chandra mohan' successfully");
+            createExportControlPage.selectPiName(piSearchText, piFullName);
+            ExtentReportListener.getExtentTest().pass("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
 
             // Step 3: Click Create button
             basePage.pause(2000);
@@ -166,13 +171,14 @@ public class PBI_247514_Response_To_Review {
             basePage.pause(14000);
             ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
 
-            basePage.pause(2000);
-            displayChecklistFlowPage.clickNewTest07();
-            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
 
-            basePage.pause(1000);
-            displayChecklistFlowPage.enterPhoneNumber("7550309189");
-            ExtentReportListener.getExtentTest().pass("Entered phone number '7550309189' successfully");
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickNewTest07();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
+
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + phoneNumber + "' successfully");
 
             // Step 2: Click Next
             basePage.pause(2000);
@@ -189,9 +195,23 @@ public class PBI_247514_Response_To_Review {
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
 
+            basePage.pause(5000);
+            initialReviewWorkflowPage.enterName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
+
             basePage.pause(2000);
-            displayChecklistFlowPage.selectOption1();
-            ExtentReportListener.getExtentTest().pass("Selected Option (1) radio button successfully");
+            initialReviewWorkflowPage.selectGenderMale();
+            ExtentReportListener.getExtentTest().pass("Selected gender as 'Male' successfully");
+//
+//            // Step 1: Enter Name
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterName(personName);
+//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
+//
+//            // Step 2: Enter Phone Number
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + phoneNumber + "' successfully");
 
             // Step 1: Click Save
             basePage.pause(2000);
@@ -202,6 +222,46 @@ public class PBI_247514_Response_To_Review {
             basePage.pause(2000);
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+
+
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickNewTest07();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
+//
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + phoneNumber + "' successfully");
+//
+//            // Step 2: Click Next
+//            basePage.pause(2000);
+//            createExportControlPage.clickNextButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
+//
+//            // Step 1: Click Save
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickSaveAction();
+//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+//
+//            // Enter Name (from JSON)
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterName(personName);
+//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
+//
+//            // Enter Phone (from JSON)
+//            basePage.pause(1000);
+//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
+//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + phoneNumber + "' successfully");
+//            // Step 1: Click Save
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickSaveAction();
+//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+//
+//            // Step 2: Click Submit
+//            basePage.pause(2000);
+//            displayChecklistFlowPage.clickSubmitAction();
+//            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            basePage.pause(14000);
+            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
 
             basePage.pause(2000);
             responseToReviewPage.clickResponseToReview();
@@ -243,6 +303,10 @@ public class PBI_247514_Response_To_Review {
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
 
+            // Step 1: Fetch record #
+            String recordNum = systemAdminPage.getRecordNumber();
+            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
+
             basePage.pause(2000);
             systemAdminPage.clickComments();
             ExtentReportListener.getExtentTest().pass("Clicked 'Comments' button successfully");
@@ -261,14 +325,12 @@ public class PBI_247514_Response_To_Review {
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
 
-            // Step: Click "Response To Review" menu
-            basePage.pause(2000);
-            systemAdminPage.clickResponseToReviewMenu();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Response To Review' menu successfully");
+//            // Step: Click "Response To Review" menu
+//            basePage.pause(2000);
+//            systemAdminPage.clickResponseToReviewMenu();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Response To Review' menu successfully");
 
-            // Step 1: Fetch record #
-            String recordNum = systemAdminPage.getRecordNumber();
-            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
+
 
             basePage.pause(2000);
             systemAdminPage.clickLogout();
@@ -328,18 +390,17 @@ public class PBI_247514_Response_To_Review {
             ExtentReportListener.getExtentTest().pass("Clicked 'Download' button successfully");
         }
         catch (Exception e)
-            {
-                // User will capture and log any exceptions that occur during the test
-                ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
-            }
-        }
-
-        @AfterMethod
-        public void tearDown()
         {
-//        DriverManager.quitDriver();
-
-            // User will record browser closure in the test report
-            ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
+            // User will capture and log any exceptions that occur during the test
+            ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
         }
     }
+
+    @AfterMethod
+    public void tearDown()
+    {
+        DriverManager.quitDriver();
+        // User will record browser closure in the test report
+        ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
+    }
+}
