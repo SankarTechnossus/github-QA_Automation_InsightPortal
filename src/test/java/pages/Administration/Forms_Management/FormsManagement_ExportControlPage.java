@@ -543,6 +543,9 @@ public class FormsManagement_ExportControlPage extends BasePage {
             type(inputInstructions, instructions);
             click(buttonSave);
             pause(2000);
+
+            result = true;
+            pause(2000);
         }
         return result;
     }
