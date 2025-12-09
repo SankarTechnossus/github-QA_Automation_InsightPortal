@@ -57,9 +57,77 @@ public class AgreementPage extends BasePage {
     By advancedBtnAlt = By.xpath("//form[contains(@class,'agrAgreementsLandingSearchForm')]//button[contains(normalize-space(.),'Advanced (')]");
     By addNewDeliverableBtn = By.xpath("//button[contains(@class,'add-deliverable-button') and normalize-space(.)='Add New Deliverable']");
     By typeControlnew01 = By.xpath("//label[@for='type']/following::div[contains(@class,'select-control')][1]");
-    By administrationHeader = By.xpath("//h1[normalize-space()='Administration']");
+    By administrationHeader = By.xpath("//*[normalize-space()='ADMINISTRATION']");
+    By formsManagementHeader = By.xpath("//strong[normalize-space()='Forms Management']");
+    By formsManagementSearchResultRow = By.xpath("//table//tr[contains(@class,'item-grid-tr')]");
+    By newFormBreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='New form']");
+    By formVersionsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(),'Form Versions')]");
+    By version1BreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Version 1']");
+    By dashboardNotificationsHeader = By.xpath("//*[normalize-space()='Dashboard Notifications - Summary']");
 
     // ******** Actions *********
+
+    public boolean isDashboardNotificationsSummaryDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            WebElement header = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(dashboardNotificationsHeader));
+            return header.isDisplayed();
+
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isVersion1PageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(version1BreadcrumbHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isFormVersionsPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(formVersionsHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isNewFormPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(newFormBreadcrumbHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isSearchResultDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(formsManagementSearchResultRow));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isFormsManagementPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(formsManagementHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 
     public boolean isAdministrationPageDisplayed() {
         try {
