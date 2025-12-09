@@ -124,86 +124,18 @@ public class PBI_241726_Initial_Review_Workflow {
             basePage.pause(14000);
             ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
 
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickNewTest07();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
-
-            // Step 2: Click Next
-            basePage.pause(2000);
-            createExportControlPage.clickNextButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
-
-            // Step 1: Click Save
-            basePage.pause(2000);
-            displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
-
-            // Step 2: Click Submit
+            // Step 4: Click Submit
             basePage.pause(2000);
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
 
-            basePage.pause(5000);
-            initialReviewWorkflowPage.enterName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
-
-            basePage.pause(2000);
-            initialReviewWorkflowPage.selectGenderMale();
-            ExtentReportListener.getExtentTest().pass("Selected gender as 'Male' successfully");
-
-            // Step 1: Click Save
-            basePage.pause(2000);
-            displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
-
-            // Step 2: Click Submit
-            basePage.pause(2000);
-            displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
-
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(initialPhoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + initialPhoneNumber + "' successfully");
-
-//            // Step 1: Click Save
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickSaveAction();
-//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
-
-
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.selectOption1();
-//            ExtentReportListener.getExtentTest().pass("Selected Option (1) radio button successfully");
-
-//            // Step 1: Enter Name
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterName(initialName);
-//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + initialName + "' successfully");
-//
-//            // Step 2: Enter Phone Number again
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(initialPhoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + initialPhoneNumber + "' successfully");
-
-
+            // Check the status of request and it should be "Under Review"
             basePage.pause(14000);
             ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
 
             basePage.pause(1000);
             initialReviewWorkflowPage.clickInitialReview();
             ExtentReportListener.getExtentTest().pass("Clicked Initial Review (IR) successfully");
-
-//            basePage.pause(2000);
-//            initialReviewWorkflowPage.clickReviewLetterPDF();
-//            ExtentReportListener.getExtentTest().pass("Clicked Review Letter PDF icon successfully");
-//
-//            basePage.pause(2000);
-//            initialReviewWorkflowPage.clickReviewerChecklistPDF();
-//            ExtentReportListener.getExtentTest().pass("Clicked Reviewer Checklist PDF icon successfully");
-//
-//            basePage.pause(1000);
-//            initialReviewWorkflowPage.clickExpandGroup();
-//            ExtentReportListener.getExtentTest().pass("Clicked Expand group arrow successfully");
 
             //***************Login to System Admin page********************
 
@@ -263,8 +195,6 @@ public class PBI_241726_Initial_Review_Workflow {
             basePage.pause(2000);
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
-
-
 
             basePage.pause(2000);
             systemAdminPage.clickLogout();
