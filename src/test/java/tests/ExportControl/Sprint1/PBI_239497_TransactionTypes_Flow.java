@@ -58,14 +58,14 @@ public class PBI_239497_TransactionTypes_Flow {
 
     @Test
     public void ExportControl_TransactionTypes_Test () {
-        ExtentReportListener.getExtentTest().info("your log message");
-        try {
+        try
+        {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
-            String transactionTypeInitial = JsonDataReader.get(1, "TransactionTypeInitial");   // e.g. "Test"
-            String transactionTypePrefix = JsonDataReader.get(1, "TransactionTypePrefix");     // e.g. "Test"
+            //String transactionTypeInitial = JsonDataReader.get(1, "TransactionTypeInitial");   // e.g. "Test"
+            //String transactionTypePrefix = JsonDataReader.get(1, "TransactionTypePrefix");     // e.g. "Test"
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");           // e.g. "Test"
             String negativeSearchText = JsonDataReader.get(1, "NegativeSearchText");
 
@@ -82,71 +82,77 @@ public class PBI_239497_TransactionTypes_Flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            basePage.pause(10000);
-
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(800);
             transactionTypesExportControlPage.clickTransactionTypesLink();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Transaction Types' link from left navigation");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Transaction Types' link from left navigation");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypesPageDisplayed(), "Transaction Types page is NOT displayed after clicking Transaction Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Transaction Types page");
 
-            basePage.pause(800);
             transactionTypesExportControlPage.clickAddNewTransactionType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Transaction Types page");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add new' link on Transaction Types page");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypeCreatePageDisplayed(), "'Transaction Type' create page is NOT displayed after clicking 'Add new' link");
+            ExtentReportListener.getExtentTest().pass("'Transaction Type' create page is displayed successfully");
 
-            basePage.pause(800);
             transactionTypesExportControlPage.enterTransactionType("Test");
-            ExtentReportListener.getExtentTest().pass("Entered 'Test' into Transaction Type input field");
+            ExtentReportListener.getExtentTest().info("Entered 'Test' into Transaction Type input field");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypeCreatePageDisplayed(), "'Transaction Type' create page is NOT displayed after clicking 'Add new' link");
+            ExtentReportListener.getExtentTest().pass("'Transaction Type' create page is displayed successfully");
 
-            basePage.pause(1000);
             transactionTypesExportControlPage.checkActiveCheckbox();
-            ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
+            ExtentReportListener.getExtentTest().info("Checked 'Active' checkbox");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypeCreatePageDisplayed(), "'Transaction Type' create page is NOT displayed after clicking 'Add new' link");
+            ExtentReportListener.getExtentTest().pass("'Transaction Type' create page is displayed successfully");
 
-            basePage.pause(1000);
             transactionTypesExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Cancel link successfully");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypesPageDisplayed(), "Transaction Types page is NOT displayed after clicking Transaction Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Transaction Types page");
 
-            basePage.pause(800);
             transactionTypesExportControlPage.clickAddNewTransactionType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' link on Transaction Types page");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add new' link on Transaction Types page");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypeCreatePageDisplayed(), "'Transaction Type' create page is NOT displayed after clicking 'Add new' link");
+            ExtentReportListener.getExtentTest().pass("'Transaction Type' create page is displayed successfully");
 
-            basePage.pause(1000);
             String transactionTypeName = transactionTypesExportControlPage.generateUniqueTransactionTypeName();
             transactionTypesExportControlPage.enterTransactionType(transactionTypeName);
-            ExtentReportListener.getExtentTest().pass("Entered '" + transactionTypeName + "' into Transaction Type input field");
+            ExtentReportListener.getExtentTest().info("Entered '" + transactionTypeName + "' into Transaction Type input field");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypeCreatePageDisplayed(), "'Transaction Type' create page is NOT displayed after clicking 'Add new' link");
+            ExtentReportListener.getExtentTest().pass("'Transaction Type' create page is displayed successfully");
 
-            basePage.pause(800);
             transactionTypesExportControlPage.checkActiveCheckbox();
-            ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
+            ExtentReportListener.getExtentTest().info("Checked 'Active' checkbox");
 
-            basePage.pause(800);
             recordTypesExportControlPage.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+            ExtentReportListener.getExtentTest().info("'Create' button is clicked successfully");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypesPageDisplayed(), "Transaction Types page is NOT displayed after clicking Transaction Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Transaction Types page");
 
-            basePage.pause(10000);
             transactionTypesExportControlPage.enterSearchByName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered '" + positiveSearchText + "' into Search by Name input field");
+            ExtentReportListener.getExtentTest().info("Entered '" + positiveSearchText + "' into Search by Name input field");
 
-            basePage.pause(800);
             recordTypesExportControlPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+            ExtentReportListener.getExtentTest().info("'Search' button clicked successfully");
 
-            basePage.pause(800);
             recordTypesExportControlPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+            ExtentReportListener.getExtentTest().info("'Clear Selections' button clicked successfully");
 
-            basePage.pause(800);
             transactionTypesExportControlPage.enterSearchByName(negativeSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered '" + negativeSearchText + "' into Search by Name input field");
+            ExtentReportListener.getExtentTest().info("Entered '" + negativeSearchText + "' into Search by Name input field");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypesPageDisplayed(), "Transaction Types page is NOT displayed after clicking Transaction Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Transaction Types page");
 
-            basePage.pause(800);
             recordTypesExportControlPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+            ExtentReportListener.getExtentTest().info("'Search' button clicked successfully");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypesPageDisplayed(), "Transaction Types page is NOT displayed after clicking Transaction Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Transaction Types page");
 
-            basePage.pause(800);
             recordTypesExportControlPage.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+            ExtentReportListener.getExtentTest().info("'Clear Selections' button clicked successfully");
+            Assert.assertTrue(transactionTypesExportControlPage.isTransactionTypesPageDisplayed(), "Transaction Types page is NOT displayed after clicking Transaction Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Transaction Types page");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -155,10 +161,10 @@ public class PBI_239497_TransactionTypes_Flow {
     }
 
     @AfterMethod
-    public void tearDown() {
+    public void tearDown()
+    {
         DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
-
     }
 }
