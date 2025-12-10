@@ -26,6 +26,8 @@ public class PBI_239497_Status_Management_Flow {
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    AgreementPage agreementPage;
+    StatusManagement_ExportControlPage statusManagementExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -47,12 +49,14 @@ public class PBI_239497_Status_Management_Flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        agreementPage = new AgreementPage(driver);
+        statusManagementExportControlPage = new StatusManagement_ExportControlPage(driver);
     }
 
     @Test
     public void Export_control_Status_Management_Test() {
-        ExtentReportListener.getExtentTest().info("your log message");
-        try {
+        try
+        {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
@@ -73,58 +77,59 @@ public class PBI_239497_Status_Management_Flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
             // StatusManagement Page Actions
-            StatusManagement_ExportControlPage statusManagementPage  = new StatusManagement_ExportControlPage(driver);
 
-            basePage.pause(5000);
-            statusManagementPage.clickStatusManagementLink();
+            statusManagementExportControlPage.clickStatusManagementLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
 
-            basePage.pause(5000);
-            statusManagementPage.clickStatusManagementExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
+            statusManagementExportControlPage.clickStatusManagementExportControl();
+            ExtentReportListener.getExtentTest().info("Clicked 'Status Management > Export Control' successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isStatusManagementPageDisplayed(), "Status Management page is NOT displayed after clicking 'Status Management > Export Control'");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Status Management page.");
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddStatusButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
-
-            basePage.pause(5000);
+            statusManagementExportControlPage.clickAddStatusButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Status' button successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isAddStatusModalDisplayed(), "'Add Status' modal is NOT displayed after clicking 'Add Status' button");
+            ExtentReportListener.getExtentTest().pass("'Add Status' modal is displayed successfully.");
 
             String statusName = statusNamePrefix + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
-            statusManagementPage.enterStatusName(statusName);
-            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
+            statusManagementExportControlPage.enterStatusName(statusName);
+            ExtentReportListener.getExtentTest().info("Entered '" + statusName + "' into Status Name input field");
+            Assert.assertTrue(statusManagementExportControlPage.isAddStatusModalDisplayed(), "'Add Status' modal is NOT displayed after clicking 'Add Status' button");
+            ExtentReportListener.getExtentTest().pass("'Add Status' modal is displayed successfully.");
 
-            basePage.pause(5000);
-            statusManagementPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            statusManagementExportControlPage.clickAddButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Add' button successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isStatusManagementPageDisplayed(), "Status Management page is NOT displayed after clicking 'Status Management > Export Control'");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Status Management page.");
 
-            basePage.pause(5000);
-            statusManagementPage.clickDeleteButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
+            statusManagementExportControlPage.clickDeleteButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().info("Clicked delete icon for: " + statusName);
 
-            basePage.pause(5000);
-            statusManagementPage.clickEditButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
+            statusManagementExportControlPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Clear Selections' button successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isSearchByNameCleared(), "'Search by Name' input is NOT cleared after clicking 'Clear Selections' button");
+            ExtentReportListener.getExtentTest().pass("'Search by Name' input is cleared successfully after clicking 'Clear Selections' button.");
 
-            basePage.pause(5000);
-            statusManagementPage.appendToStatusName(statusNameSuffix);
-            ExtentReportListener.getExtentTest().pass("Appended '" + statusNameSuffix + "' to Status Name input field");
+            statusManagementExportControlPage.clickEditButtonForStatus(statusName);
+            ExtentReportListener.getExtentTest().info("Clicked edit icon for: " + statusName);
+            Assert.assertTrue(statusManagementExportControlPage.isEditStatusModalDisplayed(), "'Edit Status' modal is NOT displayed after clicking edit icon for: " + statusName);
+            ExtentReportListener.getExtentTest().pass("'Edit Status' modal is displayed successfully for: " + statusName);
 
+            statusManagementExportControlPage.appendToStatusName(statusNameSuffix);
+            ExtentReportListener.getExtentTest().info("Appended '" + statusNameSuffix + "' to Status Name input field");
+            Assert.assertTrue(statusManagementExportControlPage.isEditStatusModalDisplayed(), "'Edit Status' modal is NOT displayed after clicking edit icon for: " + statusName);
+            ExtentReportListener.getExtentTest().pass("'Edit Status' modal is displayed successfully for: " + statusName);
 
-            basePage.pause(3000);
-            statusManagementPage.selectActiveAsNo();
-            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
+            statusManagementExportControlPage.selectActiveAsNo();
+            ExtentReportListener.getExtentTest().info("Selected 'No' from Active dropdown");
 
-            basePage.pause(5000);
-            statusManagementPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            statusManagementExportControlPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
