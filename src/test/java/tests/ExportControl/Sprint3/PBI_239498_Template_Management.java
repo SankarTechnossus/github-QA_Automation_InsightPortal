@@ -30,6 +30,7 @@ public class PBI_239498_Template_Management {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     TemplateManagement_ExportControlPage templateManagementExportControlPage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -52,11 +53,11 @@ public class PBI_239498_Template_Management {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         templateManagementExportControlPage = new TemplateManagement_ExportControlPage(driver);
+        agreementPage = new AgreementPage(driver);
     }
 
     @Test
     public void ExportControl_TemplateManagement_Test() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -84,62 +85,66 @@ public class PBI_239498_Template_Management {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickTemplateManagementExportControl01();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Template Management > Export Control' successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isExportControlBreadcrumbDisplayed(), "'Template Management > Export Control' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Template Management > Export Control' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Add new' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(3000);
             String generatedTitle01 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
+            ExtentReportListener.getExtentTest().info("Entered unique title: " + generatedTitle01);
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.uploadAgreementFile(fullFilePath);
-            ExtentReportListener.getExtentTest().pass("Uploaded file from path: " + filePath);
+            ExtentReportListener.getExtentTest().info("Uploaded file from path: " + filePath);
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button under Template Management successfully");
 
-            basePage.pause(3000);
             templateManagementExportControlPage.selectDateFormat("01/01/2020 (MM/DD/YYYY)"); // or just "MM/DD/YYYY"
-            ExtentReportListener.getExtentTest().pass("Selected Date Format successfully");
+            ExtentReportListener.getExtentTest().info("Selected Date Format successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isDateFormatLabelDisplayed(), "Date Format label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Date Format' label is displayed successfully");
 
-            basePage.pause(2000);
             templateManagementExportControlPage.setActiveToNo();
-            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
+            ExtentReportListener.getExtentTest().info("Active set to 'No' successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isActiveLabelDisplayed(), "Active label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed successfully");
 
-            basePage.pause(3000);
             templateManagementExportControlPage.clickSaveButton01();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
-            basePage.pause(2000);
             templateManagementExportControlPage.setActive(templateActiveYes);
-            ExtentReportListener.getExtentTest().pass("Active set to '" + templateActiveYes + "' successfully");
+            ExtentReportListener.getExtentTest().info("Active set to '" + templateActiveYes + "' successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isActiveLabelDisplayed(), "Active label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed successfully");
 
-            basePage.pause(2000);
             templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isExportControlBreadcrumbDisplayed(), "'Template Management > Export Control' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Template Management > Export Control' breadcrumb is displayed successfully");
 
             templateManagementExportControlPage.clickTemplateByTitle(generatedTitle01);
-            ExtentReportListener.getExtentTest().pass("Opened template '" + generatedTitle01 + "' from the list successfully");
+            ExtentReportListener.getExtentTest().info("Opened template '" + generatedTitle01 + "' from the list successfully");
 
-            basePage.pause(2000);
             templateManagementExportControlPage.setActiveToNo();
-            ExtentReportListener.getExtentTest().pass("Active set to 'No' successfully");
+            ExtentReportListener.getExtentTest().info("Active set to 'No' successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isActiveLabelDisplayed(), "Active label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed successfully");
 
-            basePage.pause(3000);
             templateManagementExportControlPage.clickSaveButton01();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

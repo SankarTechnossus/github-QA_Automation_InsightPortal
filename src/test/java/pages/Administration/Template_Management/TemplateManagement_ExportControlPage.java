@@ -35,8 +35,54 @@ public class TemplateManagement_ExportControlPage extends BasePage {
     By cancelButtonNew = By.xpath("//a[contains(@class,'_link_') and normalize-space(text())='Cancel']");
     By gridScroller = By.cssSelector(".item-grid-wrapper.-scrollable, .item-grid-wrapper");
     By fileUploadInput = By.xpath("//input[@type='file']");
+    By exportControlBreadcrumb = By.xpath("//div[contains(@class,'simple-bread-crumbs')]//span[contains(@class,'crumb')]/a[normalize-space()='Export Control']");
+    By createTemplateBreadcrumb = By.xpath("//span[contains(@class,'crumb') and contains(@class,'_font-bold') and normalize-space()='Create Template']");
+    By dateFormatLabel = By.xpath("//label[@for='configurationPayload.dateFormat']");
+    By activeLabel = By.xpath("//label[@for='isActive']");
 
     //Action
+
+    public boolean isActiveLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(activeLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isDateFormatLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(dateFormatLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isCreateTemplateBreadcrumbDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement breadcrumb = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(createTemplateBreadcrumb)
+            );
+            return breadcrumb.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isExportControlBreadcrumbDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement breadcrumb = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlBreadcrumb));
+            return breadcrumb.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public By linkByExactTitle(String title) {
         return By.xpath("//table[contains(@class,'item-grid')]//a[normalize-space(.)='" + title + "']");

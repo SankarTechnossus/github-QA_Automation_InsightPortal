@@ -32,6 +32,7 @@ public class PBI_239498_Template_Management_Negative_Cases {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     TemplateManagement_ExportControlPage templateManagementExportControlPage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -54,11 +55,11 @@ public class PBI_239498_Template_Management_Negative_Cases {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         templateManagementExportControlPage = new TemplateManagement_ExportControlPage(driver);
+        agreementPage = new AgreementPage(driver);
     }
 
     @Test
     public void ExportControl_TemplateManagement_Test() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -78,119 +79,108 @@ public class PBI_239498_Template_Management_Negative_Cases {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-
-            basePage.pause(5000);
             templateManagementExportControlPage.clickTemplateManagementExportControl01();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Template Management > Export Control' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Template Management > Export Control' successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isExportControlBreadcrumbDisplayed(), "'Template Management > Export Control' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Template Management > Export Control' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Add new' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-
-            basePage.pause(3000);
             String generatedTitle = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle);
+            ExtentReportListener.getExtentTest().info("Entered unique title: " + generatedTitle);
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
-
-            // Setting up base Directory
             String baseDir = System.getProperty("user.dir");
-
-            // Get the file path
             String filePath = JsonDataReader.get(5,"TestExcelFilePath");
             String path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: testexcel.xlsx was not successful");
+            ExtentReportListener.getExtentTest().info("Uploaded file: testexcel.xlsx was not successful");
 
-            basePage.pause(3000);
             templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isExportControlBreadcrumbDisplayed(), "'Template Management > Export Control' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Template Management > Export Control' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Add new' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-
-            basePage.pause(3000);
             String generatedTitle05 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle05);
-
-            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().info("Entered unique title: " + generatedTitle05);
 
             filePath = JsonDataReader.get(5,"TestJPGImgFilePath");
             path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: testjpg.jpg was not successful");
+            ExtentReportListener.getExtentTest().info("Uploaded file: testjpg.jpg was not successful");
 
-            basePage.pause(3000);
             templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isExportControlBreadcrumbDisplayed(), "'Template Management > Export Control' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Template Management > Export Control' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Add new' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(3000);
             String generatedTitle03 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle03);
-
-            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().info("Entered unique title: " + generatedTitle03);
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
             filePath = JsonDataReader.get(5,"TestPNGImgFilePath");
             path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: img.png was not successfully");
+            ExtentReportListener.getExtentTest().info("Uploaded file: img.png was not successfully");
 
-            basePage.pause(3000);
             templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isExportControlBreadcrumbDisplayed(), "'Template Management > Export Control' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Template Management > Export Control' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Add new' under Template Management successfully");
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(3000);
             String generatedTitle02 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle02);
-
-            basePage.pause(5000);
+            ExtentReportListener.getExtentTest().info("Entered unique title: " + generatedTitle02);
 
             filePath = JsonDataReader.get(5,"TestDOCXFilePath");
             path = Paths.get(baseDir, filePath).toString();
 
             templateManagementExportControlPage.uploadAgreementFile(path);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: Testdata.docx was uploaded successfully");
+            ExtentReportListener.getExtentTest().info("Uploaded file: Testdata.docx was uploaded successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' under Template Management successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickAddNewTemplate();
-            ExtentReportListener.getExtentTest().pass("Clicked on 'Add new' under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on 'Add new' under Template Management successfully");
 
-            basePage.pause(3000);
             String generatedTitle01 = templateManagementExportControlPage.enterUniqueTitle();
-            ExtentReportListener.getExtentTest().pass("Entered unique title: " + generatedTitle01);
+            ExtentReportListener.getExtentTest().info("Entered unique title: " + generatedTitle01);
+            Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
-            basePage.pause(5000);
-            String filePath01 = System.getProperty("user.dir") + "/Test_Data/Agreement Info 2025_03.pdf";
+            String filePath01 = System.getProperty("user.dir") + "/src/test/resources/testfiles/Agreement Info 2025_03.pdf";
             templateManagementExportControlPage.uploadAgreementFile(filePath01);
-            ExtentReportListener.getExtentTest().pass("Uploaded file: Agreement Info 2025_03.pdf successfully");
+            ExtentReportListener.getExtentTest().info("Uploaded file: Agreement Info 2025_03.pdf successfully");
 
-            basePage.pause(5000);
             templateManagementExportControlPage.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button under Template Management successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button under Template Management successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
