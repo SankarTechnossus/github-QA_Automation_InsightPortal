@@ -63,7 +63,7 @@ public class PBI_239498_Template_Management {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
-            String templateDateFormat = JsonDataReader.get(1, "TemplateDateFormat");   // e.g. "01/01/2020 (MM/DD/YYYY)"
+            //String templateDateFormat = JsonDataReader.get(1, "TemplateDateFormat");   // e.g. "01/01/2020 (MM/DD/YYYY)"
             String templateActiveYes = JsonDataReader.get(1, "TemplateActiveYes");     // e.g. "Yes"
 
             // File test data (index 4 – as per your current usage)
