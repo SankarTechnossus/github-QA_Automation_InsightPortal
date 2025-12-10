@@ -31,6 +31,7 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     AncillaryWorkflowsPage ancillaryWorkflowsPage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,11 +54,11 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         ancillaryWorkflowsPage = new AncillaryWorkflowsPage(driver);
+        agreementPage = new AgreementPage(driver);
     }
 
     @Test
     public void ExportControl_WorkflowManagement_Ancillary_workflow_Test () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -65,7 +66,7 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
             String ancillaryNamePrefix = JsonDataReader.get(1, "AncillaryWorkflowNamePrefix");           // "Test_"
             String ancillaryEmailFrom = JsonDataReader.get(1, "AncillaryWorkflowEmailFrom");             // "insighthelpdesk@partners.org"
-            String ancillaryNameAppendText = JsonDataReader.get(1, "AncillaryWorkflowNameAppendText");   // "San"
+            //String ancillaryNameAppendText = JsonDataReader.get(1, "AncillaryWorkflowNameAppendText");   // "San"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -81,62 +82,61 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            //Ancillary workflow
-            basePage.pause(2000);
             ancillaryWorkflowsPage.clickWorkflowManagement();
-            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
+            ExtentReportListener.getExtentTest().info("Opened 'Workflow Management'");
 
-            basePage.pause(2000);
             ancillaryWorkflowsPage.clickAncillaryWorkflowsScope3();
-            ExtentReportListener.getExtentTest().pass("Opened 'Ancillary Workflows' (scopeId=3, workflowType=2)");
+            ExtentReportListener.getExtentTest().info("Opened 'Ancillary Workflows'");
+            Assert.assertTrue(ancillaryWorkflowsPage.isAncillaryWorkflowsHeaderDisplayed(), "Ancillary Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Ancillary Workflows' page header is displayed successfully");
 
-            basePage.pause(2000);
             ancillaryWorkflowsPage.clickAddNew();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button");
+            Assert.assertTrue(ancillaryWorkflowsPage.isNameLabelDisplayed(), "Name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Name' label with mandatory asterisk is displayed");
 
             String uniqueName01 = ancillaryNamePrefix + System.currentTimeMillis();
-            basePage.pause(5000);
             ancillaryWorkflowsPage.enterNameAnc(uniqueName01);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
+            Assert.assertTrue(ancillaryWorkflowsPage.isNameLabelDisplayed(), "Name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Name' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
             ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From", ancillaryEmailFrom);
-            ExtentReportListener.getExtentTest().pass("Selected '" + ancillaryEmailFrom + "' from Email From dropdown successfully");
+            ExtentReportListener.getExtentTest().info("Selected '" + ancillaryEmailFrom + "' from Email From dropdown successfully");
+            Assert.assertTrue(ancillaryWorkflowsPage.isTriggeringRuleLabelDisplayed(), "Triggering Rule label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Triggering Rule' label is displayed");
 
-            basePage.pause(5000);
             ancillaryWorkflowsPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(ancillaryWorkflowsPage.isAncillaryWorkflowsHeaderDisplayed(), "Ancillary Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Ancillary Workflows' page header is displayed successfully");
 
-            basePage.pause(2000);
             ancillaryWorkflowsPage.clickAddNew();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button");
+            Assert.assertTrue(ancillaryWorkflowsPage.isNameLabelDisplayed(), "Name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Name' label with mandatory asterisk is displayed");
 
             String uniqueName02 = ancillaryNamePrefix + System.currentTimeMillis();
-            basePage.pause(5000);
             ancillaryWorkflowsPage.enterNameAnc(uniqueName02);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + uniqueName02 + "' in the Name input field successfully");
 
-            basePage.pause(5000);
             ancillaryWorkflowsPage.selectOptionFromDropdownAncillary("Email From", ancillaryEmailFrom);
-            ExtentReportListener.getExtentTest().pass("Selected '" + ancillaryEmailFrom + "' from Email From dropdown successfully");
+            ExtentReportListener.getExtentTest().info("Selected '" + ancillaryEmailFrom + "' from Email From dropdown successfully");
 
-            basePage.pause(5000);
             ancillaryWorkflowsPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
-            basePage.pause(1200);
             ancillaryWorkflowsPage.clickLastEdit();
-            ExtentReportListener.getExtentTest().pass("Clicked last 'Edit' on Ancillary Workflows list");
+            ExtentReportListener.getExtentTest().info("Clicked last 'Edit' on Ancillary Workflows list");
+            Assert.assertTrue(ancillaryWorkflowsPage.isNameLabelDisplayed(), "Name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Name' label with mandatory asterisk is displayed");
 
-            basePage.pause(3000);
             ancillaryWorkflowsPage.clickUpdateButtonAnc();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Update' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

@@ -152,6 +152,9 @@ public class RulesPage extends BasePage {
     }
 
     public void clickEditButtonForRule(String ruleName) {
+
+        pause(5000);
+
         String editButtonXpath = "//td[@data-column='name' and normalize-space(text())='" + ruleName + "']" +
                 "/following-sibling::td//button[normalize-space()='Edit']";
 

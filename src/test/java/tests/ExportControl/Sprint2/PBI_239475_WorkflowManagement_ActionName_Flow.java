@@ -31,6 +31,7 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ActionNamePage actionNamePage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,11 +54,11 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         actionNamePage = new ActionNamePage(driver);
+        agreementPage = new AgreementPage(driver);
     }
 
     @Test
     public void ExportControl_WorkflowManagement_ActionName_Test () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -80,69 +81,71 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(2000);
             actionNamePage.clickWorkflowManagementaction();
-            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
+            ExtentReportListener.getExtentTest().info("Opened 'Workflow Management'");
 
-            basePage.pause(2000);
             actionNamePage.clickActionNameScope3();
-            ExtentReportListener.getExtentTest().pass("Opened 'Action name' (scopeId=3)");
+            ExtentReportListener.getExtentTest().info("Opened 'Action name' (scopeId=3)");
+            Assert.assertTrue(actionNamePage.isActionNameHeaderDisplayed(), "Action Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Action Name page header is displayed successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button successfully");
+            Assert.assertTrue(actionNamePage.isActionNameLabelDisplayed(), "Action name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action name' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
             String uniqueName03 = actionNamePrefix + System.currentTimeMillis();
             actionNamePage.enterName(uniqueName03);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + uniqueName03 + "' in the Name input field successfully");
+            Assert.assertTrue(actionNamePage.isActionNameLabelDisplayed(), "Action name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action name' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
             actionNamePage.enterHistoryTitle(actionHistoryTitle);
-            ExtentReportListener.getExtentTest().pass("Entered '" + actionHistoryTitle + "' into History Title input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered '" + actionHistoryTitle + "' into History Title input field successfully");
+            Assert.assertTrue(actionNamePage.isActionNameLabelDisplayed(), "Action name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action name' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
             actionNamePage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(actionNamePage.isActionNameHeaderDisplayed(), "Action Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Action Name page header is displayed successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button successfully");
+            Assert.assertTrue(actionNamePage.isActionNameLabelDisplayed(), "Action name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action name' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
             String uniqueName5 = actionNamePrefix + System.currentTimeMillis();
             actionNamePage.enterName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + uniqueName5 + "' in the Name input field successfully");
 
-            basePage.pause(5000);
             actionNamePage.enterHistoryTitle(actionHistoryTitle);
-            ExtentReportListener.getExtentTest().pass("Entered '" + actionHistoryTitle + "' into History Title input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered '" + actionHistoryTitle + "' into History Title input field successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add' button successfully");
+            Assert.assertTrue(actionNamePage.isActionNameHeaderDisplayed(), "Action Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Action Name page header is displayed successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickEditForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+            Assert.assertTrue(actionNamePage.isActionNameHeaderDisplayed(), "Action Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Action Name page header is displayed successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickCancelForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for action name '" + uniqueName5 + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' for action name '" + uniqueName5 + "' successfully");
+            Assert.assertTrue(actionNamePage.isActionNameHeaderDisplayed(), "Action Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Action Name page header is displayed successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickEditForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' for action name '" + uniqueName5 + "' successfully");
 
-            basePage.pause(5000);
             actionNamePage.clickSaveForActionName(uniqueName5);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for action name '" + uniqueName5 + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' for action name '" + uniqueName5 + "' successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

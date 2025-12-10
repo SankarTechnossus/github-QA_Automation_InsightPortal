@@ -31,6 +31,7 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     StepNamePage stepNamePage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,11 +54,11 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         stepNamePage = new StepNamePage(driver);
+        agreementPage = new AgreementPage(driver);
     }
 
     @Test
     public void ExportControl_WorkflowManagement_StepName_Test () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -80,60 +81,63 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(2000);
             stepNamePage.clickWorkflowManagementStepName();
-            ExtentReportListener.getExtentTest().pass("Opened 'Workflow Management'");
+            ExtentReportListener.getExtentTest().info("Opened 'Workflow Management'");
 
-            basePage.pause(5000);
             stepNamePage.clickExportControlStepName();
-            ExtentReportListener.getExtentTest().pass("Opened Export Control > Step name (scopeId=3) successfully");
+            ExtentReportListener.getExtentTest().info("Opened Export Control > Step name (scopeId=3) successfully");
+            Assert.assertTrue(stepNamePage.isStepNameHeaderDisplayed(), "Step Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step Name header is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button successfully");
+            Assert.assertTrue(stepNamePage.isStepNameLabelDisplayed(), "Step name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step name label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.enterName(stepNameInitial);
-            ExtentReportListener.getExtentTest().pass("Entered '" + stepNameInitial + "' into Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered '" + stepNameInitial + "' into Name input field successfully");
+            Assert.assertTrue(stepNamePage.isStepNameLabelDisplayed(), "Step name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step name label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(stepNamePage.isStepNameHeaderDisplayed(), "Step Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step Name header is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button successfully");
+            Assert.assertTrue(stepNamePage.isStepNameLabelDisplayed(), "Step name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step name label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             String generatedName = stepNamePage.enterUniqueName(stepNamePrefix);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + generatedName + "' into Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + generatedName + "' into Name input field successfully");
+            Assert.assertTrue(stepNamePage.isStepNameLabelDisplayed(), "Step name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step name label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add' button successfully");
+            Assert.assertTrue(stepNamePage.isStepNameHeaderDisplayed(), "Step Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step Name header is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickEditButtonForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
+            Assert.assertTrue(stepNamePage.isStepNameHeaderDisplayed(), "Step Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step Name header is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickCancelForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' for step name '" + generatedName + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' for step name '" + generatedName + "' successfully");
+            Assert.assertTrue(stepNamePage.isStepNameHeaderDisplayed(), "Step Name header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Step Name header is displayed successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickEditButtonForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' button for step name '" + generatedName + "' successfully");
 
-            basePage.pause(5000);
             stepNamePage.clickSaveForStepName(generatedName);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' for step name '" + generatedName + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' for step name '" + generatedName + "' successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
