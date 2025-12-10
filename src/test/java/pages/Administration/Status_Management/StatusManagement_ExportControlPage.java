@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class StatusManagement_ExportControlPage extends BasePage{
 
@@ -28,8 +29,90 @@ public class StatusManagement_ExportControlPage extends BasePage{
     By saveButton = By.xpath("//button[text()='Save' and contains(@class,'-primary')]");
     By activeDropdownArrow = By.xpath("//div[contains(@class,'_indicatorsContainer_') and contains(@class,'css-1wy0on6')]");
     By optionNo = By.xpath("//div[contains(@class,'menuPortal')]//div[text()='No']");
+    By statusManagementHeader = By.xpath("//strong[normalize-space()='Status Management']");
+    By addStatusModalHeader = By.xpath("//header[contains(@class,'html-preview-modal-header') and normalize-space()='Add Status']");
+    By editStatusModalHeader = By.xpath("//header[contains(@class,'html-preview-modal-header') and normalize-space()='Edit Status']");
+    By searchByNameInput = By.xpath("//input[@placeholder='Search by Name']");
+    By searchButton      = By.xpath("//button[normalize-space()='Search']");
+    By loadMoreButton    = By.xpath("//tr[contains(@class,'load-more-row')]//button[normalize-space()='Load more']");
+    By clearSelectionsButton = By.xpath("//button[contains(@class,'_left-margin') and normalize-space()='Clear Selections']");
+    By searchByNameInput01 = By.xpath("//input[@placeholder='Search by Name']");
+    By searchButton01     = By.xpath("//button[normalize-space()='Search']");
 
     //Actions
+    public void searchStatusByName01(String statusName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement input = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(searchByNameInput01)
+        );
+        input.clear();
+        input.sendKeys(statusName);
+
+        driver.findElement(searchButton01).click();
+        pause(1000); // allow grid to refresh
+    }
+
+    public boolean isSearchByNameCleared() {
+        WebElement input = driver.findElement(searchByNameInput01);
+        String value = input.getAttribute("value");
+        return value == null || value.trim().isEmpty();
+    }
+
+    public void clickClearSelectionsButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(clearSelectionsButton));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});", button
+        );
+
+        button.click();
+        pause(1000);
+    }
+
+    public void searchStatusByName(String statusName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement input = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(searchByNameInput)
+        );
+        input.clear();
+        input.sendKeys(statusName);
+
+        driver.findElement(searchButton).click();
+        pause(1000); // small wait for grid refresh
+    }
+
+    public boolean isEditStatusModalDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(editStatusModalHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isAddStatusModalDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addStatusModalHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isStatusManagementPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(statusManagementHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 
     public void selectActiveAsNo() {
         WebElement dropdownArrow = driver.findElement(activeDropdownArrow);
@@ -79,41 +162,97 @@ public class StatusManagement_ExportControlPage extends BasePage{
     }
 
     public void clickEditButtonForStatus(String statusName) {
-        String dynamicXpath = String.format(
-                "//td[@data-column='name' and @data-value='%s']/parent::tr//i[contains(@class,'fi-edit')]",
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // 1) Filter the grid to the target status
+        searchStatusByName(statusName);
+
+        // 2) Row where Name column contains the status text
+        String rowXpath = String.format(
+                "//tbody//tr[contains(@class,'item-grid-tr')" +
+                        " and .//td[@data-column='name']" +
+                        "//*[contains(normalize-space(),'%s')]]",
                 statusName
         );
-        By editIcon = By.xpath(dynamicXpath);
 
-        WebElement icon = driver.findElement(editIcon);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", icon);
+        // 3) Wait for the row to be visible
+        WebElement row = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath(rowXpath))
+        );
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(editIcon)).click();
+        // 4) Inside that row, find the Edit button
+        WebElement editButton = row.findElement(
+                By.xpath(".//button[@type='button' and .//i[contains(@class,'fi-edit')]]")
+                // or: ".//button[@type='button' and .//div[@aria-label='Edit']]"
+        );
+
+        // 5) Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});",
+                editButton
+        );
+
+        // 6) Wait until clickable, then click
+        wait.until(ExpectedConditions.elementToBeClickable(editButton));
+        editButton.click();
 
         pause(1000);
     }
 
     public void clickDeleteButtonForStatus(String statusName) {
-        String dynamicXpath = String.format("//td[@data-column='name' and @data-value='%s']/parent::tr//i[contains(@class,'fi-remove')]", statusName);
-        By deleteIcon = By.xpath(dynamicXpath);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        WebElement icon = driver.findElement(deleteIcon);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", icon);
+        // 1) Filter grid, so only matching rows show up
+        searchStatusByName(statusName);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(deleteIcon)).click();
+        // 2) Build row xpath for this status
+        String rowXpath = String.format(
+                "//tbody//tr[.//td[@data-column='name']" +
+                        "//*[normalize-space()='%s' or normalize-space(@data-value)='%s']]",
+                statusName, statusName
+        );
 
+        // 3) If there is pagination via 'Load more', click until row appears or no more load-more
+        while (true) {
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(rowXpath)));
+                break; // row found, exit loop
+            } catch (TimeoutException e) {
+                // try clicking "Load more" if available; otherwise rethrow
+                List<WebElement> loadMoreBtns = driver.findElements(loadMoreButton);
+                if (loadMoreBtns.isEmpty()) {
+                    throw e; // no more pages and row still not there
+                }
+                loadMoreBtns.get(0).click();
+                pause(1000);
+            }
+        }
+
+        // 4) Row is visible, now get the delete button inside that row
+        WebElement row = driver.findElement(By.xpath(rowXpath));
+        WebElement deleteButton = row.findElement(
+                By.xpath(".//button[@aria-label='Delete item']")
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});",
+                deleteButton
+        );
+
+        wait.until(ExpectedConditions.elementToBeClickable(deleteButton));
+        deleteButton.click();
         pause(1000);
 
-        // Handle confirmation pop-up
-        WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        alertWait.until(ExpectedConditions.alertIsPresent());
-
-        Alert alert = driver.switchTo().alert();
-        alert.dismiss();
-
-        pause(1000);
+        // 5) Handle JS alert if any
+        try {
+            WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            alertWait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.dismiss(); // or accept() based on your flow
+            pause(1000);
+        } catch (TimeoutException e) {
+            // No JS alert – likely a custom modal, handle separately if needed
+        }
     }
 
     public void clickAddButton() {

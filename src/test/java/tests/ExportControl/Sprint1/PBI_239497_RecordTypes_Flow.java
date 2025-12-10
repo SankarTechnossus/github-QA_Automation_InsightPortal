@@ -27,6 +27,7 @@ public class PBI_239497_RecordTypes_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     AgreementPage agreementPage;
+    RecordTypes_ExportControlPage recordTypesExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -48,18 +49,20 @@ public class PBI_239497_RecordTypes_Flow {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        agreementPage = new AgreementPage(driver);
+        recordTypesExportControlPage = new RecordTypes_ExportControlPage(driver);
     }
 
     @Test
     public void ExportControl_RecordTypes_Test() {
-        ExtentReportListener.getExtentTest().info("your log message");
-        try {
+        try
+        {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
             String initialRecordType = JsonDataReader.get(1, "InitialRecordType");
-            String recordTypePrefix = JsonDataReader.get(1, "RecordTypePrefix");
+            //String recordTypePrefix = JsonDataReader.get(1, "RecordTypePrefix");
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
             String negativeSearchText = JsonDataReader.get(1, "NegativeSearchText");
             String refMeaningValue = JsonDataReader.get(1, "RefMeaningValue");
@@ -79,133 +82,146 @@ public class PBI_239497_RecordTypes_Flow {
 
             // Agreement Page Actions
 
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            RecordTypes_ExportControlPage adminPageRecordtypes = new RecordTypes_ExportControlPage(driver);
+            recordTypesExportControlPage.openRecordTypesExportControl();
+            ExtentReportListener.getExtentTest().info("Clicked 'Record Types' link successfully");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.openRecordTypesExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Record Types' link successfully");
+            recordTypesExportControlPage.clickExportControlUnderRecordTypes();
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' under 'Record Types' successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickExportControlUnderRecordTypes();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' under 'Record Types' successfully");
+            recordTypesExportControlPage.clickAddRecordTypeLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Record Type' link successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateRecordTypePageDisplayed(), "Create Record Type page is NOT displayed after clicking 'Add Record Type' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Record Type page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickAddRecordTypeLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
+            recordTypesExportControlPage.selectModuleAsExportControl();
+            ExtentReportListener.getExtentTest().info("Selected 'Export Control' from Module dropdown successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateRecordTypePageDisplayed(), "Create Record Type page is NOT displayed after clicking 'Add Record Type' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Record Type page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.selectModuleAsExportControl();
-            ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
+            recordTypesExportControlPage.enterRecordType(initialRecordType);
+            ExtentReportListener.getExtentTest().info("Entered '" + initialRecordType + "' into Record Type input field");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateRecordTypePageDisplayed(), "Create Record Type page is NOT displayed after clicking 'Add Record Type' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Record Type page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.enterRecordType(initialRecordType);
-            ExtentReportListener.getExtentTest().pass("Entered '" + initialRecordType + "' into Record Type input field");
+            recordTypesExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().info("'Cancel' button clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
+            recordTypesExportControlPage.clickAddRecordTypeLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Record Type' link successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateRecordTypePageDisplayed(), "Create Record Type page is NOT displayed after clicking 'Add Record Type' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Record Type page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickAddRecordTypeLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Record Type' link successfully");
+            recordTypesExportControlPage.selectModuleAsExportControl();
+            ExtentReportListener.getExtentTest().info("Selected 'Export Control' from Module dropdown successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateRecordTypePageDisplayed(), "Create Record Type page is NOT displayed after clicking 'Add Record Type' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Record Type page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.selectModuleAsExportControl();
-            ExtentReportListener.getExtentTest().pass("Selected 'Export Control' from Module dropdown successfully");
-
-            basePage.pause(5000);
             String recordTypeName = "Test" + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
-            adminPageRecordtypes.enterRecordType(recordTypeName);
-            ExtentReportListener.getExtentTest().pass("Entered '" + recordTypeName + "' into Record Type input field");
+            recordTypesExportControlPage.enterRecordType(recordTypeName);
+            ExtentReportListener.getExtentTest().info("Entered '" + recordTypeName + "' into Record Type input field");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateRecordTypePageDisplayed(), "Create Record Type page is NOT displayed after clicking 'Add Record Type' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Record Type page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+            recordTypesExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().info("'Create' button is clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + positiveSearchText + "'");
+            recordTypesExportControlPage.searchRecordByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().info("Search executed with name '" + positiveSearchText + "'");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+            recordTypesExportControlPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("'Search' button clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+            recordTypesExportControlPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().info("'Clear Selections' button clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(negativeSearchText);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + negativeSearchText + "'");
+            recordTypesExportControlPage.searchRecordByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().info("Search executed with name '" + negativeSearchText + "'");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+            recordTypesExportControlPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("'Search' button clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+            recordTypesExportControlPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().info("'Clear Selections' button clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickAddCategoryLink();
-            ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
+            recordTypesExportControlPage.clickAddCategoryLink();
+            ExtentReportListener.getExtentTest().info("'Add Category' link clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateCategoryPageDisplayed(), "Create Category page is NOT displayed after clicking 'Add Category' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Category page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.selectCategory(recordTypeName);
-            ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
+            recordTypesExportControlPage.selectCategory(recordTypeName);
+            ExtentReportListener.getExtentTest().info("Selected '" + recordTypeName + "' from Category dropdown");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateCategoryPageDisplayed(), "Create Category page is NOT displayed after clicking 'Add Category' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Category page.");
 
-            basePage.pause(2000);
-            adminPageRecordtypes.enterRefMeaning(refMeaningValue);
-            ExtentReportListener.getExtentTest().pass("Entered '" + refMeaningValue + "' into Ref Meaning input field");
+            recordTypesExportControlPage.enterRefMeaning(refMeaningValue);
+            ExtentReportListener.getExtentTest().info("Entered '" + refMeaningValue + "' into Ref Meaning input field");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateCategoryPageDisplayed(), "Create Category page is NOT displayed after clicking 'Add Category' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Category page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("'Cancel' button clicked successfully");
+            recordTypesExportControlPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().info("'Cancel' button clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickAddCategoryLink();
-            ExtentReportListener.getExtentTest().pass("'Add Category' link clicked successfully");
+            recordTypesExportControlPage.clickAddCategoryLink();
+            ExtentReportListener.getExtentTest().info("'Add Category' link clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateCategoryPageDisplayed(), "Create Category page is NOT displayed after clicking 'Add Category' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Category page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.selectCategory(recordTypeName);
-            ExtentReportListener.getExtentTest().pass("Selected '" + recordTypeName + "' from Category dropdown");
+            recordTypesExportControlPage.selectCategory(recordTypeName);
+            ExtentReportListener.getExtentTest().info("Selected '" + recordTypeName + "' from Category dropdown");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateCategoryPageDisplayed(), "Create Category page is NOT displayed after clicking 'Add Category' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Category page.");
 
-            basePage.pause(2000);
-            adminPageRecordtypes.enterRefMeaning(refMeaningValue);
-            ExtentReportListener.getExtentTest().pass("Entered '" + refMeaningValue + "' into Ref Meaning input field");
+            recordTypesExportControlPage.enterRefMeaning(refMeaningValue);
+            ExtentReportListener.getExtentTest().info("Entered '" + refMeaningValue + "' into Ref Meaning input field");
+            Assert.assertTrue(recordTypesExportControlPage.isCreateCategoryPageDisplayed(), "Create Category page is NOT displayed after clicking 'Add Category' link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Create Category page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("'Create' button is clicked successfully");
+            recordTypesExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().info("'Create' button is clicked successfully");
+            Assert.assertTrue(recordTypesExportControlPage.isRecordTypesPageDisplayed(), "Record Types page is NOT displayed after clicking Record Types link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Record Types page.");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + positiveSearchText + "'");
+            recordTypesExportControlPage.searchRecordByName(positiveSearchText);
+            ExtentReportListener.getExtentTest().info("Search executed with name '" + positiveSearchText + "'");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+            recordTypesExportControlPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("'Search' button clicked successfully");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
+            recordTypesExportControlPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().info("'Clear Selections' button clicked successfully");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.searchRecordByName(negativeSearchText);
-            ExtentReportListener.getExtentTest().pass("Search executed with name '" + negativeSearchText + "'");
+            recordTypesExportControlPage.searchRecordByName(negativeSearchText);
+            ExtentReportListener.getExtentTest().info("Search executed with name '" + negativeSearchText + "'");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("'Search' button clicked successfully");
+            recordTypesExportControlPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("'Search' button clicked successfully");
 
-            basePage.pause(5000);
-            adminPageRecordtypes.clickClearSelectionsButton();
-            ExtentReportListener.getExtentTest().pass("'Clear Selections' button clicked successfully");
-
+            recordTypesExportControlPage.clickClearSelectionsButton();
+            ExtentReportListener.getExtentTest().info("'Clear Selections' button clicked successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());

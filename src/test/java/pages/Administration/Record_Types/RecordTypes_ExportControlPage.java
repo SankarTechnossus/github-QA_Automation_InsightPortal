@@ -1,10 +1,7 @@
 package pages.Administration.Record_Types;
 import listeners.ExtentReportListener;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import base.BasePage;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -41,8 +38,41 @@ public class RecordTypes_ExportControlPage extends BasePage {
     By editRecordTypeCancelButton = By.xpath("//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Cancel']");
     By editRecordTypeSaveButton = By.xpath("//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Save']");
     By cancelCreateCategoryLink = By.xpath("//a[@href='/administration/record-types' and contains(@class,'_link_ogtko_1') and normalize-space()='Cancel']");
+    By recordTypesHeader = By.xpath("//strong[normalize-space()='Record Types']");
+    By createRecordTypeHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Create Record Type']");
+    By createCategoryHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Create Category']");
 
     //Actions
+    public boolean isCreateCategoryPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(createCategoryHeader));
+            return true;
+        } catch (
+                TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isCreateRecordTypePageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(createRecordTypeHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isRecordTypesPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypesHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 
     public void clickCreateCategoryCancel() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
