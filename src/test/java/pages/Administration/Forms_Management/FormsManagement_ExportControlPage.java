@@ -401,6 +401,8 @@ public class FormsManagement_ExportControlPage extends BasePage {
     }
 
     public void clickRadioButtonGroupOption() {
+        waitForPresence(radioButtonGroupCard);
+
         WebElement radioOption = driver.findElement(radioButtonGroupCard);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", radioOption);
         pause(1000);  // Let the scroll complete
@@ -409,6 +411,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
     }
 
     public void clickAddRootLevelQuestionButton() {
+        waitForPresence(addRootLevelQuestionButton);
         WebElement button = driver.findElement(addRootLevelQuestionButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);  // Optional: make visible
         pause(1000);  // Wait after scroll
