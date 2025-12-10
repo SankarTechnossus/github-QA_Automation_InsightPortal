@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 
 public class RulesPage extends BasePage {
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public RulesPage(WebDriver driver) {
         super(driver);
@@ -52,11 +52,42 @@ public class RulesPage extends BasePage {
     By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
     By nameInputFieldAppend = By.xpath("//input[@id='name' and @type='text']");
-
     By rulesLink = By.xpath("//nav//a[normalize-space(.)='Rules' " + "and contains(@href,'/administration/workflow-management/')" + "and contains(@href,'/scopeId/3/rules')]");
     By workflowsCancelButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[@type='button' and normalize-space()='Cancel']");
+    By rulesHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Rules')]");
+    By ruleNameLabel = By.xpath("//label[@for='name']");
+    By queryBuilderSection = By.xpath("//div[normalize-space()='Query Builder']");
 
     //Actions
+    public boolean isQueryBuilderSectionDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement section = wait.until(ExpectedConditions.visibilityOfElementLocated(queryBuilderSection));
+            return section.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRuleNameLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(ruleNameLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRulesHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(rulesHeader));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickWorkflowsCancelButton() {
         WebElement cancelBtn = wait.until(

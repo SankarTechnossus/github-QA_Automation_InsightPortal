@@ -28,8 +28,74 @@ public class WorkflowsPage extends BasePage {
     By updateButton = By.xpath("//button[normalize-space(text())='Update']");
     By workflowGrid = By.cssSelector("div.panel.-table, div.list, table");
     By editControls = By.xpath(".//a[normalize-space()='Edit' or @title='Edit']" + " | .//button[normalize-space()='Edit' or @title='Edit' or .//i[contains(@class,'edit')]]");
+    By workflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Workflows')]");
+    By nameLabel = By.xpath("//label[@for='name']");
+    By recordTypeLabel = By.xpath("//label[@for='additionalProps.exportControlOfficeId']");
+    By transactionTypeLabel = By.xpath("//label[@for='additionalProps.transactionTypeId']");
+    By exportControlStatusLabel = By.xpath("//label[@for='additionalProps.exportControlStatusId']");
+    By emailFromLabel = By.xpath("//label[@for='emailFrom']");
 
     //Actions
+
+    public boolean isNameLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(nameLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRecordTypeLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypeLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isTransactionTypeLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(transactionTypeLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isExportControlStatusLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlStatusLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isEmailFromLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(emailFromLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isWorkflowsHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(workflowsHeader));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickFirstEdit() {
         WebElement grid = new WebDriverWait(driver, Duration.ofSeconds(10))
