@@ -256,6 +256,7 @@ public class TemplateManagement_ExportControlPage extends BasePage {
 
     public void selectDateFormat(String visibleText) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        pause(5000);
 
         // 1) Open the menu
         WebElement control = driver.findElement(dateFormatControl);
@@ -331,6 +332,7 @@ public class TemplateManagement_ExportControlPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(create));
 
         // Click
+        pause(5000);
         create.click();
 
         // Controlled pause
@@ -406,7 +408,8 @@ public class TemplateManagement_ExportControlPage extends BasePage {
     }
 
     public void clickAddNewTemplate() {
-        WebElement addNew = new WebDriverWait(driver, Duration.ofSeconds(30))
+        pause(8000);
+        WebElement addNew = new WebDriverWait(driver, Duration.ofSeconds(60))
                 .until(ExpectedConditions.elementToBeClickable(addNewTemplateLink));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", addNew);

@@ -59,9 +59,9 @@ public class BasePage {
     }
 
     // Waits until element is visible and clickable, then returns it
-    public WebElement waitForVisibleAndClickable(By locator, int timeoutSeconds) {
+    public void waitForVisibleAndClickable(By locator, int timeoutSeconds) {
         WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-        return customWait.until(ExpectedConditions.elementToBeClickable(locator));
+        customWait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     // Scrolls into view, waits for clickability, and returns the WebElement
