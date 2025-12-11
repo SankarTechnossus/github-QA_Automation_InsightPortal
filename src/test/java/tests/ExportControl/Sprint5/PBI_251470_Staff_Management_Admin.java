@@ -17,6 +17,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 import utils.WaitUtility;
 
 import java.time.Duration;
@@ -32,6 +33,7 @@ public class PBI_251470_Staff_Management_Admin {
     DashboardPage dashboardPage;
     PeopleManagement_ExportControlPage peopleManagementExportControlPage;
     WaitUtility waitUtility;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -55,6 +57,7 @@ public class PBI_251470_Staff_Management_Admin {
         dashboardPage = new DashboardPage(driver);
         peopleManagementExportControlPage = new PeopleManagement_ExportControlPage(driver);
         waitUtility = new WaitUtility(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
@@ -91,17 +94,17 @@ public class PBI_251470_Staff_Management_Admin {
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under People Management.");
 
             // Add a new People Type and verify in the People Management list
-            String peopleTypeName = basePage.GenerateRandomName(6);
+            String peopleTypeName = uniqueNameGenerator.GenerateRandomName(6);
             Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList(peopleTypeName));
             ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : General");
 
             // Add a new role and assign to the created people type
-            String role = basePage.GenerateRandomName(6);
+            String role = uniqueNameGenerator.GenerateRandomName(6);
             Assert.assertTrue(peopleManagementExportControlPage.AddNewRoleToPeopleTypeAndVerifyInList(peopleTypeName, role));
             ExtentReportListener.getExtentTest().pass("New Role with name : " + role + " has been assigned to people type: " + peopleTypeName);
 
             // Edit People Type Name and Verify
-            String newTypeName = basePage.GenerateRandomName(6);
+            String newTypeName = uniqueNameGenerator.GenerateRandomName(6);
 
             Assert.assertTrue(peopleManagementExportControlPage.EditPeopleTypeNameAndVerifyInList(peopleTypeName, newTypeName));
             ExtentReportListener.getExtentTest().pass("People Type Name changed successfully to : " + newTypeName);
@@ -111,7 +114,7 @@ public class PBI_251470_Staff_Management_Admin {
             ExtentReportListener.getExtentTest().pass("People Type Name : " + newTypeName + " deactivated successfully and status changed to : No");
 
             // Edit Role Name and Verify
-            String newRoleName = basePage.GenerateRandomName(6);
+            String newRoleName = uniqueNameGenerator.GenerateRandomName(6);
 
             Assert.assertTrue(peopleManagementExportControlPage.EditRoleNameAndVerifyInList(newTypeName, newRoleName));
             ExtentReportListener.getExtentTest().pass("Role Name changed successfully to : " + newRoleName);

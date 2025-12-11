@@ -15,6 +15,7 @@ import utils.UniqueNameGenerator;
 public class AttachmentTypes_ExportControlPage extends BasePage {
 
     private WebDriverWait wait;
+    UniqueNameGenerator uniqueNameGenerator = new UniqueNameGenerator();
 
     // Constructor
     public AttachmentTypes_ExportControlPage(WebDriver driver) {
@@ -94,7 +95,6 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
         return result;
     }
 
-
     // ***************************** Sankar Functions **********************************
 
     public void expandAttachmentTypes() {
@@ -155,7 +155,7 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     }
 
     public void enterRandomTypeName(int length) {
-        String randomName = GenerateRandomName(length);
+        String randomName = uniqueNameGenerator.GenerateRandomName(6);
 
         WebElement input = wait.until(
                 ExpectedConditions.elementToBeClickable(typeNameInput)

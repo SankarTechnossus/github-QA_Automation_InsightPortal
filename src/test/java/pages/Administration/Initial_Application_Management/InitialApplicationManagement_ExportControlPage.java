@@ -5,11 +5,14 @@ import base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
 public class InitialApplicationManagement_ExportControlPage extends BasePage {
-    private WebDriverWait wait;
+    UniqueNameGenerator uniqueNameGenerator = new UniqueNameGenerator();
+
+    private final WebDriverWait wait;
     public InitialApplicationManagement_ExportControlPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -109,7 +112,7 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
     public String enterRandomActionAndSelectEntity() {
 
         // Step 1: Generate random name using your BasePage method
-        String randomName = GenerateRandomName(6);
+        String randomName = uniqueNameGenerator.GenerateRandomName(6);
 
         // Step 2: Enter Action Name
         WebElement actionNameInput =

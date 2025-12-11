@@ -20,6 +20,7 @@ import pages.Home.LoginPage;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
@@ -39,6 +40,7 @@ public class PBI_247514_Response_To_Review {
     ResponseToReviewPage responseToReviewPage;
     SystemAdminPage systemAdminPage;
     CreateExportControlPage createExportControlPage;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -67,6 +69,7 @@ public class PBI_247514_Response_To_Review {
         responseToReviewPage = new ResponseToReviewPage(driver);
         systemAdminPage = new SystemAdminPage(driver);
         createExportControlPage = new CreateExportControlPage(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
@@ -114,7 +117,7 @@ public class PBI_247514_Response_To_Review {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully on Versions page");
 
             // Step X: Enter description for Version 90
-            String versionDescription = "Test01_" + basePage.GenerateRandomName(6);
+            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
 
             basePage.pause(1000);
             addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);

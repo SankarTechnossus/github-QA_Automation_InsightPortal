@@ -18,6 +18,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 import utils.WaitUtility;
 
 import java.nio.file.Paths;
@@ -37,6 +38,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
     CreateExportControlPage createExportControlPage;
     AttachmentTypes_ExportControlPage attachmentTypesExportControlPage;
     WaitUtility waitUtility;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -61,6 +63,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
         createExportControlPage = new CreateExportControlPage(driver);
         attachmentTypesExportControlPage = new AttachmentTypes_ExportControlPage(driver);
         waitUtility = new WaitUtility(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
@@ -98,7 +101,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Attachment Types.");
 
             // Add a new Attachment Type and verify in the Attachment Type list
-            String attachmentTypeName = basePage.GenerateRandomName(6);
+            String attachmentTypeName = uniqueNameGenerator.GenerateRandomName(6);
             Assert.assertTrue(attachmentTypesExportControlPage.AddAttachmentTypeAndVerifyInTheAttachmentTypeList(attachmentTypeName));
             ExtentReportListener.getExtentTest().pass("New Attachment Type with name : " + attachmentTypeName + " has been created successfully. Status is : Yes");
 

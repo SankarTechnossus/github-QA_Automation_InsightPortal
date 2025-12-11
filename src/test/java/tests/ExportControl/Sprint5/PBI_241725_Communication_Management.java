@@ -26,6 +26,7 @@ import pages.Home.LoginPage;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
@@ -48,6 +49,7 @@ public class PBI_241725_Communication_Management {
     ResponseToReviewPage responseToReviewPage;
     SystemAdminPage systemAdminPage;
     AgreementPage agreementPage;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -79,6 +81,7 @@ public class PBI_241725_Communication_Management {
         responseToReviewPage = new ResponseToReviewPage(driver);
         systemAdminPage = new SystemAdminPage(driver);
         agreementPage = new AgreementPage(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
@@ -127,7 +130,7 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New Template' button successfully");
 
             // Step 1: Generate random template name using your method
-            String templateName = basePage.GenerateRandomName(8);
+            String templateName = uniqueNameGenerator.GenerateRandomName(8);
 
             // Step 1 – Template Name
             basePage.pause(1000);
@@ -156,7 +159,7 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New Template' button successfully");
 
             // Step 1: Generate random template name using your method
-            String templateName02 = basePage.GenerateRandomName(8);
+            String templateName02 = uniqueNameGenerator.GenerateRandomName(8);
 
             basePage.pause(1000);
             communicationManagementExportControlPage.setTemplateName(templateName02);
@@ -225,7 +228,7 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully on Versions page");
 
             // Step X: Enter description for Version 90
-            String versionDescription = "Test01_" + basePage.GenerateRandomName(6);
+            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
 
             basePage.pause(1000);
             addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);

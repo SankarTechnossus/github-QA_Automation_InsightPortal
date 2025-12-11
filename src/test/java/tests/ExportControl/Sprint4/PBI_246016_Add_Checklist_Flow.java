@@ -18,6 +18,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
@@ -31,6 +32,7 @@ public class PBI_246016_Add_Checklist_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     AddChecklistFlowPage addChecklistFlowPage;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,6 +55,7 @@ public class PBI_246016_Add_Checklist_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         addChecklistFlowPage = new AddChecklistFlowPage(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
@@ -96,7 +99,7 @@ public class PBI_246016_Add_Checklist_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully on Versions page");
 
             // Step X: Enter description for Version 90
-            String versionDescription = "Test01_" + basePage.GenerateRandomName(6);
+            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
 
             basePage.pause(1000);
             addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);
