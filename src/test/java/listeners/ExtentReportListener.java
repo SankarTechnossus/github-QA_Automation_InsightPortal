@@ -13,7 +13,6 @@ import utils.ScreenshotUtility;
 import org.openqa.selenium.WebDriver;
 import utils.TestConstants;
 import utils.DriverManager;
-import utils.ScreenshotUtility;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import java.io.File;
 import java.text.SimpleDateFormat;
