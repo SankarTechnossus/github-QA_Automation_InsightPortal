@@ -21,10 +21,11 @@ public class AgreementPage extends BasePage {
     By agreementsLink = By.xpath("//a[contains(text(),'Agreements')]");
     By agreementNumberInput = By.xpath("//input[@id='agreementNumber']");
     By searchButton = By.xpath("//button[text()='Search']");
-    By agreementSpan = By.xpath("//span[text()='2025A019384']");
-    By deliverablesTab = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables']//span[text()='Deliverables']");
+    By agreementSpan = By.xpath("//span[text()='2025A022282']");
+    By agreementSpan01 = By.xpath("//span[text()='2025A014166']");
+    By deliverablesTab = By.xpath("//a[@href='/agreements/2025A022282/latest/deliverables']//span[text()='Deliverables']");
     By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
-    By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A019384/latest/deliverables/1113382']//span[text()='Test']");
+    By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A022282/latest/deliverables/1113382']//span[text()='Test']");
     By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
     By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
     By addRecipientButton = By.xpath("//button[text()='Add Recipient']");
@@ -428,8 +429,13 @@ public class AgreementPage extends BasePage {
         pause(5000);
     }
 
+    public void clickAgreementSpan01() {
+        click(agreementSpan01);
+        pause(5000);
+    }
+
     public void clickDeliverablesTab() {
-        scrollAndJsClick(deliverablesTab, 10);
+        scrollAndJsClick(deliverablesTab, 20);
         pause(5000);
     }
 

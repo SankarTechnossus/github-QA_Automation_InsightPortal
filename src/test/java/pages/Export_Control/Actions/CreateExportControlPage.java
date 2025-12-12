@@ -45,8 +45,21 @@ public class CreateExportControlPage extends BasePage {
 
     // Step 3 – Create button in right sidebar footer
     By createButton = By.xpath("//aside//button[normalize-space()='Create']");
+    By createExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Create Export Control']");
+
 
     // ****************************** Sankar Functions *************************************************************
+    public boolean isCreateExportControlHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(createExportControlHeader)
+            );
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public By dynamicFormFieldByQuestion(String questionText) {
         return By.xpath(
