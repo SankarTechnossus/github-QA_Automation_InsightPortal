@@ -41,8 +41,80 @@ public class FormsVisibility_ExportControlPage extends BasePage {
     By firstEditButton = By.xpath("(//table//button[normalize-space()='Edit'])[1]");
     By cancelButton01 = By.xpath("//button[@type='button' and normalize-space()='Cancel']");
     By saveButton01 = By.xpath("//button[@type='button' and normalize-space()='Save']");
+    By formVisibilityExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Form Visibility') and contains(normalize-space(.),'Export Control')]");
+    By formLabel = By.xpath("//label[@for='dataSourceKey']");
+    By accessLabel = By.xpath("//label[@for='access']");
+    By queryBuilderSection = By.xpath("//div[normalize-space()='Query Builder']");
+    private By ruleButton = By.xpath("//button[normalize-space()='Rule']");
+    private By groupButton = By.xpath("//button[normalize-space()='Group']");
+    private By migrationButton1 = By.xpath("//button[normalize-space()='Migration']");
 
     //Actions
+    public boolean isRuleButtonDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(ruleButton)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isGroupButtonDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(groupButton)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isMigrationButtonDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(migrationButton1)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isFormLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(formLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAccessLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(accessLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isQueryBuilderSectionDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(queryBuilderSection)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isFormVisibilityExportControlHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(formVisibilityExportControlHeader)
+            );
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     By selectOption(String text) {
         return By.xpath("//div[@role='option' and normalize-space()='" + text + "']");

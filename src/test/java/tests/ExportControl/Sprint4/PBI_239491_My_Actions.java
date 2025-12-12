@@ -62,7 +62,6 @@ public class PBI_239491_My_Actions {
 
     @Test
     public void Export_control_My_actions() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -91,76 +90,58 @@ public class PBI_239491_My_Actions {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            basePage.pause(10000);
-            agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
-
-            basePage.pause(2000);
             menuFlow.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(2000);
             myActionsPage.clickActionRequiredLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' from Export Control left navigation");
+            ExtentReportListener.getExtentTest().info("Clicked 'Action Required' from Export Control left navigation");
+            Assert.assertTrue(myActionsPage.isActionRequiredBreadcrumbDisplayed(), "'Action Required' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' breadcrumb is displayed successfully");
 
-            // Date filters
-//            basePage.pause(2000);
-//            myActionsPage.enterCreatedOnFrom(createdOnFrom);
-//            ExtentReportListener.getExtentTest().pass("Entered Created On From date: " + createdOnFrom);
-//
-//            myActionsPage.enterCreatedOnTo(createdOnTo);
-//            ExtentReportListener.getExtentTest().pass("Entered Created On To date: " + createdOnTo);
-//
-//            myActionsPage.enterReviewDateFrom(reviewDateFrom);
-//            ExtentReportListener.getExtentTest().pass("Entered Review Date From date: " + reviewDateFrom);
-//
-//            myActionsPage.enterReviewDateTo(reviewDateTo);
-//            ExtentReportListener.getExtentTest().pass("Entered Review Date To date: " + reviewDateTo);
-
-            // Reviewer
-            basePage.pause(1000);
             myActionsPage.selectReviewer(reviewerCode, reviewerDisplay);
-            ExtentReportListener.getExtentTest().pass("Selected Reviewer '" + reviewerDisplay + "' successfully");
+            ExtentReportListener.getExtentTest().info("Selected Reviewer '" + reviewerDisplay + "' successfully");
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
 
             // Record number
-            basePage.pause(1000);
             myActionsPage.enterRecordNumber(recordNumber);
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
+            ExtentReportListener.getExtentTest().info("Entered Record Number: " + recordNumber);
+            Assert.assertTrue(myActionsPage.isRecordNumberLabelDisplayed(), "Record Number label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Record Number' label is displayed");
 
-            basePage.pause(1000);
             myActionsPage.clickSubmitterFilter();
-            ExtentReportListener.getExtentTest().pass("Clicked Submitter filter successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Submitter filter successfully");
 
-            basePage.pause(1000);
             myActionsPage.selectSubmitter(submitterCode, submitterDisplay);
-            ExtentReportListener.getExtentTest().pass("Selected Submitter '" + submitterDisplay + "' successfully");
+            ExtentReportListener.getExtentTest().info("Selected Submitter '" + submitterDisplay + "' successfully");
+            Assert.assertTrue(myActionsPage.isSubmitterLabelDisplayed(), "Submitter label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Submitter' label is displayed");
 
-            basePage.pause(1000);
             myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Search button successfully");
 
-            basePage.pause(1000);
             myActionsPage.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Clear Selections successfully");
 
             // Record number search again
-            basePage.pause(2000);
             myActionsPage.enterRecordNumber(recordNumber);
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
+            ExtentReportListener.getExtentTest().info("Entered Record Number: " + recordNumber);
+            Assert.assertTrue(myActionsPage.isRecordNumberLabelDisplayed(), "Record Number label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Record Number' label is displayed");
 
-            basePage.pause(2000);
-            // 6. Search
             myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+            ExtentReportListener.getExtentTest().info("Clicked Search on Action Required");
+            Assert.assertTrue(myActionsPage.isActionRequiredBreadcrumbDisplayed(),"'Action Required' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' breadcrumb is displayed successfully");
 
-            basePage.pause(2000);
             myActionsPage.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections");
+            ExtentReportListener.getExtentTest().info("Clicked Clear Selections");
+            Assert.assertTrue(myActionsPage.isActionRequiredBreadcrumbDisplayed(),"'Action Required' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' breadcrumb is displayed successfully");
 
             // 7. Click record link in grid
             myActionsPage.clickFirstRecordNumberLink();
-            ExtentReportListener.getExtentTest().pass("Clicked first Record Number link '2025E006129' from Action Required grid");
+            ExtentReportListener.getExtentTest().info("Clicked first Record Number link '2025E007787' from Action Required grid");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

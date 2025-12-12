@@ -57,7 +57,6 @@ public class PBI_241727_Status_Management_Edit_Flow {
 
     @Test
     public void Export_control_status_management_edit_flow() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -81,52 +80,56 @@ public class PBI_241727_Status_Management_Edit_Flow {
 
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            ExtentReportListener.getExtentTest().info("Clicked Administration link");
 
             // StatusManagement Page Actions
-            basePage.pause(800);
             statusManagementExportControlPage.clickStatusManagementLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management' link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Status Management' link successfully");
 
-            basePage.pause(800);
             statusManagementExportControlPage.clickStatusManagementExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Status Management > Export Control' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Status Management > Export Control' successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isStatusManagementPageDisplayed01(), "Status Management page did not load correctly");
+            ExtentReportListener.getExtentTest().pass("Verified that user lands on Status Management page successfully");
 
-            basePage.pause(800);
             statusManagementExportControlPage.clickAddStatusButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Status' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Status' button successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isAddStatusHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Add Status' header is displayed");
 
             // Generate dynamic status name using prefix from JSON
-            basePage.pause(800);
             String statusName = statusNamePrefix + new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
             statusManagementExportControlPage.enterStatusName(statusName);
-            ExtentReportListener.getExtentTest().pass("Entered '" + statusName + "' into Status Name input field");
+            ExtentReportListener.getExtentTest().info("Entered '" + statusName + "' into Status Name input field");
+            Assert.assertTrue(statusManagementExportControlPage.isStatusNameLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Status Name' label is displayed");
 
-            basePage.pause(800);
             statusManagementExportControlPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add' button successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isStatusManagementPageDisplayed01(), "Status Management page did not load correctly");
+            ExtentReportListener.getExtentTest().pass("Verified that user lands on Status Management page successfully");
 
-            basePage.pause(800);
             statusManagementExportControlPage.clickDeleteButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked delete icon for: " + statusName);
+            ExtentReportListener.getExtentTest().info("Clicked delete icon for: " + statusName);
 
-            basePage.pause(800);
             statusManagementExportControlPage.clickEditButtonForStatus(statusName);
-            ExtentReportListener.getExtentTest().pass("Clicked edit icon for: " + statusName);
+            ExtentReportListener.getExtentTest().info("Clicked edit icon for: " + statusName);
+            Assert.assertTrue(statusManagementExportControlPage.isActiveLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed");
 
-            basePage.pause(800);
             statusManagementExportControlPage.appendToStatusName(statusNameSuffix);
-            ExtentReportListener.getExtentTest().pass("Appended '" + statusNameSuffix + "' to Status Name input field");
+            ExtentReportListener.getExtentTest().info("Appended '" + statusNameSuffix + "' to Status Name input field");
+            Assert.assertTrue(statusManagementExportControlPage.isActiveLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed");
 
-            basePage.pause(800);
             statusManagementExportControlPage.selectActiveAsNo();
-            ExtentReportListener.getExtentTest().pass("Selected 'No' from Active dropdown");
+            ExtentReportListener.getExtentTest().info("Selected 'No' from Active dropdown");
 
-            basePage.pause(800);
             statusManagementExportControlPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
+            Assert.assertTrue(statusManagementExportControlPage.isStatusManagementPageDisplayed01(), "Status Management page did not load correctly");
+            ExtentReportListener.getExtentTest().pass("Verified that user lands on Status Management page successfully");
+
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());

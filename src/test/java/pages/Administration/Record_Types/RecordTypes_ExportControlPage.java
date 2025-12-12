@@ -41,8 +41,42 @@ public class RecordTypes_ExportControlPage extends BasePage {
     By recordTypesHeader = By.xpath("//strong[normalize-space()='Record Types']");
     By createRecordTypeHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Create Record Type']");
     By createCategoryHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Create Category']");
+    By editRecordTypeHeader = By.xpath("//header[contains(text(),'Edit Record Type')]");
+    By recordTypesSectionTitle = By.xpath("//strong[contains(text(),'Record Types')]");
 
     //Actions
+
+    public boolean isEditRecordTypeHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(editRecordTypeHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRecordTypesSectionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypesSectionTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isEditRecordTypeSectionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(editRecordTypeHeader));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypesSectionTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean isCreateCategoryPageDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

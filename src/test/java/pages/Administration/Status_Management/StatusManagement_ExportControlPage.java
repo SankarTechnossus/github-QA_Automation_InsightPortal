@@ -38,8 +38,53 @@ public class StatusManagement_ExportControlPage extends BasePage{
     By clearSelectionsButton = By.xpath("//button[contains(@class,'_left-margin') and normalize-space()='Clear Selections']");
     By searchByNameInput01 = By.xpath("//input[@placeholder='Search by Name']");
     By searchButton01     = By.xpath("//button[normalize-space()='Search']");
+    By statusManagementHeader01 = By.xpath("//strong[@class='section-title-item' and normalize-space()='Status Management']");
+    By addStatusHeader = By.xpath("//header[normalize-space()='Add Status']");
+    By statusNameLabel = By.xpath("//span[normalize-space()='Status Name']");
+    By activeLabel = By.xpath("//span[normalize-space()='Active']");
 
     //Actions
+
+    public boolean isActiveLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(activeLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isStatusNameLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(statusNameLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAddStatusHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addStatusHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isStatusManagementPageDisplayed01() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(statusManagementHeader01));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void searchStatusByName01(String statusName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 

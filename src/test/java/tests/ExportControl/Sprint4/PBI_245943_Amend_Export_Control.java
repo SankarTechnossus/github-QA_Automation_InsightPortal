@@ -30,6 +30,7 @@ public class PBI_245943_Amend_Export_Control {
     WebDriver driver;
     WebDriverWait wait;
     BasePage basePage;
+    NotesPage notesPage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
     AmendExportControlPage amendExportControlPage;
@@ -41,6 +42,7 @@ public class PBI_245943_Amend_Export_Control {
     CreateExportControlPage createExportControlPage;
     DisplayChecklistFlowPage displayChecklistFlowPage;
     InitialReviewWorkflowPage initialReviewWorkflowPage;
+    MyActionsPage myActionsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -71,18 +73,18 @@ public class PBI_245943_Amend_Export_Control {
         createExportControlPage = new CreateExportControlPage(driver);
         displayChecklistFlowPage = new DisplayChecklistFlowPage (driver);
         initialReviewWorkflowPage = new InitialReviewWorkflowPage(driver);
+        notesPage = new NotesPage(driver);
+        myActionsPage = new MyActionsPage(driver);
     }
 
     @Test
     public void Amend_Export_control() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try
         {
             //********************_Test_Started_************
             String url = JsonDataReader.get(0, "URL");
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
-
 
             String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
             String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
@@ -91,6 +93,7 @@ public class PBI_245943_Amend_Export_Control {
             String personName        = JsonDataReader.get(3, "InitialReviewName");         // "Test01"
             String amendCommentText  = JsonDataReader.get(3, "AmendCommentText");
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");// "Test_Auto"
+            String initialNoteText     = JsonDataReader.get(3, "InitialReviewNoteText");     // "Initial_Review_Done"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -105,129 +108,57 @@ public class PBI_245943_Amend_Export_Control {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            basePage.pause(3000);
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(3000);
             createExportControlPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().pass("Clicked Actions → Create Export Control from left navigation successfully");
+            Assert.assertTrue(createExportControlPage.isCreateExportControlHeaderDisplayed(), "'Create Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Export Control' header is displayed successfully");
 
-            basePage.pause(2000);
             displayChecklistFlowPage.selectPersonnelExclusion();
             ExtentReportListener.getExtentTest().pass("Selected Personnel Exclusion radio button successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isPersonnelExclusionRadioDisplayed(), "'Personnel Exclusion' radio button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' radio button is displayed");
 
-            // Step: Select PI Name (from JSON)
-            basePage.pause(2000);
+            // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
             createExportControlPage.selectPiName(piSearchText, piFullName);
             ExtentReportListener.getExtentTest().pass("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
 
-            // Step 3: Click Create button
-            basePage.pause(2000);
             createExportControlPage.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button on Create Export Control sidebar successfully");
-
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
-
-
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickNewTest07();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
-
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + phoneNumber + "' successfully");
-
-            // Step 2: Click Next
-            basePage.pause(2000);
-            createExportControlPage.clickNextButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
-
-            // Step 1: Click Save
-            basePage.pause(2000);
-            displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
             // Step 2: Click Submit
-            basePage.pause(2000);
             displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
 
-            basePage.pause(5000);
             initialReviewWorkflowPage.enterName(positiveSearchText);
             ExtentReportListener.getExtentTest().pass("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isEnterNameDisabledDisplayed(), "'Enter Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Enter Name' disabled field is displayed successfully");
 
-            basePage.pause(2000);
             initialReviewWorkflowPage.selectGenderMale();
             ExtentReportListener.getExtentTest().pass("Selected gender as 'Male' successfully");
-//
-//            // Step 1: Enter Name
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterName(personName);
-//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
-//
-//            // Step 2: Enter Phone Number
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + phoneNumber + "' successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isSelectGenderDisabledDisplayed(), "'Select Gender' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select Gender' disabled field is displayed successfully");
 
             // Step 1: Click Save
-            basePage.pause(2000);
             displayChecklistFlowPage.clickSaveAction();
             ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
             // Step 2: Click Submit
-            basePage.pause(2000);
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
+            initialReviewWorkflowPage.clickInitialReview();
+            ExtentReportListener.getExtentTest().info("Clicked Initial Review (IR) successfully");
 
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickNewTest07();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
-//
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + phoneNumber + "' successfully");
-//
-//            // Step 2: Click Next
-//            basePage.pause(2000);
-//            createExportControlPage.clickNextButton();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
-//
-//            // Step 1: Click Save
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickSaveAction();
-//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
-//
-//            // Enter Name (from JSON)
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterName(personName);
-//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
-//
-//            // Enter Phone (from JSON)
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(phoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + phoneNumber + "' successfully");
-//            // Step 1: Click Save
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickSaveAction();
-//            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
-//
-//            // Step 2: Click Submit
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickSubmitAction();
-//            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
-
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
-
-            basePage.pause(2000);
-            responseToReviewPage.clickResponseToReview();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Response To Review' menu successfully");
-
-            basePage.pause(5000);
             ExtentReportListener.getExtentTest().info("Waited for 5 seconds after clicking Create button");
 
             //Login to System Admin page
@@ -237,64 +168,61 @@ public class PBI_245943_Amend_Export_Control {
 
             driver.get(sysAdminUrl);
             ExtentReportListener.getExtentTest().pass("Opened SysAdmin public URL successfully");
-            basePage.pause(5000);
 
-            basePage.pause(2000);
             loginPage.enterSysAdminBusinessUser(sysAdminBusinessUser);
             ExtentReportListener.getExtentTest().pass("Entered SysAdmin Business User: " + sysAdminBusinessUser + " successfully");
 
-            basePage.pause(2000);
             loginPage.clickSysAdminLoginButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Login' button on SysAdmin page successfully");
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            basePage.pause(3000);
             dashboardPage.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isActionRequiredLinkDisplayed(), "'Action Required' link is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' link is displayed successfully");
 
-            basePage.pause(2000);
             createExportControlPage.clickActionRequired();
             ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' menu successfully");
+            Assert.assertTrue(myActionsPage.isActionRequiredBreadcrumbDisplayed(), "'Action Required' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' breadcrumb is displayed successfully");
 
-            basePage.pause(2000);
             systemAdminPage.clickFirstRecordNumber();
-            ExtentReportListener.getExtentTest().pass("Clicked first Record Number in Action Required grid successfully");
+            ExtentReportListener.getExtentTest().info("Clicked first Record Number in Action Required grid successfully");
 
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            // Step 1: Fetch record #
+            systemAdminPage.clickApproveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
+            Assert.assertTrue(systemAdminPage.isStatusUnderReviewDisplayed(), "'Status: Under Review' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Status' value is displayed as 'Under Review' successfully");
+
+            notesPage.clickNotesSection();
+            ExtentReportListener.getExtentTest().pass("Clicked Notes section successfully");
+            Assert.assertTrue(systemAdminPage.isNotesSectionTitleDisplayed(), "'Notes' section title is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Notes' section title is displayed successfully");
+
+            notesPage.clickAddNoteButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Note' button successfully");
+            Assert.assertTrue(systemAdminPage.isNotesSectionTitleDisplayed(), "'Notes' section title is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Notes' section title is displayed successfully");
+
             String recordNum = systemAdminPage.getRecordNumber();
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
-            basePage.pause(2000);
+            notesPage.enterNotesAndClickAdd(initialNoteText);
+            ExtentReportListener.getExtentTest().pass("Entered '" + initialNoteText + "' in Notes and clicked 'Add' successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
+            Assert.assertTrue(myActionsPage.isPINameDisplayed(), "'PI: Chandra, Mohan' is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'PI' value is displayed as 'Chandra, Mohan' successfully");
 
-            basePage.pause(2000);
-            systemAdminPage.clickComments();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Comments' button successfully");
-
-            // Enter comment from JSON
-            basePage.pause(2000);
-            systemAdminPage.enterCommentInModal(amendCommentText);
-            ExtentReportListener.getExtentTest().pass("Entered comment text '" + amendCommentText + "' successfully in Comments modal");
-
-            // Click Comment button
-            basePage.pause(2000);
-            systemAdminPage.clickCommentButtonOnModal();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Comment' button on Comments modal successfully");
-
-            basePage.pause(2000);
-            systemAdminPage.clickApproveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
-//            // Step: Click "Response To Review" menu
-//            basePage.pause(2000);
-//            systemAdminPage.clickResponseToReviewMenu();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'Response To Review' menu successfully");
-
-            basePage.pause(2000);
             systemAdminPage.clickLogout();
-            ExtentReportListener.getExtentTest().pass("Clicked Logout successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Logout successfully");
 
             //User login to main dashboard
 
@@ -315,63 +243,57 @@ public class PBI_245943_Amend_Export_Control {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            basePage.pause(2000);
             menuFlow.clickExportControlLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(2000);
             menuFlow.clickSearchLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
+            Assert.assertTrue(menuFlow.isSearchBreadcrumbDisplayed(), "'Export Control > Search' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control > Search' breadcrumb is displayed successfully");
 
-            basePage.pause(2000);
             systemAdminPage.enterValueField(recordNum);
             ExtentReportListener.getExtentTest().pass("Successfully entered dynamic record number: " + recordNum);
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
 
-            basePage.pause(2000);
             menuFlow.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("Clicked Search");
+            Assert.assertTrue(menuFlow.isSearchBreadcrumbDisplayed(), "'Export Control > Search' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control > Search' breadcrumb is displayed successfully");
 
             // After you search and the grid is loaded:
-            basePage.pause(2000);
             systemAdminPage.clickRecordNumber(recordNum);
             ExtentReportListener.getExtentTest().pass("Clicked Record Number link in grid: " + recordNum);
 
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
-
-            basePage.pause(2000);
             amendExportControlPage.clickInitiateAmendment();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Initiate Amendment' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Initiate Amendment' button successfully");
 
-            basePage.pause(1500);
             amendExportControlPage.clickAmendmentOkButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'OK' button on amendment confirmation popup successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'OK' button on amendment confirmation popup successfully");
 
-            basePage.pause(1000);
             amendExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
-            basePage.pause(1000);
             amendExportControlPage.clickSubmit();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Submit' button successfully");
 
             // Use same JSON name & static gender selection
-            basePage.pause(1000);
             amendExportControlPage.enterYourName(personName);
             ExtentReportListener.getExtentTest().pass("Entered Name as '" + personName + "' successfully");
+            Assert.assertTrue(systemAdminPage.isYourNameDisplayed(), "'Your Name' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Your Name' label is displayed successfully");
 
             // Step 2: Select gender = Male
-            basePage.pause(500);
             amendExportControlPage.selectGenderMale();
             ExtentReportListener.getExtentTest().pass("Selected Gender as 'Male' successfully");
+            Assert.assertTrue(systemAdminPage.isGenderDisplayed(), "'Gender' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Gender' label is displayed successfully");
 
-            basePage.pause(1000);
             amendExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
-            basePage.pause(1000);
             amendExportControlPage.clickSubmit();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Submit' button successfully");
 
             //Login to System Admin page
 
@@ -380,43 +302,35 @@ public class PBI_245943_Amend_Export_Control {
 
             driver.get(sysAdminUrl2);
             ExtentReportListener.getExtentTest().pass("Opened SysAdmin public URL successfully");
-            basePage.pause(5000);
 
-            basePage.pause(2000);
             loginPage.enterSysAdminBusinessUser(sysAdminBusinessUser2);
             ExtentReportListener.getExtentTest().pass("Entered SysAdmin Business User: " + sysAdminBusinessUser2 + " successfully");
 
-            basePage.pause(2000);
             loginPage.clickSysAdminLoginButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Login' button on SysAdmin page successfully");
 
-            basePage.pause(3000);
             dashboardPage.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(2000);
             menuFlow.clickSearchLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
+            ExtentReportListener.getExtentTest().info("Clicked 'Search' link successfully from Export Control sidebar");
 
-            basePage.pause(2000);
             systemAdminPage.enterValueField(recordNum);
             ExtentReportListener.getExtentTest().pass("Successfully entered dynamic record number: " + recordNum);
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
 
-            basePage.pause(2000);
             menuFlow.clickSearchButton();
             ExtentReportListener.getExtentTest().pass("Clicked Search");
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
 
             // After you search and the grid is loaded:
-            basePage.pause(2000);
             systemAdminPage.clickRecordNumber(recordNum);
-            ExtentReportListener.getExtentTest().pass("Clicked Record Number link in grid: " + recordNum);
+            ExtentReportListener.getExtentTest().info("Clicked Record Number link in grid: " + recordNum);
 
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
-
-            basePage.pause(1000);
             amendExportControlPage.clickAmendmentAMD1Tab();
-            ExtentReportListener.getExtentTest().pass("Opened 'Amendment (AMD1)' transaction tab successfully");
+            ExtentReportListener.getExtentTest().info("Opened 'Amendment (AMD1)' transaction tab successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
