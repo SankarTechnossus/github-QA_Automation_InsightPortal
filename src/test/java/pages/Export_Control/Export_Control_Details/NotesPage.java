@@ -110,5 +110,4 @@ public class NotesPage extends BasePage {
 
         pause(1500);   // small pause as per your pattern
     }
-
 }

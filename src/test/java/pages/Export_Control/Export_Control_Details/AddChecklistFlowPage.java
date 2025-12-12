@@ -32,8 +32,74 @@ public class AddChecklistFlowPage extends BasePage {
     By checklistsToggle = By.xpath("//button[normalize-space()='Checklists']");
     By updateButton = By.xpath("//button[normalize-space()='Update']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
+    By workflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(),'Workflows')]");
+    By personnelSpan = By.xpath("//span[normalize-space()='Personnel']");
+    By versionsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Versions']");
+    By saveButton01 = By.xpath("//button[@type='button' and contains(@class,'-primary') and normalize-space()='Save']");
+    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space()='Chief Approver']");
+    By draftSidebarHeader = By.xpath("//p[contains(@class,'_sidebarHeader') and text()='Draft']");
 
     //Actions
+    public boolean isDraftSidebarHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(draftSidebarHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isChiefApproverHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(chiefApproverHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSaveButtonDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(saveButton01));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isVersionsHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(versionsHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPersonnelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(personnelSpan));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isWorkflowsHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(workflowsHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void clickSaveButton() {
         WebElement btn = wait.until(
                 ExpectedConditions.elementToBeClickable(saveButton)

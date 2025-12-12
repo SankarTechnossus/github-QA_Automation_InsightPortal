@@ -29,9 +29,42 @@ public class DisplayChecklistFlowPage extends BasePage {
     By option1Radio = By.xpath("//span[normalize-space()='Option (1)']/preceding-sibling::input[@type='radio']");
     By nameInput = By.xpath("//div[contains(@class,'dynamic-form-field')]" + "[.//div[contains(@class,'fr-element') and normalize-space()='What is your Name?']]" + "//input[@type='text']");
     By phoneInput = By.xpath("//div[contains(@class,'dynamic-form-field')]" + "[.//div[contains(@class,'fr-element') and normalize-space()='What is Your Number']]" + "//input[@type='tel']");
-
+    By personnelExclusionRadio01 = By.xpath("//input[@type='radio' and @value='PersonnelExclusion']");
+    By selectPINameDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Select PI Name']");
+    By personnelExclusionValue = By.xpath("//dd[@title='Personnel Exclusion' and text()='Personnel Exclusion']");
 
     //Actions
+    public boolean isPersonnelExclusionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(personnelExclusionValue));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPersonnelExclusionRadioDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(personnelExclusionRadio)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSelectPINameDisabledDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(selectPINameDisabledField)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void enterName(String nameValue) {
         WebElement input = wait.until(

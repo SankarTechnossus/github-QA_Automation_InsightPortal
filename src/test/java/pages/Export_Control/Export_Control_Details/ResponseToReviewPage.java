@@ -20,8 +20,23 @@ public class ResponseToReviewPage extends BasePage {
     By chiefApproverNode = By.xpath("//div[contains(@class,'_nodeHeader')]/p[normalize-space()='Chief Approver (chiefapprover1)']");
     By activitiesTab = By.xpath("//button[normalize-space()='Activities']");
     By responseToReviewLink = By.xpath("//div[@id='left-sidebar']//a[contains(@class,'label')][span[normalize-space()='Response To Review']]");
+    By submissionChecklistSection = By.xpath("//span[@class='toggleable-section-title' and text()='Submission Checklist']");
 
     //Method
+    public void clickSubmissionChecklist() {
+        WebElement section = driver.findElement(submissionChecklistSection);
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});", section);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(submissionChecklistSection));
+
+        section.click();
+
+        pause(1000);
+    }
+
     public void clickResponseToReview() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 

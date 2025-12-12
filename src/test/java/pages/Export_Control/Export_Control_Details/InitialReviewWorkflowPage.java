@@ -25,8 +25,56 @@ public class InitialReviewWorkflowPage extends BasePage {
     By reviewLetterPdfButton = By.xpath("//button[@aria-label='Download review letter']");
     By reviewerChecklistPdfButton = By.xpath("//button[@aria-label='Download reviewer checklist']");
     By nameInput = By.xpath("//div[@data-name='TextBox1']//input[@type='text']");
+    By enterNameDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Enter Name']");
+    By selectGenderDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Select Gender']");
+    By personnelExclusionValue = By.xpath("//dd[@title='Personnel Exclusion' and normalize-space()='Personnel Exclusion']");
+    By actionRequiredLink = By.xpath("//a[@href='/export-control/action-required']//span[normalize-space()='Action Required']/parent::a");
 
     //Actions
+
+    public boolean isActionRequiredLinkDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(actionRequiredLink)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPersonnelExclusionValueDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(personnelExclusionValue)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isEnterNameDisabledDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(enterNameDisabledField)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSelectGenderDisabledDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(selectGenderDisabledField)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public By textInputByQuestionLabel(String questionLabel) {
         return By.xpath(
