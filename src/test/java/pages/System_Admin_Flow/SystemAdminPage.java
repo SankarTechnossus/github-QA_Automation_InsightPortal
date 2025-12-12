@@ -38,15 +38,47 @@ public class SystemAdminPage extends BasePage {
     By valueFieldInput = By.xpath("//label[normalize-space()='Record Number']/following-sibling::input[@aria-label='Value']");
     By yourNameDiv = By.xpath("//div[contains(@class,'fr-element') and normalize-space()='Your Name']");
     By genderDiv = By.xpath("//div[contains(@class,'fr-element') and normalize-space()='Gender']");
+    By personnelExclusionValue = By.xpath("//dd[contains(@class,'_dark-text') and normalize-space()='Personnel Exclusion']");
+    By commentsLabel = By.xpath("//span[contains(@class,'_font-size-base') and normalize-space()='Comments']");
 
     By checklistFormToggleButton = By.xpath("//div[contains(@class,'toggleable-title')]//button" + "[contains(@class,'content-toggler-button')]" + "[.//span[normalize-space()='Checklist form']]");
     By downloadButton = By.xpath("//button[contains(@class,'button') and .//span[normalize-space()='Download']]");
     By optionOneRadio = By.xpath("//input[@name='RadioButtonList1' and @value='Option1']");
     By statusUnderReviewValue = By.xpath("//dt[normalize-space()='Status:']/following-sibling::dd[@title='Under Review' and normalize-space()='Under Review']");
     By notesSectionTitle = By.xpath("//span[contains(@class,'toggleable-section-title') and normalize-space()='Notes']");
-
+    By commentButton = By.xpath("//button[contains(@class,'comment-btn') and normalize-space()='Comment']");
 
     //method
+    public boolean isCommentButtonDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(commentButton));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isCommentsLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(commentsLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPersonnelExclusionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(personnelExclusionValue));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean isGenderDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {

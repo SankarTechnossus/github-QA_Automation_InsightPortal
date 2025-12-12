@@ -31,6 +31,10 @@ public class InitialReviewWorkflowPage extends BasePage {
     By actionRequiredLink = By.xpath("//a[@href='/export-control/action-required']//span[normalize-space()='Action Required']/parent::a");
 
     //Actions
+    public void refreshCurrentPage() {
+        driver.navigate().refresh();
+        pause(3000); // allow page to reload completely
+    }
 
     public boolean isActionRequiredLinkDisplayed() {
         try {

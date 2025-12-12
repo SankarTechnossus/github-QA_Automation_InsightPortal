@@ -38,6 +38,7 @@ public class CreateExportControlPage extends BasePage {
     By saveButton = By.xpath("//button[@aria-label='Save' and normalize-space()='Save']");
     By submitButton = By.xpath("//button[@aria-label='Submit' and normalize-space()='Submit']");
     By nextButton = By.xpath("//button[contains(@class,'next-btn') and starts-with(normalize-space(),'Next')]");
+    By actionRequiredCrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Action Required']");
 
     // Step 2 – PI Name input (typeahead)
     By piNameInput = By.id("dynamic-form-field-input-74472-PiName");
@@ -47,8 +48,17 @@ public class CreateExportControlPage extends BasePage {
     By createButton = By.xpath("//aside//button[normalize-space()='Create']");
     By createExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Create Export Control']");
 
-
     // ****************************** Sankar Functions *************************************************************
+    public boolean isActionRequiredCrumbDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(actionRequiredCrumb));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean isCreateExportControlHeaderDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

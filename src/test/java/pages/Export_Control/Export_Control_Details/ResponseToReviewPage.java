@@ -23,6 +23,28 @@ public class ResponseToReviewPage extends BasePage {
     By submissionChecklistSection = By.xpath("//span[@class='toggleable-section-title' and text()='Submission Checklist']");
 
     //Method
+    public boolean clickResponseToReviewIfPresent() {
+        try {
+            // Quick presence check (no wait)
+            if (driver.findElements(responseToReviewLink).isEmpty()) {
+                return false;
+            }
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement link = wait.until(ExpectedConditions.elementToBeClickable(responseToReviewLink));
+
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+
+            link.click();
+            pause(1000);
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void clickSubmissionChecklist() {
         WebElement section = driver.findElement(submissionChecklistSection);
 
