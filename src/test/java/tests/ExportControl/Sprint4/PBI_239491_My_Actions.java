@@ -19,6 +19,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.WaitUtility;
 
 import java.time.Duration;
 
@@ -34,6 +35,7 @@ public class PBI_239491_My_Actions {
     AgreementPage agreementPage;
     MenuFlow menuFlow;
     MyActionsPage myActionsPage;
+    WaitUtility waitUtility;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -58,6 +60,7 @@ public class PBI_239491_My_Actions {
         agreementPage = new AgreementPage(driver);
         menuFlow = new MenuFlow(driver);
         myActionsPage = new MyActionsPage(driver);
+        waitUtility = new WaitUtility(driver);
     }
 
     @Test
@@ -86,10 +89,12 @@ public class PBI_239491_My_Actions {
 
             // Login into the application
             loginPage.LoginIntoApplication(userName, password);
+            waitUtility.waitUntilPageLoad(driver, 120);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
+            waitUtility.waitUntilPageLoad(driver, 120);
             menuFlow.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 

@@ -389,6 +389,7 @@ public class AgreementPage extends BasePage {
     }
 
     public void clickAdministrationLink() {
+        waitForPresence(administrationLink);
         WebElement adminElement = new WebDriverWait(driver, Duration.ofSeconds(120))
                 .until(ExpectedConditions.visibilityOfElementLocated(administrationLink));
 

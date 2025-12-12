@@ -77,8 +77,19 @@ public class MyActionsPage extends BasePage {
 
     public boolean isRecordNumberLabelDisplayed() {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
             return wait.until(ExpectedConditions.visibilityOfElementLocated(recordNumberLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean VerifyRecordIsDisplayed(String recordNum) {
+        By recordNumber = By.xpath("//dd[text()='" + recordNum + "']");
+
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(recordNumber)).isDisplayed();
         } catch (Exception e) {
             return false;
         }

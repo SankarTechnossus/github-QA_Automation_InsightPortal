@@ -177,8 +177,6 @@ public class PBI_243952_Review_letter {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
-            ExtentReportListener.getExtentTest().info("Waited for 5 seconds after clicking Create button");
-
             // Step 2: Click Submit
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");

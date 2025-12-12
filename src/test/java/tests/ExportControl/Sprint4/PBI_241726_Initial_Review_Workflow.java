@@ -95,21 +95,21 @@ public class PBI_241726_Initial_Review_Workflow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             dashboardPage.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
             createExportControlPage.clickCreateExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked Actions → Create Export Control from left navigation successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Actions → Create Export Control from left navigation successfully");
             Assert.assertTrue(createExportControlPage.isCreateExportControlHeaderDisplayed(), "'Create Export Control' header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Create Export Control' header is displayed successfully");
 
             displayChecklistFlowPage.selectPersonnelExclusion();
-            ExtentReportListener.getExtentTest().pass("Selected Personnel Exclusion radio button successfully");
+            ExtentReportListener.getExtentTest().info("Selected Personnel Exclusion radio button successfully");
             Assert.assertTrue(displayChecklistFlowPage.isPersonnelExclusionRadioDisplayed(), "'Personnel Exclusion' radio button is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' radio button is displayed");
 
             // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
             createExportControlPage.selectPiName(piSearchText, piFullName);
-            ExtentReportListener.getExtentTest().pass("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            ExtentReportListener.getExtentTest().info("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
             Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
 
@@ -121,29 +121,29 @@ public class PBI_241726_Initial_Review_Workflow {
             ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
 
             initialReviewWorkflowPage.enterName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
+            ExtentReportListener.getExtentTest().info("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
             Assert.assertTrue(initialReviewWorkflowPage.isEnterNameDisabledDisplayed(), "'Enter Name' disabled field is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Enter Name' disabled field is displayed successfully");
 
             initialReviewWorkflowPage.selectGenderMale();
-            ExtentReportListener.getExtentTest().pass("Selected gender as 'Male' successfully");
+            ExtentReportListener.getExtentTest().info("Selected gender as 'Male' successfully");
             Assert.assertTrue(initialReviewWorkflowPage.isSelectGenderDisabledDisplayed(), "'Select Gender' disabled field is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Select Gender' disabled field is displayed successfully");
 
             // Step 1: Click Save
             displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
             // Step 2: Click Submit
             displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
             initialReviewWorkflowPage.clickInitialReview();
-            ExtentReportListener.getExtentTest().pass("Clicked Initial Review (IR) successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Initial Review (IR) successfully");
 
             //***************Login to System Admin page********************
 
@@ -157,7 +157,7 @@ public class PBI_241726_Initial_Review_Workflow {
             ExtentReportListener.getExtentTest().info("Entered SysAdmin Business User: " + sysAdminBusinessUser + " successfully");
 
             loginPage.clickSysAdminLoginButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Login' button on SysAdmin page successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Login' button on SysAdmin page successfully");
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
@@ -167,7 +167,7 @@ public class PBI_241726_Initial_Review_Workflow {
             ExtentReportListener.getExtentTest().pass("Verified 'Action Required' link is displayed successfully");
 
             createExportControlPage.clickActionRequired();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Action Required' menu successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Action Required' menu successfully");
             Assert.assertTrue(myActionsPage.isActionRequiredBreadcrumbDisplayed(), "'Action Required' breadcrumb is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Action Required' breadcrumb is displayed successfully");
 
@@ -179,17 +179,17 @@ public class PBI_241726_Initial_Review_Workflow {
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
             systemAdminPage.clickApproveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Approve' button successfully");
             Assert.assertTrue(systemAdminPage.isStatusUnderReviewDisplayed(), "'Status: Under Review' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Status' value is displayed as 'Under Review' successfully");
 
             notesPage.clickNotesSection();
-            ExtentReportListener.getExtentTest().pass("Clicked Notes section successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Notes section successfully");
             Assert.assertTrue(systemAdminPage.isNotesSectionTitleDisplayed(), "'Notes' section title is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Notes' section title is displayed successfully");
 
             notesPage.clickAddNoteButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Note' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Note' button successfully");
             Assert.assertTrue(systemAdminPage.isNotesSectionTitleDisplayed(), "'Notes' section title is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Notes' section title is displayed successfully");
 
@@ -197,12 +197,12 @@ public class PBI_241726_Initial_Review_Workflow {
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
             notesPage.enterNotesAndClickAdd(initialNoteText);
-            ExtentReportListener.getExtentTest().pass("Entered '" + initialNoteText + "' in Notes and clicked 'Add' successfully");
+            ExtentReportListener.getExtentTest().info("Entered '" + initialNoteText + "' in Notes and clicked 'Add' successfully");
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
             systemAdminPage.clickApproveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Approve' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Approve' button successfully");
             Assert.assertTrue(myActionsPage.isPINameDisplayed(), "'PI: Chandra, Mohan' is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'PI' value is displayed as 'Chandra, Mohan' successfully");
 
@@ -249,7 +249,7 @@ public class PBI_241726_Initial_Review_Workflow {
             // After you search and the grid is loaded:
             systemAdminPage.clickRecordNumber(recordNum);
             ExtentReportListener.getExtentTest().info("Clicked Record Number link in grid: " + recordNum);
-            Assert.assertTrue(myActionsPage.isRecordNumberLabelDisplayed(), "Record Number label is NOT displayed");
+            Assert.assertTrue(myActionsPage.VerifyRecordIsDisplayed(recordNum), "Record Number label is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Record Number' label is displayed");
 
             initialReviewWorkflowPage.clickInitialReview();

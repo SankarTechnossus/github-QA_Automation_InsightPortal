@@ -268,6 +268,8 @@ public class MenuFlow extends BasePage {
 
     public void clickExportControlLink() {
         dismissAnyOpenReactSelectMenus(); // <— add this
+
+        waitForPresence(exportControlLink);
         WebElement link = driver.findElement(exportControlLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(link));
