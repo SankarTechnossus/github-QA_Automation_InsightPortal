@@ -78,63 +78,71 @@ public class PBI_251474_Category_Configuration_Attachment_Admin {
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
 
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(1500);
             attachmentTypesExportControlPage.expandAttachmentTypes();
-            ExtentReportListener.getExtentTest().pass("Expanded Attachment Types menu");
+            ExtentReportListener.getExtentTest().info("Expanded Attachment Types menu");
 
-            basePage.pause(1500);
             attachmentTypesExportControlPage.clickAttachmentTypesExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked Export Control under Attachment Types successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Export Control under Attachment Types successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isAttachmentTypeSectionDisplayed(), "'Attachment Type' section is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Attachment Type' section is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.clickAddAttachmentType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Attachment Type' button successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isAddAttachmentTypeHeaderDisplayed(), "'Add Attachment Type' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Add Attachment Type' header is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.enterRandomTypeName(8);
-            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+            ExtentReportListener.getExtentTest().info("Entered random Type Name successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isAddAttachmentTypeHeaderDisplayed(), "'Add Attachment Type' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Add Attachment Type' header is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Cancel successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isAttachmentTypeSectionDisplayed(), "'Attachment Type' section is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Attachment Type' section is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.clickAddAttachmentType();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Attachment Type' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Attachment Type' button successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isTypeNameLabelDisplayed(), "'Type Name' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Type Name' label is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.enterRandomTypeName(8);
-            ExtentReportListener.getExtentTest().pass("Entered random Type Name successfully");
+            ExtentReportListener.getExtentTest().info("Entered random Type Name successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isTypeNameLabelDisplayed(), "'Type Name' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Type Name' label is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Add button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Add button successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isAttachmentTypeSectionDisplayed(), "'Attachment Type' section is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Attachment Type' section is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked first Edit button successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isActiveLabelDisplayed(), "'Active' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed");
 
-            basePage.pause(1000);
             attachmentTypesExportControlPage.appendTypeNameWithTest();
-            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+            ExtentReportListener.getExtentTest().info("Appended 'Test' to Type Name successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isActiveLabelDisplayed(), "'Active' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Active' label is displayed");
 
             attachmentTypesExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Cancel button successfully");
+            Assert.assertTrue(attachmentTypesExportControlPage.isAttachmentTypeSectionDisplayed(), "'Attachment Type' section is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Attachment Type' section is displayed");
 
-            basePage.pause(2000);
             attachmentTypesExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first Edit button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked first Edit button successfully");
 
-            basePage.pause(1000);
             attachmentTypesExportControlPage.appendTypeNameWithTest();
-            ExtentReportListener.getExtentTest().pass("Appended 'Test' to Type Name successfully");
+            ExtentReportListener.getExtentTest().info("Appended 'Test' to Type Name successfully");
 
             attachmentTypesExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
             ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
