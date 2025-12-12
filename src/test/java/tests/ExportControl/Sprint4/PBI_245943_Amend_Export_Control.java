@@ -269,9 +269,6 @@ public class PBI_245943_Amend_Export_Control {
             amendExportControlPage.clickAmendmentOkButton();
             ExtentReportListener.getExtentTest().info("Clicked 'OK' button on amendment confirmation popup successfully");
 
-            amendExportControlPage.clickSave();
-            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
-
             amendExportControlPage.clickSubmit();
             ExtentReportListener.getExtentTest().info("Clicked 'Submit' button successfully");
 
