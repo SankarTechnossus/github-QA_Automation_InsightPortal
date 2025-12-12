@@ -57,7 +57,6 @@ public class PBI_245940_Initial_Application_Management {
 
     @Test
     public void Export_control_Initial_application_management() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -82,56 +81,63 @@ public class PBI_245940_Initial_Application_Management {
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
 
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.openInitialApplicationManagementExportControl();
-            ExtentReportListener.getExtentTest().pass("Opened Initial Application Management > Export Control successfully");
+            ExtentReportListener.getExtentTest().info("Opened Initial Application Management > Export Control successfully");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isInitialApplicationBreadcrumbDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Initial Application Management' breadcrumb is displayed");
 
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.clickAddInitialApplication();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Initial Application' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Initial Application' successfully");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isActionNameLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Name' label is displayed");
 
-            basePage.pause(1000);
             String actionName = initialApplicationManagementExportControlPage.enterRandomActionAndSelectEntity();
-            ExtentReportListener.getExtentTest().pass("Entered Action Name: " + actionName);
+            ExtentReportListener.getExtentTest().info("Entered Action Name: " + actionName);
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isActionNameLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Name' label is displayed");
 
             // Step 4: Click Cancel
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel on modal");
+            ExtentReportListener.getExtentTest().info("Clicked Cancel on modal");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isInitialApplicationBreadcrumbDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Initial Application Management' breadcrumb is displayed");
 
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.clickAddInitialApplication();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Initial Application' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Initial Application' successfully");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isActionNameLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Name' label is displayed");
 
-            basePage.pause(1000);
             String actionName01 = initialApplicationManagementExportControlPage.enterRandomActionAndSelectEntity();
-            ExtentReportListener.getExtentTest().pass("Entered Action Name: " + actionName01);
+            ExtentReportListener.getExtentTest().info("Entered Action Name: " + actionName01);
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isActionNameLabelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Name' label is displayed");
 
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.clickAddButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add' button successfully");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isExportControlBreadcrumbDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control' breadcrumb is displayed");
 
             // Step : Click first Edit button
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for the first Initial Application row successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' button for the first Initial Application row successfully");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isExportControlBreadcrumbDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control' breadcrumb is displayed");
 
-            basePage.pause(800);
             initialApplicationManagementExportControlPage.clickInlineCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked Cancel on the inline edit row successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Cancel on the inline edit row successfully");
+            Assert.assertTrue(initialApplicationManagementExportControlPage.isExportControlBreadcrumbDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control' breadcrumb is displayed");
 
             // Step : Click first Edit button
-            basePage.pause(1000);
             initialApplicationManagementExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for the first Initial Application row successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' button for the first Initial Application row successfully");
 
-            basePage.pause(800);
             initialApplicationManagementExportControlPage.clickInlineSave();
-            ExtentReportListener.getExtentTest().pass("Clicked Save on the inline edit row successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Save on the inline edit row successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

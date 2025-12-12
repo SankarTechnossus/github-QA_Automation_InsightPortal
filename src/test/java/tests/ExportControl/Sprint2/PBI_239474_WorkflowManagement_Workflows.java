@@ -12,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-//import pages.Administration.workflowsPageNew;
 import pages.Administration.Workflow_Management.WorkflowsPage;
 import pages.Adobe.AgreementPage;
 import pages.Home.DashboardPage;
@@ -31,7 +30,8 @@ public class PBI_239474_WorkflowManagement_Workflows {
     BasePage basePage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-
+    AgreementPage agreementPage;
+    WorkflowsPage workflowsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,12 +53,12 @@ public class PBI_239474_WorkflowManagement_Workflows {
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-
+        agreementPage = new AgreementPage(driver);
+        workflowsPage = new WorkflowsPage(driver);
     }
 
     @Test
     public void ExportControl_WorkflowManagement_Workflows_Test () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -69,7 +69,7 @@ public class PBI_239474_WorkflowManagement_Workflows {
             String workflowTransactionTypeOption = JsonDataReader.get(1, "WorkflowTransactionTypeOption"); // "tesss"
             String workflowExportControlStatusOption = JsonDataReader.get(1, "WorkflowExportControlStatusOption"); // "Draft"
             String workflowEmailFrom = JsonDataReader.get(1, "WorkflowEmailFrom");                       // "insighthelpdesk@partners.org"
-            String workflowNameAppendText = JsonDataReader.get(1, "WorkflowNameAppendText");
+            //String workflowNameAppendText = JsonDataReader.get(1, "WorkflowNameAppendText");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -84,107 +84,91 @@ public class PBI_239474_WorkflowManagement_Workflows {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-            WorkflowsPage workflowsPageNew = new WorkflowsPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
-
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
             // Work flow page
-            basePage.pause(5000);
-            workflowsPageNew.clickWorkflowManagementLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
+            workflowsPage.clickWorkflowManagementLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
 
+            workflowsPage.clickExportControlWorkflows();
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control > Workflows' successfully");
+            Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.clickExportControlWorkflows();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control > Workflows' successfully");
-
-
-            basePage.pause(5000);
-            workflowsPageNew.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
-
+            workflowsPage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button successfully");
 
             String uniqueName = workflowNamePrefix + System.currentTimeMillis();
-            basePage.pause(5000);
-            workflowsPageNew.enterName(uniqueName);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName + "' in the Name input field successfully");
+            workflowsPage.enterName(uniqueName);
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + uniqueName + "' in the Name input field successfully");
+            Assert.assertTrue(workflowsPage.isNameLabelDisplayed(), "Name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Name' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdown("Record Type", workflowRecordTypeOption);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowRecordTypeOption + "' from Record Type dropdown successfully");
+            workflowsPage.selectOptionFromDropdown("Record Type", workflowRecordTypeOption);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowRecordTypeOption + "' from Record Type dropdown successfully");
+            Assert.assertTrue(workflowsPage.isRecordTypeLabelDisplayed(), "Record Type label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Record Type' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdown("Transaction Type", workflowTransactionTypeOption);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowTransactionTypeOption + "' from Transaction Type dropdown successfully");
+            workflowsPage.selectOptionFromDropdown("Transaction Type", workflowTransactionTypeOption);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowTransactionTypeOption + "' from Transaction Type dropdown successfully");
+            Assert.assertTrue(workflowsPage.isTransactionTypeLabelDisplayed(), "Transaction Type label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Transaction Type' label with mandatory asterisk is displayed");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdownExportControlStatus("Export Control Status", workflowExportControlStatusOption);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowExportControlStatusOption + "' from Export Control Status dropdown successfully");
+            workflowsPage.selectOptionFromDropdownExportControlStatus("Export Control Status", workflowExportControlStatusOption);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowExportControlStatusOption + "' from Export Control Status dropdown successfully");
+            Assert.assertTrue(workflowsPage.isExportControlStatusLabelDisplayed(), "Export Control Status label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control Status' label is displayed");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdown("Email From", workflowEmailFrom);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowEmailFrom + "' from Email From dropdown successfully");
+            workflowsPage.selectOptionFromDropdown("Email From", workflowEmailFrom);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowEmailFrom + "' from Email From dropdown successfully");
+            Assert.assertTrue(workflowsPage.isEmailFromLabelDisplayed(), "Email From label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Email From' label with mandatory asterisk is displayed");
 
             // ** Negative_case **
-            basePage.pause(5000);
-            workflowsPageNew.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            workflowsPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.clickAddNewButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add New' button successfully");
-
+            workflowsPage.clickAddNewButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Add New' button successfully");
 
             String uniqueName01 = workflowNamePrefix + System.currentTimeMillis();
-            basePage.pause(5000);
-            workflowsPageNew.enterName(uniqueName01);
-            ExtentReportListener.getExtentTest().pass("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
+            workflowsPage.enterName(uniqueName01);
+            ExtentReportListener.getExtentTest().info("Entered unique name '" + uniqueName01 + "' in the Name input field successfully");
 
+            workflowsPage.selectOptionFromDropdown("Record Type", workflowRecordTypeOption);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowRecordTypeOption + "' from Record Type dropdown successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdown("Record Type", workflowRecordTypeOption);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowRecordTypeOption + "' from Record Type dropdown successfully");
+            workflowsPage.selectOptionFromDropdown("Transaction Type", workflowTransactionTypeOption);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowTransactionTypeOption + "' from Transaction Type dropdown successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdown("Transaction Type", workflowTransactionTypeOption);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowTransactionTypeOption + "' from Transaction Type dropdown successfully");
+            workflowsPage.selectOptionFromDropdownExportControlStatus("Export Control Status", workflowExportControlStatusOption);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowExportControlStatusOption + "' from Export Control Status dropdown successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdownExportControlStatus("Export Control Status", workflowExportControlStatusOption);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowExportControlStatusOption + "' from Export Control Status dropdown successfully");
+            workflowsPage.selectOptionFromDropdown("Email From", workflowEmailFrom);
+            ExtentReportListener.getExtentTest().info("Selected '" + workflowEmailFrom + "' from Email From dropdown successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.selectOptionFromDropdown("Email From", workflowEmailFrom);
-            ExtentReportListener.getExtentTest().pass("Selected '" + workflowEmailFrom + "' from Email From dropdown successfully");
+            workflowsPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            workflowsPage.clickFirstEdit();
+            ExtentReportListener.getExtentTest().info("Clicked the first visible 'Edit' in Workflows grid.");
 
-            basePage.pause(3000);
-            workflowsPageNew.clickFirstEdit();
-            ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
+            workflowsPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
 
-            basePage.pause(5000);
-            workflowsPageNew.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            workflowsPage.clickFirstEdit();
+            ExtentReportListener.getExtentTest().info("Clicked the first visible 'Edit' in Workflows grid.");
+            Assert.assertTrue(workflowsPage.isNameLabelDisplayed(), "Name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Name' label with mandatory asterisk is displayed");
 
-            basePage.pause(3000);
-            workflowsPageNew.clickFirstEdit();
-            ExtentReportListener.getExtentTest().pass("Clicked the first visible 'Edit' in Workflows grid.");
-
-            basePage.pause(3000);
-            workflowsPageNew.clickUpdateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
-
-            basePage.pause(5000);
-            workflowsPageNew.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            workflowsPage.clickUpdateButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Update' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

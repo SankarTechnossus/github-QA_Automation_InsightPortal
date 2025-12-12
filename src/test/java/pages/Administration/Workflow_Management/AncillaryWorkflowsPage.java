@@ -30,8 +30,48 @@ public class AncillaryWorkflowsPage extends BasePage {
     By lastRow = By.xpath("(//table//tr[.//td[@data-column='name']])[last()]");
     By editBtnInRow = By.xpath(".//td[@data-column='_actions']//button[@type='button' and normalize-space()='Edit']");
     By lastEditDirect = By.xpath("(//td[@data-column='_actions']//button[@type='button' and normalize-space()='Edit'])[last()]");
+    By ancillaryWorkflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Ancillary Workflows')]");
+    By nameLabel = By.xpath("//label[@for='name']");
+    By triggeringRuleLabel = By.xpath("//label[@for='triggeringRuleId']");
+    By emailFromLabel = By.xpath("//label[@for='emailFrom']");
 
     // Action
+    public boolean isNameLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(nameLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isTriggeringRuleLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(triggeringRuleLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isEmailFromLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(emailFromLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAncillaryWorkflowsHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(ancillaryWorkflowsHeader));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickLastEdit() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
@@ -70,7 +110,6 @@ public class AncillaryWorkflowsPage extends BasePage {
         pause(600);
     }
 
-    // Action (scroll → wait → click → confirm; no logging here)
     public void clickWorkflowManagement() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(workflowManagementLink));

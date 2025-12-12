@@ -18,6 +18,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.WaitUtility;
 
 import java.time.Duration;
 
@@ -31,6 +32,7 @@ public class PBI_239492_Forms_Visibility {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     FormsVisibility_ExportControlPage formsVisibilityExportControlPage;
+    WaitUtility waitUtility;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,11 +55,11 @@ public class PBI_239492_Forms_Visibility {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         formsVisibilityExportControlPage = new FormsVisibility_ExportControlPage(driver);
+        waitUtility = new WaitUtility(driver);
     }
 
     @Test
     public void Forms_Visibility () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -76,6 +78,7 @@ public class PBI_239492_Forms_Visibility {
 
             // Login into the application
             loginPage.LoginIntoApplication(userName, password);
+            waitUtility.waitUntilPageLoad(driver, 120);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
@@ -83,80 +86,82 @@ public class PBI_239492_Forms_Visibility {
             // Agreement Page Actions
             AgreementPage agreementPage = new AgreementPage(driver);
 
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(2000);
             formsVisibilityExportControlPage.openExportControlUnderFormVisibility();
-            ExtentReportListener.getExtentTest().pass("Opened 'Export Control' under Form Visibility successfully");
+            ExtentReportListener.getExtentTest().info("Opened 'Export Control' under Form Visibility successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isFormVisibilityExportControlHeaderDisplayed(), "'Form Visibility > Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Form Visibility > Export Control' header is displayed successfully");
 
-            basePage.pause(2000);
             formsVisibilityExportControlPage.clickAddRuleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add rule' button successfully");
 
-            basePage.pause(1000);
             formsVisibilityExportControlPage.waitForFormVisibilityModal();
-            ExtentReportListener.getExtentTest().pass("Form Visibility modal loaded successfully");
+            ExtentReportListener.getExtentTest().info("Form Visibility modal loaded successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isFormLabelDisplayed(), "Form label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Form' label with mandatory asterisk is displayed");
 
-            // Step 1 – Form
-            basePage.pause(500);
             formsVisibilityExportControlPage.selectForm(formVisibilityForm);
-            ExtentReportListener.getExtentTest().pass("Selected Form: " + formVisibilityForm + " successfully");
+            ExtentReportListener.getExtentTest().info("Selected Form: " + formVisibilityForm + " successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isFormLabelDisplayed(), "Form label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Form' label with mandatory asterisk is displayed");
 
-            // Step 2 – Access
-            basePage.pause(500);
             formsVisibilityExportControlPage.selectAccess(formVisibilityAccess);
-            ExtentReportListener.getExtentTest().pass("Selected Access: " + formVisibilityAccess + " successfully");
+            ExtentReportListener.getExtentTest().info("Selected Access: " + formVisibilityAccess + " successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isAccessLabelDisplayed(), "Access label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Access' label with mandatory asterisk is displayed");
 
-            // Step 3 – Query Builder
-            basePage.pause(500);
             formsVisibilityExportControlPage.selectQueryBuilder(formVisibilityQueryBuilderOp);
-            ExtentReportListener.getExtentTest().pass("Selected Query Builder: " + formVisibilityQueryBuilderOp + " successfully");
+            ExtentReportListener.getExtentTest().info("Selected Query Builder: " + formVisibilityQueryBuilderOp + " successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isQueryBuilderSectionDisplayed(), "Query Builder section is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Query Builder' section is displayed successfully");
 
-            basePage.pause(500);
             formsVisibilityExportControlPage.clickAddRuleInsideModal();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Rule' button inside the modal successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Rule' button inside the modal successfully");
 
-            basePage.pause(500);
             formsVisibilityExportControlPage.clickRemoveRule();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Remove rule' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Remove rule' button successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isRuleButtonDisplayed(), "Rule button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule' button is displayed successfully");
 
-            basePage.pause(500);
             formsVisibilityExportControlPage.clickAddGroup();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Group' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Group' button successfully");
 
-            basePage.pause(500);
             formsVisibilityExportControlPage.clickRemoveGroup();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Remove Group' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Remove Group' button successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isGroupButtonDisplayed(), "Group button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Group' button is displayed successfully");
 
-            basePage.pause(500);
             formsVisibilityExportControlPage.clickMigration();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Migration' button successfully");
 
-            basePage.pause(500);
             formsVisibilityExportControlPage.clickMigration();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Migration' button successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isMigrationButtonDisplayed(), "Migration button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Migration' button is displayed successfully");
 
-            basePage.pause(1000);
             formsVisibilityExportControlPage.clickCancel();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on the modal successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button on the modal successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isFormVisibilityExportControlHeaderDisplayed(), "'Form Visibility > Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Form Visibility > Export Control' header is displayed successfully");
 
-            basePage.pause(1000);
             formsVisibilityExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first 'Edit' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked first 'Edit' button successfully");
 
-            basePage.pause(800);
             formsVisibilityExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isFormVisibilityExportControlHeaderDisplayed(), "'Form Visibility > Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Form Visibility > Export Control' header is displayed successfully");
 
-            basePage.pause(1000);
             formsVisibilityExportControlPage.clickFirstEditButton();
-            ExtentReportListener.getExtentTest().pass("Clicked first 'Edit' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked first 'Edit' button successfully");
 
-            basePage.pause(800);
             formsVisibilityExportControlPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
+            Assert.assertTrue(formsVisibilityExportControlPage.isFormVisibilityExportControlHeaderDisplayed(), "'Form Visibility > Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Form Visibility > Export Control' header is displayed successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

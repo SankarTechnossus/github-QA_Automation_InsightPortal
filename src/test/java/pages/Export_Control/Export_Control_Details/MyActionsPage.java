@@ -47,8 +47,74 @@ public class MyActionsPage extends BasePage {
     By clearSelectionButton = By.xpath("//button[@type='button' and contains(.,'Clear Selections')]");
     // Search button
     By searchButton01 = By.xpath("//button[@type='submit' and normalize-space()='Search']");
+    By actionRequiredBreadcrumb = By.xpath("//span[contains(@class,'crumb') and contains(@class,'_font-bold') and normalize-space()='Action Required']");
+    By reviewerLabel = By.xpath("//label[normalize-space()='Reviewer']");
+    By recordNumberLabel = By.xpath("//label[normalize-space()='Record Number']");
+    By submitterLabel = By.xpath("//label[normalize-space()='Submitter']");
+    By piNameValue = By.xpath("//dt[normalize-space()='PI:']/following-sibling::dd[@title='Chandra, Mohan' and normalize-space()='Chandra, Mohan']");
 
     // ****************** Functions ******************************************************
+
+    public boolean isPINameDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(piNameValue)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isReviewerLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(reviewerLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRecordNumberLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(recordNumberLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean VerifyRecordIsDisplayed(String recordNum) {
+        By recordNumber = By.xpath("//dd[text()='" + recordNum + "']");
+
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(recordNumber)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSubmitterLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(submitterLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isActionRequiredBreadcrumbDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement breadcrumb = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(actionRequiredBreadcrumb)
+            );
+            return breadcrumb.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void selectSubmitter(String searchText, String optionToSelect) {
 

@@ -13,6 +13,15 @@ public class ActionNamePage extends BasePage {
         super(driver);
     }
 
+    // Variables
+    String editBtnForActionNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[normalize-space(text())='Edit']";
+    String saveBtnForActionNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//button[normalize-space(text())='Save']";
+    String nameInputInRowXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='name']//input";
+    String cancelBtnForActionNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[(normalize-space(.)='Cancel' or @aria-label='Undo item')]";
+    String editBtnAfterCancelXpath = "//tr[.//td[@data-column='name' and @data-value='%s']]" + "//td[@data-column='_actions']//button[normalize-space(.)='Edit']";
+    String saveBtnForActionNameXpathAction = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[(normalize-space(.)='Save' or @aria-label='Save item')]";
+    String editBtnAfterSaveXpath = "//tr[.//td[@data-column='name' and @data-value='%s']]" + "//td[@data-column='_actions']//button[normalize-space(.)='Edit']";
+
     // Locators
     By workflowManagementLink = By.xpath("//nav//a[(normalize-space(.)='Workflow Management' or .//span[normalize-space(.)='Workflow Management'])" + " and contains(@href,'/administration/workflow-management')]");
     By actionNameScope3 = By.xpath("//nav//a[normalize-space(.)='Action name' " + "and contains(@href,'/administration/workflow-management') " + "and contains(@href,'/scopeId/3/') " + "and contains(@href,'/action-names')]");
@@ -21,18 +30,43 @@ public class ActionNamePage extends BasePage {
     By historyTitleInput = By.xpath("//input[@id='historyTitle' and contains(@class,'default-input') and @type='text']");
     By cancelButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-unstyled') and normalize-space(text())='Cancel']");
     By addButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add']");
-    String editBtnForActionNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[normalize-space(text())='Edit']";
-    String saveBtnForActionNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//button[normalize-space(text())='Save']";
-    String nameInputInRowXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='name']//input";
-    String cancelBtnForActionNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[(normalize-space(.)='Cancel' or @aria-label='Undo item')]";
-    String editBtnAfterCancelXpath = "//tr[.//td[@data-column='name' and @data-value='%s']]" + "//td[@data-column='_actions']//button[normalize-space(.)='Edit']";
-    String saveBtnForActionNameXpathaction = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[(normalize-space(.)='Save' or @aria-label='Save item')]";
-    String editBtnAfterSaveXpath = "//tr[.//td[@data-column='name' and @data-value='%s']]" + "//td[@data-column='_actions']//button[normalize-space(.)='Edit']";
+    By actionNameHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Action Name')]");
+    By actionNameLabel = By.xpath("//label[@for='name']");
+    By historyTitleLabel = By.xpath("//label[@for='historyTitle']");
 
     // Action
+    public boolean isActionNameLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(actionNameLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isHistoryTitleLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(historyTitleLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isActionNameHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(actionNameHeader));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickSaveForActionName(String actionName) {
-        By saveLocator = By.xpath(String.format(saveBtnForActionNameXpathaction, actionName, actionName));
+        By saveLocator = By.xpath(String.format(saveBtnForActionNameXpathAction, actionName, actionName));
         By editAfterSave = By.xpath(String.format(editBtnAfterSaveXpath, actionName));
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));

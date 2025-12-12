@@ -26,8 +26,51 @@ public class StepNamePage extends BasePage {
     String saveBtnForStepNameXpath = "//tr[.//td[@data-column='name' and (@data-value='%s' or .//input[@value='%s'])]]" + "//td[@data-column='_actions']//button[(normalize-space(text())='Save' or @aria-label='Save item')]";
     By exportControlHeaderBtn = By.xpath("//button[contains(@class,'label') and normalize-space(.)='Export Control']");
     By exportControlStepNameLink = By.xpath("//button[contains(@class,'label') and normalize-space(.)='Export Control']" + "/ancestor::div[contains(@class,'-level-1')][1]" + "/following-sibling::div[contains(@class,'toggleable-menu-children')][1]" + "//a[normalize-space(.)='Step name' and contains(@href,'/scopeId/3/step-names')]");
+    By workflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(),'Workflows')]");
+    By nameLabel = By.xpath("//label[@for='name' and normalize-space()='Name']");
+    By stepNameHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Step Name']");
+    By stepNameLabel = By.xpath("//label[@for='name' and contains(normalize-space(.),'Step name')]");
 
     //Actions
+    public boolean isStepNameLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(stepNameLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isStepNameHeaderDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(stepNameHeader));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isNameLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(nameLabel));
+            return label.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isWorkflowsPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(workflowsHeader));
+            return header.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickExportControlStepName() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -207,7 +250,6 @@ public class StepNamePage extends BasePage {
         pause(1000);
     }
 
-    // Action (scroll → wait → click → confirm; no logging here)
     public void clickWorkflowManagementStepName() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(workflowManagementLinkStepName));

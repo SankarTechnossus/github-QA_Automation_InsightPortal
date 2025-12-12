@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.WaitUtility;
 
 import java.time.Duration;
-import java.util.Random;
 
 public class BasePage {
     protected WebDriver driver;
@@ -20,58 +19,19 @@ public class BasePage {
         this.driver = driver;
     }
 
-    // Reusable explicit wait method 10 sec
     public WebElement waitForElement(By locator) {
         return new WebDriverWait(driver, Duration.ofSeconds(60))
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    public void waitForAdministrationPage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.urlContains("/administration"));
-        pause(1000);
-    }
-
-    public void waitForDashboardToLoad() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-
-        // Wait until left navigation menu appears
-        By leftMenu = By.xpath("//nav[contains(@class,'side-nav')] | //div[contains(@class,'menu-item')]");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(leftMenu));
-
-        // Wait until top bar (THIS IS A TEST ENVIRONMENT) is visible
-        By header = By.xpath("//*[contains(text(),'THIS IS A TEST ENVIRONMENT')]");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(header));
-
-        pause(1000); // small buffer
-    }
-
-    // Reusable explicit wait method 30 sec
     public WebElement waitForElement50(By locator) {
         return new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    // Reusable explicit wait for present
     public void waitForPresence(By locator) {
         new WebDriverWait(driver, Duration.ofSeconds(120))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
-
-    // Waits until element is visible and clickable, then returns it
-    public WebElement waitForVisibleAndClickable(By locator, int timeoutSeconds) {
-        WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-        return customWait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    // Scrolls into view, waits for clickability, and returns the WebElement
-    public WebElement scrollAndWaitForClickable(By locator, int timeoutInSeconds) {
-        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-                .until(ExpectedConditions.elementToBeClickable(element));
-        return element;
     }
 
     public void scrollAndJsClick(By locator, int timeoutInSeconds) {
@@ -87,12 +47,6 @@ public class BasePage {
         WebElement scrollableDiv = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollableDiv);
-    }
-
-    public void clickElement(By locator, int timeoutInSeconds) {
-        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-                .until(ExpectedConditions.elementToBeClickable(locator));
-        element.click();
     }
 
     public void pause(long milliseconds) {
@@ -135,7 +89,6 @@ public class BasePage {
                 .perform();
     }
 
-    // Optional: Add more reusable methods
     public void click(By locator) {
         waitForElement(locator).click();
     }
@@ -149,49 +102,5 @@ public class BasePage {
     public void waitAdobeFormToBeVisible(){
         String xpath = "//span[normalize-space(.)='Add form fields for']";
         WaitUtility.waitForVisibility(driver,By.xpath(xpath),60,"Adobe Form");
-    }
-
-    public WebElement getVisibleElement(By locator, int timeout) {
-        return new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public void switchToFrame(WebElement frameElement, int timeout) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameElement));
-    }
-
-    public void waitForStaleness(WebElement element, int timeout) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.stalenessOf(element));
-    }
-
-    public void waitForVisible(By locator, int timeout) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public String GenerateRandomName(int length) {
-        // Default length is 6 if no length is provided
-        if (length <= 0) {
-            length = 6;
-        }
-
-        // Characters to choose from
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-        // Random object
-        Random random = new Random();
-
-        // StringBuilder to store the generated name
-        StringBuilder name = new StringBuilder(length);
-
-        // Generate random name
-        for (int i = 0; i < length; i++) {
-            // Randomly select a character from the 'chars' string
-            name.append(chars.charAt(random.nextInt(chars.length())));
-        }
-
-        return name.toString();
     }
 }

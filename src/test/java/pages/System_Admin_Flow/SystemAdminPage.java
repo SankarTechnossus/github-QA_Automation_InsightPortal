@@ -35,17 +35,99 @@ public class SystemAdminPage extends BasePage {
     By logoutLink = By.xpath("//a[span[normalize-space()='Logout']]");
     By recordNumberValue = By.xpath("//dt[normalize-space()='Record #:']/following-sibling::dd");
     By valueInput = By.xpath("//input[@aria-label='Value']");
+    By valueFieldInput = By.xpath("//label[normalize-space()='Record Number']/following-sibling::input[@aria-label='Value']");
+    By yourNameDiv = By.xpath("//div[contains(@class,'fr-element') and normalize-space()='Your Name']");
+    By genderDiv = By.xpath("//div[contains(@class,'fr-element') and normalize-space()='Gender']");
+    By personnelExclusionValue = By.xpath("//dd[contains(@class,'_dark-text') and normalize-space()='Personnel Exclusion']");
+    By commentsLabel = By.xpath("//span[contains(@class,'_font-size-base') and normalize-space()='Comments']");
 
     By checklistFormToggleButton = By.xpath("//div[contains(@class,'toggleable-title')]//button" + "[contains(@class,'content-toggler-button')]" + "[.//span[normalize-space()='Checklist form']]");
     By downloadButton = By.xpath("//button[contains(@class,'button') and .//span[normalize-space()='Download']]");
     By optionOneRadio = By.xpath("//input[@name='RadioButtonList1' and @value='Option1']");
-
+    By statusUnderReviewValue = By.xpath("//dt[normalize-space()='Status:']/following-sibling::dd[@title='Under Review' and normalize-space()='Under Review']");
+    By notesSectionTitle = By.xpath("//span[contains(@class,'toggleable-section-title') and normalize-space()='Notes']");
+    By commentButton = By.xpath("//button[contains(@class,'comment-btn') and normalize-space()='Comment']");
 
     //method
+    public boolean isCommentButtonDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(commentButton));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isCommentsLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(commentsLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPersonnelExclusionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(personnelExclusionValue));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isGenderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(genderDiv));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isYourNameDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(yourNameDiv));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isNotesSectionTitleDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(notesSectionTitle)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isStatusUnderReviewDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(statusUnderReviewValue)
+            ).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     // Record Number link in results grid – dynamic by record number text
     public By recordNumberLink(String recordNumber) {
         return By.xpath("//table[contains(@class,'item-grid')]//tbody//tr" + "//td[@data-column='_exportControlNumber']" + "//a[span[normalize-space()='" + recordNumber + "']]");
+    }
+
+    public By recordNumberLink01(String recordNumber) {
+        return By.xpath("//td[@data-column='_exportControlNumber']//a[span[normalize-space()='" + recordNumber + "']]");
     }
 
     public void selectOptionOne() {
@@ -90,27 +172,42 @@ public class SystemAdminPage extends BasePage {
     }
 
     public void clickRecordNumber(String recordNumber) {
+
+        By locator = recordNumberLink(recordNumber);
+
         WebElement link = wait.until(
-                ExpectedConditions.elementToBeClickable(recordNumberLink(recordNumber))
+                ExpectedConditions.visibilityOfElementLocated(locator)
         );
 
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
 
-        link.click();
+        // Wait for clickability AFTER scroll
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+        try {
+            link.click();
+        } catch (Exception e) {
+            // Fallback – JS click for React grids
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].click();", link);
+        }
+
         pause(1000);
     }
 
     public void enterValueField(String value) {
-        WebElement input = wait.until(
-                ExpectedConditions.elementToBeClickable(valueInput)
-        );
+        WebElement input = driver.findElement(valueFieldInput);
+
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-        input.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(valueFieldInput));
+
         input.clear();
         input.sendKeys(value);
-        pause(1000);
+
+        pause(800);   // follow your standard pause pattern
     }
 
     public String getRecordNumber() {

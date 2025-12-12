@@ -20,6 +20,12 @@ public class DeliverablesPage extends BasePage {
 
     // ******** Locators *********
 
+    // DeliverablePage.java
+
+    // Button: Delete Selected
+    private By deleteSelectedBtn = By.xpath("//button[normalize-space(.)='Delete Selected']");
+
+
     // Category accordion (scope by title text)
     private By categoryBar(String category) {
         return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]");
@@ -27,7 +33,6 @@ public class DeliverablesPage extends BasePage {
     private By categoryToggleBtn(String category) {
         return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]//button[contains(@class,'content-toggler-button')]");
     }
-
 
     // Locators
     private By signatureModalTitle = By.xpath("//h1[@id='modal-title-view58' and normalize-space()='Signature Preview']");
@@ -118,9 +123,6 @@ public class DeliverablesPage extends BasePage {
 
     private By firstCheckbox = By.xpath("(//table[@class='item-grid -sticky']//input[@type='checkbox'])[2]");
 
-    private By deleteSelectedBtn = By.xpath("//button[normalize-space(.)='Delete Selected' and contains(@class,'-small')]");
-
-
     private By downloadSelectedBtn = By.xpath("//button[normalize-space(.)='Download Selected']");
 
     // Anchored to the Deliverable Name column (col_196); matches the exact visible text inside the <span>
@@ -140,8 +142,6 @@ public class DeliverablesPage extends BasePage {
                         " | //div[contains(@class,'_option_') and normalize-space()='" + text + "'])[1]"
         );
     }
-
-
 
     // First recipient row's delete button (next to the Email input)
     private By firstRecipientDeleteBtn =
@@ -198,11 +198,39 @@ public class DeliverablesPage extends BasePage {
 //    );
 
 
-
-
-
-
     // ******** Actions *********
+    public void confirmDeleteOK() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Wait for JS alert to appear
+        wait.until(ExpectedConditions.alertIsPresent());
+
+        Alert alert = driver.switchTo().alert();
+
+        // Optional capture of alert text if needed
+        String alertMsg = alert.getText();
+        System.out.println("Alert Message: " + alertMsg);
+
+        alert.accept(); // Click OK
+        pause(800);
+    }
+
+    public void clickDeleteSelected01() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(deleteSelectedBtn));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+
+        try {
+            btn.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
+        }
+
+        pause(600); // small stability wait inside page
+    }
+
 
 
     public void scrollUpInPreviewModal() {

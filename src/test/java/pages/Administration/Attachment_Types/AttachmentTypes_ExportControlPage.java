@@ -15,6 +15,7 @@ import utils.UniqueNameGenerator;
 public class AttachmentTypes_ExportControlPage extends BasePage {
 
     private WebDriverWait wait;
+    UniqueNameGenerator uniqueNameGenerator = new UniqueNameGenerator();
 
     // Constructor
     public AttachmentTypes_ExportControlPage(WebDriver driver) {
@@ -36,6 +37,11 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     By cancelButton01 = By.xpath("//button[normalize-space()='Cancel']");
     By attachmentTypesToggle = By.xpath("//span[normalize-space()='Attachment Types']" + "/ancestor::div[contains(@class,'menu-item-holder')]" +"//button[contains(@class,'toggle-menu-icon-button')]");
     By attachmentTypesExportControl = By.xpath("//div[contains(@class,'toggleable-menu-children') and contains(@class,'-opened')]" + "//span[normalize-space()='Export Control']/parent::a");
+    By attachmentTypeTitle = By.xpath("//strong[contains(text(),'Attachment Type')]");
+    By addAttachmentTypeHeader = By.xpath("//header[contains(text(),'Add Attachment Type')]");
+    By typeNameLabel = By.xpath("//span[normalize-space()='Type Name']");
+    By activeLabel = By.xpath("//span[normalize-space()='Active']");
+
 
     // ********************* Sahil Locators *****************************************
 
@@ -47,6 +53,46 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     By buttonAdd = By.xpath("//button[text()='Add']");
 
     // Functions
+    public boolean isActiveLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(activeLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isTypeNameLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(typeNameLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAddAttachmentTypeHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addAttachmentTypeHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAttachmentTypeSectionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(attachmentTypeTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void NavigateToAttachmentTypesExportControlPage() {
 
         //Click on Attachment Types navigation link
@@ -93,7 +139,6 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
 
         return result;
     }
-
 
     // ***************************** Sankar Functions **********************************
 
@@ -155,7 +200,7 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     }
 
     public void enterRandomTypeName(int length) {
-        String randomName = GenerateRandomName(length);
+        String randomName = uniqueNameGenerator.GenerateRandomName(6);
 
         WebElement input = wait.until(
                 ExpectedConditions.elementToBeClickable(typeNameInput)

@@ -18,6 +18,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 import utils.WaitUtility;
 
 import java.time.Duration;
@@ -35,6 +36,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
     PeopleManagement_ExportControlPage peopleManagementExportControlPage;
     CreateExportControlPage createExportControlPage;
     WaitUtility waitUtility;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -59,6 +61,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
         peopleManagementExportControlPage = new PeopleManagement_ExportControlPage(driver);
         createExportControlPage = new CreateExportControlPage(driver);
         waitUtility = new WaitUtility(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
@@ -96,7 +99,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under People Management.");
 
             // Add a new People Type and verify in the People Management list
-            String peopleTypeName = basePage.GenerateRandomName(6);
+            String peopleTypeName = uniqueNameGenerator.GenerateRandomName(6);
             Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList(peopleTypeName));
             String role = peopleManagementExportControlPage.GetRoleName();
             ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : " + role);
@@ -167,8 +170,8 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
 
             for(int i=1; i<=3; i++)
             {
-                String firstName = basePage.GenerateRandomName(6);
-                String lastName = basePage.GenerateRandomName(6);
+                String firstName = uniqueNameGenerator.GenerateRandomName(6);
+                String lastName = uniqueNameGenerator.GenerateRandomName(6);
                 String fullName = lastName + ", " + firstName;
 
                 // Navigate to Add New External People Section

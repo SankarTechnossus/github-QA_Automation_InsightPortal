@@ -38,8 +38,51 @@ public class MenuFlow extends BasePage {
     By reviewFromInput = By.xpath("//label[normalize-space()='Review date']" + "/following::*[normalize-space()='From:'][1]/following::input[@type='text'][1]");
     By reviewToInput = By.xpath("//label[normalize-space()='Review date']" + "/following::*[normalize-space()='To:'][1]/following::input[@type='text'][1]");
     By recordNumberSearchGridLink = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a");
+    By searchBreadcrumb = By.xpath("//div[contains(@class,'simple-bread-crumbs')]//span[contains(@class,'crumb') and contains(@class,'_font-bold') and normalize-space()='Search']");
+    By reviewerLabel = By.xpath("//label[normalize-space()='Reviewer']");
+    By recordNumberLabel = By.xpath("//label[normalize-space()='Record Number']");
+    By submitterLabel = By.xpath("//label[normalize-space()='Submitter']");
 
     // ************************************** Functions ********************************************************************
+
+    public boolean isReviewerLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(reviewerLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRecordNumberLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(recordNumberLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSubmitterLabelDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(submitterLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSearchBreadcrumbDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement breadcrumb = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(searchBreadcrumb)
+            );
+            return breadcrumb.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public By controlRoot(String label) {
         return By.xpath("//label[normalize-space()='" + label + "']/following::div[contains(@class,'select-control')][1]");
@@ -225,6 +268,8 @@ public class MenuFlow extends BasePage {
 
     public void clickExportControlLink() {
         dismissAnyOpenReactSelectMenus(); // <— add this
+
+        waitForPresence(exportControlLink);
         WebElement link = driver.findElement(exportControlLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(link));

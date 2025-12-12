@@ -80,6 +80,7 @@ public class AmendExportControlPage extends BasePage {
 
     public void clickSubmit() {
 
+        waitForPresence(submitButton);
         WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(submitButton));
 
         ((JavascriptExecutor) driver).executeScript(
@@ -93,6 +94,7 @@ public class AmendExportControlPage extends BasePage {
 
     public void clickSave() {
 
+        waitForPresence(saveButton);
         WebElement save = wait.until(ExpectedConditions.elementToBeClickable(saveButton));
 
         ((JavascriptExecutor) driver).executeScript(

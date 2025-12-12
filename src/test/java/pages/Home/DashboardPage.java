@@ -67,6 +67,7 @@ public class DashboardPage extends BasePage
     }
 
     public void clickExportControlLink() {
+        waitForPresence(linkExportControl);
         WebElement link = driver.findElement(linkExportControl);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(link));

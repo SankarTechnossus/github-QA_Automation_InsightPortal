@@ -31,6 +31,7 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     RulesPage rulesPage;
+    AgreementPage agreementPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -53,11 +54,12 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         rulesPage = new RulesPage(driver);
+        agreementPage = new AgreementPage(driver);
+
     }
 
     @Test
     public void ExportControl_WorkflowManagement_Rules_Test () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -65,7 +67,6 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
 
             String rulesQueryBuilderSection = JsonDataReader.get(1, "RulesQueryBuilderSection");   // "Query Builder"
             String rulesQueryBuilderOperator = JsonDataReader.get(1, "RulesQueryBuilderOperator"); // "AND"
-
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -81,91 +82,95 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(5000);
             rulesPage.clickWorkflowManagementLinkRules();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow Management' menu link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
 
-            basePage.pause(5000);
             rulesPage.clickRulesLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Rules' link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Rules' link successfully");
+            Assert.assertTrue(rulesPage.isRulesHeaderDisplayed(), "Rules header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Rules page header is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickAddRuleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add rule' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             String generatedName = rulesPage.enterUniqueNameWithTestPrefix();
-            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedName + "' into Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name: '" + generatedName + "' into Name input field successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.selectQueryBuilderOperator(rulesQueryBuilderSection, rulesQueryBuilderOperator);
-            ExtentReportListener.getExtentTest().pass("Selected '" + rulesQueryBuilderOperator + "' from " + rulesQueryBuilderSection + " dropdown successfully");
+            ExtentReportListener.getExtentTest().info("Selected '" + rulesQueryBuilderOperator + "' from " + rulesQueryBuilderSection + " dropdown successfully");
+            Assert.assertTrue(rulesPage.isQueryBuilderSectionDisplayed(), "Query Builder section is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Query Builder' section is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickAddRuleButtonRule();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Rule' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Rule' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickRemoveRuleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Remove rule' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Remove rule' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickAddGroupButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Group' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add Group' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickRemoveGroupButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Remove group' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Remove group' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickMigrationButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Migration' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickMigrationButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Migration' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Migration' button successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(rulesPage.isRulesHeaderDisplayed(), "Rules header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Rules page header is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickAddRuleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add rule' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add rule' button successfully");
 
-            basePage.pause(5000);
             String generatedNameLast = rulesPage.enterUniqueNameWithTestPrefix();
-            ExtentReportListener.getExtentTest().pass("Entered unique name: '" + generatedNameLast + "' into Name input field successfully");
+            ExtentReportListener.getExtentTest().info("Entered unique name: '" + generatedNameLast + "' into Name input field successfully");
 
-            basePage.pause(5000);
             rulesPage.selectQueryBuilderOperator(rulesQueryBuilderSection, rulesQueryBuilderOperator);
-            ExtentReportListener.getExtentTest().pass("Selected '" + rulesQueryBuilderOperator + "' from " + rulesQueryBuilderSection + " dropdown successfully");
+            ExtentReportListener.getExtentTest().info("Selected '" + rulesQueryBuilderOperator + "' from " + rulesQueryBuilderSection + " dropdown successfully");
 
-            basePage.pause(5000);
             rulesPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
-            basePage.pause(5000);
             rulesPage.clickEditButtonForRule(generatedNameLast);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNameLast + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' button for rule: '" + generatedNameLast + "' successfully");
+            Assert.assertTrue(rulesPage.isRuleNameLabelDisplayed(), "Rule name label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Rule name' label with mandatory asterisk is displayed successfully");
 
-            basePage.pause(2000);
             rulesPage.clickWorkflowsCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on Workflows popup successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button on Workflows popup successfully");
+            Assert.assertTrue(rulesPage.isRulesHeaderDisplayed(), "Rules header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Rules page header is displayed successfully");
 
-            basePage.pause(5000);
             rulesPage.clickEditButtonForRule(generatedNameLast);
-            ExtentReportListener.getExtentTest().pass("Clicked 'Edit' button for rule: '" + generatedNameLast + "' successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Edit' button for rule: '" + generatedNameLast + "' successfully");
 
-            basePage.pause(5000);
             rulesPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

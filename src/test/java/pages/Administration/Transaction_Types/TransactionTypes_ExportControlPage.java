@@ -1,11 +1,8 @@
 package pages.Administration.Transaction_Types;
 
 import listeners.ExtentReportListener;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import base.BasePage;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,8 +23,30 @@ public class TransactionTypes_ExportControlPage extends BasePage {
     By activeCheckbox = By.id("isActive");
     By transactionTypesLink = By.xpath("//a[@href='/administration/transaction-types']//span[normalize-space()='Transaction Types']");
     By cancelLink = By.xpath("//a[contains(@href,'/administration/transaction-types') and contains(text(),'Cancel')]");
+    By transactionTypesHeader = By.xpath("//strong[normalize-space()='Transaction Types']");
+    By transactionTypeBreadcrumb = By.xpath("//span[contains(@class,'crumb') and contains(@class,'_font-bold') and normalize-space()='Transaction Type']");
 
     //Actions
+    public boolean isTransactionTypeCreatePageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(transactionTypeBreadcrumb));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isTransactionTypesPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(transactionTypesHeader));
+            return true;
+        } catch (
+                TimeoutException e) {
+            return false;
+        }
+    }
 
     public void clickCancel() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

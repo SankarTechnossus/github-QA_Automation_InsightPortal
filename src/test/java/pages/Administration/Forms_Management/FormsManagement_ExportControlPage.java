@@ -1,10 +1,7 @@
 package pages.Administration.Forms_Management;
 
 import base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,6 +47,9 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By saveButtonsmall = By.xpath("//button[@class='button -primary -small' and normalize-space()='Save']");
     By addNewButton = By.xpath("//button[@class='button -primary -small' and normalize-space()='Add new']");
     By cancelButtonaddnewcancel = By.xpath("//button[@class='button -small -unstyled' and normalize-space()='Cancel']");
+    By saveButtonassert = By.xpath("//button[contains(@class,'-submission') and normalize-space()='Save']");
+    By previewBreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Preview']");
+
 
     // ********************************* Sahil Locators *******************************************************************
 
@@ -71,7 +71,28 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By inputInstructions = By.xpath("//div[@class='fr-wrapper show-placeholder']/div");
     By buttonSave = By.xpath("//button[text()='Save']");
 
+
     // *********** Sankar Actions ************************************************
+
+    public boolean isPreviewPageDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(previewBreadcrumbHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isSaveButtonDisplayed() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(saveButtonassert));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 
     public void clickCancelButtonaddnewcancel() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -380,6 +401,8 @@ public class FormsManagement_ExportControlPage extends BasePage {
     }
 
     public void clickRadioButtonGroupOption() {
+        waitForPresence(radioButtonGroupCard);
+
         WebElement radioOption = driver.findElement(radioButtonGroupCard);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", radioOption);
         pause(1000);  // Let the scroll complete
@@ -388,6 +411,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
     }
 
     public void clickAddRootLevelQuestionButton() {
+        waitForPresence(addRootLevelQuestionButton);
         WebElement button = driver.findElement(addRootLevelQuestionButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);  // Optional: make visible
         pause(1000);  // Wait after scroll

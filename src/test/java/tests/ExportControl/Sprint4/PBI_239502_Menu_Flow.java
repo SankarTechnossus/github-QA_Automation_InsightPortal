@@ -61,7 +61,6 @@ public class PBI_239502_Menu_Flow {
 
     @Test
     public void Export_Control_Menu_Flow() {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -76,7 +75,6 @@ public class PBI_239502_Menu_Flow {
             String reviewDateTo = JsonDataReader.get(1, "MyActionsReviewDateTo");
             String recordNumber = JsonDataReader.get(1, "MyActionsRecordNumber");
 
-
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -90,72 +88,54 @@ public class PBI_239502_Menu_Flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            AgreementPage agreementPage = new AgreementPage(driver);
-
-            basePage.pause(10000);
-            agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
-
-            basePage.pause(2000);
             menuFlow.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(2000);
             menuFlow.clickSearchLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Search' link successfully from Export Control sidebar");
+            ExtentReportListener.getExtentTest().info("Clicked 'Search' link successfully from Export Control sidebar");
+            Assert.assertTrue(menuFlow.isSearchBreadcrumbDisplayed(), "'Export Control > Search' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control > Search' breadcrumb is displayed successfully");
 
-//            basePage.pause(2000);
-//            myActionsPage.enterCreatedOnFrom(createdOnFrom);
-//            ExtentReportListener.getExtentTest().pass("Entered Created On From date: " + createdOnFrom);
-//
-//            myActionsPage.enterCreatedOnTo(createdOnTo);
-//            ExtentReportListener.getExtentTest().pass("Entered Created On To date: " + createdOnTo);
-//
-//            myActionsPage.enterReviewDateFrom(reviewDateFrom);
-//            ExtentReportListener.getExtentTest().pass("Entered Review Date From date: " + reviewDateFrom);
-//
-//            myActionsPage.enterReviewDateTo(reviewDateTo);
-//            ExtentReportListener.getExtentTest().pass("Entered Review Date To date: " + reviewDateTo);
-
-            basePage.pause(1000);
             myActionsPage.selectReviewer(reviewerCode, reviewerDisplay);
-            ExtentReportListener.getExtentTest().pass("Selected Reviewer '" + reviewerDisplay + "' successfully");
+            ExtentReportListener.getExtentTest().info("Selected Reviewer '" + reviewerDisplay + "' successfully");
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
 
             // Record number
-            basePage.pause(1000);
             myActionsPage.enterRecordNumber(recordNumber);
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
+            ExtentReportListener.getExtentTest().info("Entered Record Number: " + recordNumber);
+            Assert.assertTrue(myActionsPage.isRecordNumberLabelDisplayed(), "Record Number label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Record Number' label is displayed");
 
-            basePage.pause(1000);
             myActionsPage.clickSubmitterFilter();
-            ExtentReportListener.getExtentTest().pass("Clicked Submitter filter successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Submitter filter successfully");
 
-            basePage.pause(500);
             myActionsPage.selectSubmitter(submitterCode, submitterDisplay);
-            ExtentReportListener.getExtentTest().pass("Selected Submitter '" + submitterDisplay + "' successfully");
+            ExtentReportListener.getExtentTest().info("Selected Submitter '" + submitterDisplay + "' successfully");
+            Assert.assertTrue(myActionsPage.isSubmitterLabelDisplayed(), "Submitter label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Submitter' label is displayed");
 
-            basePage.pause(1000);
             myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Search button successfully");
+            Assert.assertTrue(menuFlow.isSearchBreadcrumbDisplayed(), "'Export Control > Search' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control > Search' breadcrumb is displayed successfully");
 
-            basePage.pause(1000);
             myActionsPage.clickClearSelections();
-            ExtentReportListener.getExtentTest().pass("Clicked Clear Selections successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Clear Selections successfully");
+            Assert.assertTrue(menuFlow.isSearchBreadcrumbDisplayed(), "'Export Control > Search' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control > Search' breadcrumb is displayed successfully");
 
             // Record number search again
-            basePage.pause(2000);
             myActionsPage.enterRecordNumber(recordNumber);
-            ExtentReportListener.getExtentTest().pass("Entered Record Number: " + recordNumber);
+            ExtentReportListener.getExtentTest().info("Entered Record Number: " + recordNumber);
+            Assert.assertTrue(myActionsPage.isRecordNumberLabelDisplayed(), "Record Number label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Record Number' label is displayed");
 
-            basePage.pause(2000);
-            // 6. Search
             myActionsPage.clickSearchButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Search on Action Required");
+            ExtentReportListener.getExtentTest().info("Clicked Search on Action Required");
 
-            basePage.pause(2000);
             menuFlow.clickRecordNumberFromSearchGrid();
-            ExtentReportListener.getExtentTest().pass("Clicked Record Number link 2025E006129 from Search grid");
+            ExtentReportListener.getExtentTest().info("Clicked Record Number link 2025E006129 from Search grid");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test
@@ -165,7 +145,7 @@ public class PBI_239502_Menu_Flow {
 
     @AfterMethod
     public void tearDown() {
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

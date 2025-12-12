@@ -36,8 +36,84 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
     By notificationsMenuLink = By.xpath("//a[contains(@class,'label') and @href='/export-control/notifications']//span[normalize-space()='Notifications']");
     By firstPlusButton = By.xpath("(//button[contains(@class,'plus-button')])[1]");
     By collapseButton = By.xpath("(//button[@aria-label='Collapse details'])[1]");
+    By communicationManagementCrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Communication Management']");
+    By addNewTemplateTitle = By.xpath("//strong[contains(text(),'Add New Template')]");
+    By noticeGroupLabel = By.xpath("//label[@for='group' and contains(normalize-space(),'Notice Group')]");
+    By layoutLabel = By.xpath("//label[@for='layoutId' and contains(normalize-space(),'Layout')]");
+    By reminderFrequencyLabel = By.xpath("//label[@for='reminderSettings.intervalDays' and contains(normalize-space(),'Reminder Frequency')]");
+    By notificationTypeLabel = By.xpath("//label[@for='id' and normalize-space()='Notification Type']");
+    By notificationsScreenTitle = By.xpath("//span[contains(@class,'screen-title') and normalize-space()='Notifications']");
 
     //Action
+    public boolean isNotificationsScreenTitleDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(notificationsScreenTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isNotificationTypeLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(notificationTypeLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isReminderFrequencyLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(reminderFrequencyLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isLayoutLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(layoutLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isNoticeGroupLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noticeGroupLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAddNewTemplateTitleDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addNewTemplateTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isCommunicationManagementCrumbDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(communicationManagementCrumb));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickCollapseButton() {
 

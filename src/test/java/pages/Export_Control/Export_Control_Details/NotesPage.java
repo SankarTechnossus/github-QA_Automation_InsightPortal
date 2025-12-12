@@ -23,8 +23,18 @@ public class NotesPage extends BasePage {
     By notesAddButton = By.xpath("//div[contains(@class,'toggleable-section')]" + "[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]" + "//div[contains(@class,'note-form-buttons')]//button[normalize-space()='Add']");
     By addNoteButton = By.xpath("//button[contains(@class,'button') and .//div[@aria-label='Add'] and normalize-space()='Add Note']");
     By notesToggleHeader = By.xpath("//header[.//span[@class='toggleable-section-title' and normalize-space()='Notes']]");
+    By notesSectionTitle = By.xpath("//span[contains(@class,'toggleable-section-title') and normalize-space()='Notes']");
 
     //Actions
+    public boolean isNotesSectionDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(notesSectionTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void clickNotesSection01() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -110,5 +120,4 @@ public class NotesPage extends BasePage {
 
         pause(1500);   // small pause as per your pattern
     }
-
 }

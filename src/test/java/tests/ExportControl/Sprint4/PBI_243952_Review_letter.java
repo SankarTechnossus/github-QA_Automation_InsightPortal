@@ -22,6 +22,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
@@ -40,6 +41,7 @@ public class PBI_243952_Review_letter {
     CreateExportControlPage createExportControlPage;
     DisplayChecklistFlowPage displayChecklistFlowPage;
     InitialReviewWorkflowPage initialReviewWorkflowPage;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -67,11 +69,11 @@ public class PBI_243952_Review_letter {
         displayChecklistFlowPage = new DisplayChecklistFlowPage(driver);
         initialReviewWorkflowPage = new InitialReviewWorkflowPage(driver);
         agreementPage = new AgreementPage(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
     public void Export_control_Review_letter () {
-        ExtentReportListener.getExtentTest().info("your log message");
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -97,151 +99,112 @@ public class PBI_243952_Review_letter {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            // Agreement Page Actions
-            basePage.pause(10000);
             agreementPage.clickAdministrationLink();
-            ExtentReportListener.getExtentTest().pass("Clicked Administration link");
+            Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
+            ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            basePage.pause(3000);
             addChecklistFlowPage.openExportControlWorkflows();
-            ExtentReportListener.getExtentTest().pass("Navigated to Workflow Management → Export Control → Workflows successfully");
+            ExtentReportListener.getExtentTest().info("Navigated to Workflow Management → Export Control → Workflows successfully");
+            Assert.assertTrue(addChecklistFlowPage.isWorkflowsHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Workflows' header displayed");
 
-            basePage.pause(3000);
             addChecklistFlowPage.clickPersonnelWorkflow();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Personnel' workflow successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Personnel' workflow successfully");
+            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
 
-            basePage.pause(2000);
             addChecklistFlowPage.clickAddNewWorkflowVersion();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add new' button successfully on Versions page");
+            ExtentReportListener.getExtentTest().info("Clicked 'Add new' button successfully on Versions page");
+            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
 
             // Step X: Enter description for Version 90
-            String versionDescription = "Test01_" + basePage.GenerateRandomName(6);
+            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
 
-            basePage.pause(1000);
             addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);
-            ExtentReportListener.getExtentTest().pass("Entered description for Version 90 as: " + versionDescription);
+            ExtentReportListener.getExtentTest().info("Entered description for Version 90 as: " + versionDescription);
+            Assert.assertTrue(addChecklistFlowPage.isVersionsHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Versions' header displayed");
 
-            basePage.pause(1000);
             addChecklistFlowPage.clickSaveVersion();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully for Version 90");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully for Version 90");
+            Assert.assertTrue(addChecklistFlowPage.isVersionsHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Versions' header displayed");
 
-            basePage.pause(2000);
             addChecklistFlowPage.clickLatestVersionLink();
-            ExtentReportListener.getExtentTest().pass("Clicked latest Version link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked latest Version link successfully");
+            Assert.assertTrue(addChecklistFlowPage.isSaveButtonDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Save' button displayed");
 
-            basePage.pause(2000);
             responseToReviewPage.clickChiefApprover();
-            ExtentReportListener.getExtentTest().pass("Clicked on Chief Approver node successfully");
+            ExtentReportListener.getExtentTest().info("Clicked on Chief Approver node successfully");
+            Assert.assertTrue(addChecklistFlowPage.isChiefApproverHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Chief Approver' section displayed");
 
-            basePage.pause(2000);
             responseToReviewPage.clickActivitiesTab();
-            ExtentReportListener.getExtentTest().pass("Clicked Activities tab successfully");
-            ExtentReportListener.getExtentTest().pass("Generate Document is successfully Added in Activities Tab");
+            ExtentReportListener.getExtentTest().info("Clicked Activities tab successfully");
+            ExtentReportListener.getExtentTest().info("Generate Document is successfully Added in Activities Tab");
+            Assert.assertTrue(addChecklistFlowPage.isChiefApproverHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Chief Approver' section displayed");
 
-            basePage.pause(2000);
             addChecklistFlowPage.clickUpdateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Update' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Update' button successfully");
+            Assert.assertTrue(addChecklistFlowPage.isSaveButtonDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Save' button displayed");
 
-            basePage.pause(2000);
             addChecklistFlowPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully");
 
-            basePage.pause(3000);
             dashboardPage.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
-            basePage.pause(3000);
             createExportControlPage.clickCreateExportControl();
-            ExtentReportListener.getExtentTest().pass("Clicked Actions → Create Export Control from left navigation successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Actions → Create Export Control from left navigation successfully");
+            Assert.assertTrue(createExportControlPage.isCreateExportControlHeaderDisplayed(), "'Create Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Export Control' header is displayed successfully");
 
-            basePage.pause(2000);
             displayChecklistFlowPage.selectPersonnelExclusion();
-            ExtentReportListener.getExtentTest().pass("Selected Personnel Exclusion radio button successfully");
+            ExtentReportListener.getExtentTest().info("Selected Personnel Exclusion radio button successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isPersonnelExclusionRadioDisplayed(), "'Personnel Exclusion' radio button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' radio button is displayed");
 
-            // PI name – completely from JSON
-            basePage.pause(2000);
+            // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
             createExportControlPage.selectPiName(piSearchText, piFullName);
-            ExtentReportListener.getExtentTest().pass("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            ExtentReportListener.getExtentTest().info("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
 
-
-            // Step 3: Click Create button
-            basePage.pause(2000);
             createExportControlPage.clickCreateButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Create' button on Create Export Control sidebar successfully");
-
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
-
-//            basePage.pause(2000);
-//            displayChecklistFlowPage.clickNewTest07();
-//            ExtentReportListener.getExtentTest().pass("Clicked 'New Test 07' link successfully");
-
-//            // Phone number from JSON
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(initialPhoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered phone number '" + initialPhoneNumber + "' successfully");
-
-            // Step 2: Click Next
-            basePage.pause(2000);
-            createExportControlPage.clickNextButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Next >' button on dynamic form successfully");
-
-            // Step 1: Click Save
-            basePage.pause(2000);
-            displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
             // Step 2: Click Submit
-            basePage.pause(2000);
             displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
 
-            basePage.pause(5000);
             initialReviewWorkflowPage.enterName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
+            ExtentReportListener.getExtentTest().info("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isEnterNameDisabledDisplayed(), "'Enter Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Enter Name' disabled field is displayed successfully");
 
-            basePage.pause(2000);
             initialReviewWorkflowPage.selectGenderMale();
-            ExtentReportListener.getExtentTest().pass("Selected gender as 'Male' successfully");
-//
-//            // Name from JSON
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterName(initialName);
-//            ExtentReportListener.getExtentTest().pass("Entered Name as '" + initialName + "' successfully");
-//
-//            // Phone again from JSON
-//            basePage.pause(1000);
-//            displayChecklistFlowPage.enterPhoneNumber(initialPhoneNumber);
-//            ExtentReportListener.getExtentTest().pass("Entered Phone Number as '" + initialPhoneNumber + "' successfully");
+            ExtentReportListener.getExtentTest().info("Selected gender as 'Male' successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isSelectGenderDisabledDisplayed(), "'Select Gender' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select Gender' disabled field is displayed successfully");
 
             // Step 1: Click Save
-            basePage.pause(2000);
             displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            basePage.pause(2000);
+            // Step 2: Click Submit
             displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().pass("Clicked Submit button successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-
-            basePage.pause(14000);
-            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
-
-            basePage.pause(1000);
             initialReviewWorkflowPage.clickInitialReview();
-            ExtentReportListener.getExtentTest().pass("Clicked Initial Review (IR) successfully");
-
-//            basePage.pause(2000);
-//            initialReviewWorkflowPage.clickReviewLetterPDF();
-//            ExtentReportListener.getExtentTest().pass("Clicked Review Letter PDF icon successfully");
-
-//            basePage.pause(2000);
-//            initialReviewWorkflowPage.clickReviewerChecklistPDF();
-//            ExtentReportListener.getExtentTest().pass("Clicked Reviewer Checklist PDF icon successfully");
-//
-//            basePage.pause(1000);
-//            initialReviewWorkflowPage.clickExpandGroup();
-//            ExtentReportListener.getExtentTest().pass("Clicked Expand group arrow successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Initial Review (IR) successfully");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

@@ -5,11 +5,14 @@ import base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.UniqueNameGenerator;
 
 import java.time.Duration;
 
 public class InitialApplicationManagement_ExportControlPage extends BasePage {
-    private WebDriverWait wait;
+    UniqueNameGenerator uniqueNameGenerator = new UniqueNameGenerator();
+
+    private final WebDriverWait wait;
     public InitialApplicationManagement_ExportControlPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -29,8 +32,65 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
     By firstEditButton = By.xpath("(//table[contains(@class,'item-grid')]//tbody//button[normalize-space()='Edit'])[1]");
     By inlineCancelButton = By.xpath("(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Undo item'])[1]");
     By inlineSaveButton = By.xpath("(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Save item'])[1]");
+    By initialApplicationBreadcrumb = By.xpath("//span[@class='crumb' and normalize-space()='Initial Application Management']");
+    By exportControlBreadcrumb = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Export Control']");
+    By addInitialApplicationButton01 = By.xpath("//button[@type='button' and contains(@class,'-primary') and normalize-space()='Add Initial Application']");
+
+    By actionNameLabel = By.xpath("//label[@for='name' and contains(normalize-space(),'Action Name')]");
+    By entityTypeLabel = By.xpath("//label[@for='entityTypeId' and contains(normalize-space(),'Entity Type')]");
+
 
     //Actions
+    public boolean isEntityTypeLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(entityTypeLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isActionNameLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(actionNameLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAddInitialApplicationButtonDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addInitialApplicationButton01));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isExportControlBreadcrumbDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlBreadcrumb));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isInitialApplicationBreadcrumbDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(initialApplicationBreadcrumb));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void enterRandomActionName(String actionName) {
         WebElement input = wait.until(
                 ExpectedConditions.elementToBeClickable(actionNameInput)
@@ -109,7 +169,7 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
     public String enterRandomActionAndSelectEntity() {
 
         // Step 1: Generate random name using your BasePage method
-        String randomName = GenerateRandomName(6);
+        String randomName = uniqueNameGenerator.GenerateRandomName(6);
 
         // Step 2: Enter Action Name
         WebElement actionNameInput =
