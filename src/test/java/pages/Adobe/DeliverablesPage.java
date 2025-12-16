@@ -4,7 +4,6 @@ import base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.BrowserUtility;
 
@@ -17,188 +16,95 @@ public class DeliverablesPage extends BasePage {
     public DeliverablesPage(WebDriver driver) {super(driver);
     }
 
-
     // ******** Locators *********
 
-    // DeliverablePage.java
-
     // Button: Delete Selected
-    private By deleteSelectedBtn = By.xpath("//button[normalize-space(.)='Delete Selected']");
+    By deleteSelectedBtn = By.xpath("//button[normalize-space(.)='Delete Selected']");
+    By signatureModalTitle = By.xpath("//h1[@id='modal-title-view58' and normalize-space()='Signature Preview']");
+    By signReasonDropdown  = By.id("signReasonFormControlDropdown");
+    By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
+    By deliverableNameInput = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Name']/following::input[@type='text'][1]");
 
+    // Buttons
+    By cancelBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[normalize-space(.)='Cancel']");
+    By topSearchBtn = By.xpath("//button[normalize-space(.)='Add New Deliverable']/preceding::button[normalize-space(.)='Search'][1]");
+    By submitBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[@type='submit' and normalize-space(.)='Submit']");
+    By deliverablesSearchInput = By.cssSelector("input[placeholder^='Search by deliverables']");
+
+    // Top bar "Clear Selections" (left of "Add New Deliverable")
+    By clearSelectionsBtn = By.xpath("//button[normalize-space(.)='Clear Selections']");
+    By cloneBtn = By.xpath("//button[normalize-space(.)='Clone' and contains(@class,'-small')]");
+    By firstCheckbox = By.xpath("(//table[@class='item-grid -sticky']//input[@type='checkbox'])[2]");
+    By downloadSelectedBtn = By.xpath("//button[normalize-space(.)='Download Selected']");
+
+    // Reminders dropdown (open it by clicking the control/arrow next to the label)
+    By remindersControl = By.xpath("//label[@for='reminderFrequency']/following::div[contains(@class,'select-control')][1]");
+
+    // First recipient row's delete button (next to the Email input)
+    By firstRecipientDeleteBtn = By.xpath("//div[contains(@class,'email-row')][1]//button[@aria-label='Delete']");
+
+    // Use data-testid or id (stable across builds)
+    By sendButton01 = By.cssSelector("button[data-testid='sendButton']");
+
+    // React modal overlay and the Send button inside it
+    By modalOverlay = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
+    By sendButton   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
+    // IFRAME + editor readiness
+    By previewIframe       = By.xpath("//iframe[@class='sign-in-iframe']");
+    By signatureTool       = By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span");
+    By dropTargetOverlay   = By.xpath("//div[@data-testid='overlay-drop-target']");
+    By circleLoader        = By.cssSelector("[class*='CircleLoader'], [role='progressbar']"); // generic loader
+    By modalContentWrapper = By.cssSelector("div.modal-content-wrapper");
+
+    // Send (outside iframe)
+    By sendButtonInModal   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
+
+    // Always target the latest modal, then the concrete button id/testid
+    By activeModalOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
+    By sendButtonnew = By.cssSelector("div.modal-content-wrapper #sendButton"); // or: By.cssSelector("button[data-testid='footer-button-send-button']");
+
+    // Overlay & Send button (scope to the latest modal)
+    By activeOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
+    By modalContent  = By.cssSelector("div.modal-content-wrapper");
+    By sendButtonnew01    = By.cssSelector("button#sendButton, button[data-testid='footer-button-send-button']");
+    By deleteIcon = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
+    By sentForSignaturesButton = By.xpath("//button[@type='button' and @aria-label='Status' and contains(@class,'esign-module__pending')]");
+    By editRecipientButton = By.xpath("//td[@data-column='options']//button[@aria-label='Edit Recipient']");
+    By cancelButtonemail = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
+    By saveButtonemail = By.xpath("//button[@type='button' and @aria-label='Save' and normalize-space()='Save']");
+    By recipientEmailInput = By.xpath("//input[@id='email' and @type='text']");
+    By pendingRecipientEditButton = By.xpath("//tr[td[@data-column='status' and @data-value='Pending']]//button[@aria-label='Edit Recipient' and not(@disabled)]");
+    By closeModalButton = By.xpath("//button[@type='button' and @aria-label='Close modal']");
+    By unsignedDocDownloadButton = By.xpath("//div[contains(@class,'esign-module__downloadLink')]//button[contains(text(),'Download') and not(@disabled)]");
+    By eSignOptionsMenuButton = By.xpath("//table[.//th//div[normalize-space()='Options']]//tbody//tr[1]//td[last()]//button[not(@disabled)]");
+    By deleteIconemail = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
+    By cancelButtonfrom = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
+    By closeButtonfrom = By.xpath("//button[@type='button' and @aria-label='Close' and normalize-space()='Close']");
+
+    // --- Locators (keep only one copy) ---
+    By deliverableCategoryControl = By.xpath("//form[contains(@class,'addNewDeliverable')]" +
+                    "//label[normalize-space()='Deliverable Category']/following::div[contains(@class,'select-control')][1]"
+    );
+
+    By deliverableCategoryInput = By.xpath("//form[contains(@class,'addNewDeliverable')]" +
+                    "//label[normalize-space()='Deliverable Category']/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
+    );
+
+    // "any option" – used for ARROW_DOWN/ENTER fallback check
+    By anyReactSelectOption = By.xpath("//div[@role='option'] | //div[contains(@class,'option')]"
+    );
+
+    // ************************** Actions ***************************************************************************
 
     // Category accordion (scope by title text)
-    private By categoryBar(String category) {
+    public By categoryBar(String category) {
         return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]");
     }
-    private By categoryToggleBtn(String category) {
+
+    public By categoryToggleBtn(String category) {
         return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]//button[contains(@class,'content-toggler-button')]");
     }
 
-    // Locators
-    private By signatureModalTitle = By.xpath("//h1[@id='modal-title-view58' and normalize-space()='Signature Preview']");
-    private By signReasonDropdown  = By.id("signReasonFormControlDropdown");
-
-    // Method (no Extent logging here)
-    public void selectSignReasonApprove() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Ensure modal is present/visible first
-        wait.until(ExpectedConditions.visibilityOfElementLocated(signatureModalTitle));
-
-        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(signReasonDropdown));
-
-        // Scroll into view to avoid overlay/interception
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", dropdown);
-
-        // Use Select API; prefer value (most stable), then text fallback
-        Select select = new Select(dropdown);
-        try {
-            select.selectByValue("9370386570"); // value for " I approve this document"
-        } catch (NoSuchElementException e) {
-            // Fallback: trim spaces with normalize-space()
-            WebElement opt = driver.findElement(By.xpath("//select[@id='signReasonFormControlDropdown']/option[normalize-space(text())='I approve this document']"));
-            // Selenium Select can't select by WebElement directly for fallback text, so:
-            select.selectByVisibleText(" I approve this document"); // note leading space
-        }
-
-        // Verify selection
-        wait.until(d -> {
-            String val = new Select(d.findElement(signReasonDropdown)).getFirstSelectedOption().getAttribute("value");
-            return "9370386570".equals(val);
-        });
-    }
-
-//
-//    // Dynamic deliverable link inside a specific category
-//    private By deliverableLinkInCategory(String category, String deliverableName) {
-//        return By.xpath(
-//                "//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]" +
-//                        "//a[normalize-space()='"+deliverableName+"']"
-//        );
-//    }
-
-
-//    // form-anchored control + input
-//    private final By deliverableCategoryControl = By.xpath(
-//            "//form[contains(@class,'addNewDeliverable')]" +
-//                    "//label[normalize-space()='Deliverable Category']/following::div[contains(@class,'select-control')][1]"
-//    );
-//
-//    private final By deliverableCategoryInput = By.xpath(
-//            "//form[contains(@class,'addNewDeliverable')]" +
-//                    "//label[normalize-space()='Deliverable Category']/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
-//    );
-//
-//    // global (portal-safe) listbox and option
-//    private final By reactSelectListbox = By.xpath("//div[@role='listbox' and contains(@id,'react-select')]");
-//    private By reactSelectOptionExact(String text) {
-//        return By.xpath("//div[@role='listbox' and contains(@id,'react-select')]//div[@role='option' and normalize-space()='" + text + "']");
-//    }
-
-
-    // Overlay
-    private By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
-
-    // Fields & controls (scoped to overlay)
-    private By deliverableNameInput = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Name']/following::input[@type='text'][1]");
-//    private By deliverableCategoryControl = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Category']/following::div[contains(@class,'select-control')][1]");
-
-//    // Options (react-select)
-//    private By deliverableCategoryOption(String text) {
-//        return By.xpath("//div[(contains(@class,'select__option') or contains(@class,'select-option') or contains(@class,'_option')) and normalize-space(.)='" + text + "']");
-//    }
-
-    // Buttons
-    private By cancelBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[normalize-space(.)='Cancel']");
-    private By topSearchBtn = By.xpath("//button[normalize-space(.)='Add New Deliverable']/preceding::button[normalize-space(.)='Search'][1]");
-    //    private By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
-    private By submitBtn = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//button[@type='submit' and normalize-space(.)='Submit']");
-    private By deliverablesSearchInput = By.cssSelector("input[placeholder^='Search by deliverables']");
-
-    // Top bar "Clear Selections" (left of "Add New Deliverable")
-    private By clearSelectionsBtn = By.xpath("//button[normalize-space(.)='Clear Selections']");
-    private By cloneBtn = By.xpath("//button[normalize-space(.)='Clone' and contains(@class,'-small')]");
-    // Row checkbox by deliverable name (choose last match => newest)
-    private By rowCheckboxByName(String name) {return By.xpath("(//table[contains(@class,'item-grid')]//tbody//tr[.//span[normalize-space(.)='"+ name + "']]//input[@type='checkbox'])[last()]");}
-
-    private By firstCheckbox = By.xpath("(//table[@class='item-grid -sticky']//input[@type='checkbox'])[2]");
-
-    private By downloadSelectedBtn = By.xpath("//button[normalize-space(.)='Download Selected']");
-
-    // Anchored to the Deliverable Name column (col_196); matches the exact visible text inside the <span>
-    private By deliverableLinkByName(String name) {
-        return By.xpath("//table[contains(@class,'item-grid')]//td[@data-column='col_196']" +
-                "//a[.//span[normalize-space()='" + name + "']]");
-    }
-    // Reminders dropdown (open it by clicking the control/arrow next to the label)
-    private By remindersControl = By.xpath("//label[@for='reminderFrequency']/following::div[contains(@class,'select-control')][1]");
-
-    // Option matcher (works for their various option class names / role)
-    private By reminderOption(String text) {
-        return By.xpath(
-                "(//div[@role='option' and normalize-space()='" + text + "']" +
-                        " | //div[contains(@class,'select-option') and normalize-space()='" + text + "']" +
-                        " | //div[contains(@class,'select__option') and normalize-space()='" + text + "']" +
-                        " | //div[contains(@class,'_option_') and normalize-space()='" + text + "'])[1]"
-        );
-    }
-
-    // First recipient row's delete button (next to the Email input)
-    private By firstRecipientDeleteBtn =
-            By.xpath("//div[contains(@class,'email-row')][1]//button[@aria-label='Delete']");
-
-    // Use data-testid or id (stable across builds)
-    private By sendButton01 = By.cssSelector("button[data-testid='sendButton']");
-
-    // React modal overlay and the Send button inside it
-    private By modalOverlay = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
-    private By sendButton   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
-    // IFRAME + editor readiness
-    private By previewIframe       = By.xpath("//iframe[@class='sign-in-iframe']");
-    private By signatureTool       = By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span");
-    private By dropTargetOverlay   = By.xpath("//div[@data-testid='overlay-drop-target']");
-    private By circleLoader        = By.cssSelector("[class*='CircleLoader'], [role='progressbar']"); // generic loader
-    //    private By modalOverlay        = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
-    private By modalContentWrapper = By.cssSelector("div.modal-content-wrapper");
-
-    // Send (outside iframe)
-    private By sendButtonInModal   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
-
-
-    // Always target the latest modal, then the concrete button id/testid
-    private By activeModalOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
-    private By sendButtonnew = By.cssSelector("div.modal-content-wrapper #sendButton"); // or: By.cssSelector("button[data-testid='footer-button-send-button']");
-    // Overlay & Send button (scope to the latest modal)
-    private By activeOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
-    private By modalContent  = By.cssSelector("div.modal-content-wrapper");
-    private By sendButtonnew01    = By.cssSelector("button#sendButton, button[data-testid='footer-button-send-button']");
-
-    private By deleteIcon = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
-    private By sentForSignaturesButton = By.xpath("//button[@type='button' and @aria-label='Status' and contains(@class,'esign-module__pending')]");
-
-
-    private By editRecipientButton = By.xpath("//td[@data-column='options']//button[@aria-label='Edit Recipient']");
-    private By cancelButtonemail = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
-    private By saveButtonemail = By.xpath("//button[@type='button' and @aria-label='Save' and normalize-space()='Save']");
-    private By recipientEmailInput = By.xpath("//input[@id='email' and @type='text']");
-    private By pendingRecipientEditButton = By.xpath("//tr[td[@data-column='status' and @data-value='Pending']]//button[@aria-label='Edit Recipient' and not(@disabled)]");
-    private By closeModalButton = By.xpath("//button[@type='button' and @aria-label='Close modal']");
-    private By unsignedDocDownloadButton = By.xpath("//div[contains(@class,'esign-module__downloadLink')]//button[contains(text(),'Download') and not(@disabled)]");
-    private By eSignOptionsMenuButton = By.xpath("//table[.//th//div[normalize-space()='Options']]//tbody//tr[1]//td[last()]//button[not(@disabled)]");
-    private By deleteIconemail = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
-    private By cancelButtonfrom = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
-    private By closeButtonfrom = By.xpath("//button[@type='button' and @aria-label='Close' and normalize-space()='Close']");
-
-    // --- Locators (Page class) ---
-//
-//    private By deliverableCategoryInput = By.xpath(
-//            "//form[contains(@class,'addNewDeliverable')]" +
-//                    "//label[normalize-space()='Deliverable Category']" +
-//                    "/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
-//    );
-
-
-    // ******** Actions *********
     public void confirmDeleteOK() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -231,8 +137,6 @@ public class DeliverablesPage extends BasePage {
         pause(600); // small stability wait inside page
     }
 
-
-
     public void scrollUpInPreviewModal() {
         // Locate the scrollable container
         WebElement modalContentWrapper = new WebDriverWait(driver, Duration.ofSeconds(30))
@@ -244,7 +148,6 @@ public class DeliverablesPage extends BasePage {
 
         pause(2000); // optional pause to let UI stabilize
     }
-
 
     public void clickCloseButton() {
         WebElement closeBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
@@ -259,7 +162,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
     public void clickCancelButtonfrom() {
         WebElement cancelBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(cancelButtonfrom));
@@ -272,8 +174,6 @@ public class DeliverablesPage extends BasePage {
         cancelBtn.click();
         pause(2000);
     }
-
-
 
     public void clickDeleteIconemail() {
         WebElement deleteEl = new WebDriverWait(driver, Duration.ofSeconds(15))
@@ -300,8 +200,6 @@ public class DeliverablesPage extends BasePage {
         pause(1500);
     }
 
-
-
     public void clickUnsignedDocDownloadButton() {
         WebElement downloadBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(unsignedDocDownloadButton));
@@ -314,7 +212,6 @@ public class DeliverablesPage extends BasePage {
         downloadBtn.click();
         pause(2000);
     }
-
 
     public void clickCloseModalButton() {
         WebElement closeBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
@@ -329,8 +226,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
-
     public void clickPendingRecipientEditButton() {
         WebElement editBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(pendingRecipientEditButton));
@@ -344,8 +239,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
-
     public void setRecipientEmail(String email) {
         WebElement emailInput = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(recipientEmailInput));
@@ -357,8 +250,6 @@ public class DeliverablesPage extends BasePage {
 
         pause(1000);
     }
-
-
 
     public void clickSaveButton() {
         WebElement saveBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
@@ -373,7 +264,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
     public void clickCancelButton() {
         WebElement cancelBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(cancelButtonemail));
@@ -386,8 +276,6 @@ public class DeliverablesPage extends BasePage {
         cancelBtn.click();
         pause(2000);
     }
-
-
 
     public void clickEditRecipientButton() {
         WebElement editButton = new WebDriverWait(driver, Duration.ofSeconds(15))
@@ -402,8 +290,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
-
     public void clickSentForSignaturesButton() {
         WebElement sentButton = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(sentForSignaturesButton));
@@ -417,8 +303,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
-
     public void clickDeleteIcon() {
         WebElement deleteElement = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(deleteIcon));
@@ -431,7 +315,6 @@ public class DeliverablesPage extends BasePage {
         deleteElement.click();
         pause(2000);
     }
-
 
     public void clickOnSendButton(){
         BrowserUtility.click(driver,By.xpath("//button[@id='sendButton']"),"Send Button");
@@ -484,9 +367,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
-
-
     public void clickSendnew() {
         // 1) Ensure default content (Send is OUTSIDE iframe)
         driver.switchTo().defaultContent();
@@ -527,87 +407,6 @@ public class DeliverablesPage extends BasePage {
         pause(2000);
     }
 
-
-//    public void clickPreviewAndPlaceSignature() {
-//        // 1) Wait for modal overlay (outside iframe)
-//        new WebDriverWait(driver, Duration.ofSeconds(60))
-//                .until(ExpectedConditions.visibilityOfElementLocated(modalOverlay));
-//
-//        // 2) Switch to iframe when it’s available
-//        switchToFrame(previewIframe, 60);
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-//
-//        // 3) Wait for editor to finish initial loading:
-//        //    - loader gone
-//        //    - signature tool present
-//        wait.until(ExpectedConditions.or(
-//                ExpectedConditions.invisibilityOfElementLocated(circleLoader),
-//                ExpectedConditions.presenceOfElementLocated(signatureTool)
-//        ));
-//
-//        // Ensure both source & target are ready
-//        WebElement source = wait.until(ExpectedConditions.elementToBeClickable(signatureTool));
-//        WebElement target = wait.until(ExpectedConditions.visibilityOfElementLocated(dropTargetOverlay));
-//
-//        // Scroll both into view (some editors virtualize)
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", source);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", target);
-//
-//        // 4) Perform DnD with resilient strategy
-//        try {
-//            // Primary: Actions to element center
-//            new Actions(driver)
-//                    .moveToElement(source).clickAndHold()
-//                    .pause(Duration.ofMillis(250))
-//                    .moveToElement(target)
-//                    .pause(Duration.ofMillis(250))
-//                    .release()
-//                    .build().perform();
-//        } catch (Exception ignore) {
-//            // Fallback: small offset into target (canvas hit-box)
-//            Point p = target.getLocation();
-//            Dimension d = target.getSize();
-//            int offsetX = Math.max(5, d.width  / 4);
-//            int offsetY = Math.max(5, d.height / 4);
-//            new Actions(driver)
-//                    .moveToElement(source).clickAndHold()
-//                    .pause(Duration.ofMillis(200))
-//                    .moveByOffset(p.x + offsetX, p.y + offsetY)
-//                    .release()
-//                    .build().perform();
-//        }
-//
-//        pause(1500); // short stabilization, not 10s
-//    }
-//
-//    public void clickSend() {
-//        // Send button lives OUTSIDE the iframe
-//        switchToDefaultContent();
-//
-//        // Ensure modal content visible and scrolled
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(modalContentWrapper));
-//
-//        // If needed, use your existing modal scroll utility
-//        scrollToBottomOfModal(modalContentWrapper, 10);
-//
-//        WebElement send = wait.until(ExpectedConditions.elementToBeClickable(sendButtonInModal));
-//
-//        try {
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", send);
-//            send.click();
-//        } catch (Exception e) {
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", send);
-//        }
-//
-//        pause(2000);
-//    }
-//
-//
-
-
-
     public void clickSend() {
         // Ensure we are not in the preview iframe
         driver.switchTo().defaultContent();
@@ -640,8 +439,6 @@ public class DeliverablesPage extends BasePage {
         pause(5000);
     }
 
-
-
     public void clickSendButton010() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
@@ -661,14 +458,6 @@ public class DeliverablesPage extends BasePage {
         pause(5000); // controlled pause
     }
 
-
-
-
-
-
-
-
-
     public void clickFirstRecipientDelete() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(firstRecipientDeleteBtn));
@@ -680,8 +469,6 @@ public class DeliverablesPage extends BasePage {
         }
         pause(600);
     }
-
-
 
     public void selectReminderFrequency(String frequency) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -713,35 +500,20 @@ public class DeliverablesPage extends BasePage {
         selectReminderFrequency("Every day");
     }
 
-
-//
-//    // ---- Dynamic locator builders ----
-//    private By categoryToggleBy(String category) {
-//        return By.xpath(
-//                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
-//                        + "/ancestor::div[contains(@class,'toggleable-title')]"
-//                        + "//button[contains(@class,'content-toggler-button')]"
-//        );
-//    }
-
-    private By categoryContainerBy(String category) {
+    public By categoryContainerBy(String category) {
         return By.xpath(
                 "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
                         + "/ancestor::div[contains(@class,'collapsible-bar')]"
         );
     }
 
-    private By deliverableLinkBy(String category, String deliverableName) {
+    public By deliverableLinkBy(String category, String deliverableName) {
         return By.xpath(
                 "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
                         + "/ancestor::div[contains(@class,'collapsible-bar')]"
                         + "//tbody//a[.//span[normalize-space()='" + deliverableName + "']]"
         );
     }
-
-
-
-
 
     public void clickDeliverableByEnteredName(String enteredName01) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -759,73 +531,6 @@ public class DeliverablesPage extends BasePage {
         pause(600);
     }
 
-
-//    private void expandCategoryIfCollapsed(String category) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//
-//        WebElement bar = wait.until(ExpectedConditions.presenceOfElementLocated(categoryBar(category)));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", bar);
-//
-//        // If not open, click its toggle and wait until class includes '-open'
-//        if (!bar.getAttribute("class").contains("-open")) {
-//            WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(categoryToggleBtn(category)));
-//            toggle.click();
-//            wait.until(ExpectedConditions.attributeContains(categoryBar(category), "class", "-open"));
-//        }
-//    }
-
-
-//    // 1) The toggle button for a category (works even if it shows "CTO - MCA 1")
-//    private By categoryToggle(String category) {
-//        return By.xpath(
-//                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
-//                        + "/ancestor::div[contains(@class,'toggleable-title')]"
-//                        + "//button[contains(@class,'content-toggler-button')]"
-//        );
-//    }
-
-//    // 2) The collapsible container for that category
-//    private By categoryContainer(String category) {
-//        return By.xpath(
-//                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
-//                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
-//        );
-//    }
-//
-//    // 3) The deliverable link inside the category grid
-//    private By deliverableLinkInCategory(String category, String deliverableName) {
-//        return By.xpath(
-//                categoryContainer(category).toString().replace("By.xpath: ", "") // keep it simple if you build strings
-//                        + "//tbody//a[.//span[normalize-space()='" + deliverableName + "']]"
-//        );
-//    }
-
-
-//    public void clickDeliverableInCategory(String category, String deliverableName) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//        expandCategoryIfCollapsed(category);
-//
-//        By linkBy = deliverableLinkInCategory(category, deliverableName);
-//
-//        // Wait & click with scroll + JS fallback (handles overlay/focus quirks)
-//        WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(linkBy));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
-//        wait.until(ExpectedConditions.elementToBeClickable(link));
-//        try {
-//            link.click();
-//        } catch (ElementClickInterceptedException | StaleElementReferenceException e) {
-//            link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkBy));
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
-//        }
-//        pause(600);
-//    }
-//
-
-
-
-
-
-
     public void acceptDeleteAlert() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
@@ -836,7 +541,6 @@ public class DeliverablesPage extends BasePage {
         }
         pause(500);
     }
-
 
     public void clickDownloadSelected() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -852,8 +556,6 @@ public class DeliverablesPage extends BasePage {
         pause(600);
     }
 
-
-
     public void clickDeleteSelected() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(deleteSelectedBtn));
@@ -868,9 +570,6 @@ public class DeliverablesPage extends BasePage {
         pause(600);
     }
 
-
-
-
     public void tickFirstCheckbox() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(firstCheckbox));
@@ -882,7 +581,6 @@ public class DeliverablesPage extends BasePage {
         }
         pause(500);
     }
-
 
     public void checkRowByName(String name) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -899,7 +597,6 @@ public class DeliverablesPage extends BasePage {
         pause(300);
     }
 
-
     public void clickClone() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(cloneBtn));
@@ -911,8 +608,6 @@ public class DeliverablesPage extends BasePage {
         }
         pause(600);
     }
-
-
 
     public void clickClearSelections() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -927,8 +622,6 @@ public class DeliverablesPage extends BasePage {
         pause(500);
     }
 
-
-
     public void typeDeliverablesSearch(String text) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverablesSearchInput));
@@ -937,8 +630,6 @@ public class DeliverablesPage extends BasePage {
         input.sendKeys(text);
         pause(300);
     }
-
-
 
     public void clickSubmitOnOverlay() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -958,8 +649,6 @@ public class DeliverablesPage extends BasePage {
         pause(500);
     }
 
-
-
     public String typeDeliverableNameUnique(String base) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOfElementLocated(addDeliverableOverlay));
@@ -972,42 +661,6 @@ public class DeliverablesPage extends BasePage {
         pause(300);
         return unique;
     }
-
-//    public void selectDeliverableCategory(String categoryText) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//
-//        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-//        control.click();
-//
-//        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryOption(categoryText)));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // more stable on react-select
-//        pause(300);
-//    }
-
-    // --- Locators (keep only one copy) ---
-    private final By deliverableCategoryControl = By.xpath(
-            "//form[contains(@class,'addNewDeliverable')]" +
-                    "//label[normalize-space()='Deliverable Category']/following::div[contains(@class,'select-control')][1]"
-    );
-    private final By deliverableCategoryInput = By.xpath(
-            "//form[contains(@class,'addNewDeliverable')]" +
-                    "//label[normalize-space()='Deliverable Category']/following::input[contains(@id,'react-select') and contains(@id,'-input')]"
-    );
-
-    // OPTION match that works whether the menu is portaled or not (no reliance on role=listbox)
-    private By reactSelectOptionExact(String text) {
-        return By.xpath(
-                // look anywhere on the page for a react-select option with exact text
-                "//div[@role='option' and normalize-space()='" + text + "']" +
-                        " | //div[contains(@class,'option') and normalize-space()='" + text + "']"
-        );
-    }
-
-    // "any option" – used for ARROW_DOWN/ENTER fallback check
-    private final By anyReactSelectOption = By.xpath(
-            "//div[@role='option'] | //div[contains(@class,'option')]"
-    );
 
     public void selectDeliverableCategory(String categoryText) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -1032,8 +685,6 @@ public class DeliverablesPage extends BasePage {
             // fall through
         }
 
-        // ---- Strategy B: if the menu didn't render options with roles/classes,
-        // use keyboard to pick the first highlighted match
         try {
             // ensure menu is open (some skins close after typing)
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
@@ -1056,66 +707,6 @@ public class DeliverablesPage extends BasePage {
         }
     }
 
-
-
-//
-//
-//
-//    public void selectDeliverableCategory(String categoryText) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//
-//        // open control
-//        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-//        control.click();
-//
-//        // type to filter
-//        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
-//        input.clear();
-//        input.sendKeys(categoryText);
-//
-//        // wait for the portal menu (role=listbox) to appear
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectListbox));
-//
-//        // If exact match is present, click via JS; otherwise press ENTER (first highlighted)
-//        try {
-//            WebElement exact = wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectOptionExact(categoryText)));
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", exact);
-//        } catch (TimeoutException e) {
-//            // fallback: pick the highlighted option
-//            input.sendKeys(Keys.ENTER);
-//        }
-//
-//        pause(300);
-//    }
-
-
-
-
-
-
-//public void selectDeliverableCategory(String categoryText) {
-//    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//
-//    // 1) Bring control into view and open it
-//    WebElement control = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryControl));
-//    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-//    control.click();
-//
-//    // 2) Type to filter (more stable for react-select)
-//    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryInput));
-//    input.clear();
-//    input.sendKeys(categoryText);
-//
-//    // 3) Wait for the menu and click exact option
-//    WebElement option = wait.until(ExpectedConditions.elementToBeClickable(deliverableCategoryOption(categoryText)));
-//    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option); // avoids overlay issues
-//
-//    // 4) Small settle
-//    pause(300);
-//}
-
-
     public void clickCancelOnOverlay() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(cancelBtn));
@@ -1134,7 +725,7 @@ public class DeliverablesPage extends BasePage {
         pause(800);
     }
 
-    private By categoryToggleBy(String category) {
+    public By categoryToggleBy(String category) {
         return By.xpath(
                 "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
                         + "/ancestor::div[contains(@class,'toggleable-title')]"
@@ -1142,7 +733,7 @@ public class DeliverablesPage extends BasePage {
         );
     }
 
-    private By deliverableLinkExact(String category, String deliverableName) {
+    public By deliverableLinkExact(String category, String deliverableName) {
         return By.xpath(
                 "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
                         + "/ancestor::div[contains(@class,'collapsible-bar')]"
@@ -1177,4 +768,31 @@ public class DeliverablesPage extends BasePage {
         pause(600);
     }
 
+    // OPTION match that works whether the menu is portaled or not (no reliance on role = listbox)
+    public By reactSelectOptionExact(String text) {
+        return By.xpath(
+                // look anywhere on the page for a react-select option with exact text
+                "//div[@role='option' and normalize-space()='" + text + "']" +
+                        " | //div[contains(@class,'option') and normalize-space()='" + text + "']"
+        );
+    }
+
+    // Anchored to the Deliverable Name column (col_196); matches the exact visible text inside the <span>
+    public By deliverableLinkByName(String name) {
+        return By.xpath("//table[contains(@class,'item-grid')]//td[@data-column='col_196']" +
+                "//a[.//span[normalize-space()='" + name + "']]");
+    }
+
+    // Option matcher (works for their various option class names / role)
+    public By reminderOption(String text) {
+        return By.xpath(
+                "(//div[@role='option' and normalize-space()='" + text + "']" +
+                        " | //div[contains(@class,'select-option') and normalize-space()='" + text + "']" +
+                        " | //div[contains(@class,'select__option') and normalize-space()='" + text + "']" +
+                        " | //div[contains(@class,'_option_') and normalize-space()='" + text + "'])[1]"
+        );
+    }
+
+    // Row checkbox by deliverable name (choose last match => newest)
+    public By rowCheckboxByName(String name) {return By.xpath("(//table[contains(@class,'item-grid')]//tbody//tr[.//span[normalize-space(.)='"+ name + "']]//input[@type='checkbox'])[last()]");}
 }
