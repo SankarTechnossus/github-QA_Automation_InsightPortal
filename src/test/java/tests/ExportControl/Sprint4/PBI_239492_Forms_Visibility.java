@@ -23,7 +23,7 @@ import utils.WaitUtility;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-
+@Test (groups = {"regression", "integration"})
 public class PBI_239492_Forms_Visibility {
 
     WebDriver driver;

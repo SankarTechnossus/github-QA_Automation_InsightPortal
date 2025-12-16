@@ -23,7 +23,7 @@ import utils.WaitUtility;
 import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
-
+@Test (groups = {"regression", "integration"})
 public class PBI_248110_Instruction_Pages {
 
     WebDriver driver;

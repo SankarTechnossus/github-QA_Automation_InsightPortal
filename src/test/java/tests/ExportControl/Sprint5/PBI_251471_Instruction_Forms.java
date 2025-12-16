@@ -24,7 +24,6 @@ import utils.WaitUtility;
 import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
-
 @Test (groups = {"regression", "integration"})
 public class PBI_251471_Instruction_Forms {
 
