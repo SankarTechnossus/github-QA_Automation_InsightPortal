@@ -17,7 +17,7 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
 
     // Locators
     By linkInstructionsManagement = By.xpath("//span[text()='Instructions Management']/..");
-    By linkExportControl = By.xpath("//span[text()='Export Control']/../../a[@href='/administration/instructions-management']");
+    By linkExportControl = By.xpath("(//*[@href='/administration/instructions-management'])[2]");
     By buttonAddNew = By.xpath("//button[text()='Add new']");
 
     By inputPage = By.xpath("//input[@id='page']");
@@ -30,14 +30,14 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
     // Functions
     public void NavigateToInstructionsManagementExportControlPage() {
 
+        waitForPresence(linkInstructionsManagement);
+
         //Click on Instructions Management navigation link
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkInstructionsManagement));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         link.click();
 
-        //waitForPresence(linkInstructionsManagement);
-        //click(linkInstructionsManagement);
         pause(2000);
 
         //Click on Export Control under Forms Management

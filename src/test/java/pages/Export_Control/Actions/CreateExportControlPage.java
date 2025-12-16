@@ -727,6 +727,8 @@ public class CreateExportControlPage extends BasePage {
         boolean result = false;
 
         // Click on Instructions link
+        pause(2000);
+
         driver.findElement(By.xpath("//span[text()='Instructions']")).click();
         pause(2000);
 
