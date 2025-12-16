@@ -19,6 +19,7 @@ import java.time.Duration;
 
 
 @Listeners(listeners.ExtentReportListener.class)
+@Test (groups = {"regression", "integration"})
 public class PBI_239497_RecordTypes_Flow {
 
     WebDriver driver;

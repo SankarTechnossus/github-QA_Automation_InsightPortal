@@ -25,7 +25,7 @@ import java.time.Duration;
 import java.util.Objects;
 
 @Listeners(ExtentReportListener.class)
-
+@Test (groups = {"regression", "integration"})
 public class PBI_247367_Staff_Component_Integration_EndUser {
 
     WebDriver driver;

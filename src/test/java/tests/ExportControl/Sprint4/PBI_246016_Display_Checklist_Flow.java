@@ -24,7 +24,7 @@ import utils.JsonDataReader;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-
+@Test (groups = {"regression", "integration"})
 public class PBI_246016_Display_Checklist_Flow {
 
     WebDriver driver;

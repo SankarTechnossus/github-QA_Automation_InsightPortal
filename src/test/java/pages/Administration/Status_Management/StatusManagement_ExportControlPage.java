@@ -20,7 +20,7 @@ public class StatusManagement_ExportControlPage extends BasePage{
 
     By statusManagementLink = By.xpath("//a[.//span[text()='Status Management']]");
     By statusManagementParent = By.xpath("//a[.//span[text()='Status Management']]");
-    By exportControlSubmenu = By.xpath("//a[.//span[text()='Export Control'] and contains(@class,'_menuItem')]");
+    By exportControlSubmenu = By.xpath("//a[text()='Export Control'][@href='/administration/status-management']");
     By addStatusButton = By.xpath("//button[text()='Add Status' and contains(@class,'-primary')]");
     By statusNameInput = By.xpath("//div[contains(@class,'modal-content-wrapper')]//input[@type='text']");
     By cancelButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Cancel']");
@@ -336,7 +336,8 @@ public class StatusManagement_ExportControlPage extends BasePage{
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", parentMenu);
         parentMenu.click(); // Expand the menu
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitForPresence(exportControlSubmenu);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         WebElement submenu = wait.until(ExpectedConditions.elementToBeClickable(exportControlSubmenu));
         submenu.click();
         pause(1000);

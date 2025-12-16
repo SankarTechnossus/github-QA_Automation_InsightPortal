@@ -22,7 +22,7 @@ import utils.JsonDataReader;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-
+@Test (groups = {"regression", "integration"})
 public class PBI_241727_Status_Management_Edit_Flow {
 
     WebDriver driver;

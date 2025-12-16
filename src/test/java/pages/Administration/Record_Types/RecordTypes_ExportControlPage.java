@@ -19,7 +19,7 @@ public class RecordTypes_ExportControlPage extends BasePage {
     // Locators
 
     By recordTypesLink = By.xpath("//a[@class='label' and @href='/administration/record-types/record-type' and span[text()='Record Types']]");
-    By exportControlLink = By.xpath("//a[span[text()='Record Types']]/ancestor::div[contains(@class,'menu-item')]/following-sibling::div//span[text()='Export Control']");
+    By exportControlLink = By.xpath("//a[text()='Export Control'][@href='/administration/record-types']");
     By addRecordTypeLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Record Type']");
     By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
     By activeCheckbox = By.id("active");
@@ -411,12 +411,13 @@ public class RecordTypes_ExportControlPage extends BasePage {
     }
 
     public void clickExportControlUnderRecordTypes() {
+        waitForPresence(exportControlLink);
         WebElement link = driver.findElement(exportControlLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
         pause(1000);
         link.click();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.urlContains("record-types"));
 
         // Assertion inside method (optional)

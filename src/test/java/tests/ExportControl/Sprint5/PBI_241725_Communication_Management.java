@@ -27,12 +27,11 @@ import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
 import utils.UniqueNameGenerator;
-import utils.WaitUtility;
 
 import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
-
+@Test (groups = {"regression", "integration"})
 public class PBI_241725_Communication_Management {
 
     WebDriver driver;

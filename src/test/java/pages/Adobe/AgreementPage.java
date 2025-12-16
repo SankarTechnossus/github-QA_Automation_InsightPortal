@@ -1,4 +1,3 @@
-
 package pages.Adobe;
 
 import base.BasePage;
@@ -21,11 +20,11 @@ public class AgreementPage extends BasePage {
     By agreementsLink = By.xpath("//a[contains(text(),'Agreements')]");
     By agreementNumberInput = By.xpath("//input[@id='agreementNumber']");
     By searchButton = By.xpath("//button[text()='Search']");
-    By agreementSpan = By.xpath("//span[text()='2025A022282']");
+    By agreementSpan = By.xpath("//span[text()='2025A023110']");
     By agreementSpan01 = By.xpath("//span[text()='2025A014166']");
-    By deliverablesTab = By.xpath("//a[@href='/agreements/2025A022282/latest/deliverables']//span[text()='Deliverables']");
+    By deliverablesTab = By.xpath("//a[@href='/agreements/2025A023110/latest/deliverables']//span[text()='Deliverables']");
     By toggleButton = By.xpath("//button[@type='button' and @aria-label='Expand/collapse' and contains(@class, 'toggle-button')]");
-    By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A022282/latest/deliverables/1113382']//span[text()='Test']");
+    By eSignTesting03Link = By.xpath("//a[@href='/agreements/2025A023110/latest/deliverables/1113382']//span[text()='Test']");
     By adobeIcon = By.xpath("//img[@alt='adobe-icon']");
     By fileInput = By.xpath("//input[@type='file' and contains(@accept,'application/pdf')]");
     By addRecipientButton = By.xpath("//button[text()='Add Recipient']");
@@ -65,8 +64,143 @@ public class AgreementPage extends BasePage {
     By formVersionsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(),'Form Versions')]");
     By version1BreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Version 1']");
     By dashboardNotificationsHeader = By.xpath("//*[normalize-space()='Dashboard Notifications - Summary']");
+    By allAgreementsProposalsTitle = By.xpath("//strong[contains(@class,'section-title-item') and normalize-space(.)='All Agreements/Proposals']");
+    By transactionStatusTitle = By.xpath("//div[normalize-space(.)='Transaction status' and contains(@class,'statusBarTitle')]");
+    // By deliverablesHeaderWithCount = By.xpath("//header[normalize-space(.)='Deliverables' and .//span[contains(@class,'deliverables-total')]]");
+    By deliverableNameLabel = By.xpath("//label[normalize-space(.)='Deliverable Name']");
+    By deliverableCategoryLabel = By.xpath("//label[normalize-space(.)='Deliverable Category']");
+    By numberOfDeliverablesLabel = By.xpath("//label[normalize-space(.)='Number of Deliverables']");
+    By eSignatureToggleButtonExpanded = By.xpath("//button[contains(@class,'content-toggler-button') and normalize-space(.)='E-Signature' and @aria-expanded='true']");
+    By detailsHeading = By.xpath("(//h3[normalize-space(.)='Details'])[1]");
+    By uploadFileLabel = By.xpath("//label[contains(@class,'form-label') and normalize-space(.)='Upload File']");
+    By remindersText = By.xpath("//strong[normalize-space(.)='Reminders']");
+    By recipientsHeading = By.xpath("//h3[normalize-space(.)='Recipients']");
+    By detailsHeadingSecond = By.xpath("//h3[normalize-space(.)='Details']");
+    By searchButtona = By.xpath("//button[@type='submit' and contains(@class,'-primary') and normalize-space(.)='Search']");
+    By deliverablesHeaderWithCount = By.xpath("//header[normalize-space()='Deliverables' and .//span[contains(@class,'deliverables-total')]]");
+    By projectPeriodLabel = By.xpath("//dt[normalize-space(.)='Project Period:']");
+    By previewLink = By.xpath("//a[normalize-space(.)='Preview']");
+    By modalDetailsHeading = By.xpath("//div[contains(@class,'modal-content-wrapper')]//h3[normalize-space(.)='Details']");
+    By previewModalWrapper = By.xpath("//div[contains(@class,'modal-content-wrapper')]");
+
 
     // ******** Actions *********
+    public boolean isPreviewModalDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(previewModalWrapper)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isModalDetailsHeadingDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(modalDetailsHeading)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPreviewLinkDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(previewLink)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isProjectPeriodLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(projectPeriodLabel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSearchButtonDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(searchButtona)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isAllAgreementsProposalsTitleDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(allAgreementsProposalsTitle)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isTransactionStatusTitleDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(transactionStatusTitle)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isDeliverablesHeaderDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(deliverablesHeaderWithCount)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isDeliverableNameLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableNameLabel)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isDeliverableCategoryLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(deliverableCategoryLabel)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isNumberOfDeliverablesLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(numberOfDeliverablesLabel)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isESignatureExpandedDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(eSignatureToggleButtonExpanded)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isDetailsHeadingDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(detailsHeading)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isUploadFileLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(uploadFileLabel)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isRemindersTextDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(remindersText)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isRecipientsHeadingDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(recipientsHeading)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
+
+    public boolean isSecondDetailsHeadingDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(detailsHeadingSecond)).isDisplayed(); }
+        catch (Exception e) { return false; }
+    }
 
     public boolean isDashboardNotificationsSummaryDisplayed() {
         try {
