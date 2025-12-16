@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
+@Test (groups = {"regression", "integration"})
 public class PBI_239498_Template_Management {
 
     WebDriver driver;

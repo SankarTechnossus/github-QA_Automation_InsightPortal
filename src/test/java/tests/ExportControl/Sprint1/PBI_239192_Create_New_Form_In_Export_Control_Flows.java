@@ -18,6 +18,7 @@ import utils.UniqueNameGenerator;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
+@Test (groups = {"regression", "integration"})
 public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
 
     WebDriver driver;
