@@ -103,7 +103,7 @@ public class PBI_248110_Instruction_Pages {
             String errorMsg2 = JsonDataReader.get(6,"InvalidOfficeCodeErrorMessage");
             String invalidOffCode = JsonDataReader.get(6,"InvalidOfficeCode");
 
-            String pageName = "";
+            String pageName;
 
             for (int i=1; i<=3; i++) {
                 if(i==1)

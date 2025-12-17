@@ -92,12 +92,11 @@ public class PBI_241725_Communication_Management {
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
 
-            String templateNamePrefix              = JsonDataReader.get(1, "TemplateNamePrefix");
             String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
             String templateLayout                  = JsonDataReader.get(1, "TemplateLayout");
             String templateReminderFrequency       = JsonDataReader.get(1, "TemplateReminderFrequency");
             String notificationTypeApproved        = JsonDataReader.get(1, "NotificationTypeApproved");
-            String workflowVersionDescriptionPref  = JsonDataReader.get(1, "WorkflowVersionDescriptionPrefix");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
