@@ -25,22 +25,11 @@ public class EsignatureReportPage extends BasePage {
     By applyBtn = By.xpath("//button[contains(@class,'apply') and normalize-space(.)='Apply']");
     By okBtn = By.xpath("//button[contains(@class,'state-next') and normalize-space(.)='OK']");
     By clickToSignBtn = By.xpath("//button[contains(@class,'btn') and contains(normalize-space(.),'Click to Sign')]");
-    By downloadBtn01 = By.xpath("//button[contains(@class,'spectrum-Button') and normalize-space(.)='Download']");
     By downloadAgreementButton = By.xpath("//button[@data-test-id='download-agreement-button']");
-
-    // Left sidebar > "Administration" (label button)
-    By administrationDropdownBtn = By.xpath("//button[contains(@class,'label') and normalize-space()='Administration']");
-
-    // (optional) the tiny chevron toggle next to Administration
-    By administrationToggleBtn = By.xpath("//div[contains(@class,'menu-item-holder')][.//button[normalize-space()='Administration']]//button[contains(@class,'toggle-menu-icon-button')]");
-
-    // Child link: "E-Signature Report"
-    By eSignatureReportLink = By.xpath("//a[contains(@href,'/agreements/admin/e-signature-report') or .//span[normalize-space()='E-Signature Report']]");
     By optionsDropdownLink = By.xpath("//a[contains(@class,'esign-options') and contains(@class,'dropdown-toggle') and normalize-space(.)='Options']");
     By fromInput = By.id("dateFrom");
     By toInput   = By.id("dateTo");
     By reportTypeControl = By.xpath("//label[@for='reportType']/following::div[contains(@class,'select-control')][1]");
-    By reportTypeControl01 = By.xpath("//label[@for='reportType']/following::div[contains(@class,'select-control')][2]");
     By searchBtn = By.xpath("//form[contains(@class,'base-search-form')]//button[@type='submit' and normalize-space()='Search']");
     By clearBtn  = By.xpath("//form[contains(@class,'base-search-form')]//button[@type='button' and normalize-space()='Clear']");
     By downloadBtn = By.xpath("//button[contains(@class,'-primary') and .//span[normalize-space()='Download']]");
@@ -54,17 +43,14 @@ public class EsignatureReportPage extends BasePage {
     // Page header (assertion)
     By eSignatureReportHeader = By.xpath("//strong[contains(@class,'section-title-item') and normalize-space(.)='E-Signature Report']");
 
-    // Locator (Page class)
-    By completeSignatureReportOption = By.xpath("//div[@role='option' and normalize-space()='Complete Signature Report']");
-
     // Locator (control – use this to open the dropdown)
     By reportTypeControl0101 = By.xpath("//div[contains(@class,'form-base-reportType')]//div[contains(@class,'select-control')]");
     By continueButton = By.xpath("//button[contains(@class,'btn-primary') and normalize-space(.)='Continue']");
     By closeButton = By.xpath("//button[contains(@class,'btn-secondary') and contains(@class,'cancel') and normalize-space(.)='Close']");
     By signaturePreviewModalTitle = By.xpath("//h1[contains(@class,'modal-title') and normalize-space(.)='Signature Preview']");
-    By signingReasonLabel = By.xpath("//label[contains(@class,'label-reason') and normalize-space(.)='Signing Reason']");
     By clickToSignButton = By.xpath("//button[contains(@class,'click-to-esign') and normalize-space(.)='Click to Sign']");
     By signatureModalTitle = By.xpath("//h1[contains(@class,'modal-title') and normalize-space(.)='Signature Preview']");
+
     // 1) Close icon (fi-remove) - best to anchor to close button if available
     By closeIcon = By.xpath("//button[@aria-label='Close modal']//i[contains(@class,'fi-remove')]");
 
@@ -208,15 +194,6 @@ public class EsignatureReportPage extends BasePage {
         }
     }
 
-    public boolean isSigningReasonLabelDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(signingReasonLabel)).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public boolean isSignaturePreviewTitleDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
@@ -284,11 +261,6 @@ public class EsignatureReportPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(clickToSignBtn)).click();
     }
 
-    public void clickDownload01() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(downloadBtn01)).click();
-    }
-
     public boolean isContinueButtonDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
@@ -310,19 +282,6 @@ public class EsignatureReportPage extends BasePage {
         scrollIntoView(option);
         try { option.click(); } catch (Exception e) { jsClick(option); }
 
-    }
-
-    // Page class
-    public void selectCompleteReportType002() {
-        pause(3000);
-
-        WebElement control = waitClickable(completeSignatureReportOption, 30);
-        scrollIntoView(control);
-        try { control.click(); } catch (Exception e) { jsClick(control); }
-
-        WebElement option = waitVisible(reportTypeOption("Complete Signature Report"), 15);
-        scrollIntoView(option);
-        try { option.click(); } catch (Exception e) { jsClick(option); }
     }
 
     public void clickDownload() {
@@ -377,11 +336,6 @@ public class EsignatureReportPage extends BasePage {
         }
     }
 
-    // ===== Public actions used by your test =====
-
-    /* Expand left-menu Administration and open E-Signature Report */
-
-    /** Step 1 & 2: enter random valid From/To dates and return them for logging */
     public String[] enterRandomDateRange() {
         LocalDate today = LocalDate.now();
         LocalDate from  = today.minusDays(ThreadLocalRandom.current().nextInt(10, 15)); // 10–14 days ago
@@ -394,7 +348,6 @@ public class EsignatureReportPage extends BasePage {
         return new String[] { fmt(from), fmt(to) };
     }
 
-    /** Step 3: select Pending Signature Report from the React-Select */
     public void selectPendingReportType() {
         pause(3000);
 
@@ -407,19 +360,6 @@ public class EsignatureReportPage extends BasePage {
         try { option.click(); } catch (Exception e) { jsClick(option); }
     }
 
-    public void selectPendingReportType02() {
-        pause(3000);
-
-        WebElement control = waitClickable(reportTypeControl01, 30);
-        scrollIntoView(control);
-        try { control.click(); } catch (Exception e) { jsClick(control); }
-
-        WebElement option = waitVisible(reportTypeOption("Pending Signature Report"), 15);
-        scrollIntoView(option);
-        try { option.click(); } catch (Exception e) { jsClick(option); }
-    }
-
-    /** Step 3: click Search */
     public void clickSearch() {
         pause(3000);
 
@@ -428,54 +368,12 @@ public class EsignatureReportPage extends BasePage {
         try { btn.click(); } catch (Exception e) { jsClick(btn); }
     }
 
-    /** Step 4: click Clear */
     public void clickClear() {
         pause(3000);
 
         WebElement btn = waitClickable(clearBtn, 30);
         scrollIntoView(btn);
         try { btn.click(); } catch (Exception e) { jsClick(btn); }
-    }
-
-    public void expandAdministrationMenu() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement adminBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(administrationDropdownBtn));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", adminBtn);
-
-        // Expand only if collapsed
-        String expanded = adminBtn.getAttribute("aria-expanded");
-        if (!"true".equalsIgnoreCase(expanded)) {
-            try {
-                wait.until(ExpectedConditions.elementToBeClickable(adminBtn)).click();
-            } catch (ElementClickInterceptedException e) {
-                // fallback: click the chevron toggle
-                try {
-                    WebElement toggle = driver.findElement(administrationToggleBtn);
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", toggle);
-                } catch (NoSuchElementException ignore) {
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", adminBtn);
-                }
-            }
-        }
-
-        // Wait for children to render (any child under Administration; we use E-Signature Report)
-        wait.until(ExpectedConditions.visibilityOfElementLocated(eSignatureReportLink));
-        pause(400);
-    }
-
-    public void clickESignatureReport() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        expandAdministrationMenu(); // ensure expanded
-
-        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(eSignatureReportLink));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
-        try {
-            link.click();
-        } catch (ElementClickInterceptedException e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
-        }
-        pause(600);
     }
 
     public By reportTypeOption(String text) {

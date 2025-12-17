@@ -21,9 +21,6 @@ public class InitialReviewWorkflowPage extends BasePage {
 
     //Locators
     By initialReviewLink = By.xpath("//div[@class='name' and normalize-space()='Initial Review (IR)']");
-    By expandGroupButton = By.xpath("//button[@aria-label='Expand group']");
-    By reviewLetterPdfButton = By.xpath("//button[@aria-label='Download review letter']");
-    By reviewerChecklistPdfButton = By.xpath("//button[@aria-label='Download reviewer checklist']");
     By nameInput = By.xpath("//div[@data-name='TextBox1']//input[@type='text']");
     By enterNameDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Enter Name']");
     By selectGenderDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Select Gender']");
@@ -80,24 +77,6 @@ public class InitialReviewWorkflowPage extends BasePage {
         }
     }
 
-    public By textInputByQuestionLabel(String questionLabel) {
-        return By.xpath(
-                "//div[contains(@class,'dynamic-form-field')" +
-                        "  and .//div[contains(@class,'_questionLabelContainer')]" +
-                        "           //div[contains(@class,'fr-element') and normalize-space()='" + questionLabel + "']]" +
-                        "//input[@type='text']");
-    }
-
-    public By radioOptionByQuestionLabel(String questionLabel, String optionText) {
-        return By.xpath(
-                "//div[contains(@class,'dynamic-form-field')" +
-                        "  and .//div[contains(@class,'_questionLabelContainer')]" +
-                        "           //div[contains(@class,'fr-element') and normalize-space()='" + questionLabel + "']]" +
-                        "//div[contains(@class,'radio-group')]//label" +
-                        "[.//span[normalize-space()='" + optionText + "']]//input[@type='radio']"
-        );
-    }
-
     public By genderOption(String genderText) {
         return By.xpath(
                 "//div[@id='dynamic-form-field-input-74921-RadioButtonList1']" +
@@ -134,69 +113,8 @@ public class InitialReviewWorkflowPage extends BasePage {
         pause(1000);
     }
 
-    public void enterYourName(String name) {
-        By inputBy = textInputByQuestionLabel("Your Name");
-
-        WebElement input = wait.until(
-                ExpectedConditions.elementToBeClickable(inputBy)
-        );
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-
-        input.click();
-        input.clear();
-        input.sendKeys(name);
-
-        pause(500);
-    }
-
     public void selectGenderMale() {
         selectGender("Male");
-    }
-
-    public void clickReviewLetterPDF() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement pdf1 = wait.until(
-                ExpectedConditions.elementToBeClickable(reviewLetterPdfButton)
-        );
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", pdf1);
-
-        pdf1.click();
-
-        pause(1500); // Let download start
-    }
-
-    public void clickReviewerChecklistPDF() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement pdf2 = wait.until(
-                ExpectedConditions.elementToBeClickable(reviewerChecklistPdfButton)
-        );
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", pdf2);
-
-        pdf2.click();
-
-        pause(1500); // Let download start
-    }
-
-    public void clickExpandGroup() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        WebElement btn = wait.until(
-                ExpectedConditions.elementToBeClickable(expandGroupButton)
-        );
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-
-        btn.click();
-
-        pause(800);
     }
 
     public void clickInitialReview() {

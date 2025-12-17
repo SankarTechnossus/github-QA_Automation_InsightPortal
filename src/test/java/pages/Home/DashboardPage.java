@@ -23,7 +23,6 @@ public class DashboardPage extends BasePage
     By linkAdministration = By.xpath("//a[@aria-label='Administration']");
     By dropdownLogout = By.xpath("//span[@class='fi-down-dir']");
     By linkDashboard = By.xpath("//span[text()='Dashboard']/..");
-    By linkLogout = By.xpath("//span[text()='Logout']/..");
     By linkExportControl = By.xpath("//a[@aria-label='Export Control']");
 
     // Actions
@@ -56,14 +55,6 @@ public class DashboardPage extends BasePage
         waitForPresence(linkExportControl);
         click(linkExportControl);
         pause(2000);
-    }
-
-    public void UserLogout() {
-        click(dropdownLogout);
-        pause(1000);
-
-        click(linkLogout);
-        pause(3000);
     }
 
     public void clickExportControlLink() {

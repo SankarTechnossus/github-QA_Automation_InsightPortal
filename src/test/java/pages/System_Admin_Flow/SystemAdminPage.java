@@ -26,24 +26,17 @@ public class SystemAdminPage extends BasePage {
     By commentsEditor = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-view') and @contenteditable='true']");
     // Comments modal – "Comment" button
     By commentModalButton = By.xpath("//button[contains(@class,'comment-btn') and normalize-space()='Comment']");
-    // Left nav – "Response To Review" menu item (under current record)
-    By responseToReviewMenu = By.xpath("//div[@id='left-sidebar']//a[@class='label'][span[normalize-space()='Response To Review']]");
-    By checklistForm = By.xpath("//button[contains(@class,'content-toggler-button')]//span[span[normalize-space()='Checklist form']]");
     // User dropdown (Mohan C)
     By userDropdown = By.xpath("//div[contains(@class,'current-user-name')]");
     // Logout link
     By logoutLink = By.xpath("//a[span[normalize-space()='Logout']]");
     By recordNumberValue = By.xpath("//dt[normalize-space()='Record #:']/following-sibling::dd");
-    By valueInput = By.xpath("//input[@aria-label='Value']");
     By valueFieldInput = By.xpath("//label[normalize-space()='Record Number']/following-sibling::input[@aria-label='Value']");
     By yourNameDiv = By.xpath("//div[contains(@class,'fr-element') and normalize-space()='Your Name']");
     By genderDiv = By.xpath("//div[contains(@class,'fr-element') and normalize-space()='Gender']");
     By personnelExclusionValue = By.xpath("//dd[contains(@class,'_dark-text') and normalize-space()='Personnel Exclusion']");
     By commentsLabel = By.xpath("//span[contains(@class,'_font-size-base') and normalize-space()='Comments']");
 
-    By checklistFormToggleButton = By.xpath("//div[contains(@class,'toggleable-title')]//button" + "[contains(@class,'content-toggler-button')]" + "[.//span[normalize-space()='Checklist form']]");
-    By downloadButton = By.xpath("//button[contains(@class,'button') and .//span[normalize-space()='Download']]");
-    By optionOneRadio = By.xpath("//input[@name='RadioButtonList1' and @value='Option1']");
     By statusUnderReviewValue = By.xpath("//dt[normalize-space()='Status:']/following-sibling::dd[@title='Under Review' and normalize-space()='Under Review']");
     By notesSectionTitle = By.xpath("//span[contains(@class,'toggleable-section-title') and normalize-space()='Notes']");
     By commentButton = By.xpath("//button[contains(@class,'comment-btn') and normalize-space()='Comment']");
@@ -124,51 +117,6 @@ public class SystemAdminPage extends BasePage {
     // Record Number link in results grid – dynamic by record number text
     public By recordNumberLink(String recordNumber) {
         return By.xpath("//table[contains(@class,'item-grid')]//tbody//tr" + "//td[@data-column='_exportControlNumber']" + "//a[span[normalize-space()='" + recordNumber + "']]");
-    }
-
-    public By recordNumberLink01(String recordNumber) {
-        return By.xpath("//td[@data-column='_exportControlNumber']//a[span[normalize-space()='" + recordNumber + "']]");
-    }
-
-    public void selectOptionOne() {
-
-        WebElement radio = wait.until(ExpectedConditions.elementToBeClickable(optionOneRadio));
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                radio
-        );
-
-        radio.click();
-
-        pause(500);  // follow your standard pause
-    }
-
-    public void clickDownloadButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement btn = wait.until(
-                ExpectedConditions.elementToBeClickable(downloadButton)
-        );
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-
-        btn.click();
-
-        pause(1000);
-    }
-
-    public void clickChecklistFormToggle() {
-        WebElement toggleBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(checklistFormToggleButton)
-        );
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", toggleBtn);
-
-        toggleBtn.click();
-        pause(1000);
     }
 
     public void clickRecordNumber(String recordNumber) {
@@ -256,31 +204,6 @@ public class SystemAdminPage extends BasePage {
                 ExpectedConditions.elementToBeClickable(logoutLink)
         );
         logout.click();
-        pause(1000);
-    }
-
-    public void clickChecklistForm() {
-        WebElement ele = wait.until(
-                ExpectedConditions.elementToBeClickable(checklistForm)
-        );
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", ele);
-
-        ele.click();
-
-        pause(1000);
-    }
-
-    public void clickResponseToReviewMenu() {
-        WebElement menuItem = wait.until(
-                ExpectedConditions.elementToBeClickable(responseToReviewMenu));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", menuItem);
-
-        menuItem.click();
-
         pause(1000);
     }
 

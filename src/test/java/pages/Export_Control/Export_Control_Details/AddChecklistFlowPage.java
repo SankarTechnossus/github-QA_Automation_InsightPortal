@@ -21,7 +21,6 @@ public class AddChecklistFlowPage extends BasePage {
     By workflowManagementMenu = By.xpath("//div[@id='left-sidebar']//a[@href='/administration/workflow-management']" + "/span[normalize-space()='Workflow Management']");
     By exportControlWorkflowsLink = By.xpath("//button[normalize-space()='Export Control']" + "/ancestor::div[contains(@class,'menu-item-holder')][1]" + "//a[contains(@href,'/administration/workflow-management') and contains(@href,'workflows-export-control') " + " and normalize-space(text())='Workflows']");
     By personnelWorkflowLink = By.xpath("//td[@data-column='name' and @data-value='Personnel']//a[normalize-space()='Personnel']");
-    By addNewWorkflowButton = By.xpath("//div[contains(@class,'top-bar')][.//header[normalize-space()='Workflows']]" + "//button[contains(@class,'button') and contains(@class,'-primary')]");
     By addNewWorkflowVersionButton = By.xpath("//div[contains(@class,'top-bar')][.//header[normalize-space()='Versions']]" + "//button[contains(@class,'-primary')][normalize-space()='Add new']");
     By editableVersionDescription = By.xpath("//div[contains(@class,'_versionsList')]" + "//textarea[contains(@class,'_descriptionField') and not(@disabled)]");
     By saveVersionButton = By.xpath("//div[contains(@class,'_versionItemHeader')]" + "//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space()='Save']");

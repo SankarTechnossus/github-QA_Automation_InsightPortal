@@ -2,13 +2,11 @@ package pages.Adobe;
 
 import base.BasePage;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.BrowserUtility;
 
 import java.time.Duration;
-import java.util.Map;
 
 public class DeliverablesPage extends BasePage {
 
@@ -19,9 +17,6 @@ public class DeliverablesPage extends BasePage {
     // ******** Locators *********
 
     // Button: Delete Selected
-    By deleteSelectedBtn = By.xpath("//button[normalize-space(.)='Delete Selected']");
-    By signatureModalTitle = By.xpath("//h1[@id='modal-title-view58' and normalize-space()='Signature Preview']");
-    By signReasonDropdown  = By.id("signReasonFormControlDropdown");
     By addDeliverableOverlay = By.cssSelector("div.add-new-deliverable-overlay");
     By deliverableNameInput = By.xpath("//div[contains(@class,'add-new-deliverable-overlay')]//label[normalize-space(.)='Deliverable Name']/following::input[@type='text'][1]");
 
@@ -43,43 +38,15 @@ public class DeliverablesPage extends BasePage {
     // First recipient row's delete button (next to the Email input)
     By firstRecipientDeleteBtn = By.xpath("//div[contains(@class,'email-row')][1]//button[@aria-label='Delete']");
 
-    // Use data-testid or id (stable across builds)
-    By sendButton01 = By.cssSelector("button[data-testid='sendButton']");
-
-    // React modal overlay and the Send button inside it
-    By modalOverlay = By.cssSelector("div.ReactModal__Overlay.ReactModal__Overlay--after-open");
-    By sendButton   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
-    // IFRAME + editor readiness
-    By previewIframe       = By.xpath("//iframe[@class='sign-in-iframe']");
-    By signatureTool       = By.xpath("//div[@data-testid='menu-item-signature-form-field']//button//span");
-    By dropTargetOverlay   = By.xpath("//div[@data-testid='overlay-drop-target']");
-    By circleLoader        = By.cssSelector("[class*='CircleLoader'], [role='progressbar']"); // generic loader
-    By modalContentWrapper = By.cssSelector("div.modal-content-wrapper");
-
-    // Send (outside iframe)
-    By sendButtonInModal   = By.xpath("//div[contains(@class,'ReactModal__Overlay--after-open')]//button[.//span[normalize-space()='Send'] and not(@disabled)]");
-
-    // Always target the latest modal, then the concrete button id/testid
-    By activeModalOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
-    By sendButtonnew = By.cssSelector("div.modal-content-wrapper #sendButton"); // or: By.cssSelector("button[data-testid='footer-button-send-button']");
-
-    // Overlay & Send button (scope to the latest modal)
-    By activeOverlay = By.xpath("(//div[contains(@class,'ReactModal__Overlay--after-open')])[last()]");
-    By modalContent  = By.cssSelector("div.modal-content-wrapper");
-    By sendButtonnew01    = By.cssSelector("button#sendButton, button[data-testid='footer-button-send-button']");
     By deleteIcon = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
     By sentForSignaturesButton = By.xpath("//button[@type='button' and @aria-label='Status' and contains(@class,'esign-module__pending')]");
     By editRecipientButton = By.xpath("//td[@data-column='options']//button[@aria-label='Edit Recipient']");
     By cancelButtonemail = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
     By saveButtonemail = By.xpath("//button[@type='button' and @aria-label='Save' and normalize-space()='Save']");
     By recipientEmailInput = By.xpath("//input[@id='email' and @type='text']");
-    By pendingRecipientEditButton = By.xpath("//tr[td[@data-column='status' and @data-value='Pending']]//button[@aria-label='Edit Recipient' and not(@disabled)]");
     By closeModalButton = By.xpath("//button[@type='button' and @aria-label='Close modal']");
     By unsignedDocDownloadButton = By.xpath("//div[contains(@class,'esign-module__downloadLink')]//button[contains(text(),'Download') and not(@disabled)]");
     By eSignOptionsMenuButton = By.xpath("//table[.//th//div[normalize-space()='Options']]//tbody//tr[1]//td[last()]//button[not(@disabled)]");
-    By deleteIconemail = By.xpath("//div[@aria-label='Delete' and contains(@class,'nav-icon')]");
-    By cancelButtonfrom = By.xpath("//button[@type='button' and @aria-label='Cancel' and normalize-space()='Cancel']");
-    By closeButtonfrom = By.xpath("//button[@type='button' and @aria-label='Close' and normalize-space()='Close']");
 
     // --- Locators (keep only one copy) ---
     By deliverableCategoryControl = By.xpath("//form[contains(@class,'addNewDeliverable')]" +
@@ -91,51 +58,9 @@ public class DeliverablesPage extends BasePage {
     );
 
     // "any option" – used for ARROW_DOWN/ENTER fallback check
-    By anyReactSelectOption = By.xpath("//div[@role='option'] | //div[contains(@class,'option')]"
-    );
+    By anyReactSelectOption = By.xpath("//div[@role='option'] | //div[contains(@class,'option')]");
 
     // ************************** Actions ***************************************************************************
-
-    // Category accordion (scope by title text)
-    public By categoryBar(String category) {
-        return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]");
-    }
-
-    public By categoryToggleBtn(String category) {
-        return By.xpath("//div[contains(@class,'collapsible-bar')][.//span[contains(@class,'title-text') and normalize-space()='"+category+"']]//button[contains(@class,'content-toggler-button')]");
-    }
-
-    public void confirmDeleteOK() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Wait for JS alert to appear
-        wait.until(ExpectedConditions.alertIsPresent());
-
-        Alert alert = driver.switchTo().alert();
-
-        // Optional capture of alert text if needed
-        String alertMsg = alert.getText();
-        System.out.println("Alert Message: " + alertMsg);
-
-        alert.accept(); // Click OK
-        pause(800);
-    }
-
-    public void clickDeleteSelected01() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(deleteSelectedBtn));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-
-        try {
-            btn.click();
-        } catch (ElementClickInterceptedException e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
-        }
-
-        pause(600); // small stability wait inside page
-    }
 
     public void scrollUpInPreviewModal() {
         // Locate the scrollable container
@@ -147,45 +72,6 @@ public class DeliverablesPage extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = 0;", modalContentWrapper);
 
         pause(2000); // optional pause to let UI stabilize
-    }
-
-    public void clickCloseButton() {
-        WebElement closeBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
-                .until(ExpectedConditions.visibilityOfElementLocated(closeButtonfrom));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", closeBtn);
-
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(closeBtn));
-
-        closeBtn.click();
-        pause(2000);
-    }
-
-    public void clickCancelButtonfrom() {
-        WebElement cancelBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
-                .until(ExpectedConditions.visibilityOfElementLocated(cancelButtonfrom));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
-
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(cancelBtn));
-
-        cancelBtn.click();
-        pause(2000);
-    }
-
-    public void clickDeleteIconemail() {
-        WebElement deleteEl = new WebDriverWait(driver, Duration.ofSeconds(15))
-                .until(ExpectedConditions.visibilityOfElementLocated(deleteIconemail));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", deleteEl);
-
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(deleteEl));
-
-        deleteEl.click();
-        pause(2000);
     }
 
     public void clickESignOptionsMenu() {
@@ -223,19 +109,6 @@ public class DeliverablesPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(closeBtn));
 
         closeBtn.click();
-        pause(2000);
-    }
-
-    public void clickPendingRecipientEditButton() {
-        WebElement editBtn = new WebDriverWait(driver, Duration.ofSeconds(15))
-                .until(ExpectedConditions.visibilityOfElementLocated(pendingRecipientEditButton));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", editBtn);
-
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(editBtn));
-
-        editBtn.click();
         pause(2000);
     }
 
@@ -320,144 +193,6 @@ public class DeliverablesPage extends BasePage {
         BrowserUtility.click(driver,By.xpath("//button[@id='sendButton']"),"Send Button");
     }
 
-    public void clickSendnew01() {
-        // Send lives OUTSIDE the iframe
-//        driver.switchTo().defaultContent();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
-
-        // Ensure the latest overlay & its content are visible
-        wait.until(ExpectedConditions.visibilityOfElementLocated(activeOverlay));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(modalContent));
-
-        // Bring footer into view (your helper)
-        scrollToBottomOfModal(By.cssSelector("div.modal-content-wrapper"), 10);
-
-        // Wait until the button is truly click-ready
-        wait.until(d -> {
-            try {
-                WebElement btn = d.findElement(sendButtonnew01);               // re-find each poll (handles stale)
-                if (!btn.isDisplayed() || !btn.isEnabled()) return false;
-                String aria = btn.getAttribute("aria-disabled");
-                if ("true".equalsIgnoreCase(aria)) return false;
-
-                // Center it and ensure nothing covers it
-                ((JavascriptExecutor) d).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-                Map<?,?> pt = (Map<?,?>) ((JavascriptExecutor) d).executeScript(
-                        "const r=arguments[0].getBoundingClientRect();" +
-                                "return {x: Math.floor(r.left + r.width/2), y: Math.floor(r.top + r.height/2)};", btn);
-                WebElement top = (WebElement) ((JavascriptExecutor) d).executeScript(
-                        "return document.elementFromPoint(arguments[0], arguments[1]);", pt.get("x"), pt.get("y"));
-                return top != null && (top.equals(btn) ||
-                        (Boolean) ((JavascriptExecutor) d).executeScript(
-                                "return arguments[0].closest('button')===arguments[1];", top, btn));
-            } catch (StaleElementReferenceException | NoSuchElementException ignore) {
-                return false; // retry
-            }
-        });
-
-        // Click with safe fallback
-        try {
-            driver.findElement(sendButtonnew01).click();
-        } catch (Exception e) {
-            WebElement btn = driver.findElement(sendButtonnew01);
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
-        }
-
-        pause(2000);
-    }
-
-    public void clickSendnew() {
-        // 1) Ensure default content (Send is OUTSIDE iframe)
-        driver.switchTo().defaultContent();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
-
-        // 2) Wait for the active modal overlay and its content
-        wait.until(ExpectedConditions.visibilityOfElementLocated(activeModalOverlay));
-        WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.modal-content-wrapper")));
-
-        // 3) Bring footer into view (your existing helper)
-        scrollToBottomOfModal(By.cssSelector("div.modal-content-wrapper"), 10);
-
-        // 4) Wait for Send to be visible (not using elementToBeClickable which is flaky with overlays)
-        WebElement send = wait.until(ExpectedConditions.visibilityOfElementLocated(sendButton));
-
-        // 5) Custom "click-ready" wait: ensure no overlay is intercepting the center of the button
-        wait.until(driver -> {
-            try {
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", send);
-                Long[] xy = (Long[]) ((JavascriptExecutor) driver).executeScript(
-                        "const r=arguments[0].getBoundingClientRect();" +
-                                "return [Math.floor(r.left + r.width/2), Math.floor(r.top + r.height/2)];", send);
-                Object el = ((JavascriptExecutor) driver).executeScript(
-                        "return document.elementFromPoint(arguments[0], arguments[1]);",
-                        xy[0], xy[1]);
-                return el instanceof WebElement && (send.equals(el) || ((WebElement) el).isDisplayed());
-            } catch (Exception e) { return false; }
-        });
-
-        // 6) Click with safe fallback
-        try {
-            send.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", send);
-        }
-
-        pause(2000);
-    }
-
-    public void clickSend() {
-        // Ensure we are not in the preview iframe
-        driver.switchTo().defaultContent();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        // Wait for modal overlay to appear
-        WebElement overlay = wait.until(ExpectedConditions.visibilityOfElementLocated(modalOverlay));
-
-        // Scroll modal content so footer buttons are in view (your existing util)
-        By modalContent = By.cssSelector("div.modal-content-wrapper");
-        scrollToBottomOfModal(modalContent, 20);
-
-        // Wait until Send is clickable
-        WebElement send = wait.until(ExpectedConditions.elementToBeClickable(sendButton));
-
-        // Smooth scroll to center and click with fallback
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", send);
-        try {
-            send.click();
-        } catch (Exception e) {
-            try {
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", send);
-            } catch (Exception ignored) {
-                // Final fallback
-                new Actions(driver).moveToElement(send).click().perform();
-            }
-        }
-
-        pause(5000);
-    }
-
-    public void clickSendButton010() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        WebElement sendBtn = wait.until(ExpectedConditions.elementToBeClickable(sendButton01));
-
-        // Scroll into view
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", sendBtn);
-
-        // Try normal click
-        try {
-            sendBtn.click();
-        } catch (Exception e) {
-            // JS fallback if normal click fails
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sendBtn);
-        }
-
-        pause(5000); // controlled pause
-    }
-
     public void clickFirstRecipientDelete() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(firstRecipientDeleteBtn));
@@ -495,70 +230,13 @@ public class DeliverablesPage extends BasePage {
         pause(600);
     }
 
-    // Convenience wrapper for this specific case
     public void selectReminderEveryDay() {
         selectReminderFrequency("Every day");
-    }
-
-    public By categoryContainerBy(String category) {
-        return By.xpath(
-                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
-                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
-        );
-    }
-
-    public By deliverableLinkBy(String category, String deliverableName) {
-        return By.xpath(
-                "//span[contains(@class,'title-text')][contains(normalize-space(),'" + category + "')]"
-                        + "/ancestor::div[contains(@class,'collapsible-bar')]"
-                        + "//tbody//a[.//span[normalize-space()='" + deliverableName + "']]"
-        );
-    }
-
-    public void clickDeliverableByEnteredName(String enteredName01) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        By linkLocator = deliverableLinkByName(enteredName01);
-
-        WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(linkLocator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
-        wait.until(ExpectedConditions.elementToBeClickable(link));
-
-        try {
-            link.click();
-        } catch (ElementClickInterceptedException e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
-        }
-        pause(600);
-    }
-
-    public void acceptDeleteAlert() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-            alert.accept();   // Clicks on "OK"
-        } catch (TimeoutException e) {
-            throw new RuntimeException("Delete confirmation alert did not appear");
-        }
-        pause(500);
     }
 
     public void clickDownloadSelected() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(downloadSelectedBtn));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-
-        try {
-            btn.click();
-        } catch (ElementClickInterceptedException e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
-        }
-        pause(600);
-    }
-
-    public void clickDeleteSelected() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(deleteSelectedBtn));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
 
@@ -580,21 +258,6 @@ public class DeliverablesPage extends BasePage {
             checkbox.click();
         }
         pause(500);
-    }
-
-    public void checkRowByName(String name) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        By target = rowCheckboxByName(name);
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(target));
-        WebElement cb = wait.until(ExpectedConditions.elementToBeClickable(target));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cb);
-
-        try { cb.click(); }
-        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cb); }
-
-        wait.until(d -> d.findElement(target).isSelected());
-        pause(300);
     }
 
     public void clickClone() {
@@ -695,7 +358,6 @@ public class DeliverablesPage extends BasePage {
             input.sendKeys(Keys.ARROW_DOWN);
             input.sendKeys(Keys.ENTER);
             pause(300);
-            return;
         } catch (Exception e) {
             // ---- Strategy C: one retry from the top (handles flicker)
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
@@ -768,7 +430,6 @@ public class DeliverablesPage extends BasePage {
         pause(600);
     }
 
-    // OPTION match that works whether the menu is portaled or not (no reliance on role = listbox)
     public By reactSelectOptionExact(String text) {
         return By.xpath(
                 // look anywhere on the page for a react-select option with exact text
@@ -777,13 +438,6 @@ public class DeliverablesPage extends BasePage {
         );
     }
 
-    // Anchored to the Deliverable Name column (col_196); matches the exact visible text inside the <span>
-    public By deliverableLinkByName(String name) {
-        return By.xpath("//table[contains(@class,'item-grid')]//td[@data-column='col_196']" +
-                "//a[.//span[normalize-space()='" + name + "']]");
-    }
-
-    // Option matcher (works for their various option class names / role)
     public By reminderOption(String text) {
         return By.xpath(
                 "(//div[@role='option' and normalize-space()='" + text + "']" +
@@ -792,7 +446,4 @@ public class DeliverablesPage extends BasePage {
                         " | //div[contains(@class,'_option_') and normalize-space()='" + text + "'])[1]"
         );
     }
-
-    // Row checkbox by deliverable name (choose last match => newest)
-    public By rowCheckboxByName(String name) {return By.xpath("(//table[contains(@class,'item-grid')]//tbody//tr[.//span[normalize-space(.)='"+ name + "']]//input[@type='checkbox'])[last()]");}
 }
