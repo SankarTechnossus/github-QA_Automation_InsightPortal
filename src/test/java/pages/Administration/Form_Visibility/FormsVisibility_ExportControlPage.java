@@ -8,7 +8,7 @@ import java.time.Duration;
 
 public class FormsVisibility_ExportControlPage extends BasePage {
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public FormsVisibility_ExportControlPage(WebDriver driver) {
         super(driver);
@@ -21,22 +21,15 @@ public class FormsVisibility_ExportControlPage extends BasePage {
     By formInput = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]//input[@id='dataSourceKey']");
     By accessInput = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]//input[@id='access']");
     By queryBuilderInput = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]//div[contains(text(),'Query Builder')]/following::input[@role='combobox'][1]");
-    By formDropdown = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//label[normalize-space()='Form']/following::div[contains(@class,'select-control')][1]");
-    By activeModal = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]");
-    By formControl = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]//div[@id='react-select-2-placeholder']/ancestor::div[contains(@class,'select-control')]");
-    By accessControl = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]//div[@id='react-select-3-placeholder']/ancestor::div[contains(@class,'select-control')]");
-    By queryBuilderControl = By.xpath("//div[contains(@class,'ReactModal__Content--after-open') and contains(@class,'_rulesModal')]//div[@id='react-select-4-placeholder']/ancestor::div[contains(@class,'select-control')]");
     By formVisibilityToggleButton = By.xpath("//button[contains(@class,'toggle-menu-icon-button') and contains(@aria-label,'Form Visibility')]");
     By exportControlLink = By.xpath("//a[contains(@href,'/administration/form-visibility/export-control') and contains(@class,'label')]");
     By addRuleButton = By.xpath("//button[normalize-space()='Add rule']");
     By rulesModal = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]");
-    By modalWrapper = By.xpath("//div[@class='modal-content-wrapper']");
     By addRuleInsideModalButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[normalize-space()='Rule']");
     By removeRuleButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[@aria-label='Remove rule']");
     By addGroupButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[contains(@class,'-primary')][div/i[contains(@class,'fi-add')]][contains(.,'Group')]");
     By removeGroupButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[@aria-label='Remove group']");
     By migrationButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[normalize-space()='Migration']");
-    By saveButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[normalize-space()='Save']");
     By cancelButton = By.xpath("//div[contains(@class,'ReactModal__Content') and contains(@class,'_rulesModal')]//button[normalize-space()='Cancel']");
     By firstEditButton = By.xpath("(//table//button[normalize-space()='Edit'])[1]");
     By cancelButton01 = By.xpath("//button[@type='button' and normalize-space()='Cancel']");
@@ -45,9 +38,9 @@ public class FormsVisibility_ExportControlPage extends BasePage {
     By formLabel = By.xpath("//label[@for='dataSourceKey']");
     By accessLabel = By.xpath("//label[@for='access']");
     By queryBuilderSection = By.xpath("//div[normalize-space()='Query Builder']");
-    private By ruleButton = By.xpath("//button[normalize-space()='Rule']");
-    private By groupButton = By.xpath("//button[normalize-space()='Group']");
-    private By migrationButton1 = By.xpath("//button[normalize-space()='Migration']");
+    By ruleButton = By.xpath("//button[normalize-space()='Rule']");
+    By groupButton = By.xpath("//button[normalize-space()='Group']");
+    By migrationButton1 = By.xpath("//button[normalize-space()='Migration']");
 
     //Actions
     public boolean isRuleButtonDisplayed() {
@@ -116,10 +109,6 @@ public class FormsVisibility_ExportControlPage extends BasePage {
         }
     }
 
-    By selectOption(String text) {
-        return By.xpath("//div[@role='option' and normalize-space()='" + text + "']");
-    }
-
     public void clickSaveButton() {
 
         WebElement save = wait.until(ExpectedConditions.elementToBeClickable(saveButton01));
@@ -163,19 +152,6 @@ public class FormsVisibility_ExportControlPage extends BasePage {
                 "arguments[0].scrollIntoView({block:'center'});", cancel);
 
         cancel.click();
-
-        pause(800);
-    }
-
-    public void clickSave() {
-
-        WebElement save = wait.until(
-                ExpectedConditions.elementToBeClickable(saveButton));
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", save);
-
-        save.click();
 
         pause(800);
     }

@@ -59,20 +59,6 @@ public class ResponseToReviewPage extends BasePage {
         pause(1000);
     }
 
-    public void clickResponseToReview() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement link = wait.until(
-                ExpectedConditions.elementToBeClickable(responseToReviewLink));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
-
-        link.click();
-
-        pause(1000);
-    }
-
     public void clickActivitiesTab() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 

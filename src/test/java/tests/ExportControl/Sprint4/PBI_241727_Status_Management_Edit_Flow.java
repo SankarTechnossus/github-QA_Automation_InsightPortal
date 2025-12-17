@@ -34,7 +34,7 @@ public class PBI_241727_Status_Management_Edit_Flow {
 
     @BeforeMethod
     public void setupBrowser() {
-        // User will setup and configure the Chrome WebDriver using WebDriverManager
+        // User will set up and configure the Chrome WebDriver using WebDriverManager
         WebDriverManager.chromedriver().setup();
 
         // User will launch a new Chrome browser instance

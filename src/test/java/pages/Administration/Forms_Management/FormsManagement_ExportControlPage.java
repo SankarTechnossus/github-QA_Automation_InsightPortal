@@ -32,7 +32,6 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By closePreviewLink = By.xpath("//a[contains(@href, '/edit') and text()='Close preview']");
     By saveButton = By.xpath("//button[@type='button' and contains(@class, '-submission') and text()='Save']");
     By addChildQuestionButton = By.xpath("//button[normalize-space()='Add child question']");
-    By cancelAddingButton = By.xpath("//button[normalize-space()='Cancel adding']");
     By moveButton = By.xpath("//button[normalize-space()='Move']");
     By cancelMovingButton = By.xpath("//button[normalize-space()='Cancel moving']");
     By editButton = By.xpath("//button[normalize-space()='Edit']");
@@ -50,27 +49,22 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By saveButtonassert = By.xpath("//button[contains(@class,'-submission') and normalize-space()='Save']");
     By previewBreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Preview']");
 
-
     // ********************************* Sahil Locators *******************************************************************
 
     By linkFormsManagement = By.xpath("//span[text()='Forms Management']/..");
     By linkExportControl = By.xpath("//a[contains(@href, 'forms-management-export-control')]");
     By linkAddNew = By.xpath("//a[text()='Add new']");
-
     By inputName = By.id("name");
     By textareaDescription = By.id("description");
     By inputType = By.id("type");
     By inputCategory = By.id("category");
     By inputCategorySeqNo = By.id("categorySequenceNo");
     By buttonCreate = By.xpath("//button[text()='Create']");
-
     By buttonChangeActiveVersion = By.xpath("//button[text()='Change active version']");
     By buttonActivate = By.xpath("//button[text()='Activate']");
     By linkActiveVersion = By.xpath("//span[text()='Active']/../../a");
-
     By inputInstructions = By.xpath("//div[@class='fr-wrapper show-placeholder']/div");
     By buttonSave = By.xpath("//button[text()='Save']");
-
 
     // *********** Sankar Actions ************************************************
 
@@ -285,22 +279,6 @@ public class FormsManagement_ExportControlPage extends BasePage {
             pause(500); // wait for any move dialog/behavior
         } catch (Exception e) {
             throw new RuntimeException("Failed to click 'Move' button: " + e.getMessage(), e);
-        }
-    }
-
-    public void clickCancelAddingButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            WebElement cancelBtn = wait.until(ExpectedConditions.elementToBeClickable(cancelAddingButton));
-
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cancelBtn);
-            pause(300); // brief wait after scroll
-
-            cancelBtn.click();
-            pause(500); // wait for UI to update
-
-        } catch (Exception e) {
-            throw new RuntimeException(" Failed to click 'Cancel adding' button: " + e.getMessage(), e);
         }
     }
 
@@ -557,14 +535,6 @@ public class FormsManagement_ExportControlPage extends BasePage {
         String inst = driver.findElement(By.xpath("//div[@class='fr-element fr-view']")).getText();
         if(Objects.equals(inst, instructions))
         {
-            click(buttonSave);
-            pause(2000);
-
-            result = true;
-            pause(2000);
-        }
-        else {
-            type(inputInstructions, instructions);
             click(buttonSave);
             pause(2000);
 

@@ -51,7 +51,6 @@ public class RulesPage extends BasePage {
     By migrationButton = By.xpath("//button[normalize-space()='Migration']");
     By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
-    By nameInputFieldAppend = By.xpath("//input[@id='name' and @type='text']");
     By rulesLink = By.xpath("//nav//a[normalize-space(.)='Rules' " + "and contains(@href,'/administration/workflow-management/')" + "and contains(@href,'/scopeId/3/rules')]");
     By workflowsCancelButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[@type='button' and normalize-space()='Cancel']");
     By rulesHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Rules')]");
@@ -136,19 +135,6 @@ public class RulesPage extends BasePage {
         // Let the menu close
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(MENU_XPATH)));
         pause(300);
-    }
-
-    public void appendToNameField(String textToAppend) {
-        WebElement input = driver.findElement(nameInputFieldAppend);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInputFieldAppend));
-
-        // Append without clearing
-        input.sendKeys(textToAppend);
-
-        pause(1000);
     }
 
     public void clickEditButtonForRule(String ruleName) {

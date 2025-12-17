@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class PeopleManagement_ExportControlPage extends BasePage {
@@ -52,7 +50,6 @@ public class PeopleManagement_ExportControlPage extends BasePage {
     By buttonEditRole = By.xpath("//div[text()='Role']/following::tbody/tr[2]/td[3]//button");
     By buttonEditDefaultRole = By.xpath("//div[text()='Role']/following::tbody/tr[1]/td[3]//button");
     By inputEditRoleName = By.xpath("//td[@data-column='roleName']/input");
-
     By buttonSaveRoleEdit = By.xpath("//button[@aria-label='Save item']");
 
     // Functions
@@ -159,7 +156,7 @@ public class PeopleManagement_ExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean EditPeopleTypeNameAndVerifyInList(String typeName, String newTypeName) {
+    public boolean EditPeopleTypeNameAndVerifyInList(String newTypeName) {
         boolean result = false;
 
         click(buttonEditPeopleType);
@@ -219,7 +216,7 @@ public class PeopleManagement_ExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean DeactivateAssociatedRoleAndVerifyInList(String roleName, String typeName) {
+    public boolean DeactivateAssociatedRoleAndVerifyInList() {
         boolean result = false;
 
         click(linkRoles);
@@ -266,7 +263,7 @@ public class PeopleManagement_ExportControlPage extends BasePage {
         return result;
     }
 
-    public boolean EditRoleNameAndVerifyInList(String newTypeName, String newRoleName) {
+    public boolean EditRoleNameAndVerifyInList(String newRoleName) {
         boolean result = false;
 
         click(linkRoles);

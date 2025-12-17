@@ -78,13 +78,9 @@ public class PBI_248109_Notes {
             String password = JsonDataReader.get(0,"Password");
             String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
             String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
-            String linkText          = JsonDataReader.get(3, "InitialReviewLinkText");     // "New Test 07"
-            String phoneNumber       = JsonDataReader.get(3, "InitialReviewPhoneNumber");  // "7550309189"
-            String personName        = JsonDataReader.get(3, "InitialReviewName");         // "Test01"
-            String amendCommentText  = JsonDataReader.get(3, "AmendCommentText");
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
-            String NotesData         = JsonDataReader.get(1, "NotesData");
             String initialNoteText     = JsonDataReader.get(3, "InitialReviewNoteText");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");

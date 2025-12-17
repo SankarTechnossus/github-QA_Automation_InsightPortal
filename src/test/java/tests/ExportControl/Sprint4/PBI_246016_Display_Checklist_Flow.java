@@ -73,8 +73,6 @@ public class PBI_246016_Display_Checklist_Flow {
 
             String piSearchText   = JsonDataReader.get(3, "InitialReviewPiSearchText");   // "mohan"
             String piFullName     = JsonDataReader.get(3, "PIName");                     // "Chandra, Mohan"
-            String phoneNumber    = JsonDataReader.get(3, "InitialReviewPhoneNumber");   // "7550309189"
-            String personName     = JsonDataReader.get(3, "InitialReviewName");
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
 
             // User will open the login page of the Insight Portal application

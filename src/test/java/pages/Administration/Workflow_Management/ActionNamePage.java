@@ -45,16 +45,6 @@ public class ActionNamePage extends BasePage {
         }
     }
 
-    public boolean isHistoryTitleLabelDisplayed() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement label = wait.until(ExpectedConditions.visibilityOfElementLocated(historyTitleLabel));
-            return label.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public boolean isActionNameHeaderDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CommunicationManagement_ExportControlPage extends BasePage {
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
     public CommunicationManagement_ExportControlPage(WebDriver driver) {
 
         super(driver);
@@ -17,7 +17,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
 
     //Locator
     By noticeGroupControl = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-group')]" + "//div[contains(@class,'select-control')]");
-    By noticeGroupInput = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-group')]" + "//input[@id='group']");
     By addNewTemplateModal = By.xpath("//div[contains(@class,'modal-content-wrapper')]" + "[.//strong[normalize-space()='Add New Template']]");
     By communicationManagementToggle = By.xpath("//button[@aria-label='Expand Communication Management' or @aria-label='Collapse Communication Management']");
     By communicationExportControlLink = By.xpath("//div[contains(@class,'-level-2') and .//span[normalize-space()='Export Control']]" + "//a[contains(@href,'/administration/communication-management/export-control')]");
@@ -26,12 +25,10 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
     By reminderFrequencyInput = By.xpath("//div[contains(@class,'modal-content-wrapper')]" + "[.//strong[normalize-space()='Add New Template']]" + "//input[@id='reminderSettings.intervalDays']");
     By createTemplateButton = By.xpath("//button[@type='submit' and contains(@class,'-primary') and normalize-space()='Create Template']");
     By cancelTemplateButton = By.xpath("//div[contains(@class,'_flexJustifyEnd')]/button[normalize-space()='Cancel']");
-    By layoutInput = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-layout-id')]" + "//input[@id='layoutId']");
     By layoutControl = By.xpath("//div[contains(@class,'form-cell') and contains(@class,'-layout-id')]" + "//div[contains(@class,'select-control')]");
     By notificationTypeInput = By.id("id");
     By cancelButton = By.xpath("//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Cancel']");
     By saveButton = By.xpath("//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Save']");
-    By addNotificationTemplateButton = By.xpath("//button[normalize-space()='Add Notification Template']");
     By notificationsButton = By.xpath("//button[contains(@class,'button') and normalize-space()='Notifications']");
     By notificationsMenuLink = By.xpath("//a[contains(@class,'label') and @href='/export-control/notifications']//span[normalize-space()='Notifications']");
     By firstPlusButton = By.xpath("(//button[contains(@class,'plus-button')])[1]");
@@ -168,20 +165,6 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
         notifBtn.click();
 
         // Optional small pause so tab content loads properly
-        pause(1000);
-    }
-
-    public void openNotificationTemplateForm() {
-        WebElement addBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(addNotificationTemplateButton));
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", addBtn);
-
-        addBtn.click();
-
-        // Wait for Notification Type input to appear
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("id")));
         pause(1000);
     }
 

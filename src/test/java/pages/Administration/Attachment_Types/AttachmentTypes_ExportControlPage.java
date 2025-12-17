@@ -14,7 +14,7 @@ import utils.UniqueNameGenerator;
 
 public class AttachmentTypes_ExportControlPage extends BasePage {
 
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
     UniqueNameGenerator uniqueNameGenerator = new UniqueNameGenerator();
 
     // Constructor
@@ -25,8 +25,6 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
 
     // *********************** Sankar Locators **********************************************
 
-    //Locators
-    By attachmentTypesMenu = By.xpath("//span[normalize-space()='Attachment Types']/parent::a");
     By addAttachmentTypeButton = By.xpath("//button[normalize-space()='Add Attachment Type']");
     By typeNameInput = By.xpath("//span[normalize-space()='Type Name']/following::input[@type='text'][1]");
     By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
@@ -41,7 +39,6 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     By addAttachmentTypeHeader = By.xpath("//header[contains(text(),'Add Attachment Type')]");
     By typeNameLabel = By.xpath("//span[normalize-space()='Type Name']");
     By activeLabel = By.xpath("//span[normalize-space()='Active']");
-
 
     // ********************* Sahil Locators *****************************************
 
@@ -199,7 +196,7 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
         pause(1000);
     }
 
-    public void enterRandomTypeName(int length) {
+    public void enterRandomTypeName() {
         String randomName = uniqueNameGenerator.GenerateRandomName(6);
 
         WebElement input = wait.until(
@@ -251,19 +248,6 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
                 "arguments[0].scrollIntoView({block:'center'});", btn);
 
         btn.click();
-
-        pause(1000);
-    }
-
-    public void clickAttachmentTypesMenu() {
-        WebElement menu = wait.until(
-                ExpectedConditions.elementToBeClickable(attachmentTypesMenu)
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", menu);
-
-        menu.click();
 
         pause(1000);
     }

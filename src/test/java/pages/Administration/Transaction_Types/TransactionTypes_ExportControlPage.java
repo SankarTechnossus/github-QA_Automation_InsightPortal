@@ -16,7 +16,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
 
     // Locators
 
-    By exportControlTransactionTypeLink = By.xpath("//span[text()='Export Control']/parent::a");
     By addNewTransactionTypeLink = By.xpath("//a[@href='/administration/transaction-types/transaction-new' and normalize-space(text())='Add new']");
     By transactionTypeInput = By.xpath("//input[@id='name' and contains(@class,'text-input') and contains(@class,'default-input')]");
     By searchByNameInput = By.xpath("//input[@placeholder='Search by Name' and contains(@class,'text-input') and contains(@class,'default-input')]");
@@ -107,14 +106,6 @@ public class TransactionTypes_ExportControlPage extends BasePage {
         pause(1000);
         addNewLink.click();
         pause(1000);
-    }
-
-    public void clickExportControlTransactionType() {
-        WebElement link = driver.findElement(exportControlTransactionTypeLink);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
-        pause(1000); // Wait after scroll
-        link.click(); // Click the link
-        pause(1000); // Optional wait
     }
 
     public void clickTransactionTypesLink() {

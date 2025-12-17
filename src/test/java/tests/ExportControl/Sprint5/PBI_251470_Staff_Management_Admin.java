@@ -106,7 +106,7 @@ public class PBI_251470_Staff_Management_Admin {
             // Edit People Type Name and Verify
             String newTypeName = uniqueNameGenerator.GenerateRandomName(6);
 
-            Assert.assertTrue(peopleManagementExportControlPage.EditPeopleTypeNameAndVerifyInList(peopleTypeName, newTypeName));
+            Assert.assertTrue(peopleManagementExportControlPage.EditPeopleTypeNameAndVerifyInList(newTypeName));
             ExtentReportListener.getExtentTest().pass("People Type Name changed successfully to : " + newTypeName);
 
             // Deactivate New People Type and Verify
@@ -116,11 +116,11 @@ public class PBI_251470_Staff_Management_Admin {
             // Edit Role Name and Verify
             String newRoleName = uniqueNameGenerator.GenerateRandomName(6);
 
-            Assert.assertTrue(peopleManagementExportControlPage.EditRoleNameAndVerifyInList(newTypeName, newRoleName));
+            Assert.assertTrue(peopleManagementExportControlPage.EditRoleNameAndVerifyInList(newRoleName));
             ExtentReportListener.getExtentTest().pass("Role Name changed successfully to : " + newRoleName);
 
             // Deactivate new role name and verify
-            Assert.assertTrue(peopleManagementExportControlPage.DeactivateAssociatedRoleAndVerifyInList(newRoleName, newTypeName));
+            Assert.assertTrue(peopleManagementExportControlPage.DeactivateAssociatedRoleAndVerifyInList());
             ExtentReportListener.getExtentTest().pass("New Role with name : " + newRoleName + " has been deactivated successfully for people type : " + newTypeName);
 
             // Try to deactivate all associated roles and verify error message

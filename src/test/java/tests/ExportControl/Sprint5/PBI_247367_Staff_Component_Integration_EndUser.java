@@ -229,16 +229,6 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
                     String existingExternalPeople = JsonDataReader.get(7,"ExistingExternalPeople");
                     String existingUserExternalAffiliation = JsonDataReader.get(7,"ExistingUserExternalAffiliation");
 
-                    /*
-                    String institutionAffiliation = JsonDataReader.get(7,"InstitutionAffiliation");
-                    String departmentAffiliation = JsonDataReader.get(7,"DepartmentAffiliation");
-                    String unitAffiliation = JsonDataReader.get(7,"UnitAffiliation");
-
-                    // Verify Existing External People details are autopopulated upon user selection
-                    //Assert.assertTrue(createExportControlPage.VerifyExistingExternalPeopleDetailsAreAutoPopulatedUponNameSelection(existingExternalPeople, institutionAffiliation, departmentAffiliation, unitAffiliation, existingUserExternalAffiliation));
-                    //ExtentReportListener.getExtentTest().pass("Institution Affiliation : " + institutionAffiliation + ", Department Affiliation : " + departmentAffiliation + ", and Unit Affiliation : " + unitAffiliation + " is getting autopopulated for existing external people : " + existingExternalPeople + " upon user selection.");
-                    */
-
                     // Verify user is able to add existing external people
                     Assert.assertTrue(createExportControlPage.VerifyUserIsAbleToAddExistingExternalPeople(existingExternalPeople));
                     ExtentReportListener.getExtentTest().pass("User is able to add new existing external people : " + existingExternalPeople);
