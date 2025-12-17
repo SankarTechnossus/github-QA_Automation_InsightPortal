@@ -24,7 +24,6 @@ public class WorkflowsPage extends BasePage {
     By nameInputField = By.xpath("//input[@id='name' and @type='text']");
     By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
     By saveButton = By.xpath("//div[contains(@class,'buttons-cell')]//button[normalize-space()='Save']");
-    String editButtonForWorkflowXpath = "//tr[.//a[normalize-space(text())='%s']]//button[normalize-space(text())='Edit']";
     By updateButton = By.xpath("//button[normalize-space(text())='Update']");
     By workflowGrid = By.cssSelector("div.panel.-table, div.list, table");
     By editControls = By.xpath(".//a[normalize-space()='Edit' or @title='Edit']" + " | .//button[normalize-space()='Edit' or @title='Edit' or .//i[contains(@class,'edit')]]");
@@ -129,25 +128,6 @@ public class WorkflowsPage extends BasePage {
         WebElement button = driver.findElement(updateButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
         button.click();
-        pause(1000);
-    }
-
-    public void appendSanToName() {
-        WebElement input = driver.findElement(nameInputField);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInputField));
-
-        input.sendKeys("San"); // Append instead of replacing
-        pause(1000);
-    }
-
-    public void clickEditButtonForWorkflow(String workflowName) {
-        By editButtonLocator = By.xpath(String.format(editButtonForWorkflowXpath, workflowName));
-        WebElement editButton = driver.findElement(editButtonLocator);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", editButton);
-        editButton.click();
         pause(1000);
     }
 

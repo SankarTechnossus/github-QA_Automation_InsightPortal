@@ -20,13 +20,11 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
 
     //Locators
 
-    By actionNameInput = By.id("name");
     By initialAppMgmtMain = By.xpath("//div[@id='left-sidebar']" + "//span[normalize-space()='Initial Application Management']" + "/ancestor::*[self::a or self::button][1]");
     By initialAppMgmtArrow = By.xpath("//div[@id='left-sidebar']" + "//span[normalize-space()='Initial Application Management']" + "/ancestor::div[contains(@class,'-level-1') and contains(@class,'menu-item')]" + "//button[contains(@class,'toggle-menu-icon-button')]");
     By initialAppMgmtExportControl = By.xpath("//div[contains(@class,'_applicationManagementMenu')]//a[normalize-space()='Export Control']");
     By addInitialApplicationButton = By.xpath("//button[normalize-space()='Add Initial Application']");
     By addButton = By.xpath("//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space()='Add']");
-    By modalAddButton = By.xpath("//div[contains(@class,'ReactModal__Content')]//button[normalize-space()='Add']");
     By modalCancelButton = By.xpath("//div[contains(@class,'ReactModal__Content')]//button[normalize-space()='Cancel']");
     By entityTypeCombobox = By.xpath("//div[contains(@class,'ReactModal__Content--after-open')]" + "//input[@id='entityTypeId' and @role='combobox']");
     By firstEditButton = By.xpath("(//table[contains(@class,'item-grid')]//tbody//button[normalize-space()='Edit'])[1]");
@@ -34,37 +32,13 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
     By inlineSaveButton = By.xpath("(//tr[contains(@class,'item-grid-tr')]//button[@aria-label='Save item'])[1]");
     By initialApplicationBreadcrumb = By.xpath("//span[@class='crumb' and normalize-space()='Initial Application Management']");
     By exportControlBreadcrumb = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Export Control']");
-    By addInitialApplicationButton01 = By.xpath("//button[@type='button' and contains(@class,'-primary') and normalize-space()='Add Initial Application']");
-
     By actionNameLabel = By.xpath("//label[@for='name' and contains(normalize-space(),'Action Name')]");
-    By entityTypeLabel = By.xpath("//label[@for='entityTypeId' and contains(normalize-space(),'Entity Type')]");
-
 
     //Actions
-    public boolean isEntityTypeLabelDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(entityTypeLabel));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public boolean isActionNameLabelDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(actionNameLabel));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean isAddInitialApplicationButtonDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(addInitialApplicationButton01));
             return true;
         } catch (Exception e) {
             return false;
@@ -89,17 +63,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void enterRandomActionName(String actionName) {
-        WebElement input = wait.until(
-                ExpectedConditions.elementToBeClickable(actionNameInput)
-        );
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", input
-        );
-        input.clear();
-        input.sendKeys(actionName);
     }
 
     public void clickInlineCancel() {
@@ -190,13 +153,6 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
 
     public void clickCancel() {
         driver.findElement(modalCancelButton).click();
-    }
-
-    // Click Add on modal
-    public void clickAddOnModal() {
-        WebElement add = wait.until(ExpectedConditions.elementToBeClickable(modalAddButton));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", add);
-        add.click();
     }
 
     public void clickAddInitialApplication() {

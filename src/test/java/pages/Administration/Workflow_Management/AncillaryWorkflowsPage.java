@@ -15,10 +15,6 @@ public class AncillaryWorkflowsPage extends BasePage {
         super(driver);
     }
 
-    String editBtnByDataValueTpl = "//td[@data-column='name' and @data-value='%s']/ancestor::tr[1]" + "//button[@type='button' and normalize-space()='Edit']";
-    String editBtnByLinkTextTpl = "//a[normalize-space(.)='%s']/ancestor::tr[1]" + "//button[@type='button' and normalize-space()='Edit']";
-    String editButtonForAncXpath = "//td[@data-column='name' and @data-value='%s']" + "/ancestor::tr[1]//td[@data-column='_actions']" + "//button[@type='button' and normalize-space(.)='Edit']";
-
     // Locators
     By addNewButton = By.xpath("//button[@type='button' and normalize-space()='Add New']");
     By cancelButton = By.xpath("//button[normalize-space(text())='Cancel']");
@@ -33,7 +29,6 @@ public class AncillaryWorkflowsPage extends BasePage {
     By ancillaryWorkflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Ancillary Workflows')]");
     By nameLabel = By.xpath("//label[@for='name']");
     By triggeringRuleLabel = By.xpath("//label[@for='triggeringRuleId']");
-    By emailFromLabel = By.xpath("//label[@for='emailFrom']");
 
     // Action
     public boolean isNameLabelDisplayed() {
@@ -49,15 +44,6 @@ public class AncillaryWorkflowsPage extends BasePage {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             return wait.until(ExpectedConditions.visibilityOfElementLocated(triggeringRuleLabel)).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean isEmailFromLabelDisplayed() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(emailFromLabel)).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -124,43 +110,6 @@ public class AncillaryWorkflowsPage extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
         button.click();
         pause(1000);
-    }
-
-    public void appendSanToNameAnc() {
-        WebElement input = driver.findElement(nameInputFieldAnc);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInputFieldAnc));
-
-        input.sendKeys("San"); // Append instead of replacing
-        pause(1000);
-    }
-
-    public void clickEditForWorkflow(String workflowName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
-
-        By byDataValue = By.xpath(String.format(editBtnByDataValueTpl, workflowName));
-        By byLinkText  = By.xpath(String.format(editBtnByLinkTextTpl,  workflowName));
-
-        WebElement btn;
-        try {
-            btn = wait.until(ExpectedConditions.elementToBeClickable(byDataValue));
-        } catch (TimeoutException e) {
-            btn = wait.until(ExpectedConditions.elementToBeClickable(byLinkText));
-        }
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
-        try { btn.click(); } catch (ElementClickInterceptedException ex) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
-        }
-
-        wait.until(ExpectedConditions.or(
-                ExpectedConditions.presenceOfElementLocated(By.id("name")),
-                ExpectedConditions.presenceOfElementLocated(
-                        By.xpath("//button[@type='button' and normalize-space()='Update']"))
-        ));
-        pause(500);
     }
 
     public void enterNameAnc(String name) {

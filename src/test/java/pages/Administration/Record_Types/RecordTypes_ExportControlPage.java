@@ -18,11 +18,9 @@ public class RecordTypes_ExportControlPage extends BasePage {
 
     // Locators
 
-    By recordTypesLink = By.xpath("//a[@class='label' and @href='/administration/record-types/record-type' and span[text()='Record Types']]");
     By exportControlLink = By.xpath("//a[text()='Export Control'][@href='/administration/record-types']");
     By addRecordTypeLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Record Type']");
     By recordTypeInput = By.xpath("//label[text()='Enter Record Type']/following::input[contains(@class,'text-input') and @id='refMeaning']");
-    By activeCheckbox = By.id("active");
     By createButton = By.xpath("//button[@type='button' and contains(text(), 'Create')]");
     By cancelButton = By.xpath("//div[contains(@class,'buttons-cell')]//a[normalize-space()='Cancel' and contains(@href,'/administration/record-types')]");
     By addCategoryLink = By.xpath("//a[@class='_link_ogtko_1' and text()='Add Category']");
@@ -37,7 +35,6 @@ public class RecordTypes_ExportControlPage extends BasePage {
     By firstRowEditButton = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]" + "//td[@data-column='_actions']//button[.//div[@aria-label='Edit']]");
     By editRecordTypeCancelButton = By.xpath("//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Cancel']");
     By editRecordTypeSaveButton = By.xpath("//div[contains(@class,'ReactModalPortal')]//button[normalize-space()='Save']");
-    By cancelCreateCategoryLink = By.xpath("//a[@href='/administration/record-types' and contains(@class,'_link_ogtko_1') and normalize-space()='Cancel']");
     By recordTypesHeader = By.xpath("//strong[normalize-space()='Record Types']");
     By createRecordTypeHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Create Record Type']");
     By createCategoryHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Create Category']");
@@ -59,17 +56,6 @@ public class RecordTypes_ExportControlPage extends BasePage {
     public boolean isRecordTypesSectionDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypesSectionTitle));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean isEditRecordTypeSectionDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(editRecordTypeHeader));
             wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypesSectionTitle));
             return true;
         } catch (Exception e) {
@@ -106,31 +92,6 @@ public class RecordTypes_ExportControlPage extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
-    }
-
-    public void clickCreateCategoryCancel() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        // Wait until the Cancel link is clickable
-        WebElement cancelLink = wait.until(
-                ExpectedConditions.elementToBeClickable(cancelCreateCategoryLink)
-        );
-
-        // Scroll into view
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelLink);
-        pause(500);
-
-        // Normal click with JS fallback
-        try {
-            cancelLink.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancelLink);
-        }
-
-        // Wait for navigation back to Record Types list
-        wait.until(ExpectedConditions.urlContains("/administration/record-types"));
-        pause(1000);
     }
 
     public void clickSaveOnEditRecordTypeModal() {
@@ -368,21 +329,6 @@ public class RecordTypes_ExportControlPage extends BasePage {
         ExtentReportListener.getExtentTest().pass("Clicked 'Create' button successfully");
     }
 
-    public void tickActiveCheckbox() {
-        WebElement checkbox = driver.findElement(activeCheckbox);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkbox);
-        pause(1000); // Optional scroll wait
-
-        if (!checkbox.isSelected()) {
-            checkbox.click();
-            ExtentReportListener.getExtentTest().pass("Checked 'Active' checkbox");
-        } else {
-            ExtentReportListener.getExtentTest().pass("'Active' checkbox was already checked");
-        }
-
-        pause(1000); // Optional after click
-    }
-
     public void enterRecordType(String recordTypeName) {
         WebElement input = driver.findElement(recordTypeInput);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", input);
@@ -398,14 +344,6 @@ public class RecordTypes_ExportControlPage extends BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", link); // Scroll into view
         pause(1000); // Optional wait after scroll
-        link.click();
-        pause(3000); // Wait for navigation
-    }
-
-    public void clickRecordTypesLink() {
-        WebElement link = driver.findElement(recordTypesLink);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link); // Optional scroll
-        pause(1000); // Wait after scroll
         link.click();
         pause(3000); // Wait for navigation
     }

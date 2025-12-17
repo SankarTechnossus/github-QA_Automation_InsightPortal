@@ -37,7 +37,6 @@ public class StatusManagement_ExportControlPage extends BasePage{
     By loadMoreButton    = By.xpath("//tr[contains(@class,'load-more-row')]//button[normalize-space()='Load more']");
     By clearSelectionsButton = By.xpath("//button[contains(@class,'_left-margin') and normalize-space()='Clear Selections']");
     By searchByNameInput01 = By.xpath("//input[@placeholder='Search by Name']");
-    By searchButton01     = By.xpath("//button[normalize-space()='Search']");
     By statusManagementHeader01 = By.xpath("//strong[@class='section-title-item' and normalize-space()='Status Management']");
     By addStatusHeader = By.xpath("//header[normalize-space()='Add Status']");
     By statusNameLabel = By.xpath("//span[normalize-space()='Status Name']");
@@ -83,19 +82,6 @@ public class StatusManagement_ExportControlPage extends BasePage{
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void searchStatusByName01(String statusName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement input = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(searchByNameInput01)
-        );
-        input.clear();
-        input.sendKeys(statusName);
-
-        driver.findElement(searchButton01).click();
-        pause(1000); // allow grid to refresh
     }
 
     public boolean isSearchByNameCleared() {

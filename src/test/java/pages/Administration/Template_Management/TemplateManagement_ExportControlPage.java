@@ -15,15 +15,12 @@ public class TemplateManagement_ExportControlPage extends BasePage {
 
     //Locators
 
-    By templateManagementMenu = By.xpath("//a[@class='label' and normalize-space()='Template Management']");
-    By exportControlLink = By.xpath("//a[@class='label' and normalize-space()='Export Control' and contains(@href,'template-management/export-control')]");
     By addNewTemplateLink = By.xpath("//a[@href='/administration/template-management/new' and normalize-space()='Add new']");
     By titleInput = By.id("title");
     By templateManagementMenu01 = By.xpath("//div[@id='left-sidebar']//a[@class='label' and normalize-space()='Template Management']");
     By exportControlLink01 = By.xpath("//div[@id='left-sidebar']//a[@class='label' and normalize-space()='Export Control' and contains(@href,'template-management/export-control')]");
     By cancelButton = By.xpath("//a[normalize-space()='Cancel']");
     By createButton = By.xpath("//button[normalize-space()='Create']");
-    By activeOptionYes = By.xpath("//div[@role='option' and normalize-space()='Yes']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
     By dateFormatControl = By.xpath("//label[normalize-space()='Date Format']/following::div[contains(@class,'select-control')][1]");
     By dateFormatInput = By.id("configurationPayload.dateFormat");
@@ -32,7 +29,6 @@ public class TemplateManagement_ExportControlPage extends BasePage {
     By activeInput   = By.id("isActive");
     By activeSingleValue = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]//div[contains(@class,'singleValue')]");
     By activeValueTxt = By.xpath("//label[normalize-space()='Active']/following::div[contains(@class,'select-control')][1]//div[contains(@class,'singleValue')]");
-    By cancelButtonNew = By.xpath("//a[contains(@class,'_link_') and normalize-space(text())='Cancel']");
     By gridScroller = By.cssSelector(".item-grid-wrapper.-scrollable, .item-grid-wrapper");
     By fileUploadInput = By.xpath("//input[@type='file']");
     By exportControlBreadcrumb = By.xpath("//div[contains(@class,'simple-bread-crumbs')]//span[contains(@class,'crumb')]/a[normalize-space()='Export Control']");
@@ -134,19 +130,6 @@ public class TemplateManagement_ExportControlPage extends BasePage {
         ));
 
         pause(800);
-    }
-
-    public void clickCancelButtonNew() {
-        WebElement cancel = driver.findElement(cancelButtonNew);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cancel);
-
-        try {
-            cancel.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancel);
-        }
-
-        pause(2000);
     }
 
     public void setActive(String expected) {
@@ -309,18 +292,6 @@ public class TemplateManagement_ExportControlPage extends BasePage {
         pause(1000);
     }
 
-    public void setActiveToYES() {
-        WebElement control = driver.findElement(activeControl);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
-        control.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(activeOptionYes));
-        option.click();
-
-        pause(1000);
-    }
-
     public void clickCreateButton() {
         WebElement create = driver.findElement(createButton);
 
@@ -375,9 +346,7 @@ public class TemplateManagement_ExportControlPage extends BasePage {
         }
 
         // EITHER: we already navigated to the page, OR we need to click the child link
-        boolean onTarget =
-                wait.until(d -> d.getCurrentUrl().contains("/administration/template-management/export-control")
-                        || !driver.findElements(exportControlLink01).isEmpty());
+        wait.until(d -> d.getCurrentUrl().contains("/administration/template-management/export-control") || !driver.findElements(exportControlLink01).isEmpty());
 
         if (!driver.getCurrentUrl().contains("/administration/template-management/export-control")) {
             // Sidebar path: click the child
@@ -414,24 +383,6 @@ public class TemplateManagement_ExportControlPage extends BasePage {
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", addNew);
         addNew.click();
-
-        pause(1000);
-    }
-
-    public void clickTemplateManagementExportControl() {
-        // Scroll Template Management into view
-        WebElement templateMenu = new WebDriverWait(driver, Duration.ofSeconds(30))
-                .until(ExpectedConditions.visibilityOfElementLocated(templateManagementMenu));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", templateMenu);
-
-        // Click Template Management to expand (if not already expanded)
-        templateMenu.click();
-        pause(1000);
-
-        // Wait for Export Control link to appear and click
-        WebElement exportCtrl = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(exportControlLink));
-        exportCtrl.click();
 
         pause(1000);
     }

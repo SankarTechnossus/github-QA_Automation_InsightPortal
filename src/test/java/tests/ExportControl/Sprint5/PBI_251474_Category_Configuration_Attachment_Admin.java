@@ -95,7 +95,7 @@ public class PBI_251474_Category_Configuration_Attachment_Admin {
             Assert.assertTrue(attachmentTypesExportControlPage.isAddAttachmentTypeHeaderDisplayed(), "'Add Attachment Type' header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Add Attachment Type' header is displayed");
 
-            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            attachmentTypesExportControlPage.enterRandomTypeName();
             ExtentReportListener.getExtentTest().info("Entered random Type Name successfully");
             Assert.assertTrue(attachmentTypesExportControlPage.isAddAttachmentTypeHeaderDisplayed(), "'Add Attachment Type' header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Add Attachment Type' header is displayed");
@@ -110,7 +110,7 @@ public class PBI_251474_Category_Configuration_Attachment_Admin {
             Assert.assertTrue(attachmentTypesExportControlPage.isTypeNameLabelDisplayed(), "'Type Name' label is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Type Name' label is displayed");
 
-            attachmentTypesExportControlPage.enterRandomTypeName(8);
+            attachmentTypesExportControlPage.enterRandomTypeName();
             ExtentReportListener.getExtentTest().info("Entered random Type Name successfully");
             Assert.assertTrue(attachmentTypesExportControlPage.isTypeNameLabelDisplayed(), "'Type Name' label is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Type Name' label is displayed");
