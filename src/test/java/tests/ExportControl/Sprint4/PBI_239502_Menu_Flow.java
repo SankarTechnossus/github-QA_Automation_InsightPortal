@@ -12,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.Adobe.AgreementPage;
 import pages.Export_Control.Export_Control_Details.MenuFlow;
 import pages.Export_Control.Export_Control_Details.MyActionsPage;
 import pages.Home.DashboardPage;
@@ -69,10 +68,6 @@ public class PBI_239502_Menu_Flow {
             String submitterDisplay = JsonDataReader.get(1, "MyActionsSubmitterDisplay");
             String reviewerCode    = JsonDataReader.get(1, "MyActionsReviewerCode");
             String reviewerDisplay = JsonDataReader.get(1, "MyActionsReviewerDisplay");
-            String createdOnFrom = JsonDataReader.get(1, "MyActionsCreatedOnFrom");
-            String createdOnTo = JsonDataReader.get(1, "MyActionsCreatedOnTo");
-            String reviewDateFrom = JsonDataReader.get(1, "MyActionsReviewDateFrom");
-            String reviewDateTo = JsonDataReader.get(1, "MyActionsReviewDateTo");
             String recordNumber = JsonDataReader.get(1, "MyActionsRecordNumber");
 
             // User will open the login page of the Insight Portal application

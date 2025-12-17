@@ -64,7 +64,6 @@ public class PBI_248591_Administration_DropDown {
             String password = JsonDataReader.get(0,"Password");
 
             String initialRecordType   = JsonDataReader.get(1, "InitialRecordType");     // "Test01"
-            String recordTypePrefix    = JsonDataReader.get(1, "RecordTypePrefix");      // "Test"
             String positiveSearchText  = JsonDataReader.get(1, "PositiveSearchText");    // "Test"
             String negativeSearchText  = JsonDataReader.get(1, "NegativeSearchText");    // "@@@@@@@"
             String refMeaningValue     = JsonDataReader.get(1, "RefMeaningValue");       // "1"

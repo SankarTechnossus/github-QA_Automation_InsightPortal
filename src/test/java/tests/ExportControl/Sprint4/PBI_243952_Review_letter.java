@@ -79,11 +79,8 @@ public class PBI_243952_Review_letter {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
-            String versionDescriptionBase = JsonDataReader.get(1, "VersionDescription");            // e.g. "Sanversion01"
             String piSearchText          = JsonDataReader.get(3, "InitialReviewPiSearchText");      // e.g. "mohan"
             String piFullName            = JsonDataReader.get(3, "PIName");                         // e.g. "Chandra, Mohan"
-            String initialPhoneNumber    = JsonDataReader.get(3, "InitialReviewPhoneNumber");       // e.g. "7550309189"
-            String initialName           = JsonDataReader.get(3, "InitialReviewName");
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
 
             // User will open the login page of the Insight Portal application

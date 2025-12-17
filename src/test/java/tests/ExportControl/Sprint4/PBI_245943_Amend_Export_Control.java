@@ -88,10 +88,7 @@ public class PBI_245943_Amend_Export_Control {
 
             String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
             String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
-            String linkText          = JsonDataReader.get(3, "InitialReviewLinkText");     // "New Test 07"
-            String phoneNumber       = JsonDataReader.get(3, "InitialReviewPhoneNumber");  // "7550309189"
             String personName        = JsonDataReader.get(3, "InitialReviewName");         // "Test01"
-            String amendCommentText  = JsonDataReader.get(3, "AmendCommentText");
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");// "Test_Auto"
             String initialNoteText     = JsonDataReader.get(3, "InitialReviewNoteText");     // "Initial_Review_Done"
 

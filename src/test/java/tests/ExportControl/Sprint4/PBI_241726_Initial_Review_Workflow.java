@@ -78,9 +78,6 @@ public class PBI_241726_Initial_Review_Workflow {
 
             String piSearchText        = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
             String piFullName          = JsonDataReader.get(3, "PIName");                   // "Chandra, Mohan"
-            String initialLinkText     = JsonDataReader.get(3, "InitialReviewLinkText");     // "New Test 07"
-            String initialPhoneNumber  = JsonDataReader.get(3, "InitialReviewPhoneNumber");  // "7550309189"
-            String initialName         = JsonDataReader.get(3, "InitialReviewName");         // "Test01"
             String initialNoteText     = JsonDataReader.get(3, "InitialReviewNoteText");     // "Initial_Review_Done"
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
 

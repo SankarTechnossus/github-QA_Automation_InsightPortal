@@ -70,10 +70,6 @@ public class PBI_239491_My_Actions {
             String userName = JsonDataReader.get(0,"Username");
             String password = JsonDataReader.get(0,"Password");
 
-            String createdOnFrom = JsonDataReader.get(1, "MyActionsCreatedOnFrom");
-            String createdOnTo = JsonDataReader.get(1, "MyActionsCreatedOnTo");
-            String reviewDateFrom = JsonDataReader.get(1, "MyActionsReviewDateFrom");
-            String reviewDateTo = JsonDataReader.get(1, "MyActionsReviewDateTo");
             String reviewerCode = JsonDataReader.get(1, "MyActionsReviewerCode");
             String reviewerDisplay = JsonDataReader.get(1, "MyActionsReviewerDisplay");
             String submitterCode = JsonDataReader.get(1, "MyActionsSubmitterCode");
