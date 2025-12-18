@@ -388,9 +388,6 @@ public class CreateExportControlPage extends BasePage {
         // Click on Instructions link
         pause(2000);
 
-        driver.findElement(By.xpath("//span[text()='Instructions']")).click();
-        pause(2000);
-
         // Verify Instructions
         String name = driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).getText();
         if(Objects.equals(name, formInst))

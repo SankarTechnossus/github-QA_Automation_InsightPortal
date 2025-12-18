@@ -533,7 +533,14 @@ public class FormsManagement_ExportControlPage extends BasePage {
         pause(2000);
 
         String inst = driver.findElement(By.xpath("//div[@class='fr-element fr-view']")).getText();
-        if(Objects.equals(inst, instructions))
+        if (Objects.equals(inst, ""))
+        {
+            type(inputInstructions, instructions);
+            click(buttonSave);
+            pause(2000);
+
+            result = true;
+        } else if (Objects.equals(inst, instructions))
         {
             click(buttonSave);
             pause(2000);
