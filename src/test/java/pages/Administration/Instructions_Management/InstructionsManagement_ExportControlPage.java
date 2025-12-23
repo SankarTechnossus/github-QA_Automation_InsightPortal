@@ -47,6 +47,8 @@ public class InstructionsManagement_ExportControlPage extends BasePage {
     }
 
     public void AddNewInstructions(String page, String officeName, String contentName) {
+        pause(5000);
+
         click(buttonAddNew);
         pause(2000);
 

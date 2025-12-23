@@ -168,7 +168,7 @@ public class CreateExportControlPage extends BasePage {
     By exportControlType = By.xpath("//dt[text()='Type']/../dd");
     By exportControlStatus = By.xpath("//dt[text()='Status']/../dd");
 
-    By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Application has been submitted successfully']");
+    By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Record has been created successfully.']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
     By lblSubmissionChecklist = By.xpath("//span[text()='Submission Checklist']");
 
@@ -386,6 +386,7 @@ public class CreateExportControlPage extends BasePage {
         boolean result = false;
 
         // Click on Instructions link
+        driver.findElement(By.xpath("//span[text()='Instructions']")).click();
         pause(2000);
 
         // Verify Instructions
