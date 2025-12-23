@@ -102,7 +102,7 @@ public class PBI_251471_Instruction_Forms {
                 // Navigate to Export Control under Forms Management
                 waitUtility.waitUntilPageLoad(driver, 120);
                 formsManagementExportControlPage.NavigateToFormsManagementExportControlPage();
-                Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/forms-management-export-control");
+                Assert.assertEquals(driver.getCurrentUrl(), url + "administration/forms-management-export-control");
                 ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Forms Management.");
 
                 // Click on Add New link to Add a new Form

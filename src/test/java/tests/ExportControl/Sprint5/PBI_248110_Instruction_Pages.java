@@ -91,7 +91,7 @@ public class PBI_248110_Instruction_Pages {
             waitUtility.waitUntilPageLoad(driver, 120);
 
             instructionsManagementExportControlPage.NavigateToInstructionsManagementExportControlPage();
-            Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/instructions-management");
+            Assert.assertEquals(driver.getCurrentUrl(),  url + "administration/instructions-management");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Instructions Management.");
 
             String officeCode = JsonDataReader.get(6,"OfficeCode");

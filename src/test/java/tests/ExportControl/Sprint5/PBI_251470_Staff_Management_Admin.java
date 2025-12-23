@@ -90,7 +90,7 @@ public class PBI_251470_Staff_Management_Admin {
             // Navigate to Export Control under People Management
             waitUtility.waitUntilPageLoad(driver, 120);
             peopleManagementExportControlPage.NavigateToPeopleManagementExportControlPage();
-            Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/people-management");
+            Assert.assertEquals(driver.getCurrentUrl(), url + "administration/people-management");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under People Management.");
 
             // Add a new People Type and verify in the People Management list
