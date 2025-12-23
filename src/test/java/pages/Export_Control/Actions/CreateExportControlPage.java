@@ -173,7 +173,7 @@ public class CreateExportControlPage extends BasePage {
     By lblSubmissionChecklist = By.xpath("//span[text()='Submission Checklist']");
 
     //Attachment Locators
-    By linkAttachments = By.xpath("//span[text()='Attachments']/..");
+    By linkAttachments = By.xpath("//a[text()='Attachments']");
     By inputSearchAttachment = By.xpath("//input[@placeholder='Search by attachments...']");
     By buttonSearch = By.xpath("//button[text()='Search']");
     By fileInput = By.xpath("//input[@type='file']");
@@ -184,7 +184,7 @@ public class CreateExportControlPage extends BasePage {
     By buttonOK = By.xpath("//button[text()='OK']");
 
     //People Locators
-    By linkPeople = By.xpath("//span[text()='People']/..");
+    By linkPeople = By.xpath("//a[text()='People']");
     By buttonAddNewPeople = By.xpath("//button[text()=' Add New People']");
     By inputSearchForUsers = By.xpath("(//div[text()='Search for users']/following::div/input)[1]");
     By buttonAdd = By.xpath("//button[text()='Add']");
