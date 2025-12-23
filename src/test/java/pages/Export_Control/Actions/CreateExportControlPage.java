@@ -153,12 +153,12 @@ public class CreateExportControlPage extends BasePage {
 
     // General Locators
     By buttonActions = By.xpath("//button[text()='Actions']");
-    By linkCreateExportControl = By.xpath("//span[text()='Create Export Control']/..");
+    By linkCreateExportControl = By.xpath("//a[text()='Create Export Control']");
     By linkInitialReview = By.xpath("//div[text()='Initial Review (IR)']/..");
 
     // Create Export Control page locators
     By inputExportControlRequest = By.xpath("//input[@value='ExportControlRequest']");
-    By inputSelectPI = By.xpath("//input[@id='dynamic-form-field-input-74472-PiName']");
+    By inputSelectPI = By.xpath("//div[text()='Start typing to search...']/following::div/input");
 
     By buttonCreate = By.xpath("//button[text()='Create']");
 
@@ -168,7 +168,7 @@ public class CreateExportControlPage extends BasePage {
     By exportControlType = By.xpath("//dt[text()='Type']/../dd");
     By exportControlStatus = By.xpath("//dt[text()='Status']/../dd");
 
-    By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Record has been created successfully.']");
+    By lblExportControlSuccessfulCreation = By.xpath("//div[text()='Application has been submitted successfully']");
     By lblExportControlRecordNum = By.xpath("//dt[text()='Record #']");
     By lblSubmissionChecklist = By.xpath("//span[text()='Submission Checklist']");
 
@@ -216,7 +216,7 @@ public class CreateExportControlPage extends BasePage {
         // Select PI Name
         type(inputSelectPI, pi);
         pause(3000);
-        driver.findElement(By.xpath("//div[text()='" + pi + "']/..")).click();
+        driver.findElement(By.xpath("(//div[text()='" + pi + "']/..)[1]")).click();
         pause(2000);
 
         // Click Create button
@@ -257,19 +257,19 @@ public class CreateExportControlPage extends BasePage {
     }
 
     public boolean VerifyCreatedFormIsVisible(String formName) {
-        return driver.findElement(By.xpath("//span[text()='" + formName + "']/..")).isDisplayed();
+        return driver.findElement(By.xpath("//a[text()='" + formName + "']")).isDisplayed();
     }
 
     public boolean VerifyInstructionsAssociatedWithFormIsVisibleUnderExportControl(String formName, String formInst) {
         boolean result = false;
 
         // Select the form
-        driver.findElement(By.xpath("//span[text()='" + formName + "']/..")).click();
-        pause(1000);
+        driver.findElement(By.xpath("//a[text()='" + formName + "']")).click();
+        pause(2000);
 
         // Click on Instructions link
         driver.findElement(By.xpath("//span[text()='Instructions']")).click();
-        pause(1000);
+        pause(2000);
 
         // Verify Instructions
         String name = driver.findElement(By.xpath("(//span[text()='Instructions']/following::section/div/div/div)[1]")).getText();
