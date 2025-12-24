@@ -24,6 +24,35 @@ public class BasePage {
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    protected void scrollIntoView01(WebElement element) {
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+    }
+
+    protected void jsClick01(WebElement element) {
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", element);
+    }
+
+    public WebElement waitVisible01(By by, int seconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(seconds))
+                .until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public WebElement waitClickable01(By by, int seconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(seconds))
+                .until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public void waitForOverlayToDisappear(By overlayBy, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        try {
+            wait.until(d -> d.findElements(overlayBy).isEmpty());
+        } catch (Exception ignored) {
+            // don't fail the test because overlay locator may not match in some pages
+        }
+    }
+
     public WebElement waitForElement50(By locator) {
         return new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(locator));

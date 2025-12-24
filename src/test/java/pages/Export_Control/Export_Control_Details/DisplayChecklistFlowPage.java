@@ -25,7 +25,7 @@ public class DisplayChecklistFlowPage extends BasePage {
     By saveActionButton = By.xpath("//button[normalize-space()='Save']");
     By submitActionButton = By.xpath("//button[normalize-space()='Submit']");
     By nameInput = By.xpath("//div[contains(@class,'dynamic-form-field')]" + "[.//div[contains(@class,'fr-element') and normalize-space()='What is your Name?']]" + "//input[@type='text']");
-    By selectPINameDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Select PI Name']");
+    By selectPINameDisabledField = By.xpath("//span[normalize-space()='Select PI Name']");
     By personnelExclusionValue = By.xpath("//dd[@title='Personnel Exclusion' and text()='Personnel Exclusion']");
 
     //Actions

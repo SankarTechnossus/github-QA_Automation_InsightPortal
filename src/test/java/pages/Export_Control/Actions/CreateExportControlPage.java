@@ -29,19 +29,126 @@ public class CreateExportControlPage extends BasePage {
 
     // Left navigation – Actions toggle button
     By actionsToggleButton = By.xpath("//div[contains(@class,'export-control-nav-block')]//button[@aria-label='Expand Actions']");
-    By createExportControlLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a[contains(@class,'label')]//span[normalize-space()='Create Export Control']");
+    By createExportControlLink = By.xpath("//a[normalize-space()='Create Export Control' and contains(@href,'/export-control/actions')]");
     By saveButton = By.xpath("//button[@aria-label='Save' and normalize-space()='Save']");
     By actionRequiredCrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Action Required']");
-
-    // Step 2 – PI Name input (typeahead)
-    By piNameInput = By.id("dynamic-form-field-input-74472-PiName");
     By actionRequiredLink = By.xpath("//div[@id='left-sidebar']//a[contains(@class,'label')][span[normalize-space()='Action Required']]");
-
-    // Step 3 – Create button in right sidebar footer
+    By piNameInput = By.xpath("//input[contains(@id,'dynamic-form-field-input-') and contains(@id,'-PiName')]");
+    By submitRadioBtn = By.xpath("//input[@type='radio' and @value='Submit']");
     By createButton = By.xpath("//aside//button[normalize-space()='Create']");
     By createExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Create Export Control']");
+    By petNameInput = By.xpath("//label[.//div[normalize-space()='Pet name']]/following::input[@type='text'][1]");
+    By signOffButton = By.xpath("//button[@aria-label='Sign Off' and normalize-space()='Sign Off']");
+    By loadingOverlay = By.xpath("//*[contains(@class,'loading') or contains(@class,'spinner') or contains(@class,'overlay')][not(contains(@style,'display: none'))]");
+    By actionConfirmationLabel = By.xpath("//label[@for='action-confirmation']");
+    By actionConfirmationCheckbox = By.id("action-confirmation");
+    By approveBtnEnabled = By.cssSelector("button[aria-label='Approve']:not([disabled])");
+    By approveBtn = By.cssSelector("button[aria-label='Approve']");
 
     // ****************************** Sankar Functions *************************************************************
+
+    // Dropdown row/cell by visible PI full name (your list is NOT role='option', so use text)
+    public By piRowByName(String fullName) {
+        return By.xpath("//*[contains(@class,'menu') or @role='listbox' or contains(@class,'Menu')]//*[normalize-space(.)='" + fullName + "'][1]");
+    }
+
+    public void clickApprove() {
+        WebElement approve = wait.until(ExpectedConditions.elementToBeClickable(approveBtnEnabled));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", approve);
+        try {
+            approve.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", approve);
+        }
+        pause(1500);
+    }
+
+    public void confirmAndWaitForApproveEnabled() {
+
+        WebElement cb = wait.until(ExpectedConditions.visibilityOfElementLocated(actionConfirmationCheckbox));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cb);
+
+        // Click checkbox (sometimes input click is flaky; label click works too)
+        if (!cb.isSelected()) {
+            try {
+                cb.click();
+            } catch (Exception e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cb);
+            }
+        }
+
+        // Validate checkbox is really selected
+        wait.until(driver -> driver.findElement(actionConfirmationCheckbox).isSelected());
+
+        // Now wait until Approve is enabled (disabled attribute removed)
+        wait.until(ExpectedConditions.presenceOfElementLocated(approveBtnEnabled));
+
+        pause(1000);
+    }
+
+    public void selectChiefApprovalConfirmation() {
+        WebElement cb = wait.until(ExpectedConditions.presenceOfElementLocated(actionConfirmationCheckbox));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", cb);
+
+        // Click label is more reliable than clicking the input in many UIs
+        WebElement lbl = wait.until(ExpectedConditions.elementToBeClickable(actionConfirmationLabel));
+        try { lbl.click(); } catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", lbl); }
+
+        // Ensure it's truly selected
+        wait.until(driver -> driver.findElement(actionConfirmationCheckbox).isSelected());
+        pause(500);
+    }
+
+    public void clickSignOffButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement signOffBtn = wait.until(
+                    ExpectedConditions.elementToBeClickable(signOffButton)
+            );
+            this.scrollIntoView01(signOffBtn);
+
+            try {
+                signOffBtn.click();
+            } catch (Exception e) {
+                this.jsClick01(signOffBtn);
+            }
+
+            pause(500);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public void enterPetName(String positiveSearchText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(petNameInput));
+            this.scrollIntoView01(input);
+
+            input.clear();
+            input.sendKeys(positiveSearchText);
+
+            pause(500);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public void clickSubmitRadioButton() {
+
+        WebElement radio = wait.until(ExpectedConditions.elementToBeClickable(submitRadioBtn));
+
+        this.scrollIntoView01(radio);
+
+        try {
+            radio.click();
+        } catch (Exception e) {
+            this.jsClick01(radio);
+        }
+
+        pause(500);
+    }
+
     public boolean isActionRequiredCrumbDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
@@ -55,9 +162,7 @@ public class CreateExportControlPage extends BasePage {
     public boolean isCreateExportControlHeaderDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement header = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(createExportControlHeader)
-            );
+            WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(createExportControlHeader));
             return header.isDisplayed();
         } catch (Exception e) {
             return false;
@@ -67,11 +172,9 @@ public class CreateExportControlPage extends BasePage {
     public void clickActionRequired() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        WebElement link = wait.until(
-                ExpectedConditions.elementToBeClickable(actionRequiredLink));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(actionRequiredLink));
 
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
 
         link.click();
 
@@ -88,7 +191,6 @@ public class CreateExportControlPage extends BasePage {
         pause(1000);
     }
 
-    // Generic option for PI dropdown – use visible text (e.g., "Chandra, Mohan")
     public By piOptionByText(String fullName) {
         // Keep it generic for react-select style options
         return By.xpath("//div[contains(@class,'menu') or contains(@class,'select')]"
@@ -98,18 +200,14 @@ public class CreateExportControlPage extends BasePage {
     public void clickCreateExportControl() {
 
         // 1) Scroll and open Actions dropdown
-        WebElement actionsToggle = wait.until(
-                ExpectedConditions.elementToBeClickable(actionsToggleButton));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", actionsToggle);
+        WebElement actionsToggle = wait.until(ExpectedConditions.elementToBeClickable(actionsToggleButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", actionsToggle);
         actionsToggle.click();
         pause(2000);
 
         // 2) Wait for and click 'Create Export Control'
-        WebElement createExportControl = wait.until(
-                ExpectedConditions.elementToBeClickable(createExportControlLink));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", createExportControl);
+        WebElement createExportControl = wait.until(ExpectedConditions.elementToBeClickable(createExportControlLink));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", createExportControl);
         createExportControl.click();
 
         // 3) Small pause for navigation to complete
@@ -118,24 +216,30 @@ public class CreateExportControlPage extends BasePage {
 
     public void selectPiName(String searchText, String fullNameToSelect) {
 
-        // Focus input
-        WebElement input = wait.until(
-                ExpectedConditions.elementToBeClickable(piNameInput));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", input);
-        input.click();
-        input.clear();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // 1) Focus input (use visibility, NOT clickable; input is opacity:0)
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(piNameInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        // Safe click to focus
+        try { input.click(); }
+        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input); }
+
+        // 2) Clear + type
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        input.sendKeys(Keys.BACK_SPACE);
         input.sendKeys(searchText);
 
         // Small wait to let dropdown options appear
         pause(800);
 
-        // Select the desired option from dropdown
-        WebElement option = wait.until(
-                ExpectedConditions.elementToBeClickable(piOptionByText(fullNameToSelect)));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", option);
-        option.click();
+        // 3) Click the PI row by name text (NOT role='option')
+        WebElement rowText = wait.until(ExpectedConditions.visibilityOfElementLocated(piRowByName(fullNameToSelect)));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", rowText);
+
+        try { rowText.click(); }
+        catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", rowText); }
 
         pause(800);
     }
@@ -159,7 +263,6 @@ public class CreateExportControlPage extends BasePage {
     // Create Export Control page locators
     By inputExportControlRequest = By.xpath("//input[@value='ExportControlRequest']");
     By inputSelectPI = By.xpath("//div[text()='Start typing to search...']/following::div/input");
-
     By buttonCreate = By.xpath("//button[text()='Create']");
 
     // Export Control Details locators

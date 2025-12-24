@@ -48,6 +48,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By cancelButtonaddnewcancel = By.xpath("//button[@class='button -small -unstyled' and normalize-space()='Cancel']");
     By saveButtonassert = By.xpath("//button[contains(@class,'-submission') and normalize-space()='Save']");
     By previewBreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Preview']");
+    By selectQuestionTypeModalHeader = By.xpath("//header[contains(@class,'modal-header') and normalize-space(.)='Select the type of question to add']");
 
     // ********************************* Sahil Locators *******************************************************************
 
@@ -65,8 +66,32 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By linkActiveVersion = By.xpath("//span[text()='Active']/../../../a");
     By inputInstructions = By.xpath("//div[@class='fr-wrapper show-placeholder']/div");
     By buttonSave = By.xpath("//button[text()='Save']");
+    By radioButtonGroupTitle = By.xpath("//div[@class='question-name' and normalize-space()='Radio button group']");
 
     // *********** Sankar Actions ************************************************
+    public void clickRadioButtonGroupTitle() {
+        waitForPresence(radioButtonGroupTitle);
+
+        WebElement radioTitle = driver.findElement(radioButtonGroupTitle);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});",
+                radioTitle
+        );
+
+        pause(1000);   // Let the scroll complete
+        radioTitle.click();
+        pause(3000);   // Let the modal / next UI render
+    }
+
+    public boolean isSelectQuestionTypeModalDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(selectQuestionTypeModalHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public boolean isPreviewPageDisplayed() {
         try {

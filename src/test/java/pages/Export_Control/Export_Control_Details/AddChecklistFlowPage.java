@@ -20,7 +20,7 @@ public class AddChecklistFlowPage extends BasePage {
     //Locators
     By workflowManagementMenu = By.xpath("//div[@id='left-sidebar']//a[@href='/administration/workflow-management']" + "/span[normalize-space()='Workflow Management']");
     By exportControlWorkflowsLink = By.xpath("//button[normalize-space()='Export Control']" + "/ancestor::div[contains(@class,'menu-item-holder')][1]" + "//a[contains(@href,'/administration/workflow-management') and contains(@href,'workflows-export-control') " + " and normalize-space(text())='Workflows']");
-    By personnelWorkflowLink = By.xpath("//td[@data-column='name' and @data-value='Personnel']//a[normalize-space()='Personnel']");
+    By personnelWorkflowLink = By.xpath("//td[@data-column='name' and @data-value='Test1']//a[normalize-space()='Test1']");
     By addNewWorkflowVersionButton = By.xpath("//div[contains(@class,'top-bar')][.//header[normalize-space()='Versions']]" + "//button[contains(@class,'-primary')][normalize-space()='Add new']");
     By editableVersionDescription = By.xpath("//div[contains(@class,'_versionsList')]" + "//textarea[contains(@class,'_descriptionField') and not(@disabled)]");
     By saveVersionButton = By.xpath("//div[contains(@class,'_versionItemHeader')]" + "//button[contains(@class,'button') and contains(@class,'-primary') and normalize-space()='Save']");
@@ -32,13 +32,43 @@ public class AddChecklistFlowPage extends BasePage {
     By updateButton = By.xpath("//button[normalize-space()='Update']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
     By workflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(),'Workflows')]");
-    By personnelSpan = By.xpath("//span[normalize-space()='Personnel']");
+    By personnelSpan = By.xpath("//span[normalize-space()='Test1']");
     By versionsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Versions']");
     By saveButton01 = By.xpath("//button[@type='button' and contains(@class,'-primary') and normalize-space()='Save']");
-    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space()='Chief Approver']");
+    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space()='Cheif Approval']");
     By draftSidebarHeader = By.xpath("//p[contains(@class,'_sidebarHeader') and text()='Draft']");
+    By personnelExclusionLink = By.xpath("//a[normalize-space()='Personnal Exclusion']");
+    By personnelExclusionLabel = By.xpath("//span[normalize-space()='Personnal Exclusion']");
 
     //Actions
+    public boolean isPersonnelExclusionLabelDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(personnelExclusionLabel));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickPersonnelExclusionWorkflow() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement link = wait.until(
+                ExpectedConditions.elementToBeClickable(personnelExclusionLink));
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", link);
+
+        try {
+            link.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        }
+
+        pause(2000);
+    }
+
     public boolean isDraftSidebarHeaderDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {

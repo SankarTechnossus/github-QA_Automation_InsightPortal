@@ -17,8 +17,6 @@ public class MyActionsPage extends BasePage {
 
     // **************************** Locators *******************************************
 
-    // Left nav – "Action Required" under Export Control
-
     // Already have:
     By openDropdownPanel = By.xpath("//div[contains(@class,'menu') and contains(@class,'select')]");
     By submitterInput = By.xpath("//label[normalize-space()='Submitter']/following::input[contains(@id,'react-select')][1]");
@@ -32,11 +30,7 @@ public class MyActionsPage extends BasePage {
     // buttons
     By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");
     By firstRecordNumberLink = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]" + "//td[@data-column='_exportControlNumber']//a");
-
-    // Clear Selection button
     By clearSelectionButton = By.xpath("//button[@type='button' and contains(.,'Clear Selections')]");
-
-    // Search button
 
     By actionRequiredBreadcrumb = By.xpath("//span[contains(@class,'crumb') and contains(@class,'_font-bold') and normalize-space()='Action Required']");
     By reviewerLabel = By.xpath("//label[normalize-space()='Reviewer']");
@@ -221,7 +215,6 @@ public class MyActionsPage extends BasePage {
         pause(2000);
     }
 
-    // 1. Click "Action Required" left nav is in some LeftNav page – leaving as you already have.
     public void clickActionRequiredLink() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
@@ -235,7 +228,6 @@ public class MyActionsPage extends BasePage {
         pause(1500);   // after-click pause
     }
 
-    // 8. Click first Record Number link (2025E006129)
     public void clickFirstRecordNumberLink() {
         WebElement link = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(firstRecordNumberLink));
