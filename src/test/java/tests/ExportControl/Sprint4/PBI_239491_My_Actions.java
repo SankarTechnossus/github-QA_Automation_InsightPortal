@@ -142,7 +142,7 @@ public class PBI_239491_My_Actions {
 
             // 7. Click record link in grid
             myActionsPage.clickFirstRecordNumberLink();
-            ExtentReportListener.getExtentTest().info("Clicked first Record Number link '2025E007787' from Action Required grid");
+            ExtentReportListener.getExtentTest().info("Clicked first Record Number link 'Record_Number' from Action Required grid");
 
         } catch (Exception e) {
             // User will capture and log any exceptions that occur during the test

@@ -70,7 +70,6 @@ public class PBI_239474_WorkflowManagement_Workflows {
             String workflowTransactionTypeOption = JsonDataReader.get(1, "WorkflowTransactionTypeOption"); // "tesss"
             String workflowExportControlStatusOption = JsonDataReader.get(1, "WorkflowExportControlStatusOption"); // "Draft"
             String workflowEmailFrom = JsonDataReader.get(1, "WorkflowEmailFrom");                       // "insighthelpdesk@partners.org"
-            //String workflowNameAppendText = JsonDataReader.get(1, "WorkflowNameAppendText");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -93,8 +92,9 @@ public class PBI_239474_WorkflowManagement_Workflows {
             workflowsPage.clickWorkflowManagementLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
 
-            workflowsPage.clickExportControlWorkflows();
-            ExtentReportListener.getExtentTest().info("Clicked 'Export Control > Workflows' successfully");
+            basePage.pause(2000);
+            workflowsPage.clickWorkflowsLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflows' link from left navigation successfully");
             Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
 

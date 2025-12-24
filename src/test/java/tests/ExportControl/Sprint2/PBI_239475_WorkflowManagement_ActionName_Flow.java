@@ -89,8 +89,8 @@ public class PBI_239475_WorkflowManagement_ActionName_Flow {
             actionNamePage.clickWorkflowManagementaction();
             ExtentReportListener.getExtentTest().info("Opened 'Workflow Management'");
 
-            actionNamePage.clickActionNameScope3();
-            ExtentReportListener.getExtentTest().info("Opened 'Action name' (scopeId=3)");
+            actionNamePage.clickActionNameLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Action name' link successfully");
             Assert.assertTrue(actionNamePage.isActionNameHeaderDisplayed(), "Action Name header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified Action Name page header is displayed successfully");
 

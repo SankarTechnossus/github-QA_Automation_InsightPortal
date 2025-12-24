@@ -110,6 +110,7 @@ public class PBI_239498_Template_Management {
             Assert.assertTrue(templateManagementExportControlPage.isCreateTemplateBreadcrumbDisplayed(), "'Create Template' breadcrumb is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Create Template' breadcrumb is displayed successfully");
 
+            basePage.pause(3000);
             templateManagementExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button under Template Management successfully");
 

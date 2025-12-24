@@ -89,7 +89,7 @@ public class PBI_246016_Display_Checklist_Flow {
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             dashboardPage.clickExportControlLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Export Control' module link successfully");
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
             createExportControlPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().info("Clicked Actions → Create Export Control from left navigation successfully");
@@ -110,19 +110,11 @@ public class PBI_246016_Display_Checklist_Flow {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
-            // Step 2: Click Submit
-            displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+            createExportControlPage.clickSubmitRadioButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
 
-            initialReviewWorkflowPage.enterName(positiveSearchText);
-            ExtentReportListener.getExtentTest().info("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isEnterNameDisabledDisplayed(), "'Enter Name' disabled field is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Enter Name' disabled field is displayed successfully");
-
-            initialReviewWorkflowPage.selectGenderMale();
-            ExtentReportListener.getExtentTest().info("Selected gender as 'Male' successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isSelectGenderDisabledDisplayed(), "'Select Gender' disabled field is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Select Gender' disabled field is displayed successfully");
+            createExportControlPage.enterPetName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
 
             // Step 1: Click Save
             displayChecklistFlowPage.clickSaveAction();
@@ -130,11 +122,8 @@ public class PBI_246016_Display_Checklist_Flow {
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
-            ExtentReportListener.getExtentTest().info("Added Checklist has been successfully verified");
+            createExportControlPage.clickSignOffButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
 
             responseToReviewPage.clickSubmissionChecklist();
             ExtentReportListener.getExtentTest().info("Clicked 'Submission Checklist' section successfully");

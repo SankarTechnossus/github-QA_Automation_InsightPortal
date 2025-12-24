@@ -28,6 +28,7 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
     DashboardPage dashboardPage;
     FormsManagement_ExportControlPage formsManagementExportControlPage;
     AgreementPage agreementPage;
+    UniqueNameGenerator uniqueNameGenerator;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -51,11 +52,13 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
         dashboardPage = new DashboardPage(driver);
         formsManagementExportControlPage = new FormsManagement_ExportControlPage(driver);
         agreementPage = new AgreementPage(driver);
+        uniqueNameGenerator = new UniqueNameGenerator();
     }
 
     @Test
     public void createFormFlowExportControl() {
         ExtentReportListener.getExtentTest().info("your log message");
+
         try {
             String url = JsonDataReader.get(0,"URL");
             String userName = JsonDataReader.get(0,"Username");
@@ -64,12 +67,14 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             // === Form & flow test data ===
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
             String negativeSearchText = JsonDataReader.get(1, "NegativeSearchText");
-            String formDescription    = JsonDataReader.get(1, "FormDescription");
-            String formCategorySeqNo  = JsonDataReader.get(1, "CategorySeqNo");
             String radioYes           = JsonDataReader.get(1, "RadioOptionYes");
             String radioNo            = JsonDataReader.get(1, "RadioOptionNo");
             String helpText           = JsonDataReader.get(1, "HelpText");
             String versionDesc        = JsonDataReader.get(1, "VersionDescription");
+            String description = JsonDataReader.get(2,"FormDescription");
+            String formCat = JsonDataReader.get(2,"FormCategory");
+            String formCatSeqNo = JsonDataReader.get(2,"CategorySeqNo");
+            String formType = JsonDataReader.get(2, "FormType");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -126,26 +131,10 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             Assert.assertTrue(agreementPage.isNewFormPageDisplayed(), "New Form page is NOT displayed after clicking 'Add new' link");
             ExtentReportListener.getExtentTest().pass("User successfully navigated to New Form page after clicking 'Add new' link.");
 
-            String dynamicName = UniqueNameGenerator.generateNextName();
-            agreementPage.enterName(dynamicName);
-            ExtentReportListener.getExtentTest().info("Entered '" + dynamicName + "' into Name input field");
-
-            agreementPage.enterDescription(formDescription);
-            ExtentReportListener.getExtentTest().info("Entered '" + formDescription + "' into Description text area");
-
-            agreementPage.selectTypeAsExportControlRequestnew01();
-            ExtentReportListener.getExtentTest().info("Selected 'Export Control Request' from Type dropdown successfully");
-
-            agreementPage.selectCategoryAsGeneral();
-            ExtentReportListener.getExtentTest().info("Selected 'General' from Category dropdown");
-
-            agreementPage.enterCategorySequenceNo(formCategorySeqNo);
-            ExtentReportListener.getExtentTest().info("Entered '" + formCategorySeqNo + "' into Category Sequence No field");
-
-            agreementPage.clickCreateButton();
-            ExtentReportListener.getExtentTest().info("Clicked the 'Create' button");
-            Assert.assertTrue(agreementPage.isFormVersionsPageDisplayed(), "Form Versions page is NOT displayed after clicking the 'Create' button");
-            ExtentReportListener.getExtentTest().pass("Form created successfully and Form Versions page is displayed.");
+            String formName = uniqueNameGenerator.GenerateRandomName(6);
+            formsManagementExportControlPage.CreateNewForm(formName, description, formType, formCat, formCatSeqNo);
+            Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
+            ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName + " and form type : " + formType);
 
             agreementPage.clickVersion1Link();
             ExtentReportListener.getExtentTest().info("Clicked on 'Version 1' link");
@@ -154,11 +143,11 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
 
             formsManagementExportControlPage.clickAddRootLevelQuestionButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Add root level question' button");
+            Assert.assertTrue(formsManagementExportControlPage.isSelectQuestionTypeModalDisplayed(), "'Select the type of question to add' modal header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select the type of question to add' modal is displayed successfully");
 
-            formsManagementExportControlPage.clickRadioButtonGroupOption();
-            ExtentReportListener.getExtentTest().info("Clicked 'Radio button group' in Add Question Modal");
-            Assert.assertTrue(agreementPage.isVersion1PageDisplayed(), "'Version 1' heading is NOT displayed after clicking on Version 1 link");
-            ExtentReportListener.getExtentTest().pass("User successfully navigated to Version 1 page and heading is displayed.");
+            formsManagementExportControlPage.clickRadioButtonGroupTitle();
+            ExtentReportListener.getExtentTest().info("Clicked 'Radio button group' question type");
 
             formsManagementExportControlPage.enterRadioOption1Text(radioYes);
             ExtentReportListener.getExtentTest().info("Entered text 'Yes' into the first radio option input");

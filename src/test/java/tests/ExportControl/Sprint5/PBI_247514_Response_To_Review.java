@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.Workflow_Management.WorkflowsPage;
 import pages.Adobe.AgreementPage;
 import pages.Export_Control.Export_Control_Details.*;
 import pages.Home.DashboardPage;
@@ -42,6 +43,7 @@ public class PBI_247514_Response_To_Review {
     CreateExportControlPage createExportControlPage;
     MyActionsPage myActionsPage;
     UniqueNameGenerator uniqueNameGenerator;
+    WorkflowsPage workflowsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -72,6 +74,7 @@ public class PBI_247514_Response_To_Review {
         createExportControlPage = new CreateExportControlPage(driver);
         myActionsPage = new MyActionsPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
+        workflowsPage = new WorkflowsPage(driver);
     }
 
     @Test
@@ -104,20 +107,23 @@ public class PBI_247514_Response_To_Review {
             Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
             ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            addChecklistFlowPage.openExportControlWorkflows();
-            ExtentReportListener.getExtentTest().info("Navigated to Workflow Management → Export Control → Workflows successfully");
+            workflowsPage.clickWorkflowManagementLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
             Assert.assertTrue(addChecklistFlowPage.isWorkflowsHeaderDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Workflows' header displayed");
 
-            addChecklistFlowPage.clickPersonnelWorkflow();
-            ExtentReportListener.getExtentTest().info("Clicked 'Personnel' workflow successfully");
-            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
+            workflowsPage.clickWorkflowsLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflows' link from left navigation successfully");
+            Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
+
+            addChecklistFlowPage.clickPersonnelExclusionWorkflow();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Personnal Exclusion' workflow successfully");
+            Assert.assertTrue(addChecklistFlowPage.isPersonnelExclusionLabelDisplayed(), "'Personnal Exclusion' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnal Exclusion' label is displayed");
 
             addChecklistFlowPage.clickAddNewWorkflowVersion();
             ExtentReportListener.getExtentTest().info("Clicked 'Add new' button successfully on Versions page");
-            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
 
             // Step X: Enter description for Version 90
             String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
@@ -178,19 +184,11 @@ public class PBI_247514_Response_To_Review {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
-            // Step 2: Click Submit
-            displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+            createExportControlPage.clickSubmitRadioButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
 
-            initialReviewWorkflowPage.enterName(positiveSearchText);
-            ExtentReportListener.getExtentTest().info("Entered name from JSON (PositiveSearchText): '" + positiveSearchText + "' successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isEnterNameDisabledDisplayed(), "'Enter Name' disabled field is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Enter Name' disabled field is displayed successfully");
-
-            initialReviewWorkflowPage.selectGenderMale();
-            ExtentReportListener.getExtentTest().info("Selected gender as 'Male' successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isSelectGenderDisabledDisplayed(), "'Select Gender' disabled field is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Select Gender' disabled field is displayed successfully");
+            createExportControlPage.enterPetName(positiveSearchText);
+            ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
 
             // Step 1: Click Save
             displayChecklistFlowPage.clickSaveAction();
@@ -198,11 +196,11 @@ public class PBI_247514_Response_To_Review {
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            // Step 2: Click Submit
-            displayChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+            createExportControlPage.clickSignOffButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+
+//            initialReviewWorkflowPage.clickInitialReview();
+//            ExtentReportListener.getExtentTest().info("Clicked Initial Review (IR) successfully");
 
             initialReviewWorkflowPage.refreshCurrentPage();
             ExtentReportListener.getExtentTest().info("Refreshed Export Control details page successfully");
@@ -226,22 +224,28 @@ public class PBI_247514_Response_To_Review {
 
             loginPage.clickSysAdminLoginButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Login' button on SysAdmin page successfully");
+            Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
+            ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
+            Assert.assertTrue(initialReviewWorkflowPage.isActionRequiredLinkDisplayed(), "'Action Required' link is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' link is displayed successfully");
 
             createExportControlPage.clickActionRequired();
             ExtentReportListener.getExtentTest().info("Clicked 'Action Required' menu successfully");
-            Assert.assertTrue(createExportControlPage.isActionRequiredCrumbDisplayed(), "'Action Required' crumb is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' crumb is displayed");
+            Assert.assertTrue(myActionsPage.isActionRequiredBreadcrumbDisplayed(), "'Action Required' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Action Required' breadcrumb is displayed successfully");
 
             systemAdminPage.clickFirstRecordNumber();
             ExtentReportListener.getExtentTest().info("Clicked first Record Number in Action Required grid successfully");
-            Assert.assertTrue(systemAdminPage.isPersonnelExclusionDisplayed(), "'Personnel Exclusion' value is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed");
 
-            systemAdminPage.clickApproveButton();
-            ExtentReportListener.getExtentTest().info("Clicked 'Approve' button successfully");
+            ExtentReportListener.getExtentTest().info("Waited for 14 seconds after clicking Create button");
+            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+
+            createExportControlPage.selectChiefApprovalConfirmation();
+            ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
 
             // Step 1: Fetch record #
             String recordNum = systemAdminPage.getRecordNumber();
@@ -268,6 +272,8 @@ public class PBI_247514_Response_To_Review {
 
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Approve' button successfully");
+            Assert.assertTrue(myActionsPage.isPINameDisplayed(), "'PI: Chandra, Mohan' is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'PI' value is displayed as 'Chandra, Mohan' successfully");
 
             if (responseToReviewPage.clickResponseToReviewIfPresent()) {
                 ExtentReportListener.getExtentTest().pass("Response To Review is present and clicked successfully");

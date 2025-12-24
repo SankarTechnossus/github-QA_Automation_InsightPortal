@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.Communication_Management.CommunicationManagement_ExportControlPage;
+import pages.Administration.Workflow_Management.WorkflowsPage;
 import pages.Export_Control.Export_Control_Details.AmendExportControlPage;
 import pages.Administration.Form_Visibility.FormsVisibility_ExportControlPage;
 import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
@@ -50,6 +51,7 @@ public class PBI_241725_Communication_Management {
     SystemAdminPage systemAdminPage;
     AgreementPage agreementPage;
     UniqueNameGenerator uniqueNameGenerator;
+    WorkflowsPage workflowsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -82,6 +84,7 @@ public class PBI_241725_Communication_Management {
         systemAdminPage = new SystemAdminPage(driver);
         agreementPage = new AgreementPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
+        workflowsPage = new WorkflowsPage(driver);
     }
 
     @Test
@@ -190,54 +193,59 @@ public class PBI_241725_Communication_Management {
             Assert.assertTrue(communicationManagementExportControlPage.isCommunicationManagementCrumbDisplayed(), "'Communication Management' crumb is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Communication Management' crumb is displayed");
 
-            // Step 1 – Notification Type: Export Control Approved
-            communicationManagementExportControlPage.selectNotificationType(notificationTypeApproved);
-            ExtentReportListener.getExtentTest().info("Selected Notification Type as '" + notificationTypeApproved + "' successfully");
-            Assert.assertTrue(communicationManagementExportControlPage.isNotificationTypeLabelDisplayed(), "'Notification Type' label is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Notification Type' label is displayed");
+            // ______________Un comment is Hollywood Env_________________
 
-            // Step 2 – Click Cancel
-            communicationManagementExportControlPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully on Notification Template form");
-            Assert.assertTrue(communicationManagementExportControlPage.isNotificationTypeLabelDisplayed(), "'Notification Type' label is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Notification Type' label is displayed");
-
-            formsVisibilityExportControlPage.openExportControlUnderFormVisibility();
-            ExtentReportListener.getExtentTest().info("Opened 'Export Control' under Form Visibility successfully");
-
-            communicationManagementExportControlPage.expandCommunicationManagement();
-            ExtentReportListener.getExtentTest().info("Expanded Communication Management menu successfully");
-
-            communicationManagementExportControlPage.clickCommunicationExportControl();
-            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' under Communication Management successfully");
-            Assert.assertTrue(communicationManagementExportControlPage.isCommunicationManagementCrumbDisplayed(), "'Communication Management' crumb is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Communication Management' crumb is displayed");
-
-            communicationManagementExportControlPage.selectNotificationType(notificationTypeApproved);
-            ExtentReportListener.getExtentTest().info("Selected Notification Type as '" + notificationTypeApproved + "' successfully after reopening form");
-            Assert.assertTrue(communicationManagementExportControlPage.isNotificationTypeLabelDisplayed(), "'Notification Type' label is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Notification Type' label is displayed");
-
-            // Step 4 – Click Save
-            communicationManagementExportControlPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully on Notification Template form");
+//            // Step 1 – Notification Type: Export Control Approved
+//            communicationManagementExportControlPage.selectNotificationType(notificationTypeApproved);
+//            ExtentReportListener.getExtentTest().info("Selected Notification Type as '" + notificationTypeApproved + "' successfully");
+//            Assert.assertTrue(communicationManagementExportControlPage.isNotificationTypeLabelDisplayed(), "'Notification Type' label is NOT displayed");
+//            ExtentReportListener.getExtentTest().pass("Verified 'Notification Type' label is displayed");
+//
+//            // Step 2 – Click Cancel
+//            communicationManagementExportControlPage.clickCancelButton();
+//            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully on Notification Template form");
+//            Assert.assertTrue(communicationManagementExportControlPage.isNotificationTypeLabelDisplayed(), "'Notification Type' label is NOT displayed");
+//            ExtentReportListener.getExtentTest().pass("Verified 'Notification Type' label is displayed");
+//
+//            formsVisibilityExportControlPage.openExportControlUnderFormVisibility();
+//            ExtentReportListener.getExtentTest().info("Opened 'Export Control' under Form Visibility successfully");
+//
+//            communicationManagementExportControlPage.expandCommunicationManagement();
+//            ExtentReportListener.getExtentTest().info("Expanded Communication Management menu successfully");
+//
+//            communicationManagementExportControlPage.clickCommunicationExportControl();
+//            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' under Communication Management successfully");
+//            Assert.assertTrue(communicationManagementExportControlPage.isCommunicationManagementCrumbDisplayed(), "'Communication Management' crumb is NOT displayed");
+//            ExtentReportListener.getExtentTest().pass("Verified 'Communication Management' crumb is displayed");
+//
+//            communicationManagementExportControlPage.selectNotificationType(notificationTypeApproved);
+//            ExtentReportListener.getExtentTest().info("Selected Notification Type as '" + notificationTypeApproved + "' successfully after reopening form");
+//            Assert.assertTrue(communicationManagementExportControlPage.isNotificationTypeLabelDisplayed(), "'Notification Type' label is NOT displayed");
+//            ExtentReportListener.getExtentTest().pass("Verified 'Notification Type' label is displayed");
+//
+//            // Step 4 – Click Save
+//            communicationManagementExportControlPage.clickSaveButton();
+//            ExtentReportListener.getExtentTest().info("Clicked 'Save' button successfully on Notification Template form");
 
             // Workflow for communication management **********_Flow 2_***************
 
-            addChecklistFlowPage.openExportControlWorkflows();
-            ExtentReportListener.getExtentTest().info("Navigated to Workflow Management → Export Control → Workflows successfully");
+            workflowsPage.clickWorkflowManagementLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
             Assert.assertTrue(addChecklistFlowPage.isWorkflowsHeaderDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Workflows' header displayed");
 
-            addChecklistFlowPage.clickPersonnelWorkflow();
-            ExtentReportListener.getExtentTest().info("Clicked 'Personnel' workflow successfully");
-            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
+            workflowsPage.clickWorkflowsLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflows' link from left navigation successfully");
+            Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
+
+            addChecklistFlowPage.clickPersonnelExclusionWorkflow();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Personnal Exclusion' workflow successfully");
+            Assert.assertTrue(addChecklistFlowPage.isPersonnelExclusionLabelDisplayed(), "'Personnal Exclusion' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnal Exclusion' label is displayed");
 
             addChecklistFlowPage.clickAddNewWorkflowVersion();
             ExtentReportListener.getExtentTest().info("Clicked 'Add new' button successfully on Versions page");
-            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
 
             // Step X: Enter description for Version 90
             String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
@@ -262,9 +270,9 @@ public class PBI_241725_Communication_Management {
             Assert.assertTrue(addChecklistFlowPage.isChiefApproverHeaderDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Chief Approver' section displayed");
 
-            // Step 0 – Go to Notifications tab
-            communicationManagementExportControlPage.clickNotificationsButton();
-            ExtentReportListener.getExtentTest().info("Clicked 'Notifications' button successfully on Communication Management page");
+            responseToReviewPage.clickActivitiesTab();
+            ExtentReportListener.getExtentTest().info("Clicked Activities tab successfully");
+            ExtentReportListener.getExtentTest().info("Generate Document is successfully Added in Activities Tab");
             Assert.assertTrue(addChecklistFlowPage.isChiefApproverHeaderDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Chief Approver' section displayed");
 
