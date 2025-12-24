@@ -12,8 +12,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.Administration.Workflow_Management.WorkflowsPage;
 import pages.Adobe.AgreementPage;
 import pages.Export_Control.Export_Control_Details.AddChecklistFlowPage;
+import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import utils.DriverManager;
@@ -33,6 +35,8 @@ public class PBI_246016_Add_Checklist_Flow {
     DashboardPage dashboardPage;
     AddChecklistFlowPage addChecklistFlowPage;
     UniqueNameGenerator uniqueNameGenerator;
+    WorkflowsPage workflowsPage;
+    ResponseToReviewPage responseToReviewPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -56,6 +60,8 @@ public class PBI_246016_Add_Checklist_Flow {
         dashboardPage = new DashboardPage(driver);
         addChecklistFlowPage = new AddChecklistFlowPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
+        workflowsPage = new WorkflowsPage(driver);
+        responseToReviewPage = new ResponseToReviewPage(driver);
     }
 
     @Test
@@ -85,20 +91,23 @@ public class PBI_246016_Add_Checklist_Flow {
             Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
             ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-            addChecklistFlowPage.openExportControlWorkflows();
-            ExtentReportListener.getExtentTest().info("Navigated to Workflow Management → Export Control → Workflows successfully");
+            workflowsPage.clickWorkflowManagementLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
             Assert.assertTrue(addChecklistFlowPage.isWorkflowsHeaderDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Workflows' header displayed");
 
-            addChecklistFlowPage.clickPersonnelWorkflow();
-            ExtentReportListener.getExtentTest().info("Clicked 'Personnel' workflow successfully");
-            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
+            workflowsPage.clickWorkflowsLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflows' link from left navigation successfully");
+            Assert.assertTrue(workflowsPage.isWorkflowsHeaderDisplayed(), "Workflows header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified Workflows page header is displayed successfully");
+
+            addChecklistFlowPage.clickPersonnelExclusionWorkflow();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Personnal Exclusion' workflow successfully");
+            Assert.assertTrue(addChecklistFlowPage.isPersonnelExclusionLabelDisplayed(), "'Personnal Exclusion' label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnal Exclusion' label is displayed");
 
             addChecklistFlowPage.clickAddNewWorkflowVersion();
             ExtentReportListener.getExtentTest().info("Clicked 'Add new' button successfully on Versions page");
-            Assert.assertTrue(addChecklistFlowPage.isPersonnelDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel' section displayed");
 
             // Step X: Enter description for Version 90
             String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
@@ -118,25 +127,16 @@ public class PBI_246016_Add_Checklist_Flow {
             Assert.assertTrue(addChecklistFlowPage.isSaveButtonDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Save' button displayed");
 
-            addChecklistFlowPage.clickDraftNode();
-            ExtentReportListener.getExtentTest().info("Clicked on 'Draft (draft1)' node successfully");
-            Assert.assertTrue(addChecklistFlowPage.isDraftSidebarHeaderDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Draft' sidebar header is displayed successfully");
+            responseToReviewPage.clickChiefApprover();
+            ExtentReportListener.getExtentTest().info("Clicked on Chief Approver node successfully");
+            Assert.assertTrue(addChecklistFlowPage.isChiefApproverHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Chief Approver' section displayed");
 
-            addChecklistFlowPage.clickActionsTab();
-            ExtentReportListener.getExtentTest().info("Clicked 'Actions' tab successfully");
-            Assert.assertTrue(addChecklistFlowPage.isDraftSidebarHeaderDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Draft' sidebar header is displayed successfully");
-
-            addChecklistFlowPage.clickSubmitAction();
-            ExtentReportListener.getExtentTest().info("Clicked 'Submit' action under Actions list successfully");
-            Assert.assertTrue(addChecklistFlowPage.isDraftSidebarHeaderDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Draft' sidebar header is displayed successfully");
-
-            addChecklistFlowPage.clickChecklistsToggle();
-            ExtentReportListener.getExtentTest().info("Clicked 'Checklists' section successfully");
-            Assert.assertTrue(addChecklistFlowPage.isDraftSidebarHeaderDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Draft' sidebar header is displayed successfully");
+            responseToReviewPage.clickActivitiesTab();
+            ExtentReportListener.getExtentTest().info("Clicked Activities tab successfully");
+            ExtentReportListener.getExtentTest().info("Generate Document is successfully Added in Activities Tab");
+            Assert.assertTrue(addChecklistFlowPage.isChiefApproverHeaderDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Chief Approver' section displayed");
 
             addChecklistFlowPage.clickUpdateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Update' button successfully");

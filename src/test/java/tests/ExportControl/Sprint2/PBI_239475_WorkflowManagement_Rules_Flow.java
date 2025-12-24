@@ -56,7 +56,6 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
         dashboardPage = new DashboardPage(driver);
         rulesPage = new RulesPage(driver);
         agreementPage = new AgreementPage(driver);
-
     }
 
     @Test
@@ -91,7 +90,7 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
             ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
 
             rulesPage.clickRulesLink();
-            ExtentReportListener.getExtentTest().info("Clicked 'Rules' link successfully");
+            ExtentReportListener.getExtentTest().pass("Clicked 'Rules' link for scopeId = 5 successfully");
             Assert.assertTrue(rulesPage.isRulesHeaderDisplayed(), "Rules header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified Rules page header is displayed successfully");
 

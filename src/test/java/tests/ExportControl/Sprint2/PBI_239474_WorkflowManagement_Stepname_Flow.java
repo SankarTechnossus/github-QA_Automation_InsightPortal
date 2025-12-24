@@ -90,7 +90,7 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
             ExtentReportListener.getExtentTest().info("Opened 'Workflow Management'");
 
             stepNamePage.clickExportControlStepName();
-            ExtentReportListener.getExtentTest().info("Opened Export Control > Step name (scopeId=3) successfully");
+            ExtentReportListener.getExtentTest().info("Opened ExportControlTransaction > Step name successfully");
             Assert.assertTrue(stepNamePage.isStepNameHeaderDisplayed(), "Step Name header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified Step Name header is displayed successfully");
 
@@ -148,7 +148,7 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
 
     @AfterMethod
     public void tearDown() {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

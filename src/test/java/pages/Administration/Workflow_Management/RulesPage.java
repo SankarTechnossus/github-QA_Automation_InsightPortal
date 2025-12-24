@@ -56,8 +56,22 @@ public class RulesPage extends BasePage {
     By rulesHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Rules')]");
     By ruleNameLabel = By.xpath("//label[@for='name']");
     By queryBuilderSection = By.xpath("//div[normalize-space()='Query Builder']");
+    By rulesLink01 = By.xpath("//a[normalize-space(.)='Rules' " + "and contains(@href,'/administration/workflow-management/scopeId/5/rules')]");
 
     //Actions
+    public void clickRulesLink01() {
+        WebElement link = driver.findElement(rulesLink01);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});", link
+        );
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(rulesLink01));
+
+        link.click();
+        pause(1000);
+    }
+
     public boolean isQueryBuilderSectionDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

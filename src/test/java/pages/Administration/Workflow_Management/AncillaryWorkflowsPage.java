@@ -29,8 +29,22 @@ public class AncillaryWorkflowsPage extends BasePage {
     By ancillaryWorkflowsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Ancillary Workflows')]");
     By nameLabel = By.xpath("//label[@for='name']");
     By triggeringRuleLabel = By.xpath("//label[@for='triggeringRuleId']");
+    By ancillaryWorkflowsLink = By.xpath("//a[normalize-space(.)='Ancillary Workflows' " + "and contains(@href,'/scopeId/5/workflowType/2/workflows')]");
 
     // Action
+    public void clickAncillaryWorkflowsLink() {
+        WebElement link = driver.findElement(ancillaryWorkflowsLink);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});", link
+        );
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(ancillaryWorkflowsLink));
+
+        link.click();
+        pause(1000);
+    }
+
     public boolean isNameLabelDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

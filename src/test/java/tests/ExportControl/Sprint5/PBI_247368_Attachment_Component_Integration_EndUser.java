@@ -97,7 +97,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             waitUtility.waitUntilPageLoad(driver, 120);
 
             attachmentTypesExportControlPage.NavigateToAttachmentTypesExportControlPage();
-            Assert.assertEquals(driver.getCurrentUrl(), "https://hollywood-insight4.partners.org/administration/attachment-type");
+            Assert.assertEquals(driver.getCurrentUrl(), url + "administration/attachment-type");
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Attachment Types.");
 
             // Add a new Attachment Type and verify in the Attachment Type list

@@ -48,6 +48,7 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By cancelButtonaddnewcancel = By.xpath("//button[@class='button -small -unstyled' and normalize-space()='Cancel']");
     By saveButtonassert = By.xpath("//button[contains(@class,'-submission') and normalize-space()='Save']");
     By previewBreadcrumbHeader = By.xpath("//span[contains(@class,'_font-bold') and normalize-space()='Preview']");
+    By selectQuestionTypeModalHeader = By.xpath("//header[contains(@class,'modal-header') and normalize-space(.)='Select the type of question to add']");
 
     // ********************************* Sahil Locators *******************************************************************
 
@@ -62,11 +63,35 @@ public class FormsManagement_ExportControlPage extends BasePage {
     By buttonCreate = By.xpath("//button[text()='Create']");
     By buttonChangeActiveVersion = By.xpath("//button[text()='Change active version']");
     By buttonActivate = By.xpath("//button[text()='Activate']");
-    By linkActiveVersion = By.xpath("//span[text()='Active']/../../a");
+    By linkActiveVersion = By.xpath("//span[text()='Active']/../../../a");
     By inputInstructions = By.xpath("//div[@class='fr-wrapper show-placeholder']/div");
     By buttonSave = By.xpath("//button[text()='Save']");
+    By radioButtonGroupTitle = By.xpath("//div[@class='question-name' and normalize-space()='Radio button group']");
 
     // *********** Sankar Actions ************************************************
+    public void clickRadioButtonGroupTitle() {
+        waitForPresence(radioButtonGroupTitle);
+
+        WebElement radioTitle = driver.findElement(radioButtonGroupTitle);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});",
+                radioTitle
+        );
+
+        pause(1000);   // Let the scroll complete
+        radioTitle.click();
+        pause(3000);   // Let the modal / next UI render
+    }
+
+    public boolean isSelectQuestionTypeModalDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(selectQuestionTypeModalHeader));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public boolean isPreviewPageDisplayed() {
         try {
@@ -487,10 +512,10 @@ public class FormsManagement_ExportControlPage extends BasePage {
         boolean result = false;
 
         click(buttonChangeActiveVersion);
-        pause(1000);
+        pause(3000);
 
         click(buttonActivate);
-        pause(1000);
+        pause(3000);
 
         String activeOn = driver.findElement(By.xpath("(//dt[text()='Activated on:']/following::dd/span)[1]")).getText();
         String status = driver.findElement(By.xpath("//span[text()='Active']")).getText();
@@ -533,7 +558,14 @@ public class FormsManagement_ExportControlPage extends BasePage {
         pause(2000);
 
         String inst = driver.findElement(By.xpath("//div[@class='fr-element fr-view']")).getText();
-        if(Objects.equals(inst, instructions))
+        if (Objects.equals(inst, ""))
+        {
+            type(inputInstructions, instructions);
+            click(buttonSave);
+            pause(2000);
+
+            result = true;
+        } else if (Objects.equals(inst, instructions))
         {
             click(buttonSave);
             pause(2000);

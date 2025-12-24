@@ -17,7 +17,6 @@ public class WorkflowsPage extends BasePage {
     }
 
     // Locators
-
     By workflowManagementLink = By.xpath("//a[.//span[text()='Workflow Management'] and contains(@href, '/workflow-management')]");
     By exportControlWorkflowsLink = By.xpath("//a[contains(@href, 'workflows-export-control') and text()='Workflows']");
     By addNewButton = By.xpath("//button[@type='button' and contains(@class,'-primary') and text()='Add New']");
@@ -33,8 +32,23 @@ public class WorkflowsPage extends BasePage {
     By transactionTypeLabel = By.xpath("//label[@for='additionalProps.transactionTypeId']");
     By exportControlStatusLabel = By.xpath("//label[@for='additionalProps.exportControlStatusId']");
     By emailFromLabel = By.xpath("//label[@for='emailFrom']");
+    By workflowsLink = By.xpath("//a[contains(@class,'_menuLink') and normalize-space(.)='Workflows' and contains(@href,'/administration/workflow-management/scopeId/5/workflowType/1/workflows')]");
 
     //Actions
+    public void clickWorkflowsLink() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(workflowsLink));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+
+        try {
+            link.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        }
+
+        pause(1000);
+    }
 
     public boolean isNameLabelDisplayed() {
         try {

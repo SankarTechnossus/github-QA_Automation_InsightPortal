@@ -33,7 +33,6 @@ public class PBI_239502_Menu_Flow {
     MenuFlow menuFlow;
     MyActionsPage myActionsPage;
 
-
     @BeforeMethod
     public void setupBrowser() {
         // User will set up and configure the Chrome WebDriver using WebDriverManager
@@ -125,6 +124,14 @@ public class PBI_239502_Menu_Flow {
             ExtentReportListener.getExtentTest().info("Entered Record Number: " + recordNumber);
             Assert.assertTrue(myActionsPage.isRecordNumberLabelDisplayed(), "Record Number label is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Record Number' label is displayed");
+
+            myActionsPage.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("Clicked Search on Action Required");
+
+            myActionsPage.clickClearSelections();
+            ExtentReportListener.getExtentTest().info("Clicked Clear Selections successfully");
+            Assert.assertTrue(menuFlow.isSearchBreadcrumbDisplayed(), "'Export Control > Search' breadcrumb is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Export Control > Search' breadcrumb is displayed successfully");
 
             myActionsPage.clickSearchButton();
             ExtentReportListener.getExtentTest().info("Clicked Search on Action Required");

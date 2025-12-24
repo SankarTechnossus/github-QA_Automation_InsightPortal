@@ -33,8 +33,22 @@ public class ActionNamePage extends BasePage {
     By actionNameHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Action Name')]");
     By actionNameLabel = By.xpath("//label[@for='name']");
     By historyTitleLabel = By.xpath("//label[@for='historyTitle']");
+    By actionNameLink = By.xpath("//a[normalize-space(.)='Action name' and contains(@href,'/scopeId/5/action-names')]");
 
     // Action
+    public void clickActionNameLink() {
+        WebElement link = driver.findElement(actionNameLink);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});", link
+        );
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(actionNameLink));
+
+        link.click();
+        pause(1000);
+    }
+
     public boolean isActionNameLabelDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

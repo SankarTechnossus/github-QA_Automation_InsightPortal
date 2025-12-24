@@ -67,7 +67,6 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
 
             String ancillaryNamePrefix = JsonDataReader.get(1, "AncillaryWorkflowNamePrefix");           // "Test_"
             String ancillaryEmailFrom = JsonDataReader.get(1, "AncillaryWorkflowEmailFrom");             // "insighthelpdesk@partners.org"
-            //String ancillaryNameAppendText = JsonDataReader.get(1, "AncillaryWorkflowNameAppendText");   // "San"
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -90,8 +89,8 @@ public class PBI_239475_WorkflowManagement_Ancillary_Workflow_Flow {
             ancillaryWorkflowsPage.clickWorkflowManagement();
             ExtentReportListener.getExtentTest().info("Opened 'Workflow Management'");
 
-            ancillaryWorkflowsPage.clickAncillaryWorkflowsScope3();
-            ExtentReportListener.getExtentTest().info("Opened 'Ancillary Workflows'");
+            ancillaryWorkflowsPage.clickAncillaryWorkflowsLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Ancillary Workflows' link for scopeId = 5 successfully");
             Assert.assertTrue(ancillaryWorkflowsPage.isAncillaryWorkflowsHeaderDisplayed(), "Ancillary Workflows header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Ancillary Workflows' page header is displayed successfully");
 

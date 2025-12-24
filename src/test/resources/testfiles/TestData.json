@@ -1,14 +1,15 @@
 {
   "data": [
     {
-      "URL": "https://hollywood-insight4.partners.org/",
+      "URL": "https://sacramento-insight4.partners.org/",
       "URLSacramento": "https://sacramento-insight4.partners.org/",
+      "URLHollywood": "https://hollywood-insight4.partners.org/",
       "URLAustin": "https://austin-insight4.partners.org",
       "Username": "SV1179",
       "Password": "Devinivetha@1930",
       "ESignSignatureText": "sankar Venkatesan",
       "SysAdminBusinessUser": "MC1396",
-      "SysAdminURL": "https://hollywood-insight4.partners.org/public?sys=sysadmin",
+      "SysAdminURL": "https://sacramento-insight4.partners.org/public?sys=sysadmin",
       "ESignLink": "https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmassgen.na1.echosign.com%2Fpublic%2Fesign%3Ftsid%3DCBFCIBAACBSCTBABDUAAABACAABAAAF00CplX4KgA1EC_jRKodrBZmZ3wBYh-RxXFzHtrVuzP2VrU3T8YN7ZiOL_fhRXq1EpvkjBqjoO9lxUigPXcjuZ3qFZb9neCnPx0noyse-BNiSSaUaE4Ot7nlhjhsGzf%26&data=05%7C02%7Csankar.venkatesan%40technossus.com%7C49156951bd214cb81d5208de3bef5847%7C7284c0574078417092c01bcb11c55269%7C0%7C0%7C639014096334558268%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=BmjHDRJEaX61Q9YCDuttXlh%2BwecsEU0z9U6EdCbl%2BeA%3D&reserved=0"
     },
     {
@@ -124,11 +125,11 @@
     {
       "InternalPeople": "Dhiman, Vivek",
       "InternalPeopleAffiliation": "MGB > Mass General Brigham",
-      "ExistingExternalPeople": "savant, Ranjit",
+      "ExistingExternalPeople": "Silverman, Samueld",
       "InstitutionAffiliation": "NWH",
       "DepartmentAffiliation": "Medicine",
       "UnitAffiliation": "Endocrinology/Diabetes",
-      "ExistingUserExternalAffiliation": "Mass General Brigham > NWH > Medicine > Endocrinology/Diabetes",
+      "ExistingUserExternalAffiliation": "MGH",
       "NewExternalAffiliation": "Test External Affiliation",
       "ExistingExternalAffiliation": "Saint Georges University",
       "DefaultPeopleType": "External",

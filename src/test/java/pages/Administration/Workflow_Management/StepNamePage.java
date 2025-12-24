@@ -24,12 +24,24 @@ public class StepNamePage extends BasePage {
     By cancelButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-unstyled') and normalize-space(text())='Cancel']");
     By nameInputFieldUni = By.xpath("//input[@id='name' and contains(@class,'default-input') and @type='text']");
     By addButton = By.xpath("//button[@type='button' and contains(@class,'button') and contains(@class,'-primary') and normalize-space(text())='Add']");
-    By exportControlHeaderBtn = By.xpath("//button[contains(@class,'label') and normalize-space(.)='Export Control']");
     By exportControlStepNameLink = By.xpath("//button[contains(@class,'label') and normalize-space(.)='Export Control']" + "/ancestor::div[contains(@class,'-level-1')][1]" + "/following-sibling::div[contains(@class,'toggleable-menu-children')][1]" + "//a[normalize-space(.)='Step name' and contains(@href,'/scopeId/3/step-names')]");
     By stepNameHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Step Name']");
     By stepNameLabel = By.xpath("//label[@for='name' and contains(normalize-space(.),'Step name')]");
+    By exportControlHeaderBtn = By.xpath("//button[contains(@class,'label') and contains(normalize-space(.),'ExportControl')]");
+    By stepNameLink = By.xpath("//a[contains(@href,'/administration/workflow-management/scopeId/5/step-names') and normalize-space(.)='Step name']");
 
     //Actions
+    public void clickExportControlStepName() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        WebElement step = wait.until(ExpectedConditions.elementToBeClickable(stepNameLink));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", step);
+        try { step.click(); } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", step);
+        }
+        pause(1200);
+    }
+
     public boolean isStepNameLabelDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -48,33 +60,6 @@ public class StepNamePage extends BasePage {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void clickExportControlStepName() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        // 1) Bring the Export Control header into view
-        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(exportControlHeaderBtn));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", header);
-
-        // 2) Ensure the section is expanded
-        String expanded = header.getAttribute("aria-expanded");
-        if (expanded == null || !expanded.equalsIgnoreCase("true")) {
-            header.click();
-            pause(400);
-        }
-
-        // 3) Click the scoped Step name link (scopeId=3)
-        WebElement stepLink = wait.until(ExpectedConditions.presenceOfElementLocated(exportControlStepNameLink));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", stepLink);
-
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(stepLink)).click();
-        } catch (ElementClickInterceptedException e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", stepLink);
-        }
-
-        pause(800);
     }
 
     public void clickSaveForStepName(String stepName) {
