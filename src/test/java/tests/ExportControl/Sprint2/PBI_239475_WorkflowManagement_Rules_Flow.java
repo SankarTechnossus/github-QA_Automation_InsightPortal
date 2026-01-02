@@ -144,6 +144,9 @@ public class PBI_239475_WorkflowManagement_Rules_Flow {
             Assert.assertTrue(rulesPage.isRulesHeaderDisplayed(), "Rules header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified Rules page header is displayed successfully");
 
+            rulesPage.clickOKButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'OK' button on the confirmation popup");
+
             rulesPage.clickAddRuleButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Add rule' button successfully");
 

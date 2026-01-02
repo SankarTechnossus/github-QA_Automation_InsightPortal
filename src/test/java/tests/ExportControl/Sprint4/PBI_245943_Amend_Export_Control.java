@@ -124,6 +124,9 @@ public class PBI_245943_Amend_Export_Control {
             Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
 
+            createExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
+
             try {
                 createExportControlPage.clickSubmitRadioButton();
                 ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
@@ -260,6 +263,9 @@ public class PBI_245943_Amend_Export_Control {
 
             amendExportControlPage.clickAmendmentOkButton();
             ExtentReportListener.getExtentTest().info("Clicked 'OK' button on amendment confirmation popup successfully");
+
+            amendExportControlPage.ClickDraftActionsCheckbox();
+            ExtentReportListener.getExtentTest().info("Clicked draft actions checkbox.");
 
             try {
                 createExportControlPage.clickSubmitRadioButton();

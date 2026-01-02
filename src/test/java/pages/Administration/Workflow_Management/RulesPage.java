@@ -192,6 +192,12 @@ public class RulesPage extends BasePage {
         button.click();
     }
 
+    public void clickOKButton()
+    {
+        driver.findElement(By.xpath("//button[text()='OK']")).click();
+        pause(2000);
+    }
+
     public void clickMigrationButton() {
         WebElement button = driver.findElement(migrationButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);

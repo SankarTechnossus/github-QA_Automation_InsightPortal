@@ -29,6 +29,7 @@ public class AmendExportControlPage extends BasePage {
     By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
     By amendmentAMD1Tab = By.xpath("//div[contains(@class,'_transactionsTabItem')]" + "[.//div[contains(@class,'name') and normalize-space()='Amendment (AMD1)']]");
     By saveButton01 = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
+    By checkboxDraftActions = By.xpath("//span[text()='I have carefully reviewed this record and confirm my sign off']/../input");
 
     //Actions
     public void clickSaveButton() {
@@ -133,5 +134,12 @@ public class AmendExportControlPage extends BasePage {
         btn.click();
 
         pause(1000); // your standard pause
+    }
+
+    public void ClickDraftActionsCheckbox()
+    {
+        waitForPresence(checkboxDraftActions);
+        click(checkboxDraftActions);
+        pause(2000);
     }
 }
