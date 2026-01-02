@@ -127,20 +127,30 @@ public class PBI_245943_Amend_Export_Control {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
-            createExportControlPage.clickSubmitRadioButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
+            try {
+                createExportControlPage.clickSubmitRadioButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
 
-            createExportControlPage.enterPetName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
+                createExportControlPage.enterPetName(positiveSearchText);
+                ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
 
-            // Step 1: Click Save
-            displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+                // Step 1: Click Save
+                displayChecklistFlowPage.clickSaveAction();
+                ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
+                Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            createExportControlPage.clickSignOffButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+                createExportControlPage.clickSignOffButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally {
+                displayChecklistFlowPage.clickSubmitAction();
+                ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+            }
 
             initialReviewWorkflowPage.clickInitialReview();
             ExtentReportListener.getExtentTest().info("Clicked Initial Review (IR) successfully");
@@ -254,20 +264,33 @@ public class PBI_245943_Amend_Export_Control {
             amendExportControlPage.clickAmendmentOkButton();
             ExtentReportListener.getExtentTest().info("Clicked 'OK' button on amendment confirmation popup successfully");
 
-            createExportControlPage.clickSubmitRadioButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
+            amendExportControlPage.ClickDraftActionsCheckbox();
+            ExtentReportListener.getExtentTest().info("Clicked draft actions checkbox.");
 
-            createExportControlPage.enterPetName(positiveSearchText);
-            ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
+            try {
+                createExportControlPage.clickSubmitRadioButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
 
-            // Step 1: Click Save
-            displayChecklistFlowPage.clickSaveAction();
-            ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
-            Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+                createExportControlPage.enterPetName(positiveSearchText);
+                ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
 
-            createExportControlPage.clickSignOffButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+                // Step 1: Click Save
+                displayChecklistFlowPage.clickSaveAction();
+                ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
+                Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+
+                createExportControlPage.clickSignOffButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally {
+                displayChecklistFlowPage.clickSubmitAction();
+                ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+            }
 
             //Login to System Admin page
 

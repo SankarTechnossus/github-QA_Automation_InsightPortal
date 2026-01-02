@@ -51,7 +51,7 @@ public class RulesPage extends BasePage {
     By migrationButton = By.xpath("//button[normalize-space()='Migration']");
     By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
-    By rulesLink = By.xpath("//nav//a[normalize-space(.)='Rules' " + "and contains(@href,'/administration/workflow-management/')" + "and contains(@href,'/scopeId/3/rules')]");
+    By rulesLink = By.xpath("//a[text()='Rules'][@href='/administration/workflow-management/scopeId/5/rules']");
     By workflowsCancelButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[@type='button' and normalize-space()='Cancel']");
     By rulesHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(.),'Rules')]");
     By ruleNameLabel = By.xpath("//label[@for='name']");
@@ -190,6 +190,12 @@ public class RulesPage extends BasePage {
 
         pause(1000);
         button.click();
+    }
+
+    public void clickOKButton()
+    {
+        driver.findElement(By.xpath("//button[text()='OK']")).click();
+        pause(2000);
     }
 
     public void clickMigrationButton() {

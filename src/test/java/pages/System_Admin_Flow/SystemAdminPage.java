@@ -144,18 +144,21 @@ public class SystemAdminPage extends BasePage {
         pause(1000);
     }
 
-    public void enterValueField(String value) {
-        WebElement input = driver.findElement(valueFieldInput);
+    public void enterValueField(String record) {
+//        WebElement input = driver.findElement(valueFieldInput);
+//
+//        ((JavascriptExecutor) driver)
+//                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+//
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(valueFieldInput));
+//
+//        input.clear();
+//        input.sendKeys(value);
 
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+        waitForPresence(valueFieldInput);
+        type(valueFieldInput, record);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(valueFieldInput));
-
-        input.clear();
-        input.sendKeys(value);
-
-        pause(800);   // follow your standard pause pattern
+        pause(2000);   // follow your standard pause pattern
     }
 
     public String getRecordNumber() {
