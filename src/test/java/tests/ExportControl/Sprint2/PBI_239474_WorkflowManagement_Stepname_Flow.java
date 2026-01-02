@@ -148,7 +148,7 @@ public class PBI_239474_WorkflowManagement_Stepname_Flow {
 
     @AfterMethod
     public void tearDown() {
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
