@@ -33,7 +33,6 @@
     <!-- Sprint 4 -->
     <test name="Sprint4_PBIs">
         <classes>
-            <class name="tests.ExportControl.Sprint4.PBI_239491_My_Actions"/>
             <class name="tests.ExportControl.Sprint4.PBI_239492_Forms_Visibility"/>
             <class name="tests.ExportControl.Sprint4.PBI_239502_Menu_Flow"/>
             <class name="tests.ExportControl.Sprint4.PBI_241726_Initial_Review_Workflow"/>
@@ -44,6 +43,7 @@
             <class name="tests.ExportControl.Sprint4.PBI_246016_Add_Checklist_Flow"/>
             <class name="tests.ExportControl.Sprint4.PBI_246016_Display_Checklist_Flow"/>
             <class name="tests.ExportControl.Sprint4.PBI_248591_Administration_DropDown"/>
+            <class name="tests.ExportControl.Sprint4.PBI_239491_My_Actions"/>
         </classes>
     </test>
 
