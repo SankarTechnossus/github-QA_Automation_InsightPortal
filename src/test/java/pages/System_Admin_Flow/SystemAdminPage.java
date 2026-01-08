@@ -21,7 +21,7 @@ public class SystemAdminPage extends BasePage {
 
     // First Record Number link in the Action Required grid
     By firstRecordNumberLink = By.xpath("(//table[contains(@class,'item-grid')]//tbody" + "//td[@data-column='_exportControlNumber']//a)[1]");
-    By approveButton = By.xpath("//button[@type='button' and @aria-label='Approve']");
+    By approveButton = By.xpath("//button[@aria-label='Approve' and normalize-space()='Approve']");
     By commentsButton = By.xpath("//span[normalize-space()='Comments']/parent::div");
     By commentsEditor = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-view') and @contenteditable='true']");
     // Comments modal – "Comment" button
@@ -268,6 +268,7 @@ public class SystemAdminPage extends BasePage {
 
         pause(1000);
     }
+    
 
     public void clickFirstRecordNumber() {
         WebElement firstRecord = wait.until(
