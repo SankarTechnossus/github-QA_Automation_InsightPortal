@@ -148,6 +148,8 @@ public class PBI_245943_Amend_Export_Control {
 
             }
             finally {
+                createExportControlPage.selectChiefApprovalConfirmation();
+                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
                 displayChecklistFlowPage.clickSubmitAction();
                 ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
             }
@@ -288,6 +290,8 @@ public class PBI_245943_Amend_Export_Control {
 
             }
             finally {
+                createExportControlPage.selectChiefApprovalConfirmation();
+                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
                 displayChecklistFlowPage.clickSubmitAction();
                 ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
             }

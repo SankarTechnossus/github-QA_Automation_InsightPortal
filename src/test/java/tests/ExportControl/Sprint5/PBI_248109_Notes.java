@@ -137,6 +137,8 @@ public class PBI_248109_Notes {
 
             }
             finally {
+                createExportControlPage.selectChiefApprovalConfirmation();
+                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
                 displayChecklistFlowPage.clickSubmitAction();
                 ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
             }
