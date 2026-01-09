@@ -35,7 +35,7 @@ public class AddChecklistFlowPage extends BasePage {
     By personnelSpan = By.xpath("//span[normalize-space()='Test1']");
     By versionsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Versions']");
     By saveButton01 = By.xpath("//button[@type='button' and contains(@class,'-primary') and normalize-space()='Save']");
-    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space()='Cheif Approval']");
+    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space(.)='Chief Approval']");
     By draftSidebarHeader = By.xpath("//p[contains(@class,'_sidebarHeader') and text()='Draft']");
     By personnelExclusionLink = By.xpath("//a[normalize-space()='Personnal Exclusion']");
     By personnelExclusionLabel = By.xpath("//span[normalize-space()='Personnal Exclusion']");
