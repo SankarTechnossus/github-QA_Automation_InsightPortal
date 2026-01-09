@@ -17,7 +17,8 @@ public class ResponseToReviewPage extends BasePage {
     }
 
     //Locator
-    By chiefApproverNode = By.xpath("//div[contains(@class,'_nodeHeader')]//p[contains(normalize-space(.),'chiefapproval1')]");
+//    By chiefApproverNode = By.xpath("//div[contains(@class,'_nodeHeader')]//p[contains(normalize-space(.),'chiefapproval1')]");
+    By chiefApproverNode = By.xpath("//p[normalize-space()='Export Control Review (chiefapprover1)']");
     By activitiesTab = By.xpath("//button[normalize-space()='Activities']");
     By responseToReviewLink = By.xpath("//div[@id='left-sidebar']//a[contains(@class,'label')][span[normalize-space()='Response To Review']]");
     By submissionChecklistSection = By.xpath("//span[@class='toggleable-section-title' and text()='Submission Checklist']");

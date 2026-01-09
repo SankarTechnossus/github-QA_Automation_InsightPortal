@@ -35,10 +35,15 @@ public class AddChecklistFlowPage extends BasePage {
     By personnelSpan = By.xpath("//span[normalize-space()='Test1']");
     By versionsHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Versions']");
     By saveButton01 = By.xpath("//button[@type='button' and contains(@class,'-primary') and normalize-space()='Save']");
-    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space(.)='Chief Approval']");
+//    By chiefApproverHeader = By.xpath("//p[contains(@class,'_sidebarHeader_') and normalize-space(.)='Chief Approval']");
+    By chiefApproverHeader = By.xpath("//div[contains(@class,'_wfSidebar_')]//p[contains(@class,'_sidebarHeader_') and normalize-space()='Export Control Review']");
+//    By chiefApproverHeader = By.xpath("//div[contains(@class,'sidebar')]//p[normalize-space()='Export Control Review']");
     By draftSidebarHeader = By.xpath("//p[contains(@class,'_sidebarHeader') and text()='Draft']");
-    By personnelExclusionLink = By.xpath("//a[normalize-space()='Personnal Exclusion']");
-    By personnelExclusionLabel = By.xpath("//span[normalize-space()='Personnal Exclusion']");
+//    By personnelExclusionLink = By.xpath("//a[normalize-space()='Personnal Exclusion']");
+    By personnelExclusionLink = By.xpath("//a[normalize-space()='Personnel Exclusion - Initial Review']");
+//    By personnelExclusionLabel = By.xpath("//span[normalize-space()='Personnal Exclusion']");
+    By personnelExclusionLabel = By.xpath("//span[normalize-space()='Personnel Exclusion - Initial Review']");
+
 
     //Actions
     public boolean isPersonnelExclusionLabelDisplayed() {
