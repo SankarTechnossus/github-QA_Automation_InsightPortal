@@ -274,7 +274,7 @@ public class PBI_243952_Review_letter {
 
     @AfterMethod
     public void tearDown() {
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
