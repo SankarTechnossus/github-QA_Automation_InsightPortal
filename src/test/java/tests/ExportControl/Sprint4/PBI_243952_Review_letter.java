@@ -103,7 +103,6 @@ public class PBI_243952_Review_letter {
             Assert.assertTrue(agreementPage.isDashboardNotificationsSummaryDisplayed(), "Dashboard Notifications - Summary page is NOT displayed after clicking Administration link");
             ExtentReportListener.getExtentTest().pass("User successfully navigated to Dashboard Notifications - Summary page.");
 
-
             workflowsPage.clickWorkflowManagementLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Workflow Management' menu link successfully");
             Assert.assertTrue(addChecklistFlowPage.isWorkflowsHeaderDisplayed());
@@ -181,6 +180,60 @@ public class PBI_243952_Review_letter {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
+            //  New Form
+
+            createExportControlPage.selectCountriesOfConcern("China");
+            ExtentReportListener.getExtentTest().pass("Selected Countries of Concern");
+
+            createExportControlPage.enterOnboardingDepartment("Research Department");
+            ExtentReportListener.getExtentTest().pass("Entered Onboarding Department");
+
+            createExportControlPage.selectEmployeeWorkforce();
+            ExtentReportListener.getExtentTest().pass("Selected Workforce Type as Employee");
+
+            createExportControlPage.enterCandidateName("John Smith");
+            ExtentReportListener.getExtentTest().pass("Entered Candidate Name");
+
+            createExportControlPage.selectCountryOfBirth("India");
+            ExtentReportListener.getExtentTest().pass("Selected Country of Birth");
+
+            createExportControlPage.fillAddress("12 Street Road", "Chennai");
+            ExtentReportListener.getExtentTest().pass("Entered Address details");
+
+            createExportControlPage.selectAddressCountry("India");
+            ExtentReportListener.getExtentTest().pass("Selected Address Country");
+
+            createExportControlPage.enterTelephone("9876543210");
+            ExtentReportListener.getExtentTest().pass("Entered Telephone Number");
+
+            createExportControlPage.selectCitizenship("India");
+            ExtentReportListener.getExtentTest().pass("Selected Citizenship");
+
+            createExportControlPage.selectInternalMgbFunding();
+            ExtentReportListener.getExtentTest().pass("Selected funding source as Internal - MGB");
+
+            createExportControlPage.selectShareDataNo();
+            ExtentReportListener.getExtentTest().pass("Selected Share Data as No");
+            createExportControlPage.selectNonCommercialEquipment("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Non-commercial proprietary equipment");
+
+            createExportControlPage.selectEquipmentRequiringCertification("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Equipment requiring certification");
+
+            createExportControlPage.selectAccessToCommercialProducts("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Access to commercial products");
+
+            createExportControlPage.selectShareDataWithResearchCommunity("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Share data with research community");
+
+            createExportControlPage.enterWorkDescription("Candidate will assist in non-sensitive research activities under supervision.");
+            ExtentReportListener.getExtentTest().pass("Entered Description of Work");
+
+            createExportControlPage.clickNext();
+            ExtentReportListener.getExtentTest().pass("Clicked Next button");
+
+            //FORM Ends here
+
             try {
                 createExportControlPage.clickSubmitRadioButton();
                 ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
@@ -199,11 +252,12 @@ public class PBI_243952_Review_letter {
             }
             catch (Exception e)
             {
-
+                // User will capture and log any exceptions that occur during the test
+                ExtentReportListener.getExtentTest().fail("Test failed due to exception: " + e.getMessage());
             }
             finally {
-                createExportControlPage.selectChiefApprovalConfirmation();
-                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
+//                createExportControlPage.selectChiefApprovalConfirmation();
+//                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
                 displayChecklistFlowPage.clickSubmitAction();
                 ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
             }

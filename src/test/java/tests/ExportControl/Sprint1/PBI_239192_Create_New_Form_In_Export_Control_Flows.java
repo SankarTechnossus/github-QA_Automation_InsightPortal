@@ -74,7 +74,7 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             String description = JsonDataReader.get(2,"FormDescription");
             String formCat = JsonDataReader.get(2,"FormCategory");
             String formCatSeqNo = JsonDataReader.get(2,"CategorySeqNo");
-            String formType = JsonDataReader.get(2, "FormType");
+            String formType2 = JsonDataReader.get(2, "FormType2");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -132,9 +132,9 @@ public class PBI_239192_Create_New_Form_In_Export_Control_Flows {
             ExtentReportListener.getExtentTest().pass("User successfully navigated to New Form page after clicking 'Add new' link.");
 
             String formName = uniqueNameGenerator.GenerateRandomName(6);
-            formsManagementExportControlPage.CreateNewForm(formName, description, formType, formCat, formCatSeqNo);
+            formsManagementExportControlPage.CreateNewForm(formName, description, formType2, formCat, formCatSeqNo);
             Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
-            ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName + " and form type : " + formType);
+            ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName + " and form type : " + formType2);
 
             agreementPage.clickVersion1Link();
             ExtentReportListener.getExtentTest().info("Clicked on 'Version 1' link");
