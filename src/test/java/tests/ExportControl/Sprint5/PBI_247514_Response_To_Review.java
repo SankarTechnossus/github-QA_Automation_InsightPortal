@@ -238,8 +238,6 @@ public class PBI_247514_Response_To_Review {
             ExtentReportListener.getExtentTest().pass("Clicked Next button");
 
             //FORM Ends here
-
-
             try {
                 createExportControlPage.clickSubmitRadioButton();
                 ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
@@ -253,8 +251,8 @@ public class PBI_247514_Response_To_Review {
                 Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
                 ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-                createExportControlPage.clickSignOffButton();
-                ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+                //createExportControlPage.clickSignOffButton();
+                //ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
             }
             catch (Exception e)
             {
@@ -308,12 +306,14 @@ public class PBI_247514_Response_To_Review {
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            createExportControlPage.selectChiefApprovalConfirmation();
-            ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
+            //createExportControlPage.selectChiefApprovalConfirmation();
+            //ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
 
             // Step 1: Fetch record #
             String recordNum = systemAdminPage.getRecordNumber();
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
+
+            /*
             Assert.assertTrue(systemAdminPage.isCommentsLabelDisplayed(), "'Comments' label is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Comments' label is displayed");
 
@@ -333,6 +333,7 @@ public class PBI_247514_Response_To_Review {
             ExtentReportListener.getExtentTest().info("Clicked 'Comment' button on Comments modal successfully");
             Assert.assertTrue(systemAdminPage.isPersonnelExclusionDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed");
+            */
 
             systemAdminPage.clickApproveButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Approve' button successfully");

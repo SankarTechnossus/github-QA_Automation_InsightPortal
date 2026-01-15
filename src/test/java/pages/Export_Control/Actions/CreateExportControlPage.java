@@ -398,12 +398,12 @@ public class CreateExportControlPage extends BasePage {
 
     // General Locators
     By buttonActions = By.xpath("//button[text()='Actions']");
-    By linkCreateExportControl = By.xpath("//a[text()='Create Export Control']");
+    By linkCreateExportControl = By.xpath("//a[text()='Create Export Control Record']");
     By linkInitialReview = By.xpath("//div[text()='Initial Review (IR)']/..");
 
     // Create Export Control page locators
     By inputExportControlRequest = By.xpath("//input[@value='ExportControlRequest']");
-    By inputSelectPI = By.xpath("//div[text()='Start typing to search...']/following::div/input");
+    By inputSelectPI = By.xpath("//div[text()='Start typing to initiate search']/following::div/input");
     By buttonCreate = By.xpath("//button[text()='Create']");
 
     // Export Control Details locators

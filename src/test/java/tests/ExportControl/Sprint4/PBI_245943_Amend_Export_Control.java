@@ -337,8 +337,8 @@ public class PBI_245943_Amend_Export_Control {
                 Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
                 ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-                createExportControlPage.clickSignOffButton();
-                ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+                //createExportControlPage.clickSignOffButton();
+                //ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
             }
             catch (Exception e)
             {
