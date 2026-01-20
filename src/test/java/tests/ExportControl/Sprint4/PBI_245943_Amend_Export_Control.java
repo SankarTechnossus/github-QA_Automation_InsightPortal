@@ -245,8 +245,8 @@ public class PBI_245943_Amend_Export_Control {
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            createExportControlPage.selectChiefApprovalConfirmation();
-            ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
+//            createExportControlPage.selectChiefApprovalConfirmation();
+//            ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
 
             notesPage.clickNotesSection();
             ExtentReportListener.getExtentTest().info("Clicked Notes section successfully");

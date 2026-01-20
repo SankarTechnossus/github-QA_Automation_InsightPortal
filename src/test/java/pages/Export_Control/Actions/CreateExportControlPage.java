@@ -29,7 +29,7 @@ public class CreateExportControlPage extends BasePage {
 
     // Left navigation – Actions toggle button
     By actionsToggleButton = By.xpath("//div[contains(@class,'export-control-nav-block')]//button[@aria-label='Expand Actions']");
-//    By createExportControlLink = By.xpath("//a[normalize-space()='Create Export Control' and contains(@href,'/export-control/actions')]");
+    //    By createExportControlLink = By.xpath("//a[normalize-space()='Create Export Control' and contains(@href,'/export-control/actions')]");
     By createExportControlLink = By.xpath("//a[contains(@href,'/export-control/actions') and contains(normalize-space(),'Create Export Control')]");
     By saveButton = By.xpath("//button[@aria-label='Save' and normalize-space()='Save']");
     By actionRequiredCrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Action Required']");
@@ -37,7 +37,7 @@ public class CreateExportControlPage extends BasePage {
     By piNameInput = By.xpath("//input[contains(@id,'dynamic-form-field-input-') and contains(@id,'-PiName')]");
     By submitRadioBtn = By.xpath("//input[@type='radio' and @value='Submit']");
     By createButton = By.xpath("//aside//button[normalize-space()='Create']");
-//    By createExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Create Export Control']");
+    //    By createExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Create Export Control']");
     By createExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and contains(normalize-space(),'Create Export Control')]");
     By petNameInput = By.xpath("//label[.//div[normalize-space()='Pet name']]/following::input[@type='text'][1]");
     By signOffButton = By.xpath("//button[@aria-label='Sign Off' and normalize-space()='Sign Off']");
@@ -49,31 +49,31 @@ public class CreateExportControlPage extends BasePage {
 
     //New Form
 
-     By countriesOfConcernInput = By.xpath("//label[contains(.,'Countries of Concern')]//following::input[@role='combobox'][1]");
-     By onboardingDepartmentInput = By.xpath("//label[contains(.,'Onboarding Department')]//following::input[@type='text'][1]");
-     By workforceEmployeeCheckbox = By.xpath("//label[.//span[normalize-space()='Employee']]//input[@type='checkbox']");
-     By candidateNameInput = By.xpath("//label[contains(.,'Candidate Name')]//following::input[@type='text'][1]");
-     By countryOfBirthInput = By.xpath("//label[contains(.,'Country of Birth')]//following::input[@role='combobox'][1]");
-     By streetAddress1 = By.xpath("//label[contains(.,'Street Address, Part 1')]//following::input[@type='text'][1]");
-     By cityInput = By.xpath("//label[normalize-space()='City']//following::input[@type='text'][1]");
-     By addressHasStateYes = By.xpath("//label[.//span[text()='Yes']]//input[@name='AddressHasStateorProvince']");
-     By addressHasPostalCodeYes = By.xpath("//label[.//span[text()='Yes']]//input[@name='AddressHasPostalCode']");
-     By addressCountryInput = By.xpath("//label[normalize-space()='Country']//following::input[@role='combobox'][1]");
-     By telephoneInput = By.xpath("//label[contains(.,'Telephone Number')]//following::input[@type='text'][1]");
-     By citizenshipInput = By.xpath("//label[contains(.,'Citizenship')]//following::input[@role='combobox'][1]");
-     By cvUploadInput = By.xpath("//input[@type='file']");
-     By shareDataNo = By.xpath("//input[@name='ShareDataWithOthers' and @value='No']");
-     By workDescriptionEditor = By.xpath("//div[@contenteditable='true' and contains(@class,'fr-element')]");
-     By nextButton = By.xpath("//button[contains(@class,'next-btn')]");
-     By nonCommercialEquipmentYes = By.xpath("//input[@name='InvolvementInNonCommercial' and @value='Yes']");
-     By nonCommercialEquipmentNo = By.xpath("//input[@name='InvolvementInNonCommercial' and @value='No']");
-     By equipmentCertificationYes = By.xpath("//input[@name='EquipmentRequiringCertification' and @value='Yes']");
-     By equipmentCertificationNo = By.xpath("//input[@name='EquipmentRequiringCertification' and @value='No']");
-     By accessCommercialProductsYes = By.xpath("//input[@name='AccessToCommercialProds' and @value='Yes']");
-     By accessCommercialProductsNo = By.xpath("//input[@name='AccessToCommercialProds' and @value='No']");
-     By shareDataWithOthersYes = By.xpath("//input[@name='ShareDataWithResearchCommunity' and @value='Yes']");
-     By shareDataWithOthersNo = By.xpath("//input[@name='ShareDataWithResearchCommunity' and @value='No']");
-     By internalMgbCheckbox = By.xpath("//label[.//span[normalize-space()='Internal - MGB']]//input[@type='checkbox']");
+    By countriesOfConcernInput = By.xpath("//label[contains(.,'Countries of Concern')]//following::input[@role='combobox'][1]");
+    By onboardingDepartmentInput = By.xpath("//label[contains(.,'Onboarding Department')]//following::input[@type='text'][1]");
+    By workforceEmployeeCheckbox = By.xpath("//label[.//span[normalize-space()='Employee']]//input[@type='checkbox']");
+    By candidateNameInput = By.xpath("//label[contains(.,'Candidate Name')]//following::input[@type='text'][1]");
+    By countryOfBirthInput = By.xpath("//label[contains(.,'Country of Birth')]//following::input[@role='combobox'][1]");
+    By streetAddress1 = By.xpath("//label[contains(.,'Street Address, Part 1')]//following::input[@type='text'][1]");
+    By cityInput = By.xpath("//label[normalize-space()='City']//following::input[@type='text'][1]");
+    By addressHasStateYes = By.xpath("//label[.//span[text()='Yes']]//input[@name='AddressHasStateorProvince']");
+    By addressHasPostalCodeYes = By.xpath("//label[.//span[text()='Yes']]//input[@name='AddressHasPostalCode']");
+    By addressCountryInput = By.xpath("//label[normalize-space()='Country']//following::input[@role='combobox'][1]");
+    By telephoneInput = By.xpath("//label[contains(.,'Telephone Number')]//following::input[@type='text'][1]");
+    By citizenshipInput = By.xpath("//label[contains(.,'Citizenship')]//following::input[@role='combobox'][1]");
+    By cvUploadInput = By.xpath("//input[@type='file']");
+    By shareDataNo = By.xpath("//input[@name='ShareDataWithOthers' and @value='No']");
+    By workDescriptionEditor = By.xpath("//div[@contenteditable='true' and contains(@class,'fr-element')]");
+    By nextButton = By.xpath("//button[contains(@class,'next-btn')]");
+    By nonCommercialEquipmentYes = By.xpath("//input[@name='InvolvementInNonCommercial' and @value='Yes']");
+    By nonCommercialEquipmentNo = By.xpath("//input[@name='InvolvementInNonCommercial' and @value='No']");
+    By equipmentCertificationYes = By.xpath("//input[@name='EquipmentRequiringCertification' and @value='Yes']");
+    By equipmentCertificationNo = By.xpath("//input[@name='EquipmentRequiringCertification' and @value='No']");
+    By accessCommercialProductsYes = By.xpath("//input[@name='AccessToCommercialProds' and @value='Yes']");
+    By accessCommercialProductsNo = By.xpath("//input[@name='AccessToCommercialProds' and @value='No']");
+    By shareDataWithOthersYes = By.xpath("//input[@name='ShareDataWithResearchCommunity' and @value='Yes']");
+    By shareDataWithOthersNo = By.xpath("//input[@name='ShareDataWithResearchCommunity' and @value='No']");
+    By internalMgbCheckbox = By.xpath("//label[.//span[normalize-space()='Internal - MGB']]//input[@type='checkbox']");
 
 
 
@@ -191,7 +191,7 @@ public class CreateExportControlPage extends BasePage {
     }
 
 
-public By piRowByName(String fullName) {
+    public By piRowByName(String fullName) {
         return By.xpath("//*[contains(@class,'menu') or @role='listbox' or contains(@class,'Menu')]//*[normalize-space(.)='" + fullName + "'][1]");
     }
 
@@ -400,12 +400,12 @@ public By piRowByName(String fullName) {
 
     // General Locators
     By buttonActions = By.xpath("//button[text()='Actions']");
-    By linkCreateExportControl = By.xpath("//a[text()='Create Export Control']");
+    By linkCreateExportControl = By.xpath("//a[text()='Create Export Control Record']");
     By linkInitialReview = By.xpath("//div[text()='Initial Review (IR)']/..");
 
     // Create Export Control page locators
     By inputExportControlRequest = By.xpath("//input[@value='ExportControlRequest']");
-    By inputSelectPI = By.xpath("//div[text()='Start typing to search...']/following::div/input");
+    By inputSelectPI = By.xpath("//div[text()='Start typing to initiate search']/following::div/input");
     By buttonCreate = By.xpath("//button[text()='Create']");
 
     // Export Control Details locators

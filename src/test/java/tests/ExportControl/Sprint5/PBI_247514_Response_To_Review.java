@@ -308,8 +308,8 @@ public class PBI_247514_Response_To_Review {
             Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
 
-            createExportControlPage.selectChiefApprovalConfirmation();
-            ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
+//            createExportControlPage.selectChiefApprovalConfirmation();
+//            ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
 
             // Step 1: Fetch record #
             String recordNum = systemAdminPage.getRecordNumber();
