@@ -62,7 +62,7 @@ public class UniqueNameGenerator {
         // Generate random name
         for (int i = 0; i < length; i++) {
             // Randomly select a character from the 'chars' string
-            finalName = "AutomationTestData_" + name.append(chars.charAt(random.nextInt(chars.length()))).toString();
+            finalName = "TestData_" + name.append(chars.charAt(random.nextInt(chars.length()))).toString();
         }
 
         return finalName;
