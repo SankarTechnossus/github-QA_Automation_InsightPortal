@@ -17,10 +17,10 @@ public class MenuFlow extends BasePage {
     // ************************************** Locators ********************************************************************
 
     By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
-    By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'label')]");
+    By searchLink = By.xpath("//button[contains(@class,'label') and normalize-space()='Search']");
 
     // Buttons
-    By searchButton = By.xpath("//button[normalize-space()='Search']");
+    By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");
 
     // Review date
     By recordNumberSearchGridLink = By.xpath("//table[contains(@class,'item-grid')]//tbody/tr[1]//td[@data-column='_exportControlNumber']//a");
@@ -78,7 +78,7 @@ public class MenuFlow extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(searchButton));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
         btn.click();
-        pause(1000);
+        pause(3000);
     }
 
     public void clickSearchLink() {

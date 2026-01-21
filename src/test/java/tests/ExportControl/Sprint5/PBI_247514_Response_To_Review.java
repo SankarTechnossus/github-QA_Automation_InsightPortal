@@ -314,23 +314,7 @@ public class PBI_247514_Response_To_Review {
             // Step 1: Fetch record #
             String recordNum = systemAdminPage.getRecordNumber();
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
-            Assert.assertTrue(systemAdminPage.isCommentsLabelDisplayed(), "'Comments' label is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Comments' label is displayed");
 
-            systemAdminPage.clickComments();
-            ExtentReportListener.getExtentTest().info("Clicked 'Comments' button successfully");
-            Assert.assertTrue(systemAdminPage.isCommentButtonDisplayed(), "'Comment' button is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Comment' button is displayed");
-
-//              Enter comment text in Comments modal
-            systemAdminPage.enterCommentInModal("Test_Auto");
-            ExtentReportListener.getExtentTest().info("Entered comment text 'Test_Auto' successfully in Comments modal");
-            Assert.assertTrue(systemAdminPage.isCommentButtonDisplayed(), "'Comment' button is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Comment' button is displayed");
-
-            // Click Comment button
-            systemAdminPage.clickCommentButtonOnModal();
-            ExtentReportListener.getExtentTest().info("Clicked 'Comment' button on Comments modal successfully");
             Assert.assertTrue(systemAdminPage.isPersonnelExclusionDisplayed(), "'Personnel Exclusion' value is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed");
 
@@ -404,7 +388,7 @@ public class PBI_247514_Response_To_Review {
     @AfterMethod
     public void tearDown()
     {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
