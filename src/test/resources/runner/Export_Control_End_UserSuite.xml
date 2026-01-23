@@ -1,0 +1,15 @@
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="ExportControl_End_User_Suite" verbose="2" parallel="false">
+
+
+
+<!--     End_user_Scenarios -->
+        <test name="Sprint4_PBIs">
+            <classes>
+                <class name="tests.ExportControl.Sprint4.PBI_239491_My_Actions"/>
+                <class name="tests.ExportControl.Sprint4.PBI_239502_Menu_Flow"/>
+            </classes>
+        </test>
+
+</suite>
