@@ -27,7 +27,7 @@ public class AmendExportControlPage extends BasePage {
     By submitButton = By.xpath("//button[@aria-label='Submit' and contains(@class,'-positive')]");
     By yourNameInput = By.id("dynamic-form-field-input-74877-TextBox1");
     By genderMaleRadio = By.xpath("//div[@id='dynamic-form-field-input-74878-RadioButtonList2']" + "//input[@type='radio' and @value='Male']");
-    By amendmentAMD1Tab = By.xpath("//div[contains(@class,'_transactionsTabItem')]" + "[.//div[contains(@class,'name') and normalize-space()='Amendment (AMD1)']]");
+    By amendmentAMD1Tab = By.xpath("//button[contains(@class,'_amendmentBtn') and @type='button']");
     By saveButton01 = By.xpath("//button[@aria-label='Save' and contains(@class,'-positive')]");
     By checkboxDraftActions = By.xpath("//span[text()='I have carefully reviewed this record and confirm my sign off']/../input");
 

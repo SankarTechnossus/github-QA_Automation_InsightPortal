@@ -238,7 +238,7 @@ public class TemplateManagement_ExportControlPage extends BasePage {
     }
 
     public void selectDateFormat(String visibleText) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         pause(5000);
 
         // 1) Open the menu
@@ -267,7 +267,7 @@ public class TemplateManagement_ExportControlPage extends BasePage {
                 // 5) Fallback B: type-ahead + ENTER (most reliable for RS)
                 input.clear();
                 input.sendKeys(visibleText);
-                pause(300);          // tiny debounce per your pattern
+                pause(7000);          // tiny debounce per your pattern
                 input.sendKeys(Keys.ENTER);
             }
         }
