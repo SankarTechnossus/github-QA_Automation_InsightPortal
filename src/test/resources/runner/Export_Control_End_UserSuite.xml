@@ -7,6 +7,7 @@
 <!--     End_user_Scenarios -->
         <test name="Sprint4_PBIs">
             <classes>
+                <class name="tests.ExportControl.Sprint4.PBI_239502_End_User_Create_Export_Control_Flow"/>
                 <class name="tests.ExportControl.Sprint4.PBI_239491_My_Actions"/>
                 <class name="tests.ExportControl.Sprint4.PBI_239502_Menu_Flow"/>
             </classes>
