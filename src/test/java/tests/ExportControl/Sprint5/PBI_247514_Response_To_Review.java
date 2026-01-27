@@ -126,7 +126,7 @@ public class PBI_247514_Response_To_Review {
             ExtentReportListener.getExtentTest().info("Clicked 'Add new' button successfully on Versions page");
 
             // Step X: Enter description for Version 90
-            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
+            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName();
 
             addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);
             ExtentReportListener.getExtentTest().info("Entered description for Version 90 as: " + versionDescription);

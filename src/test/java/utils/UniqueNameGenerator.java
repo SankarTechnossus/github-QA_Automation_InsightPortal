@@ -42,7 +42,7 @@ public class UniqueNameGenerator {
         }
     }
 
-    public String GenerateRandomName(int length) {
+    public String GenerateRandomName0(int length) {
         // Default length is 6 if no length is provided
         if (length <= 0) {
             length = 6;
@@ -66,5 +66,21 @@ public class UniqueNameGenerator {
         }
 
         return finalName;
+    }
+
+    private static final String[] ADJECTIVES = {
+            "Fast", "Silent", "Bright", "Secure", "Smart", "Quick", "Green", "Blue"
+    };
+
+    private static final String[] NOUNS = {
+            "River", "Cloud", "Path", "Cache", "Token", "Stream", "Node", "Bridge"
+    };
+
+    private static final Random RANDOM = new Random();
+
+    public String GenerateRandomName() {
+        String adjective = ADJECTIVES[RANDOM.nextInt(ADJECTIVES.length)];
+        String noun = NOUNS[RANDOM.nextInt(NOUNS.length)];
+        return "TestData_" + adjective + noun + RANDOM.nextInt(100);
     }
 }

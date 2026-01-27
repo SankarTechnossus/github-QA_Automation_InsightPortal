@@ -101,7 +101,7 @@ public class PBI_247368_Attachment_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under Attachment Types.");
 
             // Add a new Attachment Type and verify in the Attachment Type list
-            String attachmentTypeName = uniqueNameGenerator.GenerateRandomName(6);
+            String attachmentTypeName = uniqueNameGenerator.GenerateRandomName();
             Assert.assertTrue(attachmentTypesExportControlPage.AddAttachmentTypeAndVerifyInTheAttachmentTypeList(attachmentTypeName));
             ExtentReportListener.getExtentTest().pass("New Attachment Type with name : " + attachmentTypeName + " has been created successfully. Status is : Yes");
 

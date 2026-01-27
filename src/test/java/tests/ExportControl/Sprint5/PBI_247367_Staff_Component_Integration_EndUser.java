@@ -99,7 +99,7 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
             ExtentReportListener.getExtentTest().pass("User navigated to Export Control page under People Management.");
 
             // Add a new People Type and verify in the People Management list
-            String peopleTypeName = uniqueNameGenerator.GenerateRandomName(6);
+            String peopleTypeName = uniqueNameGenerator.GenerateRandomName();
             Assert.assertTrue(peopleManagementExportControlPage.AddPeopleTypeAndVerifyInThePeopleManagementList(peopleTypeName));
             String role = peopleManagementExportControlPage.GetRoleName();
             ExtentReportListener.getExtentTest().pass("New People Type with name : " + peopleTypeName + " has been created successfully. Status is : Active and default role assigned to it is : " + role);
@@ -170,8 +170,8 @@ public class PBI_247367_Staff_Component_Integration_EndUser {
 
             for(int i=1; i<=3; i++)
             {
-                String firstName = uniqueNameGenerator.GenerateRandomName(6);
-                String lastName = uniqueNameGenerator.GenerateRandomName(6);
+                String firstName = uniqueNameGenerator.GenerateRandomName();
+                String lastName = uniqueNameGenerator.GenerateRandomName();
                 String fullName = lastName + ", " + firstName;
 
                 // Navigate to Add New External People Section

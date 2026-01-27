@@ -119,7 +119,7 @@ public class PBI_251471_Instruction_Forms {
                 }
 
                 // Create new form
-                String formName = uniqueNameGenerator.GenerateRandomName(6);
+                String formName = uniqueNameGenerator.GenerateRandomName();
                 formsManagementExportControlPage.CreateNewForm(formName, description, formType, formCat, formCatSeqNo);
                 Assert.assertTrue(formsManagementExportControlPage.VerifyFormIsCreatedSuccessfully(formName));
                 ExtentReportListener.getExtentTest().pass("New form is created successfully with formName = " + formName + " and form type : " + formType);

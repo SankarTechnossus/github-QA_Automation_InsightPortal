@@ -130,7 +130,7 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().pass("Verified 'Add New Template' title is displayed");
 
             // Step 1: Generate random template name using your method
-            String templateName = uniqueNameGenerator.GenerateRandomName(8);
+            String templateName = uniqueNameGenerator.GenerateRandomName();
 
             // Step 1 – Template Name
             communicationManagementExportControlPage.setTemplateName(templateName);
@@ -165,7 +165,7 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().pass("Verified 'Add New Template' title is displayed");
 
             // Step 1: Generate random template name using your method
-            String templateName02 = uniqueNameGenerator.GenerateRandomName(8);
+            String templateName02 = uniqueNameGenerator.GenerateRandomName();
 
             communicationManagementExportControlPage.setTemplateName(templateName02);
             ExtentReportListener.getExtentTest().info("Entered Template Name as '" + templateName02 + "'");
@@ -248,7 +248,7 @@ public class PBI_241725_Communication_Management {
             ExtentReportListener.getExtentTest().info("Clicked 'Add new' button successfully on Versions page");
 
             // Step X: Enter description for Version 90
-            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName(6);
+            String versionDescription = "Test01_" + uniqueNameGenerator.GenerateRandomName();
 
             addChecklistFlowPage.enterDescriptionForLatestVersion(versionDescription);
             ExtentReportListener.getExtentTest().info("Entered description for Version 90 as: " + versionDescription);
