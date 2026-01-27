@@ -197,7 +197,7 @@ public class AttachmentTypes_ExportControlPage extends BasePage {
     }
 
     public void enterRandomTypeName() {
-        String randomName = uniqueNameGenerator.GenerateRandomName(6);
+        String randomName = uniqueNameGenerator.GenerateRandomName();
 
         WebElement input = wait.until(
                 ExpectedConditions.elementToBeClickable(typeNameInput)

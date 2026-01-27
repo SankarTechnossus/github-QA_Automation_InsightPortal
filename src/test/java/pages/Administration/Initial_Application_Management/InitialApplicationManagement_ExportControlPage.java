@@ -132,7 +132,7 @@ public class InitialApplicationManagement_ExportControlPage extends BasePage {
     public String enterRandomActionAndSelectEntity() {
 
         // Step 1: Generate random name using your BasePage method
-        String randomName = uniqueNameGenerator.GenerateRandomName(6);
+        String randomName = uniqueNameGenerator.GenerateRandomName();
 
         // Step 2: Enter Action Name
         WebElement actionNameInput =
