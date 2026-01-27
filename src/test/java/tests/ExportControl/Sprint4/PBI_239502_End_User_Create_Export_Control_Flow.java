@@ -23,7 +23,6 @@ import utils.JsonDataReader;
 import java.time.Duration;
 
 @Listeners(listeners.ExtentReportListener.class)
-@Test (groups = {"regression", "integration"})
 public class PBI_239502_End_User_Create_Export_Control_Flow {
 
     WebDriver driver;

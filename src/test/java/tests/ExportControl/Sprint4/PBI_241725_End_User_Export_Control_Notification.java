@@ -32,7 +32,6 @@ import utils.UniqueNameGenerator;
 import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
-@Test (groups = {"regression", "integration"})
 public class PBI_241725_End_User_Export_Control_Notification {
 
     WebDriver driver;
