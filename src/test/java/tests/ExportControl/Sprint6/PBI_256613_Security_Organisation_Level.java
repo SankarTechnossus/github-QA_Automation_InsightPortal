@@ -24,6 +24,7 @@ import pages.Export_Control.Export_Control_Details.MenuFlow;
 import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
+import pages.My_Profile_Page.SecurityAccessManagementPage;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -52,6 +53,7 @@ public class PBI_256613_Security_Organisation_Level {
     AgreementPage agreementPage;
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
+    SecurityAccessManagementPage ManagementAccessSecurityPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -70,6 +72,7 @@ public class PBI_256613_Security_Organisation_Level {
         // User will initialize explicit wait with a timeout of 10 seconds for dynamic element handling
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+        ManagementAccessSecurityPage = new SecurityAccessManagementPage(driver);
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
