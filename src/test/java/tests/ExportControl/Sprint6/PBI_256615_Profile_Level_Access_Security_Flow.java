@@ -25,6 +25,7 @@ import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.My_Profile.Security_Page.Organization_Level_Access;
+import pages.My_Profile.Security_Page.Profile_Level_Access;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -54,6 +55,7 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
     Organization_Level_Access ManagementAccessSecurityPage;
+    Profile_Level_Access ProfileLevelAccess;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -88,6 +90,7 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
         agreementPage = new AgreementPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
+        ProfileLevelAccess = new Profile_Level_Access (driver);
     }
 
     @Test
