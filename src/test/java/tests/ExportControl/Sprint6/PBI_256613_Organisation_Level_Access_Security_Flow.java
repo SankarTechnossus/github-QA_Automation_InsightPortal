@@ -140,20 +140,39 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
 
-            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button for collapse Functionality successfully");
+            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButtonToCollapse();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button again to collapse search area successfully");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
 
-            ManagementAccessSecurityPage.clickExportControlViewAndSave();
-            ExtentReportListener.getExtentTest().pass("Selected 'View' for Export Control and clicked Save successfully");
+
+            if (!ManagementAccessSecurityPage.isExportControlViewCheckboxSelected()) {
+
+                ManagementAccessSecurityPage.selectExportControlViewAndSave();
+                ExtentReportListener.getExtentTest().pass("Selected Export Control 'View' and clicked Save successfully");
+
+            } else {
+                ExtentReportListener.getExtentTest().info("Export Control 'View' checkbox is already selected. Skipping selection.");
+            }
+
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
 
-            ManagementAccessSecurityPage.clickExportControlManageAndSave();
-            ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
+
+            if (!ManagementAccessSecurityPage.isExportControlManageCheckboxSelected()) {
+
+                ManagementAccessSecurityPage.selectExportControlManageAndSave();
+                ExtentReportListener.getExtentTest().pass("Selected Export Control 'Manage' and clicked Save successfully");
+
+            } else {
+                ExtentReportListener.getExtentTest().info("Export Control 'Manage' checkbox is already selected. Skipping selection.");
+            }
+
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+            ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
 
             ManagementAccessSecurityPage.clickRemoveIcon();
             ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
@@ -162,6 +181,8 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
             ManagementAccessSecurityPage.clickRemoveOrganizationCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on remove organization confirmation popup");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationPopupIsClosed());
+            ExtentReportListener.getExtentTest().pass("Verified remove organization popup is closed successfully");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
             ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
 
@@ -174,6 +195,9 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'OK' button on remove organization confirmation popup");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyNoResultsMessageIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'The search criteria yielded no results.' message is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickSaveButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
 
             ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
@@ -225,7 +249,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
 
-            ManagementAccessSecurityPage.clickExportControlManageAndSave();
+            ManagementAccessSecurityPage.selectExportControlManageAndSave();
             ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
@@ -243,7 +267,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
     @AfterMethod
     public void tearDown()
     {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

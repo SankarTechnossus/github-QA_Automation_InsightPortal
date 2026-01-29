@@ -15,6 +15,19 @@ public class Organization_Level_Access extends BasePage {
     }
 
     // Locators
+    By orgSearchPlaceholder = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']");
+    By orgSearchInput = By.xpath("//div[contains(@class,'hierarchy-select')]//div[contains(@class,'Select-input')]//input[@role='combobox']");
+    By orgArrow = By.xpath("//div[contains(@class,'hierarchy-select')]//span[contains(@class,'Select-arrow-zone')]");
+    By orgDropdownPanel = By.xpath("//div[contains(@class,'Select-menu-outer') or contains(@class,'Select-menu')]");
+    By anesthesiaOption = By.xpath("//label[normalize-space()='10AA - Anesthesia']");
+    By orgSearchArrow = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']/following::span[1] | //input[@placeholder='Type keywords to search...']/following::span[contains(@class,'Select-arrow')][1]");
+    By removeOrgModalWrapper = By.xpath("//div[contains(@class,'modal-content-wrapper')]");
+    By removeOrgMessage = By.xpath("//div[contains(@class,'modal-content-wrapper')]//div[@class='message' and normalize-space()='Are you sure you want to remove this organization?']");
+    By removeOrgCancelButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Cancel']");
+    By removeOrgOkButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='OK']");
+    By organizationLevelAccessHeader = By.xpath("//header[contains(normalize-space(),'Organization Level Access')]");
+    By removeOrgPopup = By.xpath("//div[contains(@class,'modal-content-wrapper')]");
+    By removeOrgPopupMessage = By.xpath("//div[@class='message' and contains(normalize-space(),'Are you sure you want to remove this organization?')]");
     By myProfileLink = By.xpath("//a[contains(@href,'/manage-profiles-and-security/profiles') and .//span[normalize-space()='My Profile']]");
     By lblMyProfile = By.xpath("//span[normalize-space()='My Profile']");
     By lblFirstName = By.xpath("//label[normalize-space()='First Name:']");
@@ -22,9 +35,6 @@ public class Organization_Level_Access extends BasePage {
     By lblSecurityHeader = By.xpath("//strong[contains(@class,'page-title-item') and contains(normalize-space(),'Security:')]");
     By organizationLevelAccessToggleBtn = By.xpath("//header[contains(normalize-space(),'Organization Level Access')]//button[@aria-label='Expand/collapse']");
     By lblOrganization = By.xpath("//div[normalize-space()='Organization']");
-    By addAdditionalOrganizationButton = By.xpath("//button[normalize-space()='Add Additional Organization']");
-    By exportControlViewCheckbox = By.xpath("//div[contains(@class,'_word-break') and normalize-space()='Export']//following::span[normalize-space()='View'][1]/preceding-sibling::input");
-    By exportControlManageCheckbox = By.xpath("//div[contains(@class,'_word-break') and normalize-space()='Export']//following::span[normalize-space()='Manage'][1]/preceding-sibling::input");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
     By lblExport = By.xpath("//div[normalize-space()='Export']");
     By removeIcon = By.xpath("//i[contains(@class,'fi-remove')]");
@@ -38,24 +48,236 @@ public class Organization_Level_Access extends BasePage {
     By applyButton = By.xpath("//button[normalize-space()='Apply']");
     By cancelButtonOnSearch = By.xpath("//button[normalize-space()='Cancel']");
     By saveButton1 = By.xpath("//button[normalize-space()='Save']");
-
-
-
-
+    By addAdditionalOrganizationButton = By.xpath("//span[normalize-space()='Add Additional Organization']/ancestor::a | //button[normalize-space()='Add Additional Organization']");
+    By organizationSearchPlaceholder = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']");
+    By exportControlViewCheckbox = By.xpath("//td[contains(@class,'item-grid-cell') and contains(@class,'-export-control')]//span[normalize-space()='View']/preceding-sibling::input[@type='checkbox']");
+    By exportControlManageCheckbox = By.xpath("//td[contains(@class,'item-grid-cell') and contains(@class,'-export-control')]//span[normalize-space()='Manage']/preceding-sibling::input[@type='checkbox']");
+    By successToast = By.xpath("//div[contains(normalize-space(),'Security accesses were successfully updated')]");
+    By saveButton01 = By.xpath("//button[normalize-space()='Save' and contains(@class,'-positive')]");
 
 
     //Actions
-    public void clickSaveButton() {
+    public void clickSaveButton01() {
 
-        WebElement saveBtn = driver.findElement(saveButton1);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement saveBtn = wait.until(ExpectedConditions.presenceOfElementLocated(saveButton01));
 
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
 
-        saveBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(saveBtn));
+
+        try {
+            saveBtn.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveBtn);
+        }
+
+        pause(1000);
+    }
+
+    public void enterOrganizationSearchText(String organizationName) {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOf(saveBtn));
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(orgSearchInput));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.clear();
+        input.sendKeys(organizationName);
+
+        pause(1000);
+    }
+
+    public void clickOrganizationSearchDropdown() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement placeholder = wait.until(ExpectedConditions.visibilityOfElementLocated(orgSearchPlaceholder));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", placeholder);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", placeholder);
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(orgSearchInput));
+
+        pause(1000);
+    }
+
+    public void selectAnesthesiaOrganization() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(anesthesiaOption));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        pause(1000);
+    }
+
+
+    public boolean VerifyRemoveOrganizationPopupIsClosed() {
+
+        boolean result = false;
+
+        if (driver.findElements(removeOrgModalWrapper).size() == 0) {
+            result = true;
+        }
+
+        return result;
+    }
+
+
+    public void clickRemoveOrganizationOkButton() {
+
+        WebElement okBtn = driver.findElement(removeOrgOkButton);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", okBtn);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", okBtn);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(removeOrgModalWrapper));
+
+        pause(1000);
+    }
+
+    public void clickRemoveOrganizationCancelButton() {
+
+        WebElement cancelBtn = driver.findElement(removeOrgCancelButton);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelBtn);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancelBtn);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(removeOrgModalWrapper));
+
+        pause(1000);
+    }
+
+    public void waitForSecurityAccessUpdatedToastToDisappear() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        if (driver.findElements(successToast).size() > 0) {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(successToast));
+        }
+
+        pause(1000);
+    }
+
+
+    public void clickRemoveIcon() {
+
+        WebElement removeBtn = driver.findElement(removeIcon);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", removeBtn);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", removeBtn);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeOrgPopupMessage));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeOrgCancelButton));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeOrgOkButton));
+
+        pause(1000);
+    }
+
+    public boolean isExportControlManageCheckboxSelected() {
+
+        boolean result = false;
+
+        waitForPresence(exportControlManageCheckbox);
+
+        WebElement checkbox = driver.findElement(exportControlManageCheckbox);
+
+        if (checkbox.isSelected()) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public boolean isExportControlViewCheckboxSelected() {
+
+        boolean result = false;
+
+        waitForPresence(exportControlViewCheckbox);
+
+        WebElement checkbox = driver.findElement(exportControlViewCheckbox);
+
+        if (checkbox.isSelected()) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public void clickAddAdditionalOrganizationButtonToCollapse() {
+
+        WebElement addBtn = driver.findElement(addAdditionalOrganizationButton);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", addBtn);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addBtn);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(organizationSearchPlaceholder));
+
+        pause(1000);
+    }
+
+    public void clickAddAdditionalOrganizationButton() {
+
+        WebElement addBtn = driver.findElement(addAdditionalOrganizationButton);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", addBtn);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addBtn);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(organizationSearchPlaceholder));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(applyButton));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cancelButton));
+
+        pause(1000);
+    }
+
+    public void clickOrganizationLevelAccessToggleButton() {
+
+        WebElement toggleBtn = driver.findElement(organizationLevelAccessToggleBtn);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", toggleBtn);
+
+        // Try normal click first
+        toggleBtn.click();
+        pause(1000);
+    }
+
+    public void clickSaveButton() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement saveBtn = wait.until(ExpectedConditions.presenceOfElementLocated(saveButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+        wait.until(ExpectedConditions.elementToBeClickable(saveBtn));
+
+        try {
+            saveBtn.click();
+        } catch (Exception e) {
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveBtn);
+        }
 
         pause(1000);
     }
@@ -90,53 +312,6 @@ public class Organization_Level_Access extends BasePage {
         pause(1000);
     }
 
-    public void selectAnesthesiaOrganization() {
-
-        WebElement checkbox = driver.findElement(anesthesiaCheckbox);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", checkbox);
-
-        if (!checkbox.isSelected()) {
-            checkbox.click();
-        }
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeSelected(anesthesiaCheckbox));
-
-        pause(1000);
-    }
-
-    public void enterOrganizationSearchText(String orgName) {
-
-        WebElement searchInput = driver.findElement(organizationSearchInput);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", searchInput);
-
-        searchInput.clear();
-        searchInput.sendKeys(orgName);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(anesthesiaCheckbox));
-
-        pause(1000);
-    }
-
-    public void clickOrganizationSearchDropdown() {
-
-        WebElement dropdown = driver.findElement(organizationSearchDropdown);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", dropdown);
-
-        dropdown.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(organizationSearchInput));
-
-        pause(1000);
-    }
 
     public boolean VerifyNoResultsMessageIsDisplayed() {
 
@@ -169,50 +344,6 @@ public class Organization_Level_Access extends BasePage {
         return result;
     }
 
-    public void clickRemoveOrganizationOkButton() {
-
-        WebElement okBtn = driver.findElement(okButton);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", okBtn);
-
-        okBtn.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOf(okBtn));
-
-        pause(1000);
-    }
-
-    public void clickRemoveOrganizationCancelButton() {
-
-        WebElement cancelBtn = driver.findElement(cancelButton);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelBtn);
-
-        cancelBtn.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOf(cancelBtn));
-
-        pause(1000);
-    }
-
-    public void clickRemoveIcon() {
-
-        WebElement removeBtn = driver.findElement(removeIcon);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", removeBtn);
-
-        removeBtn.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOf(removeBtn));
-
-        pause(1000);
-    }
 
     public boolean VerifyExportLabelIsDisplayed() {
 
@@ -229,59 +360,44 @@ public class Organization_Level_Access extends BasePage {
         return result;
     }
 
+    public void selectExportControlManageAndSave() {
 
-    public void clickExportControlManageAndSave() {
-
-        WebElement manageCheckbox = driver.findElement(exportControlManageCheckbox);
+        WebElement manageChk = driver.findElement(exportControlManageCheckbox);
 
         ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", manageCheckbox);
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", manageChk);
 
-        manageCheckbox.click();
+        if (!manageChk.isSelected()) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", manageChk);
+        }
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(saveButton));
-
-        driver.findElement(saveButton).click();
+        WebElement saveBtn = driver.findElement(saveButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+        saveBtn.click();
 
         pause(1000);
     }
 
 
-    public void clickExportControlViewAndSave() {
 
-        WebElement viewCheckbox = driver.findElement(exportControlViewCheckbox);
+    public void selectExportControlViewAndSave() {
+
+        WebElement viewChk = driver.findElement(exportControlViewCheckbox);
 
         ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", viewCheckbox);
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", viewChk);
 
-        viewCheckbox.click();
+        if (!viewChk.isSelected()) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", viewChk);
+        }
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(saveButton));
-
-        driver.findElement(saveButton).click();
+        WebElement saveBtn = driver.findElement(saveButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+        saveBtn.click();
 
         pause(1000);
     }
 
-
-    public void clickAddAdditionalOrganizationButton() {
-
-        WebElement addBtn = driver.findElement(addAdditionalOrganizationButton);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", addBtn);
-
-        addBtn.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[contains(@class,'modal') or contains(@class,'dialog')]")
-        ));
-
-        pause(1000);
-    }
 
 
     public boolean VerifyOrganizationLabelIsDisplayed() {
@@ -299,20 +415,6 @@ public class Organization_Level_Access extends BasePage {
         return result;
     }
 
-    public void clickOrganizationLevelAccessToggleButton() {
-
-        WebElement toggleBtn = driver.findElement(organizationLevelAccessToggleBtn);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", toggleBtn);
-
-        toggleBtn.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.attributeToBe(toggleBtn, "aria-expanded", "true"));
-
-        pause(1000);
-    }
 
     public boolean VerifyUserLandsOnSecurityPage() {
 
