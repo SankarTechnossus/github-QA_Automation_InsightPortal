@@ -24,6 +24,7 @@ import pages.Export_Control.Export_Control_Details.MenuFlow;
 import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
+import pages.My_Profile.Security_Page.Record_Level_Access;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -33,7 +34,7 @@ import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
 //@Test (groups = {"regression", "integration"})
-public class PBI_256620_Security_Record_Level {
+public class PBI_256620_Record_Level_Access_Security_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -52,6 +53,7 @@ public class PBI_256620_Security_Record_Level {
     AgreementPage agreementPage;
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
+    Record_Level_Access recordLevelAccess;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -85,6 +87,7 @@ public class PBI_256620_Security_Record_Level {
         agreementPage = new AgreementPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
+        recordLevelAccess = new Record_Level_Access(driver);
     }
 
     @Test

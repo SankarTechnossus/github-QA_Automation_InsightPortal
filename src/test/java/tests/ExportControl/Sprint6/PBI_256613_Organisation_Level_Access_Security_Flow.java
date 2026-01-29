@@ -34,7 +34,7 @@ import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
 //@Test (groups = {"regression", "integration"})
-public class PBI_256613_Security_Organisation_Level {
+public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
     WebDriver driver;
     WebDriverWait wait;
