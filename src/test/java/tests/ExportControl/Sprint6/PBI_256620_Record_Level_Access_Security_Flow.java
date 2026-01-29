@@ -24,7 +24,7 @@ import pages.Export_Control.Export_Control_Details.MenuFlow;
 import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
-import pages.My_Profile.Security_Page.Record_Level_Access;
+import pages.My_Profile.Security_Page.Organization_Level_Access;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -53,7 +53,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
     AgreementPage agreementPage;
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
-    Record_Level_Access recordLevelAccess;
+    Organization_Level_Access ManagementAccessSecurityPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -72,6 +72,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
         // User will initialize explicit wait with a timeout of 10 seconds for dynamic element handling
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+        ManagementAccessSecurityPage = new Organization_Level_Access(driver);
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
@@ -87,18 +88,17 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
         agreementPage = new AgreementPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
-        recordLevelAccess = new Record_Level_Access(driver);
     }
 
     @Test
-    public void PBI_256620_Security__Record_Level ()
+    public void PBI_256620_Record_Level_Access_Flow ()
     {
         try {
             String url = JsonDataReader.get(0, "URL");
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
-
             String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
+            String organizationName = JsonDataReader.get(1, "OrganizationName");
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -110,6 +110,21 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             loginPage.LoginIntoApplication(userName, password);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnMyProfilePage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the My Profile page.");
+            ManagementAccessSecurityPage.clickMyProfileLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
+            ManagementAccessSecurityPage.clickSecurityLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+
 
 
         }
