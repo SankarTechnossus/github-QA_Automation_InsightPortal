@@ -24,7 +24,7 @@ import pages.Export_Control.Export_Control_Details.MenuFlow;
 import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
-import pages.My_Profile_Page.SecurityAccessManagementPage;
+import pages.My_Profile.Security_Page.Organization_Level_Access;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -53,7 +53,7 @@ public class PBI_256613_Security_Organisation_Level {
     AgreementPage agreementPage;
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
-    SecurityAccessManagementPage ManagementAccessSecurityPage;
+    Organization_Level_Access ManagementAccessSecurityPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -72,7 +72,7 @@ public class PBI_256613_Security_Organisation_Level {
         // User will initialize explicit wait with a timeout of 10 seconds for dynamic element handling
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        ManagementAccessSecurityPage = new SecurityAccessManagementPage(driver);
+        ManagementAccessSecurityPage = new Organization_Level_Access(driver);
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
@@ -98,6 +98,7 @@ public class PBI_256613_Security_Organisation_Level {
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
             String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
+            String organizationName = JsonDataReader.get(1, "OrganizationName");
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -109,6 +110,126 @@ public class PBI_256613_Security_Organisation_Level {
             loginPage.LoginIntoApplication(userName, password);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnMyProfilePage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the My Profile page.");
+            ManagementAccessSecurityPage.clickMyProfileLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
+
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
+            ManagementAccessSecurityPage.clickSecurityLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' expand button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' Collapse button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button for collapse Functionality successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickExportControlViewAndSave();
+            ExtentReportListener.getExtentTest().pass("Selected 'View' for Export Control and clicked Save successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickExportControlManageAndSave();
+            ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickRemoveIcon();
+            ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickRemoveOrganizationCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on remove organization confirmation popup");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.clickRemoveIcon();
+            ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickRemoveOrganizationOkButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'OK' button on remove organization confirmation popup");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyNoResultsMessageIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'The search criteria yielded no results.' message is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
+            ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
+            ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.selectAnesthesiaOrganization();
+            ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
+            ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
+            ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.selectAnesthesiaOrganization();
+            ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ManagementAccessSecurityPage.clickApplyButton();
+            ExtentReportListener.getExtentTest().pass("Clicked Apply button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            ManagementAccessSecurityPage.clickExportControlManageAndSave();
+            ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+
 
 
         }

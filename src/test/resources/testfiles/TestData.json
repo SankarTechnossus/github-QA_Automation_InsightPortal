@@ -73,6 +73,7 @@
       "NotesData": "Test_Notes",
       "TemplateNamePrefix": "Temp_",
       "TemplateNoticeGroup": "ExportControl Workflow",
+      "OrganizationName": "BWH",
       "TemplateLayout": "Green",
       "TemplateReminderFrequency": "1",
       "NotificationTypeApproved": "Export Control Approved",
