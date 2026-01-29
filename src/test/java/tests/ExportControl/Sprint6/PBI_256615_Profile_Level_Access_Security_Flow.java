@@ -97,7 +97,7 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
     public void PBI_256615_Profile_Level_Access_Flow ()
     {
         try {
-            String url = JsonDataReader.get(0, "URL");
+            String url = JsonDataReader.get(0, "URLTucson");
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
             String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
