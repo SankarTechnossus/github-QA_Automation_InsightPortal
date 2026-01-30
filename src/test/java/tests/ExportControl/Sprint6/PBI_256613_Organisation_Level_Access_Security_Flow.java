@@ -302,6 +302,8 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+            ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+            ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
 
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
