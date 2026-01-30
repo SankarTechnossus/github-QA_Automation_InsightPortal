@@ -61,9 +61,28 @@ public class Organization_Level_Access extends BasePage {
     By exportControlBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Export Control']");
     By searchBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Search']");
     By organizationRow = By.xpath("//td[@data-column='organizationName' and contains(normalize-space(),'BWH')]");
+    By createExportControlLink = By.xpath("//a[contains(@href,'/export-control/actions') and normalize-space()='Create New Export Control Record']");
+
 
 
     //Actions
+    public void clickCreateExportControl() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement createExportControl = wait.until(
+                ExpectedConditions.elementToBeClickable(createExportControlLink));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", createExportControl);
+
+        createExportControl.click();
+
+        // wait for navigation to Create Export Control page
+        wait.until(ExpectedConditions.urlContains("/export-control/actions"));
+
+    }
+
     public boolean isOrganizationPresent(String organizationKeyword) {
 
         By orgRow = By.xpath("//td[@data-column='organizationName' and contains(normalize-space(),'" + organizationKeyword + "')]");

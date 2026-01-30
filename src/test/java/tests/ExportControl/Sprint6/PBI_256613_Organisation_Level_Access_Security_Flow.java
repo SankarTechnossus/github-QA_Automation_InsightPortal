@@ -308,10 +308,11 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
-            createExportControlPage.clickCreateExportControl();
+            ManagementAccessSecurityPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().info("Clicked Actions → Create Export Control from left navigation successfully");
             Assert.assertTrue(createExportControlPage.isCreateExportControlHeaderDisplayed(), "'Create Export Control' header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Create Export Control' header is displayed successfully");
+
 
             displayChecklistFlowPage.selectPersonnelExclusion();
             ExtentReportListener.getExtentTest().info("Selected Personnel Exclusion radio button successfully");
@@ -392,6 +393,9 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
                 createExportControlPage.clickSignOffButton();
                 ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+
+                createExportControlPage.selectChiefApprovalConfirmation();
+                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
             }
             catch (Exception e)
             {
