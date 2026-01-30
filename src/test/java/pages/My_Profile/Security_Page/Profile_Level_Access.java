@@ -47,7 +47,9 @@ public class Profile_Level_Access extends BasePage {
         String actualText = driver.findElement(validationsCompletedMessage).getText();
         result = Objects.equals(actualText, "All validations in this area have been completed");
 
+        pause(3000);
         return result;
+
     }
 
     public boolean verifySpecifyAccessLevelMessageIsDisplayed() {
@@ -60,6 +62,7 @@ public class Profile_Level_Access extends BasePage {
         String actualText = driver.findElement(specifyAccessLevelMessage).getText();
         result = Objects.equals(actualText, "Please specify access level");
 
+        pause(3000);
         return result;
     }
 
@@ -73,6 +76,7 @@ public class Profile_Level_Access extends BasePage {
         String actualText = driver.findElement(removeProfileConfirmationMessage).getText();
         result = Objects.equals(actualText, "Are you sure you want to remove this profile?");
 
+        pause(3000);
         return result;
     }
 
@@ -86,6 +90,7 @@ public class Profile_Level_Access extends BasePage {
         String actualText = driver.findElement(profileHeaderLabel).getText();
         result = Objects.equals(actualText, "Profile");
 
+        pause(3000);
         return result;
     }
 
@@ -101,6 +106,7 @@ public class Profile_Level_Access extends BasePage {
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", okBtn);
 
         wait.until(ExpectedConditions.elementToBeClickable(okBtn)).click();
+        pause(3000);
     }
 
     public void clickCancelOnRemoveProfileModal() {
@@ -115,6 +121,7 @@ public class Profile_Level_Access extends BasePage {
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelBtn);
 
         wait.until(ExpectedConditions.elementToBeClickable(cancelBtn)).click();
+        pause(3000);
     }
 
 
@@ -122,6 +129,7 @@ public class Profile_Level_Access extends BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(saveButton))
                 .click();
+        pause(3000);
     }
 
     public void selectExportControlManage() {
@@ -129,6 +137,7 @@ public class Profile_Level_Access extends BasePage {
         WebElement manage = wait.until(ExpectedConditions.elementToBeClickable(exportControlManageCheckbox));
         if (!manage.isSelected()) {
             manage.click();
+            pause(3000);
         }
     }
 
@@ -136,6 +145,7 @@ public class Profile_Level_Access extends BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(applyButton))
                 .click();
+        pause(3000);
     }
 
     public void searchAndSelectProfile(String code) {
@@ -146,11 +156,13 @@ public class Profile_Level_Access extends BasePage {
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//div[contains(text(),'" + code + "')]")));
         option.click();
+        pause(3000);
     }
 
     public void clickAddAdditionalProfile() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(addAdditionalProfileButton)).click();
+        pause(3000);
     }
 
     public void clickRemoveProfile(String profileName) {
@@ -163,6 +175,7 @@ public class Profile_Level_Access extends BasePage {
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", remove);
         remove.click();
+        pause(3000);
     }
 
     public boolean isProfilePresent(String profileName) {
@@ -178,8 +191,9 @@ public class Profile_Level_Access extends BasePage {
         if (rows.size() > 0) {
             result = true;
         }
-
+        pause(3000);
         return result;
+
     }
 
     public void toggleProfileDelegateSectionTwice() {
@@ -202,6 +216,7 @@ public class Profile_Level_Access extends BasePage {
         // Second click (- collapse)
         toggleBtn = wait.until(ExpectedConditions.elementToBeClickable(profileDelegateToggleButton));
         toggleBtn.click();
+        pause(3000);
     }
 
     public void clickAddAdditionalProfileTwice() {
@@ -217,6 +232,7 @@ public class Profile_Level_Access extends BasePage {
                     .executeScript("arguments[0].scrollIntoView({block:'center'});", addBtn);
 
             addBtn.click();
+            pause(3000);
 
             // Wait for profile modal / row to appear (adjust locator if you have modal header)
             wait.until(ExpectedConditions.presenceOfElementLocated(
