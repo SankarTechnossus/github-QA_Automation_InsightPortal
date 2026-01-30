@@ -18,16 +18,10 @@ public class Organization_Level_Access extends BasePage {
     // Locators
     By orgSearchPlaceholder = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']");
     By orgSearchInput = By.xpath("//div[contains(@class,'hierarchy-select')]//div[contains(@class,'Select-input')]//input[@role='combobox']");
-    By orgArrow = By.xpath("//div[contains(@class,'hierarchy-select')]//span[contains(@class,'Select-arrow-zone')]");
-    By orgDropdownPanel = By.xpath("//div[contains(@class,'Select-menu-outer') or contains(@class,'Select-menu')]");
     By anesthesiaOption = By.xpath("//label[normalize-space()='10AA - Anesthesia']");
-    By orgSearchArrow = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']/following::span[1] | //input[@placeholder='Type keywords to search...']/following::span[contains(@class,'Select-arrow')][1]");
     By removeOrgModalWrapper = By.xpath("//div[contains(@class,'modal-content-wrapper')]");
-    By removeOrgMessage = By.xpath("//div[contains(@class,'modal-content-wrapper')]//div[@class='message' and normalize-space()='Are you sure you want to remove this organization?']");
     By removeOrgCancelButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Cancel']");
     By removeOrgOkButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='OK']");
-    By organizationLevelAccessHeader = By.xpath("//header[contains(normalize-space(),'Organization Level Access')]");
-    By removeOrgPopup = By.xpath("//div[contains(@class,'modal-content-wrapper')]");
     By removeOrgPopupMessage = By.xpath("//div[@class='message' and contains(normalize-space(),'Are you sure you want to remove this organization?')]");
     By myProfileLink = By.xpath("//a[contains(@href,'/manage-profiles-and-security/profiles') and .//span[normalize-space()='My Profile']]");
     By lblMyProfile = By.xpath("//span[normalize-space()='My Profile']");
@@ -40,32 +34,152 @@ public class Organization_Level_Access extends BasePage {
     By lblExport = By.xpath("//div[normalize-space()='Export']");
     By removeIcon = By.xpath("//i[contains(@class,'fi-remove')]");
     By cancelButton = By.xpath("//button[normalize-space()='Cancel']");
-    By okButton = By.xpath("//button[normalize-space()='OK']");
     By lblRemoveOrganizationMessage = By.xpath("//div[@class='message' and normalize-space()='Are you sure you want to remove this organization?']");
     By lblNoResultsMessage = By.xpath("//td[normalize-space()='The search criteria yielded no results.']");
-    By organizationSearchDropdown = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']");
-    By organizationSearchInput = By.xpath("//input[contains(@class,'Select-input')]");
     By anesthesiaCheckbox = By.xpath("//label[normalize-space()='10AA - Anesthesia']/preceding-sibling::input");
     By applyButton = By.xpath("//button[normalize-space()='Apply']");
     By cancelButtonOnSearch = By.xpath("//button[normalize-space()='Cancel']");
-    By saveButton1 = By.xpath("//button[normalize-space()='Save']");
     By addAdditionalOrganizationButton = By.xpath("//span[normalize-space()='Add Additional Organization']/ancestor::a | //button[normalize-space()='Add Additional Organization']");
     By organizationSearchPlaceholder = By.xpath("//div[contains(@class,'Select-placeholder') and normalize-space()='Type keywords to search...']");
     By exportControlViewCheckbox = By.xpath("//td[contains(@class,'item-grid-cell') and contains(@class,'-export-control')]//span[normalize-space()='View']/preceding-sibling::input[@type='checkbox']");
     By exportControlManageCheckbox = By.xpath("//td[contains(@class,'item-grid-cell') and contains(@class,'-export-control')]//span[normalize-space()='Manage']/preceding-sibling::input[@type='checkbox']");
     By successToast = By.xpath("//div[contains(normalize-space(),'Security accesses were successfully updated')]");
-    By saveButton01 = By.xpath("//button[normalize-space()='Save' and contains(@class,'-positive')]");
-    By firstRecordNumberLink = By.xpath("(//td[@data-column='_exportControlNumber']//a)[1]");
     By workflowHistorySectionTitle = By.xpath("//span[normalize-space()='Workflow History']");
     By firstWorkflowHistoryUserLink = By.xpath("(//div[contains(@class,'workflow-history-item')]//div[contains(@class,'overlay-item-link') and @role='button'])[1]");
-    By exportControlBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Export Control']");
     By searchBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Search']");
-    By organizationRow = By.xpath("//td[@data-column='organizationName' and contains(normalize-space(),'BWH')]");
     By createExportControlLink = By.xpath("//a[contains(@href,'/export-control/actions') and normalize-space()='Create New Export Control Record']");
-
+    By actionsButton = By.xpath("//button[normalize-space()='Actions']");
+    By createNewExportControlHeader = By.xpath("//header[contains(@class,'_font-size-medium') and normalize-space()='Create New Export Control Record']");
+    By exportControlRequestRadioOption = By.xpath("//label[.//span[normalize-space()='Export Control Request']]//input[@type='radio']");
+    By encryptionSourceNo     = By.xpath("//input[@name='SourceCodeOrTech' and @value='No']");
+    By publicationRestrictionNo     = By.xpath("//input[@name='PublicationRestriction' and @value='No']");
+    By confidentialityRequirementNo     = By.xpath("//input[@name='ConfidentialityRequirement' and @value='No']");
+    By restrictionOnForeignPersonNo     = By.xpath("//input[@name='RestrictionOnForeignPerson' and @value='No']");
+    By sponsorPermissionNo     = By.xpath("//input[@name='SponserPermissionToClaimResult' and @value='No']");
+    By exportControlledNo     = By.xpath("//input[@name='ExportControlledOrITARControlled' and @value='No']");
+    By transfersControlsLicensingNo     = By.xpath("//input[@name='TransfersControlsLicensing' and @value='No']");
+    By confirmSignOffCheckbox = By.id("action-confirmation");
 
 
     //Actions
+    public boolean VerifyConfirmSignOffCheckboxIsSelected() {
+        boolean result = false;
+
+        waitForPresence(confirmSignOffCheckbox);
+        WebElement checkbox = driver.findElement(confirmSignOffCheckbox);
+
+        if (checkbox.isSelected()) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public void clickConfirmSignOffCheckbox() {
+        WebElement checkbox = driver.findElement(confirmSignOffCheckbox);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", checkbox);
+
+        if (!checkbox.isSelected()) {
+            checkbox.click();
+        }
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeSelected(confirmSignOffCheckbox));
+
+        pause(1000);
+    }
+
+    public void selectEncryptionSourceCodeNo() {
+        clickRadio(encryptionSourceNo);
+    }
+
+    public void selectPublicationRestrictionNo() {
+        clickRadio(publicationRestrictionNo);
+    }
+
+    public void selectConfidentialityRequirementNo() {
+        clickRadio(confidentialityRequirementNo);
+    }
+
+    public void selectRestrictionOnForeignPersonNo() {
+        clickRadio(restrictionOnForeignPersonNo);
+    }
+
+    public void selectSponsorPermissionToClaimResultNo() {
+        clickRadio(sponsorPermissionNo);
+    }
+
+    public void selectExportControlledOrITARControlledNo() {
+        clickRadio(exportControlledNo);
+    }
+
+    public void selectTransfersControlsLicensingNo() {
+        clickRadio(transfersControlsLicensingNo);
+    }
+
+
+    private void clickRadio(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement radio = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
+
+        if (!radio.isSelected()) {
+            radio.click();
+        }
+
+        pause(500); // small pause only for visibility while execution
+    }
+
+    public void selectExportControlRequestRadioOption() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement radioBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(exportControlRequestRadioOption));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", radioBtn);
+
+        if (!radioBtn.isSelected()) {
+            radioBtn.click();
+        }
+
+        // wait until it becomes selected
+        wait.until(ExpectedConditions.elementToBeSelected(exportControlRequestRadioOption));
+    }
+
+    public boolean isCreateNewExportControlHeaderDisplayed() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(createNewExportControlHeader));
+
+        String actualText = driver.findElement(createNewExportControlHeader).getText();
+        result = Objects.equals(actualText, "Create New Export Control Record");
+
+        return result;
+    }
+
+    public void clickActionsButton() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement actionsBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(actionsButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", actionsBtn);
+
+        actionsBtn.click();
+
+        // wait for menu/dropdown to expand
+        wait.until(ExpectedConditions.attributeToBe(actionsBtn, "aria-expanded", "true"));
+    }
+
     public void clickCreateExportControl() {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -89,7 +203,7 @@ public class Organization_Level_Access extends BasePage {
 
         List<WebElement> rows = driver.findElements(orgRow);
 
-        return rows.size() > 0;
+        return !rows.isEmpty();
     }
 
     public boolean verifyUserLandsOnSearchPage() {
@@ -105,18 +219,6 @@ public class Organization_Level_Access extends BasePage {
         return result;
     }
 
-    public boolean verifyUserLandsOnExportControlPage() {
-
-        boolean result = false;
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(exportControlBreadcrumb));
-
-        String actualText = driver.findElement(exportControlBreadcrumb).getText();
-        result = Objects.equals(actualText, "Export Control");
-
-        return result;
-    }
 
     public void clickFirstUserLinkInWorkflowHistory() {
 
@@ -155,43 +257,8 @@ public class Organization_Level_Access extends BasePage {
 
     }
 
-    public void clickFirstRecordFromSearchResults() {
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        WebElement firstRecord = wait.until(
-                ExpectedConditions.elementToBeClickable(firstRecordNumberLink));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", firstRecord);
-
-        firstRecord.click();
-
-        // wait until navigation happens
-        wait.until(ExpectedConditions.urlContains("/export-control/"));
-
-        pause(9000);
-    }
-
-    public void clickSaveButton01() {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        WebElement saveBtn = wait.until(ExpectedConditions.presenceOfElementLocated(saveButton01));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
-
-        wait.until(ExpectedConditions.elementToBeClickable(saveBtn));
-
-        try {
-            saveBtn.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveBtn);
-        }
-
-        pause(1000);
-    }
 
     public void enterOrganizationSearchText(String organizationName) {
 
@@ -237,7 +304,7 @@ public class Organization_Level_Access extends BasePage {
 
         boolean result = false;
 
-        if (driver.findElements(removeOrgModalWrapper).size() == 0) {
+        if (driver.findElements(removeOrgModalWrapper).isEmpty()) {
             result = true;
         }
 
@@ -279,7 +346,7 @@ public class Organization_Level_Access extends BasePage {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        if (driver.findElements(successToast).size() > 0) {
+        if (!driver.findElements(successToast).isEmpty()) {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(successToast));
         }
 

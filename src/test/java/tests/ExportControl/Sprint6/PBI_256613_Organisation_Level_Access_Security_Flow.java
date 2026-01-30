@@ -97,12 +97,10 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             String url = JsonDataReader.get(0, "URLTucson");
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
-            String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
             String organizationName = JsonDataReader.get(1, "OrganizationName");
             String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
             String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
             String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
-            String initialNoteText     = JsonDataReader.get(3, "InitialReviewNoteText");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -308,16 +306,19 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
+            ManagementAccessSecurityPage.clickActionsButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Actions' button successfully");
+
             ManagementAccessSecurityPage.clickCreateExportControl();
-            ExtentReportListener.getExtentTest().info("Clicked Actions → Create Export Control from left navigation successfully");
-            Assert.assertTrue(createExportControlPage.isCreateExportControlHeaderDisplayed(), "'Create Export Control' header is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Create Export Control' header is displayed successfully");
+            ExtentReportListener.getExtentTest().info("Clicked Create Export Control from left navigation successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
 
 
-            displayChecklistFlowPage.selectPersonnelExclusion();
-            ExtentReportListener.getExtentTest().info("Selected Personnel Exclusion radio button successfully");
-            Assert.assertTrue(displayChecklistFlowPage.isPersonnelExclusionRadioDisplayed(), "'Personnel Exclusion' radio button is NOT displayed");
-            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' radio button is displayed");
+            ManagementAccessSecurityPage.selectExportControlRequestRadioOption();
+            ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' radio option successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
 
             // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
             createExportControlPage.selectPiName(piSearchText, piFullName);
@@ -328,55 +329,34 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
 
-            createExportControlPage.selectCountriesOfConcern("China");
-            ExtentReportListener.getExtentTest().pass("Selected Countries of Concern");
+            ManagementAccessSecurityPage.selectEncryptionSourceCodeNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Encryption Source Code or Technology question");
 
-            createExportControlPage.enterOnboardingDepartment("Research Department");
-            ExtentReportListener.getExtentTest().pass("Entered Onboarding Department");
+            ManagementAccessSecurityPage.selectPublicationRestrictionNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Publication Restriction question");
 
-            createExportControlPage.selectEmployeeWorkforce();
-            ExtentReportListener.getExtentTest().pass("Selected Workforce Type as Employee");
+            ManagementAccessSecurityPage.selectConfidentialityRequirementNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Confidentiality Requirement question");
 
-            createExportControlPage.enterCandidateName("John Smith");
-            ExtentReportListener.getExtentTest().pass("Entered Candidate Name");
+            ManagementAccessSecurityPage.selectRestrictionOnForeignPersonNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Restriction on Foreign Person question");
 
-            createExportControlPage.selectCountryOfBirth("India");
-            ExtentReportListener.getExtentTest().pass("Selected Country of Birth");
+            ManagementAccessSecurityPage.selectSponsorPermissionToClaimResultNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Sponsor Permission to Claim Result question");
 
-            createExportControlPage.fillAddress("12 Street Road", "Chennai");
-            ExtentReportListener.getExtentTest().pass("Entered Address details");
+            ManagementAccessSecurityPage.selectExportControlledOrITARControlledNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Export Controlled / ITAR Controlled question");
 
-            createExportControlPage.selectAddressCountry("India");
-            ExtentReportListener.getExtentTest().pass("Selected Address Country");
-
-            createExportControlPage.enterTelephone("9876543210");
-            ExtentReportListener.getExtentTest().pass("Entered Telephone Number");
-
-            createExportControlPage.selectCitizenship("India");
-            ExtentReportListener.getExtentTest().pass("Selected Citizenship");
-
-            createExportControlPage.selectInternalMgbFunding();
-            ExtentReportListener.getExtentTest().pass("Selected funding source as Internal - MGB");
-
-            createExportControlPage.selectShareDataNo();
-            ExtentReportListener.getExtentTest().pass("Selected Share Data as No");
-            createExportControlPage.selectNonCommercialEquipment("No");
-            ExtentReportListener.getExtentTest().pass("Selected 'No' for Non-commercial proprietary equipment");
-
-            createExportControlPage.selectEquipmentRequiringCertification("No");
-            ExtentReportListener.getExtentTest().pass("Selected 'No' for Equipment requiring certification");
-
-            createExportControlPage.selectAccessToCommercialProducts("No");
-            ExtentReportListener.getExtentTest().pass("Selected 'No' for Access to commercial products");
-
-            createExportControlPage.selectShareDataWithResearchCommunity("No");
-            ExtentReportListener.getExtentTest().pass("Selected 'No' for Share data with research community");
-
-            createExportControlPage.enterWorkDescription("Candidate will assist in non-sensitive research activities under supervision.");
-            ExtentReportListener.getExtentTest().pass("Entered Description of Work");
+            ManagementAccessSecurityPage.selectTransfersControlsLicensingNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Transfers, Controls, and Licensing question");
 
             createExportControlPage.clickNext();
-            ExtentReportListener.getExtentTest().pass("Clicked Next button");
+            ExtentReportListener.getExtentTest().pass("Clicked Next button successfully");
+
+            ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
+            ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");
+            ExtentReportListener.getExtentTest().pass("Verified confirm sign off checkbox is selected successfully");
 
             try {
                 createExportControlPage.clickSubmitRadioButton();
@@ -393,12 +373,6 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
                 createExportControlPage.clickSignOffButton();
                 ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
-
-                createExportControlPage.selectChiefApprovalConfirmation();
-                ExtentReportListener.getExtentTest().pass("Checked 'I have carefully reviewed...' confirmation checkbox");
-            }
-            catch (Exception e)
-            {
 
             }
             finally {
@@ -422,9 +396,6 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             systemAdminPage.clickRecordNumber(recordNum);
             ExtentReportListener.getExtentTest().info("Clicked Record Number link in grid: " + recordNum);
 
-//            ManagementAccessSecurityPage.clickFirstRecordFromSearchResults();
-//            ExtentReportListener.getExtentTest().pass("Clicked first Export Control record from search results successfully");
-
             ManagementAccessSecurityPage.clickWorkflowHistorySection();
             ExtentReportListener.getExtentTest().pass("Clicked 'Workflow History' section successfully");
 
@@ -443,7 +414,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
     @AfterMethod
     public void tearDown()
     {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
