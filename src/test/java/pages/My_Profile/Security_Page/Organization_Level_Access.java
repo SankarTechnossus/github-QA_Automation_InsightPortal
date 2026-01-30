@@ -71,7 +71,7 @@ public class Organization_Level_Access extends BasePage {
         if (checkbox.isSelected()) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -130,7 +130,7 @@ public class Organization_Level_Access extends BasePage {
             radio.click();
         }
 
-        pause(500); // small pause only for visibility while execution
+        pause(2000);
     }
 
     public void selectExportControlRequestRadioOption() {
@@ -149,6 +149,7 @@ public class Organization_Level_Access extends BasePage {
 
         // wait until it becomes selected
         wait.until(ExpectedConditions.elementToBeSelected(exportControlRequestRadioOption));
+        pause(2000);
     }
 
     public boolean isCreateNewExportControlHeaderDisplayed() {
@@ -160,7 +161,7 @@ public class Organization_Level_Access extends BasePage {
 
         String actualText = driver.findElement(createNewExportControlHeader).getText();
         result = Objects.equals(actualText, "Create New Export Control Record");
-
+        pause(2000);
         return result;
     }
 
@@ -178,6 +179,7 @@ public class Organization_Level_Access extends BasePage {
 
         // wait for menu/dropdown to expand
         wait.until(ExpectedConditions.attributeToBe(actionsBtn, "aria-expanded", "true"));
+        pause(2000);
     }
 
     public void clickCreateExportControl() {
@@ -194,6 +196,7 @@ public class Organization_Level_Access extends BasePage {
 
         // wait for navigation to Create Export Control page
         wait.until(ExpectedConditions.urlContains("/export-control/actions"));
+        pause(2000);
 
     }
 
@@ -202,7 +205,7 @@ public class Organization_Level_Access extends BasePage {
         By orgRow = By.xpath("//td[@data-column='organizationName' and contains(normalize-space(),'" + organizationKeyword + "')]");
 
         List<WebElement> rows = driver.findElements(orgRow);
-
+        pause(2000);
         return !rows.isEmpty();
     }
 
@@ -215,7 +218,7 @@ public class Organization_Level_Access extends BasePage {
 
         String actualText = driver.findElement(searchBreadcrumb).getText();
         result = Objects.equals(actualText, "Search");
-
+        pause(2000);
         return result;
     }
 
@@ -237,6 +240,7 @@ public class Organization_Level_Access extends BasePage {
                 ExpectedConditions.attributeToBe(firstUser, "aria-expanded", "true"),
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@role='dialog']"))
         ));
+        pause(2000);
     }
 
     public void clickWorkflowHistorySection() {
@@ -254,6 +258,7 @@ public class Organization_Level_Access extends BasePage {
         // wait until section expands / content becomes visible (adjust if you have a specific locator)
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[contains(@class,'workflow-history')]")));
+        pause(2000);
 
     }
 
@@ -307,7 +312,7 @@ public class Organization_Level_Access extends BasePage {
         if (driver.findElements(removeOrgModalWrapper).isEmpty()) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -382,7 +387,7 @@ public class Organization_Level_Access extends BasePage {
         if (checkbox.isSelected()) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -397,7 +402,7 @@ public class Organization_Level_Access extends BasePage {
         if (checkbox.isSelected()) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -507,7 +512,7 @@ public class Organization_Level_Access extends BasePage {
         if (Objects.equals(text, "The search criteria yielded no results.")) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -523,7 +528,7 @@ public class Organization_Level_Access extends BasePage {
         if (Objects.equals(text, "Are you sure you want to remove this organization?")) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -539,7 +544,7 @@ public class Organization_Level_Access extends BasePage {
         if (Objects.equals(text, "Export")) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -594,7 +599,7 @@ public class Organization_Level_Access extends BasePage {
         if (Objects.equals(text, "Organization")) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -610,7 +615,7 @@ public class Organization_Level_Access extends BasePage {
         if (Objects.equals(text, "Security: Venkatesan, Sankar (SV1179)")) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -640,7 +645,7 @@ public class Organization_Level_Access extends BasePage {
         if (Objects.equals(text, "First Name:")) {
             result = true;
         }
-
+        pause(2000);
         return result;
     }
 
@@ -656,6 +661,7 @@ public class Organization_Level_Access extends BasePage {
             result = true;
         }
 
+        pause(2000);
         return result;
     }
 
