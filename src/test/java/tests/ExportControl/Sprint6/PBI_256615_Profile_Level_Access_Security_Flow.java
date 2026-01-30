@@ -102,6 +102,9 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
             String password = JsonDataReader.get(0, "Password");
             String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
             String organizationName = JsonDataReader.get(1, "OrganizationName");
+            String profileName = JsonDataReader.get(1, "ProfileName");
+            String profileCode = JsonDataReader.get(1, "ProfileCode");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -127,6 +130,106 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
             ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
 
+            ProfileLevelAccess.toggleProfileDelegateSectionTwice();
+            ExtentReportListener.getExtentTest().pass("Clicked expand and collapse on Profile/Delegate Level Access section");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+            ProfileLevelAccess.clickAddAdditionalProfileTwice();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Profile' button twice successfully");
+            Assert.assertTrue(ProfileLevelAccess.verifyProfileLabelIsDisplayed(), "'Profile' label is not displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Profile' label is displayed successfully");
+
+
+            if (ProfileLevelAccess.isProfilePresent(profileName)) {
+
+                ProfileLevelAccess.clickRemoveProfile(profileName);
+                ExtentReportListener.getExtentTest().pass("Profile '" + profileName + "' already present. Removed successfully");
+                Assert.assertTrue(ProfileLevelAccess.verifyRemoveProfileConfirmationMessageIsDisplayed(), "Remove profile confirmation message is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified remove profile confirmation message is displayed successfully");
+
+                ProfileLevelAccess.clickCancelOnRemoveProfileModal();
+                ExtentReportListener.getExtentTest().pass("Clicked Cancel button successfully");
+                Assert.assertTrue(ProfileLevelAccess.verifyProfileLabelIsDisplayed(), "'Profile' label is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Profile' label is displayed successfully");
+
+                ProfileLevelAccess.clickRemoveProfile(profileName);
+                ExtentReportListener.getExtentTest().pass("Profile '" + profileName + "' already present. Removed successfully");
+                Assert.assertTrue(ProfileLevelAccess.verifyRemoveProfileConfirmationMessageIsDisplayed(), "Remove profile confirmation message is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified remove profile confirmation message is displayed successfully");
+
+                ProfileLevelAccess.clickOkOnRemoveProfileModal();
+                ExtentReportListener.getExtentTest().pass("Clicked OK button successfully");
+                Assert.assertTrue(ProfileLevelAccess.verifyProfileLabelIsDisplayed(), "'Profile' label is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Profile' label is displayed successfully");
+
+                ProfileLevelAccess.clickSaveButton();
+                ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ProfileLevelAccess.clickAddAdditionalProfile();
+                ExtentReportListener.getExtentTest().pass("Clicked Add Additional Profile");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ProfileLevelAccess.searchAndSelectProfile(profileCode);
+                ExtentReportListener.getExtentTest().pass("Searched and selected profile with code: " + profileCode);
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ProfileLevelAccess.clickApplyButton();
+                ExtentReportListener.getExtentTest().pass("Clicked Apply button");
+                Assert.assertTrue(ProfileLevelAccess.verifySpecifyAccessLevelMessageIsDisplayed(), "'Please specify access level' validation message is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Please specify access level' validation message is displayed successfully");
+
+                ProfileLevelAccess.selectExportControlManage();
+                ExtentReportListener.getExtentTest().pass("Selected Export Control Manage access");
+                Assert.assertTrue(ProfileLevelAccess.verifyAllValidationsCompletedMessageIsDisplayed(), "'All validations in this area have been completed' message is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'All validations in this area have been completed' message is displayed successfully");
+
+                ProfileLevelAccess.clickSaveButton();
+                ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+
+            } else {
+
+                ProfileLevelAccess.clickAddAdditionalProfile();
+                ExtentReportListener.getExtentTest().pass("Clicked Add Additional Profile");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ProfileLevelAccess.searchAndSelectProfile(profileCode);
+                ExtentReportListener.getExtentTest().pass("Searched and selected profile with code: " + profileCode);
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ProfileLevelAccess.clickApplyButton();
+                ExtentReportListener.getExtentTest().pass("Clicked Apply button");
+                Assert.assertTrue(ProfileLevelAccess.verifySpecifyAccessLevelMessageIsDisplayed(), "'Please specify access level' validation message is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Please specify access level' validation message is displayed successfully");
+
+
+                ProfileLevelAccess.selectExportControlManage();
+                ExtentReportListener.getExtentTest().pass("Selected Export Control Manage access");
+                Assert.assertTrue(ProfileLevelAccess.verifyAllValidationsCompletedMessageIsDisplayed(), "'All validations in this area have been completed' message is not displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'All validations in this area have been completed' message is displayed successfully");
+
+                ProfileLevelAccess.clickSaveButton();
+                ExtentReportListener.getExtentTest().pass("Clicked Save button successfully");
+                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+            }
+
+
 
 
 
@@ -141,7 +244,7 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
     @AfterMethod
     public void tearDown()
     {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }

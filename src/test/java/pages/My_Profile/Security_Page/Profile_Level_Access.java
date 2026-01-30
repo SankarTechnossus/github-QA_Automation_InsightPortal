@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -15,6 +16,213 @@ public class Profile_Level_Access extends BasePage {
     }
 
     // Locators
+    By profileDelegateToggleButton = By.xpath("//header[contains(normalize-space(),'Profile/Delegate Level Access')]//button[contains(@class,'toggle-button')]");
+    By addAdditionalProfileButton = By.xpath("//button[normalize-space()='Add Additional Profile']");
+    By profileRow = By.xpath("//td[@data-column='admPersonName' and contains(normalize-space(),'Chandra, Mohan')]");
+    By removeProfileButton = By.xpath("//td[@data-column='admPersonName' and contains(normalize-space(),'Chandra, Mohan')]" + "//following-sibling::td//i[contains(@class,'fi-remove')]");
+    By profileSearchInput = By.xpath("//input[contains(@id,'react-select') and @role='combobox']");
+    By mc1396Option = By.xpath("//div[contains(@class,'select__option') or contains(text(),'MC1396')]");
+    By applyButton = By.xpath("//button[normalize-space()='Apply']");
+    By exportControlHeader = By.xpath("//div[normalize-space()='Export']//div[normalize-space()='Control']");
+    By exportControlManageCheckbox = By.xpath("//td[contains(@class,'-export-control')]//span[normalize-space()='Manage']/preceding-sibling::input");
+    By saveButton = By.xpath("//button[normalize-space()='Save']");
+    By removeProfileModal = By.xpath("//div[contains(@class,'modal-content-wrapper')][.//div[contains(@class,'message') and contains(normalize-space(),'remove this profile')]]");
+    By cancelButtonInModal = By.xpath("//div[contains(@class,'modal-content-wrapper')][.//div[contains(@class,'message') and contains(normalize-space(),'remove this profile')]]//button[contains(@class,'cancel-button') and normalize-space()='Cancel']");
+    By okButtonInModal = By.xpath("//div[contains(@class,'modal-content-wrapper')][.//div[contains(@class,'message') and contains(normalize-space(),'remove this profile')]]//button[contains(@class,'ok-button') and normalize-space()='OK']");
+    By profileHeaderLabel = By.xpath("//div[contains(@class,'_word-break') and normalize-space()='Profile']");
+    By removeProfileConfirmationMessage = By.xpath("//div[contains(@class,'message') and normalize-space()='Are you sure you want to remove this profile?']");
+    By specifyAccessLevelMessage = By.xpath("//div[contains(@class,'submission-checklist-list-inner') and normalize-space()='Please specify access level']");
+    By validationsCompletedMessage = By.xpath("//span[normalize-space()='All validations in this area have been completed']");
+
+
     //Actions
+
+    public boolean verifyAllValidationsCompletedMessageIsDisplayed() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(validationsCompletedMessage));
+
+        String actualText = driver.findElement(validationsCompletedMessage).getText();
+        result = Objects.equals(actualText, "All validations in this area have been completed");
+
+        return result;
+    }
+
+    public boolean verifySpecifyAccessLevelMessageIsDisplayed() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(specifyAccessLevelMessage));
+
+        String actualText = driver.findElement(specifyAccessLevelMessage).getText();
+        result = Objects.equals(actualText, "Please specify access level");
+
+        return result;
+    }
+
+    public boolean verifyRemoveProfileConfirmationMessageIsDisplayed() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeProfileConfirmationMessage));
+
+        String actualText = driver.findElement(removeProfileConfirmationMessage).getText();
+        result = Objects.equals(actualText, "Are you sure you want to remove this profile?");
+
+        return result;
+    }
+
+    public boolean verifyProfileLabelIsDisplayed() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(profileHeaderLabel));
+
+        String actualText = driver.findElement(profileHeaderLabel).getText();
+        result = Objects.equals(actualText, "Profile");
+
+        return result;
+    }
+
+    public void clickOkOnRemoveProfileModal() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeProfileModal));
+
+        WebElement okBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(okButtonInModal));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", okBtn);
+
+        wait.until(ExpectedConditions.elementToBeClickable(okBtn)).click();
+    }
+
+    public void clickCancelOnRemoveProfileModal() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeProfileModal));
+
+        WebElement cancelBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelButtonInModal));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", cancelBtn);
+
+        wait.until(ExpectedConditions.elementToBeClickable(cancelBtn)).click();
+    }
+
+
+    public void clickSaveButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(saveButton))
+                .click();
+    }
+
+    public void selectExportControlManage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement manage = wait.until(ExpectedConditions.elementToBeClickable(exportControlManageCheckbox));
+        if (!manage.isSelected()) {
+            manage.click();
+        }
+    }
+
+    public void clickApplyButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(applyButton))
+                .click();
+    }
+
+    public void searchAndSelectProfile(String code) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement searchBox = wait.until(ExpectedConditions.elementToBeClickable(profileSearchInput));
+        searchBox.sendKeys(code);
+
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(text(),'" + code + "')]")));
+        option.click();
+    }
+
+    public void clickAddAdditionalProfile() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(addAdditionalProfileButton)).click();
+    }
+
+    public void clickRemoveProfile(String profileName) {
+
+        By removeBtn = By.xpath("//td[@data-column='admPersonName' and contains(normalize-space(),'" + profileName + "')]" +
+                "//following-sibling::td//i[contains(@class,'fi-remove')]");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement remove = wait.until(ExpectedConditions.elementToBeClickable(removeBtn));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", remove);
+        remove.click();
+    }
+
+    public boolean isProfilePresent(String profileName) {
+
+        boolean result = false;
+
+        By profileRow = By.xpath("//td[@data-column='admPersonName' and contains(normalize-space(),'" + profileName + "')]");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        List<WebElement> rows = driver.findElements(profileRow);
+
+        if (rows.size() > 0) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public void toggleProfileDelegateSectionTwice() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement toggleBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(profileDelegateToggleButton));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", toggleBtn);
+
+        // First click (+ expand)
+        toggleBtn.click();
+
+        // Wait for section body to be visible
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[contains(@class,'search-form-row') and .//header[contains(text(),'Profile/Delegate Level Access')]]")));
+
+        // Second click (- collapse)
+        toggleBtn = wait.until(ExpectedConditions.elementToBeClickable(profileDelegateToggleButton));
+        toggleBtn.click();
+    }
+
+    public void clickAddAdditionalProfileTwice() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        for (int i = 1; i <= 2; i++) {
+
+            WebElement addBtn = wait.until(
+                    ExpectedConditions.elementToBeClickable(addAdditionalProfileButton));
+
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].scrollIntoView({block:'center'});", addBtn);
+
+            addBtn.click();
+
+            // Wait for profile modal / row to appear (adjust locator if you have modal header)
+            wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//div[contains(@class,'modal') or contains(text(),'Profile')]")));
+        }
+    }
+
 
 }
