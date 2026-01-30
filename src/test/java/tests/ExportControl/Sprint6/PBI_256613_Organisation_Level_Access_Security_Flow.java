@@ -291,7 +291,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
     @AfterMethod
     public void tearDown()
     {
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
