@@ -57,9 +57,37 @@ public class Organization_Level_Access extends BasePage {
     By firstRecordNumberLink = By.xpath("(//td[@data-column='_exportControlNumber']//a)[1]");
     By workflowHistorySectionTitle = By.xpath("//span[normalize-space()='Workflow History']");
     By firstWorkflowHistoryUserLink = By.xpath("(//div[contains(@class,'workflow-history-item')]//div[contains(@class,'overlay-item-link') and @role='button'])[1]");
+    By exportControlBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Export Control']");
+    By searchBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Search']");
 
 
     //Actions
+    public boolean verifyUserLandsOnSearchPage() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(searchBreadcrumb));
+
+        String actualText = driver.findElement(searchBreadcrumb).getText();
+        result = Objects.equals(actualText, "Search");
+
+        return result;
+    }
+
+    public boolean verifyUserLandsOnExportControlPage() {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(exportControlBreadcrumb));
+
+        String actualText = driver.findElement(exportControlBreadcrumb).getText();
+        result = Objects.equals(actualText, "Export Control");
+
+        return result;
+    }
+
     public void clickFirstUserLinkInWorkflowHistory() {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

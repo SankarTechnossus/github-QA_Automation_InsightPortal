@@ -147,6 +147,8 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
                 ManagementAccessSecurityPage.selectExportControlViewAndSave();
                 ExtentReportListener.getExtentTest().pass("Selected Export Control 'View' and clicked Save successfully");
+                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
 
             } else {
                 ExtentReportListener.getExtentTest().info("Export Control 'View' checkbox is already selected. Skipping selection.");
@@ -160,6 +162,8 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
                 ManagementAccessSecurityPage.selectExportControlManageAndSave();
                 ExtentReportListener.getExtentTest().pass("Selected Export Control 'Manage' and clicked Save successfully");
+                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
 
             } else {
                 ExtentReportListener.getExtentTest().info("Export Control 'Manage' checkbox is already selected. Skipping selection.");
@@ -253,9 +257,13 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
 
             menuFlow.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.verifyUserLandsOnExportControlPage(), "User did NOT land on Export Control page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on Export Control page successfully");
 
             menuFlow.clickSearchLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Search' link successfully from Export Control sidebar");
+            Assert.assertTrue(ManagementAccessSecurityPage.verifyUserLandsOnSearchPage(), "User did NOT land on Search page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on Search page successfully");
 
             menuFlow.clickSearchButton();
             ExtentReportListener.getExtentTest().info("Clicked Search");
