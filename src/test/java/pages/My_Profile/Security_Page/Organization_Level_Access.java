@@ -54,9 +54,67 @@ public class Organization_Level_Access extends BasePage {
     By exportControlManageCheckbox = By.xpath("//td[contains(@class,'item-grid-cell') and contains(@class,'-export-control')]//span[normalize-space()='Manage']/preceding-sibling::input[@type='checkbox']");
     By successToast = By.xpath("//div[contains(normalize-space(),'Security accesses were successfully updated')]");
     By saveButton01 = By.xpath("//button[normalize-space()='Save' and contains(@class,'-positive')]");
+    By firstRecordNumberLink = By.xpath("(//td[@data-column='_exportControlNumber']//a)[1]");
+    By workflowHistorySectionTitle = By.xpath("//span[normalize-space()='Workflow History']");
+    By firstWorkflowHistoryUserLink = By.xpath("(//div[contains(@class,'workflow-history-item')]//div[contains(@class,'overlay-item-link') and @role='button'])[1]");
 
 
     //Actions
+    public void clickFirstUserLinkInWorkflowHistory() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement firstUser = wait.until(
+                ExpectedConditions.elementToBeClickable(firstWorkflowHistoryUserLink));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", firstUser);
+
+        firstUser.click();
+
+        // Wait until the overlay expands OR dialog appears
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.attributeToBe(firstUser, "aria-expanded", "true"),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@role='dialog']"))
+        ));
+    }
+
+    public void clickWorkflowHistorySection() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement workflowHistory = wait.until(
+                ExpectedConditions.elementToBeClickable(workflowHistorySectionTitle));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", workflowHistory);
+
+        workflowHistory.click();
+
+        // wait until section expands / content becomes visible (adjust if you have a specific locator)
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'workflow-history')]")));
+
+    }
+
+    public void clickFirstRecordFromSearchResults() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement firstRecord = wait.until(
+                ExpectedConditions.elementToBeClickable(firstRecordNumberLink));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", firstRecord);
+
+        firstRecord.click();
+
+        // wait until navigation happens
+        wait.until(ExpectedConditions.urlContains("/export-control/"));
+
+        pause(9000);
+    }
+
     public void clickSaveButton01() {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

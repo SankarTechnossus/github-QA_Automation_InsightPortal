@@ -14,14 +14,9 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.Communication_Management.CommunicationManagement_ExportControlPage;
 import pages.Administration.Workflow_Management.WorkflowsPage;
-import pages.Export_Control.Export_Control_Details.AmendExportControlPage;
+import pages.Export_Control.Export_Control_Details.*;
 import pages.Administration.Form_Visibility.FormsVisibility_ExportControlPage;
-import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
 import pages.Adobe.AgreementPage;
-import pages.Export_Control.Export_Control_Details.AddChecklistFlowPage;
-import pages.Export_Control.Export_Control_Details.DisplayChecklistFlowPage;
-import pages.Export_Control.Export_Control_Details.MenuFlow;
-import pages.Export_Control.Export_Control_Details.ResponseToReviewPage;
 import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.My_Profile.Security_Page.Organization_Level_Access;
@@ -54,6 +49,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
     Organization_Level_Access ManagementAccessSecurityPage;
+    MyActionsPage myActionsPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -88,6 +84,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
         agreementPage = new AgreementPage(driver);
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
+        myActionsPage = new MyActionsPage(driver);
     }
 
     @Test
@@ -254,6 +251,25 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
 
+            menuFlow.clickExportControlLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
+
+            menuFlow.clickSearchLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Search' link successfully from Export Control sidebar");
+
+            menuFlow.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("Clicked Search");
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
+
+            ManagementAccessSecurityPage.clickFirstRecordFromSearchResults();
+            ExtentReportListener.getExtentTest().pass("Clicked first Export Control record from search results successfully");
+
+            ManagementAccessSecurityPage.clickWorkflowHistorySection();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Workflow History' section successfully");
+
+            ManagementAccessSecurityPage.clickFirstUserLinkInWorkflowHistory();
+            ExtentReportListener.getExtentTest().pass("Clicked first user link in Workflow History successfully");
 
 
         }
