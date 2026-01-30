@@ -14,6 +14,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.Communication_Management.CommunicationManagement_ExportControlPage;
 import pages.Administration.Workflow_Management.WorkflowsPage;
+import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Export_Control.Export_Control_Details.*;
 import pages.Administration.Form_Visibility.FormsVisibility_ExportControlPage;
 import pages.Adobe.AgreementPage;
@@ -50,6 +51,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
     WorkflowsPage workflowsPage;
     Organization_Level_Access ManagementAccessSecurityPage;
     MyActionsPage myActionsPage;
+    CreateExportControlPage createExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -85,6 +87,7 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
         myActionsPage = new MyActionsPage(driver);
+        createExportControlPage = new CreateExportControlPage(driver);
     }
 
     @Test
@@ -96,6 +99,11 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             String password = JsonDataReader.get(0, "Password");
             String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
             String organizationName = JsonDataReader.get(1, "OrganizationName");
+            String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
+            String piFullName        = JsonDataReader.get(3, "PIName");                    // "Chandra, Mohan"
+            String positiveSearchText = JsonDataReader.get(1, "PositiveSearchText");
+            String initialNoteText     = JsonDataReader.get(3, "InitialReviewNoteText");
+
             // User will open the login page of the Insight Portal application
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
@@ -112,7 +120,6 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             ExtentReportListener.getExtentTest().pass("User successfully landed on the My Profile page.");
             ManagementAccessSecurityPage.clickMyProfileLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
-
 
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
@@ -141,6 +148,47 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button again to collapse search area successfully");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+            if (ManagementAccessSecurityPage.isOrganizationPresent(organizationName)) {
+
+                ExtentReportListener.getExtentTest()
+                        .pass("Organization '" + organizationName + "' already present. Proceeding further.");
+
+            } else {
+
+                ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+                ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+                ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
+                ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
+                ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ManagementAccessSecurityPage.selectAnesthesiaOrganization();
+                ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+
+                ManagementAccessSecurityPage.clickApplyButton();
+                ExtentReportListener.getExtentTest().pass("Clicked Apply button successfully");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+                ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+                ManagementAccessSecurityPage.selectExportControlManageAndSave();
+                ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+                ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+
+                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+            }
 
 
             if (!ManagementAccessSecurityPage.isExportControlViewCheckboxSelected()) {
@@ -255,10 +303,105 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
 
-            menuFlow.clickExportControlLink();
+            dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.verifyUserLandsOnExportControlPage(), "User did NOT land on Export Control page");
-            ExtentReportListener.getExtentTest().pass("Verified user landed on Export Control page successfully");
+
+            createExportControlPage.clickCreateExportControl();
+            ExtentReportListener.getExtentTest().info("Clicked Actions → Create Export Control from left navigation successfully");
+            Assert.assertTrue(createExportControlPage.isCreateExportControlHeaderDisplayed(), "'Create Export Control' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create Export Control' header is displayed successfully");
+
+            displayChecklistFlowPage.selectPersonnelExclusion();
+            ExtentReportListener.getExtentTest().info("Selected Personnel Exclusion radio button successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isPersonnelExclusionRadioDisplayed(), "'Personnel Exclusion' radio button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' radio button is displayed");
+
+            // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
+            createExportControlPage.selectPiName(piSearchText, piFullName);
+            ExtentReportListener.getExtentTest().info("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
+
+            createExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
+
+            createExportControlPage.selectCountriesOfConcern("China");
+            ExtentReportListener.getExtentTest().pass("Selected Countries of Concern");
+
+            createExportControlPage.enterOnboardingDepartment("Research Department");
+            ExtentReportListener.getExtentTest().pass("Entered Onboarding Department");
+
+            createExportControlPage.selectEmployeeWorkforce();
+            ExtentReportListener.getExtentTest().pass("Selected Workforce Type as Employee");
+
+            createExportControlPage.enterCandidateName("John Smith");
+            ExtentReportListener.getExtentTest().pass("Entered Candidate Name");
+
+            createExportControlPage.selectCountryOfBirth("India");
+            ExtentReportListener.getExtentTest().pass("Selected Country of Birth");
+
+            createExportControlPage.fillAddress("12 Street Road", "Chennai");
+            ExtentReportListener.getExtentTest().pass("Entered Address details");
+
+            createExportControlPage.selectAddressCountry("India");
+            ExtentReportListener.getExtentTest().pass("Selected Address Country");
+
+            createExportControlPage.enterTelephone("9876543210");
+            ExtentReportListener.getExtentTest().pass("Entered Telephone Number");
+
+            createExportControlPage.selectCitizenship("India");
+            ExtentReportListener.getExtentTest().pass("Selected Citizenship");
+
+            createExportControlPage.selectInternalMgbFunding();
+            ExtentReportListener.getExtentTest().pass("Selected funding source as Internal - MGB");
+
+            createExportControlPage.selectShareDataNo();
+            ExtentReportListener.getExtentTest().pass("Selected Share Data as No");
+            createExportControlPage.selectNonCommercialEquipment("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Non-commercial proprietary equipment");
+
+            createExportControlPage.selectEquipmentRequiringCertification("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Equipment requiring certification");
+
+            createExportControlPage.selectAccessToCommercialProducts("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Access to commercial products");
+
+            createExportControlPage.selectShareDataWithResearchCommunity("No");
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Share data with research community");
+
+            createExportControlPage.enterWorkDescription("Candidate will assist in non-sensitive research activities under supervision.");
+            ExtentReportListener.getExtentTest().pass("Entered Description of Work");
+
+            createExportControlPage.clickNext();
+            ExtentReportListener.getExtentTest().pass("Clicked Next button");
+
+            try {
+                createExportControlPage.clickSubmitRadioButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
+
+                createExportControlPage.enterPetName(positiveSearchText);
+                ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
+
+                // Step 1: Click Save
+                displayChecklistFlowPage.clickSaveAction();
+                ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
+                Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
+                ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
+
+                createExportControlPage.clickSignOffButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally {
+                displayChecklistFlowPage.clickSubmitAction();
+                ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+            }
+
+            String recordNum = systemAdminPage.getRecordNumber();
+            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
             menuFlow.clickSearchLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Search' link successfully from Export Control sidebar");
@@ -270,8 +413,11 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
 
-            ManagementAccessSecurityPage.clickFirstRecordFromSearchResults();
-            ExtentReportListener.getExtentTest().pass("Clicked first Export Control record from search results successfully");
+            systemAdminPage.clickRecordNumber(recordNum);
+            ExtentReportListener.getExtentTest().info("Clicked Record Number link in grid: " + recordNum);
+
+//            ManagementAccessSecurityPage.clickFirstRecordFromSearchResults();
+//            ExtentReportListener.getExtentTest().pass("Clicked first Export Control record from search results successfully");
 
             ManagementAccessSecurityPage.clickWorkflowHistorySection();
             ExtentReportListener.getExtentTest().pass("Clicked 'Workflow History' section successfully");

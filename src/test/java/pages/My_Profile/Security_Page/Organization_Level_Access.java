@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -59,9 +60,19 @@ public class Organization_Level_Access extends BasePage {
     By firstWorkflowHistoryUserLink = By.xpath("(//div[contains(@class,'workflow-history-item')]//div[contains(@class,'overlay-item-link') and @role='button'])[1]");
     By exportControlBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Export Control']");
     By searchBreadcrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Search']");
+    By organizationRow = By.xpath("//td[@data-column='organizationName' and contains(normalize-space(),'BWH')]");
 
 
     //Actions
+    public boolean isOrganizationPresent(String organizationKeyword) {
+
+        By orgRow = By.xpath("//td[@data-column='organizationName' and contains(normalize-space(),'" + organizationKeyword + "')]");
+
+        List<WebElement> rows = driver.findElements(orgRow);
+
+        return rows.size() > 0;
+    }
+
     public boolean verifyUserLandsOnSearchPage() {
 
         boolean result = false;
