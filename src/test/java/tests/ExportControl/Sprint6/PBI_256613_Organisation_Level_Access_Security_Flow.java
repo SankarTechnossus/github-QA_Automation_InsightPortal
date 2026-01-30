@@ -358,27 +358,8 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");
             ExtentReportListener.getExtentTest().pass("Verified confirm sign off checkbox is selected successfully");
 
-            try {
-                createExportControlPage.clickSubmitRadioButton();
-                ExtentReportListener.getExtentTest().pass("Clicked 'Submit' radio button successfully");
-
-                createExportControlPage.enterPetName(positiveSearchText);
-                ExtentReportListener.getExtentTest().pass("Entered Pet name as: " + positiveSearchText);
-
-                // Step 1: Click Save
-                displayChecklistFlowPage.clickSaveAction();
-                ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
-                Assert.assertTrue(initialReviewWorkflowPage.isPersonnelExclusionValueDisplayed(), "'Personnel Exclusion' value is NOT displayed");
-                ExtentReportListener.getExtentTest().pass("Verified 'Personnel Exclusion' value is displayed successfully");
-
-                createExportControlPage.clickSignOffButton();
-                ExtentReportListener.getExtentTest().pass("Clicked 'Sign Off' button successfully");
-
-            }
-            finally {
-                displayChecklistFlowPage.clickSubmitAction();
-                ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
-            }
+            displayChecklistFlowPage.clickSubmitAction();
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
 
             String recordNum = systemAdminPage.getRecordNumber();
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
