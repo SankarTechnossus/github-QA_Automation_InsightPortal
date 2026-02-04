@@ -14,6 +14,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.Communication_Management.CommunicationManagement_ExportControlPage;
 import pages.Administration.Workflow_Management.WorkflowsPage;
+import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Export_Control.Export_Control_Details.AmendExportControlPage;
 import pages.Administration.Form_Visibility.FormsVisibility_ExportControlPage;
 import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
@@ -56,6 +57,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
     WorkflowsPage workflowsPage;
     Organization_Level_Access ManagementAccessSecurityPage;
     Record_Level_Access RecordLevelAccess;
+    CreateExportControlPage createExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -91,6 +93,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
         RecordLevelAccess = new Record_Level_Access(driver);
+        createExportControlPage = new CreateExportControlPage(driver);
     }
 
     @Test
@@ -99,8 +102,10 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
         try {
             String url = JsonDataReader.get(0, "URLTucson");
             String userName = JsonDataReader.get(0, "Username");
+            String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
+            String piFullName        = JsonDataReader.get(3, "PIName");
             String password = JsonDataReader.get(0, "Password");
-            String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
+            String templateNoticeGroup = JsonDataReader.get(1, "TemplateNoticeGroup");
             String organizationName = JsonDataReader.get(1, "OrganizationName");
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -114,18 +119,66 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnMyProfilePage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the My Profile page.");
-            ManagementAccessSecurityPage.clickMyProfileLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
+            dashboardPage.clickExportControlLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
 
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
-            ManagementAccessSecurityPage.clickSecurityLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+            ManagementAccessSecurityPage.clickActionsButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Actions' button successfully");
 
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+            ManagementAccessSecurityPage.clickCreateExportControl();
+            ExtentReportListener.getExtentTest().info("Clicked Create Export Control from left navigation successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
+
+
+            ManagementAccessSecurityPage.selectExportControlRequestRadioOption();
+            ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' radio option successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
+
+            // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
+            createExportControlPage.selectPiName(piSearchText, piFullName);
+            ExtentReportListener.getExtentTest().info("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
+
+            createExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
+
+            ManagementAccessSecurityPage.selectEncryptionSourceCodeNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Encryption Source Code or Technology question");
+
+            ManagementAccessSecurityPage.selectPublicationRestrictionNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Publication Restriction question");
+
+            ManagementAccessSecurityPage.selectConfidentialityRequirementNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Confidentiality Requirement question");
+
+            ManagementAccessSecurityPage.selectRestrictionOnForeignPersonNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Restriction on Foreign Person question");
+
+            ManagementAccessSecurityPage.selectSponsorPermissionToClaimResultNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Sponsor Permission to Claim Result question");
+
+            ManagementAccessSecurityPage.selectExportControlledOrITARControlledNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Export Controlled / ITAR Controlled question");
+
+            ManagementAccessSecurityPage.selectTransfersControlsLicensingNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Transfers, Controls, and Licensing question");
+
+            createExportControlPage.clickNext();
+            ExtentReportListener.getExtentTest().pass("Clicked Next button successfully");
+
+            ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
+            ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");
+            ExtentReportListener.getExtentTest().pass("Verified confirm sign off checkbox is selected successfully");
+
+            displayChecklistFlowPage.clickSubmitAction();
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+
+            String recordNum = systemAdminPage.getRecordNumber();
+            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
 
 
@@ -141,7 +194,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
     @AfterMethod
     public void tearDown()
     {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
