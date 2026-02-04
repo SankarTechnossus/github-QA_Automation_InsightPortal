@@ -33,9 +33,45 @@ public class Profile_Level_Access extends BasePage {
     By removeProfileConfirmationMessage = By.xpath("//div[contains(@class,'message') and normalize-space()='Are you sure you want to remove this profile?']");
     By specifyAccessLevelMessage = By.xpath("//div[contains(@class,'submission-checklist-list-inner') and normalize-space()='Please specify access level']");
     By validationsCompletedMessage = By.xpath("//span[normalize-space()='All validations in this area have been completed']");
+    By piColumnValue = By.xpath("//td[@data-column='_pIAdmPersonId']");
+
 
 
     //Actions
+
+    public boolean verifyPINameIsNotPresent(String expectedPIName) {
+        boolean result = true;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(piColumnValue));
+
+        List<WebElement> piList = driver.findElements(piColumnValue);
+
+        for (WebElement pi : piList) {
+            String actualPIName = pi.getText().trim();
+
+            if (actualPIName.contains(expectedPIName)) {
+                result = false;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public boolean verifyPIName(String expectedPIName) {
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement piValue = wait.until(ExpectedConditions.presenceOfElementLocated(piColumnValue));
+
+        String actualPIName = piValue.getText().trim();
+
+        result = actualPIName.contains(expectedPIName);
+
+        return result;
+    }
+
 
     public boolean verifyAllValidationsCompletedMessageIsDisplayed() {
 
