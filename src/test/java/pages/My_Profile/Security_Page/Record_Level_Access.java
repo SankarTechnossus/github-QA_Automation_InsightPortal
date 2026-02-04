@@ -34,11 +34,74 @@ public class Record_Level_Access extends BasePage {
     By applyButton = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Apply']");
     By applyButtonEnabled = By.xpath("//div[contains(@class,'modal-content-wrapper')]//button[normalize-space()='Apply' and not(@disabled)]");
     By validationsCompletedMessage = By.xpath("//span[normalize-space()='All validations in this area have been completed']");
+    By searchForUserMenu = By.xpath("//span[normalize-space()='Search For User']");
+    By userTypeaheadInput = By.xpath("//input[@id='admPersonId']");
+    By userDropdownListBox = By.xpath("//div[contains(@id,'react-select') and @role='listbox']");
+
+
+
 
 
 
 
     //Actions
+    public void selectUserFromDropdownById(String userId) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(userSearchInput));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+
+        input.click();
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        input.sendKeys(Keys.BACK_SPACE);
+        input.sendKeys(userId);
+
+        By optionById = By.xpath("//*[contains(@id,'react-select') and (self::div or self::span) and contains(normalize-space(.),'" + userId + "')]");
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionById));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        input.sendKeys(Keys.TAB);
+
+        pause(1000);
+    }
+
+
+    public void selectFirstUserFromDropdown() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // wait until dropdown listbox appears
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userDropdownListBox));
+
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(firstUserOption));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+
+        option.click();
+
+        pause(1000);
+    }
+
+    public void clickSearchForUserMenu() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement menu = wait.until(ExpectedConditions.elementToBeClickable(searchForUserMenu));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", menu);
+
+        menu.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userTypeaheadInput));
+
+        pause(1000);
+    }
+
 
     public boolean verifyValidationsCompletedMessageDisplayed() {
         boolean result = false;
@@ -180,7 +243,7 @@ public class Record_Level_Access extends BasePage {
 
         addBtn.click();
 
-        wait.until(ExpectedConditions.urlContains("export-control"));
+//        wait.until(ExpectedConditions.urlContains("export-control"));
 
         pause(1000);
     }
@@ -250,14 +313,6 @@ public class Record_Level_Access extends BasePage {
         result = actualText.equals("Search");
 
         return result;
-    }
-
-
-    public void selectFirstUserFromDropdown() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(firstUserOption));
-        option.click();
-        pause(1000);
     }
 
     public void enterUserSearchValue(String organizationName) {

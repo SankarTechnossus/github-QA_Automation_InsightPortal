@@ -228,6 +228,13 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             systemAdminPage.clickLogout();
             ExtentReportListener.getExtentTest().info("Clicked Logout successfully");
 
+            // User will open the login page of the Insight Portal application
+            driver.get(url);
+            ExtentReportListener.getExtentTest().info("Opened dashboard URL");
+
+            // User will wait for the login screen to load completely before performing actions
+            basePage.pause(20000);
+
             // Login into the application
             loginPage.LoginIntoApplication(userName, password);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
@@ -245,14 +252,14 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
 
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
             ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-            RecordLevelAccess.clickSearchForUser();
-            ExtentReportListener.getExtentTest().info("Clicked 'Search For User' successfully");
+            RecordLevelAccess.clickSearchForUserMenu();
+            ExtentReportListener.getExtentTest().info("Clicked 'Search For User' menu successfully");
 
             RecordLevelAccess.enterUserSearchValue(OrganizationIDKashif);
             ExtentReportListener.getExtentTest().info("Entered User search value: " + OrganizationIDKashif);
 
-            RecordLevelAccess.selectFirstUserFromDropdown();
-            ExtentReportListener.getExtentTest().info("First user ID is selected Successfully");
+            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Selected user from dropdown: " + expectedUserId);
 
             Assert.assertTrue(RecordLevelAccess.verifySearchButtonDisplayed(), "'Search' button is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Search' button is displayed successfully");
@@ -264,9 +271,8 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
 
             ManagementAccessSecurityPage.clickSecurityLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
+            Assert.assertTrue(ManagementAccessSecurityPage.verifySecurityPageTitleDisplayed(), "'Security: Alam, Md (MA1279)' page title is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Security: Alam, Md (MA1279)' page title is displayed successfully");
 
             RecordLevelAccess.clickRecordLevelAccessExpandButton();
             ExtentReportListener.getExtentTest().info("Clicked Record Level Access expand (+) button");
@@ -312,6 +318,14 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             systemAdminPage.clickLogout();
             ExtentReportListener.getExtentTest().info("Clicked Logout successfully");
 
+            // User will open the login page of the Insight Portal application
+            driver.get(URLTucson);
+            ExtentReportListener.getExtentTest().info("Opened dashboard URL");
+
+            // User will wait for the login screen to load completely before performing actions
+            basePage.pause(20000);
+
+            // Login into the application
             loginPage.LoginIntoApplication(KashifUsername, KashifPassword);
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
