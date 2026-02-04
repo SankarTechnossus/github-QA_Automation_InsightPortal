@@ -26,6 +26,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.My_Profile.Security_Page.Organization_Level_Access;
 import pages.My_Profile.Security_Page.Profile_Level_Access;
+import pages.My_Profile.Security_Page.Record_Level_people_in_export_control_Page;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
 import utils.JsonDataReader;
@@ -56,6 +57,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
     WorkflowsPage workflowsPage;
     Organization_Level_Access ManagementAccessSecurityPage;
     Profile_Level_Access ProfileLevelAccess;
+    Record_Level_people_in_export_control_Page RecordLevelAccess;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -75,6 +77,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         ManagementAccessSecurityPage = new Organization_Level_Access(driver);
+        RecordLevelAccess = new Record_Level_people_in_export_control_Page(driver);
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
