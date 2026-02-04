@@ -18,12 +18,8 @@ public class Profile_Level_Access extends BasePage {
     // Locators
     By profileDelegateToggleButton = By.xpath("//header[contains(normalize-space(),'Profile/Delegate Level Access')]//button[contains(@class,'toggle-button')]");
     By addAdditionalProfileButton = By.xpath("//button[normalize-space()='Add Additional Profile']");
-    By profileRow = By.xpath("//td[@data-column='admPersonName' and contains(normalize-space(),'Chandra, Mohan')]");
-    By removeProfileButton = By.xpath("//td[@data-column='admPersonName' and contains(normalize-space(),'Chandra, Mohan')]" + "//following-sibling::td//i[contains(@class,'fi-remove')]");
     By profileSearchInput = By.xpath("//input[contains(@id,'react-select') and @role='combobox']");
-    By mc1396Option = By.xpath("//div[contains(@class,'select__option') or contains(text(),'MC1396')]");
     By applyButton = By.xpath("//button[normalize-space()='Apply']");
-    By exportControlHeader = By.xpath("//div[normalize-space()='Export']//div[normalize-space()='Control']");
     By exportControlManageCheckbox = By.xpath("//td[contains(@class,'-export-control')]//span[normalize-space()='Manage']/preceding-sibling::input");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
     By removeProfileModal = By.xpath("//div[contains(@class,'modal-content-wrapper')][.//div[contains(@class,'message') and contains(normalize-space(),'remove this profile')]]");

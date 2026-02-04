@@ -694,9 +694,6 @@ public class Organization_Level_Access extends BasePage {
 
         profileLink.click();
 
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.urlContains("/manage-profiles-and-security/profiles"));
-
         pause(1000);
     }
 
