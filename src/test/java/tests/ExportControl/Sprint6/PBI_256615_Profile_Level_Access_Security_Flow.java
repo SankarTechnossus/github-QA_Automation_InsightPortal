@@ -100,8 +100,6 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
             String url = JsonDataReader.get(0, "URLTucson");
             String userName = JsonDataReader.get(0, "Username");
             String password = JsonDataReader.get(0, "Password");
-            String templateNoticeGroup             = JsonDataReader.get(1, "TemplateNoticeGroup");
-            String organizationName = JsonDataReader.get(1, "OrganizationName");
             String profileName = JsonDataReader.get(1, "ProfileName");
             String profileCode = JsonDataReader.get(1, "ProfileCode");
 
@@ -198,7 +196,8 @@ public class PBI_256615_Profile_Level_Access_Security_Flow {
                 ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
 
 
-            } else {
+            }
+            else {
 
                 ProfileLevelAccess.clickAddAdditionalProfile();
                 ExtentReportListener.getExtentTest().pass("Clicked Add Additional Profile");
