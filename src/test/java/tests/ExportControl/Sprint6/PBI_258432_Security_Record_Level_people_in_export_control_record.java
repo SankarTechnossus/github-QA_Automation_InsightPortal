@@ -331,6 +331,8 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             Assert.assertTrue(RecordLevelAccess.verifySecurityPageTitle(expectedUserFullName, expectedUserId), "Security page title is NOT displayed as expected");
             ExtentReportListener.getExtentTest().pass("Verified Security page title is displayed correctly");
 
+            Assert.assertTrue(RecordLevelAccessinexport.verifyExportControlRecordPresent(recordNum), "Export Control record '" + recordNum + "' is NOT present in Record Level Access grid");
+            ExtentReportListener.getExtentTest().pass("Verified Export Control record '" + recordNum + "' is present in Record Level Access grid");
 
         }
         catch (Exception e)

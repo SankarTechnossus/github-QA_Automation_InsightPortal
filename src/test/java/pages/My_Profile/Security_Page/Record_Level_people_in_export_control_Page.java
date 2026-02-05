@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -28,9 +29,31 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
     By addExternalPeopleButton = By.xpath("//button[.//i[contains(@class,'fi-add')] and contains(normalize-space(),'Add External People')]");
     By userDropdownControl = By.xpath("//*[normalize-space()='User']/following::div[contains(@class,'Select-control')][1]");
     By userSearchInput01     = By.xpath("//*[normalize-space()='User']/following::input[@role='combobox'][1]");
+    By exportControlNumberCells = By.xpath("//td[@data-column='exportControlNumber']");
 
 
     //Actions
+
+    public boolean verifyExportControlRecordPresent(String expectedRecordNum) {
+
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.presenceOfElementLocated(exportControlNumberCells));
+
+        List<WebElement> recordCells = driver.findElements(exportControlNumberCells);
+
+        for (WebElement cell : recordCells) {
+            String actualRecordNum = cell.getText().trim();
+            if (actualRecordNum.equals(expectedRecordNum)) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
 
     public void selectUserFromDropdownById01(String userId) {
 
