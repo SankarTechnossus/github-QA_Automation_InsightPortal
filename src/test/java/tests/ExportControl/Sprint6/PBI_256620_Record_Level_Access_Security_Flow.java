@@ -310,6 +310,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             RecordLevelAccess.clickApplyButtonWhenEnabled();
             ExtentReportListener.getExtentTest().info("Clicked 'Apply' button successfully after it became enabled");
 
+
             Assert.assertTrue(RecordLevelAccess.verifyValidationsCompletedMessageDisplayed(), "'All validations in this area have been completed' message is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'All validations in this area have been completed' message is displayed successfully");
             ManagementAccessSecurityPage.clickSaveButton();
