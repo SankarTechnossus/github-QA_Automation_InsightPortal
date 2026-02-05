@@ -129,26 +129,21 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage();
+            RecordLevelAccess.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
 
             ManagementAccessSecurityPage.clickActionsButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Actions' button successfully");
-            //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage();
-            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
-            //**************Remove refresh after bug fix
 
             ManagementAccessSecurityPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().info("Clicked Create Export Control from left navigation successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage();
+            RecordLevelAccess.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
             Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
-
 
             ManagementAccessSecurityPage.selectExportControlRequestRadioOption();
             ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' radio option successfully");
@@ -164,7 +159,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage();
+            RecordLevelAccess.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
 
@@ -192,10 +187,12 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             createExportControlPage.clickNext();
             ExtentReportListener.getExtentTest().pass("Clicked Next button successfully");
 
+            basePage.pause(5000);
+
             RecordLevelAccess.clickPeopleLink();
             ExtentReportListener.getExtentTest().pass("Clicked on 'People' link successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage();
+            RecordLevelAccess.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
             Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
@@ -206,19 +203,13 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-
-            RecordLevelAccess.enterUserIdInSearchBox(expectedUserId);
-            ExtentReportListener.getExtentTest().info("Entered UserId '" + expectedUserId + "' in People search box");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
-            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
-
-            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
-            ExtentReportListener.getExtentTest().info("Selected UserId '" + expectedUserId + "' from dropdown");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
-            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
-
             RecordLevelAccess.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' successfully in People section");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.clickAddNewPeopleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New People' button successfully");
             Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
@@ -234,6 +225,37 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
             RecordLevelAccess.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
+
+            RecordLevelAccess.selectTypeAsExternal();
+            ExtentReportListener.getExtentTest().pass("Selected Type as 'External'");
+
+            RecordLevelAccess.selectRoleAsProjectManager();
+            ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' successfully");
+
+            RecordLevelAccess.clickFirstRemoveXMark();
+            ExtentReportListener.getExtentTest().pass("Clicked first 'X' (Remove) mark successfully");
+
+            RecordLevelAccess.acceptRemoveUserConfirmationAlert();
+            ExtentReportListener.getExtentTest().pass("Accepted confirmation alert to remove user successfully");
+
+            RecordLevelAccess.enterUserIdInSearchBox(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Entered UserId '" + expectedUserId + "' in People search box");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Selected UserId '" + expectedUserId + "' from dropdown");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
+
+            RecordLevelAccess.selectTypeAsExternal();
+            ExtentReportListener.getExtentTest().pass("Selected Type as 'External'");
+
+            RecordLevelAccess.selectRoleAsProjectManager();
+            ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' successfully");
 
             ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
             ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
@@ -260,7 +282,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
     @AfterMethod
     public void tearDown()
     {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
