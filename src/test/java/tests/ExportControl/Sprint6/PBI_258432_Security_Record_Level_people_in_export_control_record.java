@@ -257,7 +257,6 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
             RecordLevelAccess.selectRoleAsProjectManager_ForAlam();
             ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' for Alam, Md");
-
             ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
             ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");

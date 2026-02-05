@@ -30,48 +30,66 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
     By externalOption = By.xpath("//div[contains(@id,'react-select') and contains(@id,'-option') and normalize-space()='External']");
     By projectManagerOption = By.xpath("//div[contains(@id,'react-select') and contains(@id,'-option') and normalize-space()='Project Manager']");
     By reactSelectListBox = By.xpath("//*[contains(@id,'react-select') and @role='listbox']");
+    By alamTypeInput = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//input[contains(@id,'react-select') and contains(@id,'-input')]");
+    By alamRoleInput = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='roleId']//input[contains(@id,'react-select') and contains(@id,'-input')]");
 
 
 
     //Actions
 
+    public void selectRoleAsProjectManager_ForAlam() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+
+        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(alamRoleInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input);
+
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        input.sendKeys(Keys.BACK_SPACE);
+        input.sendKeys("Project Manager");
+
+        By pmOption = By.xpath(
+                "//*[contains(@id,'react-select') and (@role='option' or contains(@id,'-option')) and " +
+                        "(self::div or self::span or self::li) and contains(normalize-space(.),'Project Manager')]"
+        );
+
+        WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(pmOption));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        input.sendKeys(Keys.TAB);
+
+        pause(1000);
+    }
+
+
     public void selectTypeAsExternal_ForAlam() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
 
-        WebElement typeArrow = wait.until(ExpectedConditions.elementToBeClickable(typeDropdownArrow_Alam));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", typeArrow);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", typeArrow);
+        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(alamTypeInput));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input);
 
-        // ✅ wait until dropdown menu opens
-        wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectListBox));
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        input.sendKeys(Keys.BACK_SPACE);
+        input.sendKeys("External");
 
-        // ✅ option locator (supports div/span/li)
+        //  Option appears only after typing in many cases
         By externalOption = By.xpath(
-                "//*[contains(@id,'react-select') and (contains(@id,'-option') or @role='option') and " +
-                        "(self::div or self::span or self::li) and normalize-space()='External']"
+                "//*[contains(@id,'react-select') and (@role='option' or contains(@id,'-option')) and " +
+                        "(self::div or self::span or self::li) and contains(normalize-space(.),'External')]"
         );
 
         WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(externalOption));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
 
-        pause(4000);
+        input.sendKeys(Keys.TAB);
+
+        pause(4000); // as you requested
     }
 
 
-    public void selectRoleAsProjectManager_ForAlam() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        WebElement roleArrow = wait.until(ExpectedConditions.presenceOfElementLocated(roleDropdownArrow_Alam));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", roleArrow);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", roleArrow);
-
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(projectManagerOption));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
-
-        pause(1000);
-    }
 
 
     public void clickFirstRemoveXMark() {
@@ -223,7 +241,7 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
                 By.xpath("//header[contains(normalize-space(),'People')]")
         ));
 
-        pause(1000);
+        pause(3000);
     }
 
 
