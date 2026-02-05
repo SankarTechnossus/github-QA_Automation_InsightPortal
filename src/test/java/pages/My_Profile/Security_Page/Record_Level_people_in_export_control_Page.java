@@ -21,12 +21,58 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
     By userSearchInput = By.xpath("//input[contains(@id,'react-select') and contains(@id,'-input') and @role='combobox']");
     By cancelButton = By.xpath("//button[@type='button' and normalize-space()='Cancel']");
     By addButton = By.xpath("//button[@type='button' and normalize-space()='Add' and contains(@class,'-primary')]");
-    By typeDropdownInput = By.xpath("//input[contains(@id,'react-select-16') and @role='combobox']");
-    By roleDropdownInput = By.xpath("//input[contains(@id,'react-select-17') and @role='combobox']");
     By firstRemoveXIcon = By.xpath("(//i[contains(@class,'fi-remove')])[1]");
+    By typeDropdownInput = By.xpath("//td[@data-column='type']//input[@role='combobox' and contains(@id,'react-select') and contains(@id,'-input')]");
+    By roleDropdownInput = By.xpath("//td[@data-column='roleId']//input[@role='combobox' and contains(@id,'react-select') and contains(@id,'-input')]");
+    By alamRow = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]");
+    By typeDropdownArrow_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//div[contains(@class,'select-dropdown-indicator')]");
+    By roleDropdownArrow_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='roleId']//div[contains(@class,'select-dropdown-indicator')]");
+    By externalOption = By.xpath("//div[contains(@id,'react-select') and contains(@id,'-option') and normalize-space()='External']");
+    By projectManagerOption = By.xpath("//div[contains(@id,'react-select') and contains(@id,'-option') and normalize-space()='Project Manager']");
+    By reactSelectListBox = By.xpath("//*[contains(@id,'react-select') and @role='listbox']");
+
 
 
     //Actions
+
+    public void selectTypeAsExternal_ForAlam() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+
+        WebElement typeArrow = wait.until(ExpectedConditions.elementToBeClickable(typeDropdownArrow_Alam));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", typeArrow);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", typeArrow);
+
+        // ✅ wait until dropdown menu opens
+        wait.until(ExpectedConditions.visibilityOfElementLocated(reactSelectListBox));
+
+        // ✅ option locator (supports div/span/li)
+        By externalOption = By.xpath(
+                "//*[contains(@id,'react-select') and (contains(@id,'-option') or @role='option') and " +
+                        "(self::div or self::span or self::li) and normalize-space()='External']"
+        );
+
+        WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(externalOption));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        pause(4000);
+    }
+
+
+    public void selectRoleAsProjectManager_ForAlam() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        WebElement roleArrow = wait.until(ExpectedConditions.presenceOfElementLocated(roleDropdownArrow_Alam));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", roleArrow);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", roleArrow);
+
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(projectManagerOption));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        pause(1000);
+    }
+
 
     public void clickFirstRemoveXMark() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

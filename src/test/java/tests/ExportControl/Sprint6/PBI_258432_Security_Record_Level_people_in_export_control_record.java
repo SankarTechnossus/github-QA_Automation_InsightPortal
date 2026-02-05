@@ -187,6 +187,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             createExportControlPage.clickNext();
             ExtentReportListener.getExtentTest().pass("Clicked Next button successfully");
 
+            //Remove after the bug fixed
             basePage.pause(5000);
 
             RecordLevelAccess.clickPeopleLink();
@@ -226,11 +227,11 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             RecordLevelAccess.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
 
-            RecordLevelAccess.selectTypeAsExternal();
-            ExtentReportListener.getExtentTest().pass("Selected Type as 'External'");
+            RecordLevelAccess.selectTypeAsExternal_ForAlam();
+            ExtentReportListener.getExtentTest().pass("Selected Type as 'External' for Alam, Md");
 
-            RecordLevelAccess.selectRoleAsProjectManager();
-            ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' successfully");
+            RecordLevelAccess.selectRoleAsProjectManager_ForAlam();
+            ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' for Alam, Md");
 
             RecordLevelAccess.clickFirstRemoveXMark();
             ExtentReportListener.getExtentTest().pass("Clicked first 'X' (Remove) mark successfully");
@@ -251,11 +252,11 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             RecordLevelAccess.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
 
-            RecordLevelAccess.selectTypeAsExternal();
-            ExtentReportListener.getExtentTest().pass("Selected Type as 'External'");
+            RecordLevelAccess.selectTypeAsExternal_ForAlam();
+            ExtentReportListener.getExtentTest().pass("Selected Type as 'External' for Alam, Md");
 
-            RecordLevelAccess.selectRoleAsProjectManager();
-            ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' successfully");
+            RecordLevelAccess.selectRoleAsProjectManager_ForAlam();
+            ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' for Alam, Md");
 
             ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
             ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
