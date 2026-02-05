@@ -329,7 +329,6 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             ExtentReportListener.getExtentTest().pass("Verified Security page title is displayed correctly");
 
 
-
         }
         catch (Exception e)
         {
