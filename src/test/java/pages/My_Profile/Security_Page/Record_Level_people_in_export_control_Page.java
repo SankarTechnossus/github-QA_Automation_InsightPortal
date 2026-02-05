@@ -26,9 +26,33 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
     By typeControl_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//div[contains(@class,'select-control')]");
     By typeInput_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//input[contains(@id,'react-select') and contains(@id,'-input')]");
     By addExternalPeopleButton = By.xpath("//button[.//i[contains(@class,'fi-add')] and contains(normalize-space(),'Add External People')]");
+    By userDropdownControl = By.xpath("//*[normalize-space()='User']/following::div[contains(@class,'Select-control')][1]");
+    By userSearchInput01     = By.xpath("//*[normalize-space()='User']/following::input[@role='combobox'][1]");
 
 
     //Actions
+
+    public void selectUserFromDropdownById01(String userId) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(userDropdownControl));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+
+        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(userSearchInput01));
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        input.sendKeys(Keys.BACK_SPACE);
+        input.sendKeys(userId);
+
+        By optionById = By.xpath("//div[contains(@id,'react-select') and @role='option' and contains(normalize-space(.),'" + userId + "')]");
+        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(optionById));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        pause(1000);
+    }
 
     public void clickAddExternalPeopleButton() {
         WebElement addBtn = driver.findElement(addExternalPeopleButton);

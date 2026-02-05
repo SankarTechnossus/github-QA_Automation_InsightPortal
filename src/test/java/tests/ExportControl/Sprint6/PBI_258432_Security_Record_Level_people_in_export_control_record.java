@@ -307,8 +307,11 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             RecordLevelAccess.enterUserSearchValue(OrganizationIDKashif);
             ExtentReportListener.getExtentTest().info("Entered User search value: " + OrganizationIDKashif);
 
-            RecordLevelAccessinexport.selectUserFromDropdownById(expectedUserId);
-            ExtentReportListener.getExtentTest().info("Selected user from dropdown: " + expectedUserId);
+            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            ExtentReportListener.getExtentTest().pass("Selected user from dropdown: " + expectedUserId);
+
+//            RecordLevelAccessinexport.selectUserFromDropdownById(expectedUserId);
+//            ExtentReportListener.getExtentTest().info("Selected user from dropdown: " + expectedUserId);
 
             Assert.assertTrue(RecordLevelAccess.verifySearchButtonDisplayed(), "'Search' button is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Search' button is displayed successfully");
