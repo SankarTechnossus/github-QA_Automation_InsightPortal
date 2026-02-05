@@ -14,6 +14,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.Administration.Communication_Management.CommunicationManagement_ExportControlPage;
 import pages.Administration.Workflow_Management.WorkflowsPage;
+import pages.Export_Control.Actions.CreateExportControlPage;
 import pages.Export_Control.Export_Control_Details.AmendExportControlPage;
 import pages.Administration.Form_Visibility.FormsVisibility_ExportControlPage;
 import pages.Export_Control.Export_Control_Details.InitialReviewWorkflowPage;
@@ -58,6 +59,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
     Organization_Level_Access ManagementAccessSecurityPage;
     Profile_Level_Access ProfileLevelAccess;
     Record_Level_people_in_export_control_Page RecordLevelAccess;
+    CreateExportControlPage createExportControlPage;
 
     @BeforeMethod
     public void setupBrowser() {
@@ -94,7 +96,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
         uniqueNameGenerator = new UniqueNameGenerator();
         workflowsPage = new WorkflowsPage(driver);
         ProfileLevelAccess = new Profile_Level_Access (driver);
-    }
+        createExportControlPage = new CreateExportControlPage(driver);    }
 
     @Test
     public void PBI_258432_Security_Record_Level_people_on_export_control_record ()
@@ -105,6 +107,12 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             String password = JsonDataReader.get(0, "Password");
             String profileName = JsonDataReader.get(1, "ProfileName");
             String profileCode = JsonDataReader.get(1, "ProfileCode");
+            String piSearchText      = JsonDataReader.get(3, "InitialReviewPiSearchText"); // "mohan"
+            String piFullName        = JsonDataReader.get(3, "PIName");
+            String OrganizationIDKashif = JsonDataReader.get(1, "OrganizationIDKashif");
+            String userFullName = JsonDataReader.get(1, "UserFullName");
+            String expectedUserFullName = JsonDataReader.get(1, "UserFullName");
+            String expectedUserId = JsonDataReader.get(1, "expectedUserId");
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -117,6 +125,127 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             loginPage.LoginIntoApplication(userName, password);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
+
+            dashboardPage.clickExportControlLink();
+            ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
+            //*************Remove refresh after bug fix
+            RecordLevelAccess.refreshPage();
+            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
+            //**************Remove refresh after bug fix
+
+            ManagementAccessSecurityPage.clickActionsButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Actions' button successfully");
+            //*************Remove refresh after bug fix
+            RecordLevelAccess.refreshPage();
+            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
+            //**************Remove refresh after bug fix
+
+            ManagementAccessSecurityPage.clickCreateExportControl();
+            ExtentReportListener.getExtentTest().info("Clicked Create Export Control from left navigation successfully");
+            //*************Remove refresh after bug fix
+            RecordLevelAccess.refreshPage();
+            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
+            //**************Remove refresh after bug fix
+            Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
+
+
+            ManagementAccessSecurityPage.selectExportControlRequestRadioOption();
+            ExtentReportListener.getExtentTest().pass("Selected 'Export Control Request' radio option successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
+
+            // Step 2: Select PI Name (type from JSON and choose PI name from JSON)
+            createExportControlPage.selectPiName(piSearchText, piFullName);
+            ExtentReportListener.getExtentTest().info("Typed '" + piSearchText + "' and selected PI as '" + piFullName + "' successfully");
+            Assert.assertTrue(displayChecklistFlowPage.isSelectPINameDisabledDisplayed(), "'Select PI Name' disabled field is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Select PI Name' disabled field is displayed successfully");
+
+            createExportControlPage.clickCreateButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
+            //*************Remove refresh after bug fix
+            RecordLevelAccess.refreshPage();
+            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
+            //**************Remove refresh after bug fix
+
+            ManagementAccessSecurityPage.selectEncryptionSourceCodeNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Encryption Source Code or Technology question");
+
+            ManagementAccessSecurityPage.selectPublicationRestrictionNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Publication Restriction question");
+
+            ManagementAccessSecurityPage.selectConfidentialityRequirementNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Confidentiality Requirement question");
+
+            ManagementAccessSecurityPage.selectRestrictionOnForeignPersonNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Restriction on Foreign Person question");
+
+            ManagementAccessSecurityPage.selectSponsorPermissionToClaimResultNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Sponsor Permission to Claim Result question");
+
+            ManagementAccessSecurityPage.selectExportControlledOrITARControlledNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Export Controlled / ITAR Controlled question");
+
+            ManagementAccessSecurityPage.selectTransfersControlsLicensingNo();
+            ExtentReportListener.getExtentTest().pass("Selected 'No' for Transfers, Controls, and Licensing question");
+
+            createExportControlPage.clickNext();
+            ExtentReportListener.getExtentTest().pass("Clicked Next button successfully");
+
+            RecordLevelAccess.clickPeopleLink();
+            ExtentReportListener.getExtentTest().pass("Clicked on 'People' link successfully");
+            //*************Remove refresh after bug fix
+            RecordLevelAccess.refreshPage();
+            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
+            //**************Remove refresh after bug fix
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.clickAddNewPeopleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New People' button successfully");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+
+            RecordLevelAccess.enterUserIdInSearchBox(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Entered UserId '" + expectedUserId + "' in People search box");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Selected UserId '" + expectedUserId + "' from dropdown");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.clickCancelButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' successfully in People section");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.enterUserIdInSearchBox(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Entered UserId '" + expectedUserId + "' in People search box");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Selected UserId '" + expectedUserId + "' from dropdown");
+            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccess.clickAddButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
+
+            ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
+            ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");
+            ExtentReportListener.getExtentTest().pass("Verified confirm sign off checkbox is selected successfully");
+
+            displayChecklistFlowPage.clickSubmitAction();
+            ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
+
+            String recordNum = systemAdminPage.getRecordNumber();
+            ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
+
 
 
 
