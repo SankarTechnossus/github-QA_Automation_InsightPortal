@@ -1,6 +1,7 @@
 package pages.My_Profile.Security_Page;
 import org.openqa.selenium.*;
 import base.BasePage;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,73 +23,122 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
     By cancelButton = By.xpath("//button[@type='button' and normalize-space()='Cancel']");
     By addButton = By.xpath("//button[@type='button' and normalize-space()='Add' and contains(@class,'-primary')]");
     By firstRemoveXIcon = By.xpath("(//i[contains(@class,'fi-remove')])[1]");
-    By typeDropdownInput = By.xpath("//td[@data-column='type']//input[@role='combobox' and contains(@id,'react-select') and contains(@id,'-input')]");
-    By roleDropdownInput = By.xpath("//td[@data-column='roleId']//input[@role='combobox' and contains(@id,'react-select') and contains(@id,'-input')]");
-    By alamRow = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]");
-    By typeDropdownArrow_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//div[contains(@class,'select-dropdown-indicator')]");
-    By roleDropdownArrow_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='roleId']//div[contains(@class,'select-dropdown-indicator')]");
-    By externalOption = By.xpath("//div[contains(@id,'react-select') and contains(@id,'-option') and normalize-space()='External']");
-    By projectManagerOption = By.xpath("//div[contains(@id,'react-select') and contains(@id,'-option') and normalize-space()='Project Manager']");
-    By reactSelectListBox = By.xpath("//*[contains(@id,'react-select') and @role='listbox']");
-    By alamTypeInput = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//input[contains(@id,'react-select') and contains(@id,'-input')]");
-    By alamRoleInput = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='roleId']//input[contains(@id,'react-select') and contains(@id,'-input')]");
-
+    By typeControl_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//div[contains(@class,'select-control')]");
+    By typeInput_Alam = By.xpath("//tr[.//td[@data-column='name' and normalize-space()='Alam, Md']]//td[@data-column='type']//input[contains(@id,'react-select') and contains(@id,'-input')]");
+    By addExternalPeopleButton = By.xpath("//button[.//i[contains(@class,'fi-add')] and contains(normalize-space(),'Add External People')]");
 
 
     //Actions
 
-    public void selectRoleAsProjectManager_ForAlam() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+    public void clickAddExternalPeopleButton() {
+        WebElement addBtn = driver.findElement(addExternalPeopleButton);
 
-        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(alamRoleInput));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input);
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", addBtn);
 
-        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        input.sendKeys(Keys.BACK_SPACE);
-        input.sendKeys("Project Manager");
+        addBtn.click();
 
-        By pmOption = By.xpath(
-                "//*[contains(@id,'react-select') and (@role='option' or contains(@id,'-option')) and " +
-                        "(self::div or self::span or self::li) and contains(normalize-space(.),'Project Manager')]"
-        );
-
-        WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(pmOption));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
-
-        input.sendKeys(Keys.TAB);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//button[contains(normalize-space(),'Cancel')]")
+        ));
 
         pause(1000);
     }
 
 
-    public void selectTypeAsExternal_ForAlam() {
+    public void selectValueFromPeopleGridDropdown(String personName, String columnData, String valueToSelect) {
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
 
-        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(alamTypeInput));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input);
+        //  Skip if already selected
+        try {
+            WebElement selected = driver.findElement(gridCellSelectedValue(personName, columnData));
+            String already = selected.getText().trim();
+            if (already.equalsIgnoreCase(valueToSelect)) {
+                return;
+            }
+        } catch (Exception ignored) {
+            // no selected value -> continue
+        }
+
+        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(gridCellControl(personName, columnData)));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+
+        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(gridCellInput(personName, columnData)));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", input);
+
+        //  Actions typing is more reliable than input.sendKeys for react-select
+        Actions actions = new Actions(driver);
+        actions.click(input)
+                .keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
+                .sendKeys(Keys.BACK_SPACE)
+                .sendKeys(valueToSelect)
+                .perform();
+
+        By optionLocator = By.xpath(
+                "//*[contains(@id,'react-select') and (@role='option' or contains(@id,'-option')) and " +
+                        "(self::div or self::span or self::li) and contains(normalize-space(.),'" + valueToSelect + "')]"
+        );
+
+        WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(optionLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
+
+        pause(5000);
+    }
+
+
+    By gridCellSelectedValue(String personName, String columnData) {
+        return By.xpath(
+                "//tr[.//td[@data-column='name' and normalize-space()='" + personName + "']]" +
+                        "//td[@data-column='" + columnData + "']//div[contains(@class,'singleValue')]"
+
+        );
+
+    }
+
+    By gridCellControl(String personName, String columnData) {
+        return By.xpath(
+                "//tr[.//td[@data-column='name' and normalize-space()='" + personName + "']]" +
+                        "//td[@data-column='" + columnData + "']//div[contains(@class,'select-control')]"
+        );
+    }
+
+    By gridCellInput(String personName, String columnData) {
+        return By.xpath(
+                "//tr[.//td[@data-column='name' and normalize-space()='" + personName + "']]" +
+                        "//td[@data-column='" + columnData + "']//input[contains(@id,'react-select') and contains(@id,'-input')]"
+        );
+    }
+
+    public void selectTypeAsExternal_ForAlam() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+
+        WebElement control = wait.until(ExpectedConditions.elementToBeClickable(typeControl_Alam));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", control);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", control);
+
+        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(typeInput_Alam));
+
+        //  make input interactable by focusing through JS
+        ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", input);
 
         input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         input.sendKeys(Keys.BACK_SPACE);
         input.sendKeys("External");
 
-        //  Option appears only after typing in many cases
         By externalOption = By.xpath(
                 "//*[contains(@id,'react-select') and (@role='option' or contains(@id,'-option')) and " +
                         "(self::div or self::span or self::li) and contains(normalize-space(.),'External')]"
         );
 
         WebElement option = wait.until(ExpectedConditions.presenceOfElementLocated(externalOption));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", option);
 
-        input.sendKeys(Keys.TAB);
-
-        pause(4000); // as you requested
+        pause(5000);
     }
-
 
 
 
@@ -104,28 +154,6 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
         pause(2000);
     }
 
-    public void selectRoleAsProjectManager() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(roleDropdownInput));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-
-        input.click();
-        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        input.sendKeys(Keys.BACK_SPACE);
-        input.sendKeys("Project Manager");
-
-        By option = By.xpath("//*[contains(@id,'react-select') and (self::div or self::span) and normalize-space(.)='Project Manager']");
-        WebElement pmOption = wait.until(ExpectedConditions.visibilityOfElementLocated(option));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", pmOption);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pmOption);
-
-        input.sendKeys(Keys.TAB);
-
-        pause(2000);
-    }
 
     public void acceptRemoveUserConfirmationAlert() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -133,32 +161,8 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
 
         alert.accept(); // Click OK
 
-        pause(3000);
+        pause(4000);
     }
-
-    public void selectTypeAsExternal() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(typeDropdownInput));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-
-        input.click();
-        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        input.sendKeys(Keys.BACK_SPACE);
-        input.sendKeys("External");
-
-        By option = By.xpath("//*[contains(@id,'react-select') and (self::div or self::span) and normalize-space(.)='External']");
-        WebElement externalOption = wait.until(ExpectedConditions.visibilityOfElementLocated(option));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", externalOption);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", externalOption);
-
-        input.sendKeys(Keys.TAB);
-
-        pause(4000); // as you requested
-    }
-
 
     public void clickAddButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -274,10 +278,6 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
         pause(1000);
     }
 
-    public void refreshPage() {
-        driver.navigate().refresh();
-        pause(3000); // wait for Insight page to reload
-    }
 
     public void refreshPage01() {
         pause(7000);

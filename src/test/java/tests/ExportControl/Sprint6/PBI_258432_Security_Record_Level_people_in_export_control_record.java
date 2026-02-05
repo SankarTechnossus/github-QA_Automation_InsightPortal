@@ -27,6 +27,7 @@ import pages.Home.DashboardPage;
 import pages.Home.LoginPage;
 import pages.My_Profile.Security_Page.Organization_Level_Access;
 import pages.My_Profile.Security_Page.Profile_Level_Access;
+import pages.My_Profile.Security_Page.Record_Level_Access;
 import pages.My_Profile.Security_Page.Record_Level_people_in_export_control_Page;
 import pages.System_Admin_Flow.SystemAdminPage;
 import utils.DriverManager;
@@ -57,8 +58,9 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
     UniqueNameGenerator uniqueNameGenerator;
     WorkflowsPage workflowsPage;
     Organization_Level_Access ManagementAccessSecurityPage;
+    Record_Level_Access RecordLevelAccess;
     Profile_Level_Access ProfileLevelAccess;
-    Record_Level_people_in_export_control_Page RecordLevelAccess;
+    Record_Level_people_in_export_control_Page RecordLevelAccessinexport;
     CreateExportControlPage createExportControlPage;
 
     @BeforeMethod
@@ -79,13 +81,14 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         ManagementAccessSecurityPage = new Organization_Level_Access(driver);
-        RecordLevelAccess = new Record_Level_people_in_export_control_Page(driver);
+        RecordLevelAccessinexport = new Record_Level_people_in_export_control_Page(driver);
         basePage = new BasePage (driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         communicationManagementExportControlPage = new CommunicationManagement_ExportControlPage(driver);
         amendExportControlPage = new AmendExportControlPage(driver);
         formsVisibilityExportControlPage = new FormsVisibility_ExportControlPage(driver);
+        RecordLevelAccess = new Record_Level_Access(driver);
         initialReviewWorkflowPage = new InitialReviewWorkflowPage(driver);
         addChecklistFlowPage = new AddChecklistFlowPage(driver);
         displayChecklistFlowPage = new DisplayChecklistFlowPage(driver);
@@ -113,6 +116,10 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             String userFullName = JsonDataReader.get(1, "UserFullName");
             String expectedUserFullName = JsonDataReader.get(1, "UserFullName");
             String expectedUserId = JsonDataReader.get(1, "expectedUserId");
+            String PersonName = JsonDataReader.get(1, "PersonName");
+            String ColumData = JsonDataReader.get(1, "ColumData");
+            String ValueToSelect = JsonDataReader.get(1, "ValueToSelect");
+
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -129,7 +136,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage01();
+            RecordLevelAccessinexport.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
 
@@ -139,7 +146,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             ManagementAccessSecurityPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().info("Clicked Create Export Control from left navigation successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage01();
+            RecordLevelAccessinexport.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
             Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
@@ -159,7 +166,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage01();
+            RecordLevelAccessinexport.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
 
@@ -190,73 +197,85 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             //Remove after the bug fixed
             basePage.pause(5000);
 
-            RecordLevelAccess.clickPeopleLink();
+            RecordLevelAccessinexport.clickPeopleLink();
             ExtentReportListener.getExtentTest().pass("Clicked on 'People' link successfully");
             //*************Remove refresh after bug fix
-            RecordLevelAccess.refreshPage01();
+            RecordLevelAccessinexport.refreshPage01();
             ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
             //**************Remove refresh after bug fix
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.clickAddNewPeopleButton();
+            RecordLevelAccessinexport.clickAddNewPeopleButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New People' button successfully");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.clickCancelButton();
+            RecordLevelAccessinexport.clickCancelButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' successfully in People section");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.clickAddNewPeopleButton();
+            RecordLevelAccessinexport.clickAddNewPeopleButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add New People' button successfully");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.enterUserIdInSearchBox(expectedUserId);
+            RecordLevelAccessinexport.enterUserIdInSearchBox(expectedUserId);
             ExtentReportListener.getExtentTest().info("Entered UserId '" + expectedUserId + "' in People search box");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            RecordLevelAccessinexport.selectUserFromDropdownById(expectedUserId);
             ExtentReportListener.getExtentTest().info("Selected UserId '" + expectedUserId + "' from dropdown");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.clickAddButton();
+            RecordLevelAccessinexport.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
 
-            RecordLevelAccess.selectTypeAsExternal_ForAlam();
+            RecordLevelAccessinexport.selectTypeAsExternal_ForAlam();
             ExtentReportListener.getExtentTest().pass("Selected Type as 'External' for Alam, Md");
 
-            RecordLevelAccess.selectRoleAsProjectManager_ForAlam();
+            RecordLevelAccessinexport.selectValueFromPeopleGridDropdown(PersonName, ColumData, ValueToSelect);
             ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' for Alam, Md");
 
-            RecordLevelAccess.clickFirstRemoveXMark();
+            RecordLevelAccessinexport.clickFirstRemoveXMark();
             ExtentReportListener.getExtentTest().pass("Clicked first 'X' (Remove) mark successfully");
 
-            RecordLevelAccess.acceptRemoveUserConfirmationAlert();
+            RecordLevelAccessinexport.acceptRemoveUserConfirmationAlert();
             ExtentReportListener.getExtentTest().pass("Accepted confirmation alert to remove user successfully");
 
-            RecordLevelAccess.enterUserIdInSearchBox(expectedUserId);
+            RecordLevelAccessinexport.clickAddExternalPeopleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add External People' button successfully");
+
+            RecordLevelAccessinexport.clickCancelButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Cancel' button successfully");
+
+            RecordLevelAccessinexport.clickAddNewPeopleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Add New People' button successfully");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
+
+            RecordLevelAccessinexport.enterUserIdInSearchBox(expectedUserId);
             ExtentReportListener.getExtentTest().info("Entered UserId '" + expectedUserId + "' in People search box");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
+            RecordLevelAccessinexport.selectUserFromDropdownById(expectedUserId);
             ExtentReportListener.getExtentTest().info("Selected UserId '" + expectedUserId + "' from dropdown");
-            Assert.assertTrue(RecordLevelAccess.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
+            Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
-            RecordLevelAccess.clickAddButton();
+            RecordLevelAccessinexport.clickAddButton();
             ExtentReportListener.getExtentTest().pass("Clicked 'Add' successfully for UserId '" + expectedUserId + "'");
 
-            RecordLevelAccess.selectTypeAsExternal_ForAlam();
+            RecordLevelAccessinexport.selectTypeAsExternal_ForAlam();
             ExtentReportListener.getExtentTest().pass("Selected Type as 'External' for Alam, Md");
 
-            RecordLevelAccess.selectRoleAsProjectManager_ForAlam();
+            RecordLevelAccessinexport.selectValueFromPeopleGridDropdown(PersonName, ColumData, ValueToSelect);
             ExtentReportListener.getExtentTest().pass("Selected Role as 'Project Manager' for Alam, Md");
+
             ManagementAccessSecurityPage.clickConfirmSignOffCheckbox();
             ExtentReportListener.getExtentTest().pass("Clicked 'I have carefully reviewed this record and confirm my sign off' checkbox");
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");
@@ -268,6 +287,46 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             String recordNum = systemAdminPage.getRecordNumber();
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
+            ManagementAccessSecurityPage.clickMyProfileLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
+            //*************Remove refresh after bug fix
+            RecordLevelAccessinexport.refreshPage01();
+            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
+            //**************Remove refresh after bug fix
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
+            ManagementAccessSecurityPage.clickSecurityLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+            RecordLevelAccess.clickSearchForUserMenu();
+            ExtentReportListener.getExtentTest().info("Clicked 'Search For User' menu successfully");
+
+            RecordLevelAccess.enterUserSearchValue(OrganizationIDKashif);
+            ExtentReportListener.getExtentTest().info("Entered User search value: " + OrganizationIDKashif);
+
+            RecordLevelAccessinexport.selectUserFromDropdownById(expectedUserId);
+            ExtentReportListener.getExtentTest().info("Selected user from dropdown: " + expectedUserId);
+
+            Assert.assertTrue(RecordLevelAccess.verifySearchButtonDisplayed(), "'Search' button is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Search' button is displayed successfully");
+            RecordLevelAccess.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("Clicked 'Search' button successfully");
+
+            RecordLevelAccess.clickOnUserName(userFullName);
+            ExtentReportListener.getExtentTest().info("Clicked on User Name: " + userFullName);
+
+            ManagementAccessSecurityPage.clickSecurityLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.verifySecurityPageTitleDisplayed(), "'Security: Alam, Md (MA1279)' page title is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Security: Alam, Md (MA1279)' page title is displayed successfully");
+
+            RecordLevelAccess.clickRecordLevelAccessExpandButton();
+            ExtentReportListener.getExtentTest().info("Clicked Record Level Access expand (+) button");
+            Assert.assertTrue(RecordLevelAccess.verifySecurityPageTitle(expectedUserFullName, expectedUserId), "Security page title is NOT displayed as expected");
+            ExtentReportListener.getExtentTest().pass("Verified Security page title is displayed correctly");
 
 
 
