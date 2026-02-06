@@ -37,7 +37,7 @@ import utils.UniqueNameGenerator;
 import java.time.Duration;
 
 @Listeners(ExtentReportListener.class)
-//@Test (groups = {"regression", "integration"})
+@Test (groups = {"regression", "integration"})
 public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
     WebDriver driver;
