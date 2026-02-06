@@ -580,7 +580,7 @@ public class Organization_Level_Access extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
         saveBtn.click();
 
-        pause(1000);
+        pause(4000);
     }
 
 
