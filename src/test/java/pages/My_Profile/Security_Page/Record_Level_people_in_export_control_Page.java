@@ -317,6 +317,7 @@ public class Record_Level_people_in_export_control_Page extends BasePage {
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", people);
 
+        pause(1000);
         people.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

@@ -188,6 +188,7 @@ public class CreateExportControlPage extends BasePage {
 
     public void clickNext() {
         click(nextButton);
+        pause(4000);
     }
 
 
