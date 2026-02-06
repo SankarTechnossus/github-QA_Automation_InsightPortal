@@ -135,20 +135,11 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
-            //*************Remove refresh after bug fix
-            RecordLevelAccessinexport.refreshPage01();
-            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
-            //**************Remove refresh after bug fix
-
             ManagementAccessSecurityPage.clickActionsButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Actions' button successfully");
 
             ManagementAccessSecurityPage.clickCreateExportControl();
             ExtentReportListener.getExtentTest().info("Clicked Create Export Control from left navigation successfully");
-            //*************Remove refresh after bug fix
-            RecordLevelAccessinexport.refreshPage01();
-            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
-            //**************Remove refresh after bug fix
             Assert.assertTrue(ManagementAccessSecurityPage.isCreateNewExportControlHeaderDisplayed(), "'Create New Export Control Record' header is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Create New Export Control Record' header is displayed successfully");
 
@@ -165,11 +156,6 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
             createExportControlPage.clickCreateButton();
             ExtentReportListener.getExtentTest().info("Clicked 'Create' button on Create Export Control sidebar successfully");
-            //*************Remove refresh after bug fix
-            RecordLevelAccessinexport.refreshPage01();
-            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
-            //**************Remove refresh after bug fix
-
             ManagementAccessSecurityPage.selectEncryptionSourceCodeNo();
             ExtentReportListener.getExtentTest().pass("Selected 'No' for Encryption Source Code or Technology question");
 
@@ -194,15 +180,8 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
             createExportControlPage.clickNext();
             ExtentReportListener.getExtentTest().pass("Clicked Next button successfully");
 
-            //Remove after the bug fixed
-            basePage.pause(5000);
-
             RecordLevelAccessinexport.clickPeopleLink();
             ExtentReportListener.getExtentTest().pass("Clicked on 'People' link successfully");
-            //*************Remove refresh after bug fix
-            RecordLevelAccessinexport.refreshPage01();
-            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
-            //**************Remove refresh after bug fix
             Assert.assertTrue(RecordLevelAccessinexport.verifyUserLandsOnPeoplePage(), "User did NOT land on People page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on People page successfully");
 
@@ -289,11 +268,6 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
             ManagementAccessSecurityPage.clickMyProfileLink();
             ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
-            //*************Remove refresh after bug fix
-            RecordLevelAccessinexport.refreshPage01();
-            ExtentReportListener.getExtentTest().info("Refreshed the Project Details page successfully");
-            //**************Remove refresh after bug fix
-
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
             ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
             ManagementAccessSecurityPage.clickSecurityLink();
@@ -309,10 +283,6 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
 
             RecordLevelAccess.selectUserFromDropdownById(expectedUserId);
             ExtentReportListener.getExtentTest().pass("Selected user from dropdown: " + expectedUserId);
-
-//            RecordLevelAccessinexport.selectUserFromDropdownById(expectedUserId);
-//            ExtentReportListener.getExtentTest().info("Selected user from dropdown: " + expectedUserId);
-
             Assert.assertTrue(RecordLevelAccess.verifySearchButtonDisplayed(), "'Search' button is NOT displayed");
             ExtentReportListener.getExtentTest().pass("Verified 'Search' button is displayed successfully");
             RecordLevelAccess.clickSearchButton();
