@@ -345,7 +345,7 @@ public class PBI_258432_Security_Record_Level_people_in_export_control_record {
     @AfterMethod
     public void tearDown()
     {
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
         // User will record browser closure in the test report
         ExtentReportListener.getExtentTest().info("Browser was successfully closed.");
     }
