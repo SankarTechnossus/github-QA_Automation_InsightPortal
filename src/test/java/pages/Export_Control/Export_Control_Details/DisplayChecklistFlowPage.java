@@ -86,7 +86,7 @@ public class DisplayChecklistFlowPage extends BasePage {
 
         btn.click();
 
-        pause(1000);
+        pause(2000);
     }
 
     public void clickSaveAction() {
@@ -99,7 +99,7 @@ public class DisplayChecklistFlowPage extends BasePage {
 
         btn.click();
 
-        pause(1000);
+        pause(3000);
     }
 
     public void selectPersonnelExclusion() {

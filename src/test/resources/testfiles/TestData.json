@@ -19,6 +19,7 @@
       "FormDescription": "santest",
       "AgreementNumber": "2025A023110",
       "DeliverableNamePrefix": "Testsan",
+      "expectedType": "Export Control Request",
       "OrganizationIDKashif": "MA1279",
       "DeliverableCategory": "CTO - MCA",
       "RecipientEmail": "abcd123@gmail.com",

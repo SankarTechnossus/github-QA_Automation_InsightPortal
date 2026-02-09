@@ -30,7 +30,7 @@ public class CreateExportControlPage extends BasePage {
     // Left navigation – Actions toggle button
     By actionsToggleButton = By.xpath("//div[contains(@class,'export-control-nav-block')]//button[@aria-label='Expand Actions']");
     //    By createExportControlLink = By.xpath("//a[normalize-space()='Create Export Control' and contains(@href,'/export-control/actions')]");
-    By createExportControlLink = By.xpath("//a[contains(@href,'/export-control/actions') and contains(normalize-space(),'Create Export Control')]");
+    By createExportControlLink = By.xpath("//a[contains(@href,'/export-control/actions') and normalize-space()='Create New Export Control Record']");
     By saveButton = By.xpath("//button[@aria-label='Save' and normalize-space()='Save']");
     By actionRequiredCrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Action Required']");
     By actionRequiredLink = By.xpath("//div[@id='left-sidebar']//a[contains(@class,'label')][span[normalize-space()='Action Required']]");

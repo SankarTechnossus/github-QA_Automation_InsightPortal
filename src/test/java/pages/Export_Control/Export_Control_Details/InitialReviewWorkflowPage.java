@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Objects;
 
 public class InitialReviewWorkflowPage extends BasePage {
 
@@ -26,8 +27,22 @@ public class InitialReviewWorkflowPage extends BasePage {
     By selectGenderDisabledField = By.xpath("//div[contains(@class,'fr-element') and contains(@class,'fr-disabled') and normalize-space()='Select Gender']");
     By personnelExclusionValue = By.xpath("//dd[@title='Personnel Exclusion' and normalize-space()='Personnel Exclusion']");
     By actionRequiredLink = By.xpath("//a[@href='/export-control/action-required']//span[normalize-space()='Action Required']/parent::a");
+    By recordTypeValue = By.xpath("//dd[@title='Export Control Request']");
 
     //Actions
+    public boolean verifyRecordType(String expectedType) {
+        boolean result = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(recordTypeValue));
+
+        String actualType = element.getText().trim();
+
+        result = Objects.equals(actualType, expectedType);
+
+        return result;
+    }
+
     public void refreshCurrentPage() {
         driver.navigate().refresh();
         pause(3000); // allow page to reload completely

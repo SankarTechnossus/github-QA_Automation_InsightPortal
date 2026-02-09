@@ -147,7 +147,7 @@ public class Organization_Level_Access extends BasePage {
             radio.click();
         }
 
-        pause(2000);
+        pause(1000);
     }
 
     public void selectExportControlRequestRadioOption() {
