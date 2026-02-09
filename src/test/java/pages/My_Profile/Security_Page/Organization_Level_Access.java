@@ -60,10 +60,28 @@ public class Organization_Level_Access extends BasePage {
     By transfersControlsLicensingNo     = By.xpath("//input[@name='TransfersControlsLicensing' and @value='No']");
     By confirmSignOffCheckbox = By.id("action-confirmation");
     By securityPageTitle = By.xpath("//strong[contains(@class,'page-title-item') and normalize-space()='Security: Alam, Md (MA1279)']");
+    By organizationNameCell = By.xpath("//td[@data-column='organizationName']");
 
 
 
     //Actions
+
+    public boolean isOrganizationPresent01(String expectedOrg) {
+        boolean result = false;
+
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(organizationNameCell));
+
+            String actual = element.getText().trim();
+            result = Objects.equals(actual, expectedOrg);
+        } catch (Exception e) {
+            result = false;
+        }
+
+        return result;
+    }
+
 
     public boolean verifySecurityPageTitleDisplayed() {
         boolean result = false;

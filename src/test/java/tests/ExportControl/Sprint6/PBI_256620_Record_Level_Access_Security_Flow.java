@@ -108,6 +108,8 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             String userFullName = JsonDataReader.get(1, "UserFullName");
             String expectedUserFullName = JsonDataReader.get(1, "UserFullName");
             String expectedUserId = JsonDataReader.get(1, "expectedUserId");
+            String organizationNameBW = JsonDataReader.get(1, "organizationNameBW");
+
 
             // User will open the login page of the Insight Portal application
             driver.get(url);
@@ -116,7 +118,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
-            // Login into the application
+//             Login into the application
             loginPage.LoginIntoApplication(userName, password);
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
@@ -206,6 +208,45 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
 
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into  Kashif's Account successfully and lands on the dashboard page.");
+
+            ManagementAccessSecurityPage.clickMyProfileLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
+
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
+            ManagementAccessSecurityPage.clickSecurityLink();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+
+            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
+            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' expand button successfully");
+            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+
+
+            if (ManagementAccessSecurityPage.isOrganizationPresent(organizationNameBW)) {
+
+                ExtentReportListener.getExtentTest().info("Organization '" + organizationNameBW + "' is present. Removing it.");
+
+                ManagementAccessSecurityPage.clickRemoveIcon();
+                ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
+
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
+                ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
+
+                ManagementAccessSecurityPage.clickRemoveOrganizationOkButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'OK' button on remove organization confirmation popup");
+
+                Assert.assertTrue(ManagementAccessSecurityPage.VerifyNoResultsMessageIsDisplayed());
+                ExtentReportListener.getExtentTest().pass("Verified 'The search criteria yielded no results.' message is displayed successfully.");
+
+                ManagementAccessSecurityPage.clickSaveButton();
+                ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+
+            } else {
+
+                ExtentReportListener.getExtentTest().info("Organization '" + organizationNameBW + "' is NOT present. Proceeding further.");
+            }
+
 
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
