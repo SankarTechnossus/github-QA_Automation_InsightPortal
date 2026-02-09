@@ -358,6 +358,9 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(ManagementAccessSecurityPage.VerifyConfirmSignOffCheckboxIsSelected(), "Confirm sign off checkbox is NOT selected");
             ExtentReportListener.getExtentTest().pass("Verified confirm sign off checkbox is selected successfully");
 
+            displayChecklistFlowPage.clickSaveAction();
+            ExtentReportListener.getExtentTest().info("Clicked Save button successfully");
+
             displayChecklistFlowPage.clickSubmitAction();
             ExtentReportListener.getExtentTest().info("Clicked Submit button successfully");
 
