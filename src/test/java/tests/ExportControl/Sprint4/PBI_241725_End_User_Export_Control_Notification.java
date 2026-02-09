@@ -87,7 +87,7 @@ public class PBI_241725_End_User_Export_Control_Notification {
     }
 
     @Test
-    public void PBI_241725_End_User_Export_Control_Notification ()
+    public void PBI_241725_end_user_export_control_notification ()
     {
         try {
             String url = JsonDataReader.get(0, "URL");
