@@ -115,6 +115,7 @@ public class PBI_256620_Record_Level_Access_Security_Flow {
             driver.get(url);
             ExtentReportListener.getExtentTest().info("Opened dashboard URL");
 
+
             // User will wait for the login screen to load completely before performing actions
             basePage.pause(20000);
 
