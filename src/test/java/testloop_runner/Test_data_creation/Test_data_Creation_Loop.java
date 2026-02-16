@@ -107,7 +107,7 @@ public class Test_data_Creation_Loop {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("Login successful");
 
-            int recordCount = 2;
+            int recordCount = 1000;
 
             for (int i = 1; i <= recordCount; i++) {
 
