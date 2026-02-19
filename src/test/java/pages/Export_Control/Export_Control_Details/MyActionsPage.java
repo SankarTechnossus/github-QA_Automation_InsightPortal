@@ -24,7 +24,7 @@ public class MyActionsPage extends BasePage {
     By reviewerDropdown = By.xpath("//label[normalize-space()='Reviewer']/following::div[contains(@class,'select-control')][1]");
     By reviewerInput = By.xpath("//label[normalize-space()='Reviewer']/following::input[contains(@id,'react-select')][1]");
     String reviewerOptionXpath = "//div[contains(@id,'react-select') and contains(@id,'listbox')]" + "//div[contains(@class,'option') and contains(normalize-space(),'OPTION_TEXT')]";
-    By actionRequiredLink = By.xpath("//div[contains(@class,'export-control-nav-block')]//a" + "[contains(@class,'label') and normalize-space()='Action Required']");
+    By actionRequiredLink = By.xpath( "//div[contains(@class,'export-control-nav-block')]//a[.//span[contains(@class,'label') and normalize-space()='Action Required']]");
     By recordNumberInput = By.xpath("//label[normalize-space()='Record Number']/following::input[1]");
 
     // buttons

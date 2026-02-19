@@ -17,7 +17,7 @@ public class MenuFlow extends BasePage {
     // ************************************** Locators ********************************************************************
 
     By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
-    By searchLink = By.xpath("//button[contains(@class,'label') and normalize-space()='Search']");
+    By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'menu-item')]");
 
     // Buttons
     By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");

@@ -30,7 +30,7 @@ public class CommunicationManagement_ExportControlPage extends BasePage {
     By cancelButton = By.xpath("//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Cancel']");
     By saveButton = By.xpath("//div[contains(@class,'_bottom-action-panel')]//button[normalize-space()='Save']");
     By notificationsButton = By.xpath("//button[contains(@class,'button') and normalize-space()='Notifications']");
-    By notificationsMenuLink = By.xpath("//a[contains(@class,'label') and @href='/export-control/notifications']//span[normalize-space()='Notifications']");
+    By notificationsMenuLink = By.xpath("//a[contains(@href,'/export-control/notifications') and .//span[normalize-space()='Notifications']]");
     By firstPlusButton = By.xpath("(//button[contains(@class,'plus-button')])[1]");
     By collapseButton = By.xpath("(//button[@aria-label='Collapse details'])[1]");
     By communicationManagementCrumb = By.xpath("//span[contains(@class,'crumb') and normalize-space()='Communication Management']");
