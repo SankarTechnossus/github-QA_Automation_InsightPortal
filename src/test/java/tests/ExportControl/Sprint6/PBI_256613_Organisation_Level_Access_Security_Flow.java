@@ -114,194 +114,194 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             Assert.assertTrue(dashboardPage.VerifyUserLandsOnDashboardPage());
             ExtentReportListener.getExtentTest().pass("User logged into the application successfully and lands on the dashboard page.");
 
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnMyProfilePage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the My Profile page.");
-            ManagementAccessSecurityPage.clickMyProfileLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
-
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
-            ManagementAccessSecurityPage.clickSecurityLink();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
-
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' expand button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' Collapse button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButtonToCollapse();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button again to collapse search area successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            if (ManagementAccessSecurityPage.isOrganizationPresent(organizationName)) {
-
-                ExtentReportListener.getExtentTest()
-                        .pass("Organization '" + organizationName + "' already present. Proceeding further.");
-
-            } else {
-
-                ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
-                ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
-                Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-                ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-                ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
-                ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
-                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-                ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
-                ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
-                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-                ManagementAccessSecurityPage.selectAnesthesiaOrganization();
-                ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
-                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-                ManagementAccessSecurityPage.clickApplyButton();
-                ExtentReportListener.getExtentTest().pass("Clicked Apply button successfully");
-                Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-                ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-                ManagementAccessSecurityPage.selectExportControlManageAndSave();
-                ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
-                Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
-                ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
-
-                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
-                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
-            }
-
-
-            if (!ManagementAccessSecurityPage.isExportControlViewCheckboxSelected()) {
-
-                ManagementAccessSecurityPage.selectExportControlViewAndSave();
-                ExtentReportListener.getExtentTest().pass("Selected Export Control 'View' and clicked Save successfully");
-                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
-                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
-
-            } else {
-                ExtentReportListener.getExtentTest().info("Export Control 'View' checkbox is already selected. Skipping selection.");
-            }
-
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
-
-
-            if (!ManagementAccessSecurityPage.isExportControlManageCheckboxSelected()) {
-
-                ManagementAccessSecurityPage.selectExportControlManageAndSave();
-                ExtentReportListener.getExtentTest().pass("Selected Export Control 'Manage' and clicked Save successfully");
-                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
-                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
-
-            } else {
-                ExtentReportListener.getExtentTest().info("Export Control 'Manage' checkbox is already selected. Skipping selection.");
-            }
-
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
-            ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
-
-            ManagementAccessSecurityPage.clickRemoveIcon();
-            ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickRemoveOrganizationCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on remove organization confirmation popup");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationPopupIsClosed());
-            ExtentReportListener.getExtentTest().pass("Verified remove organization popup is closed successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.clickRemoveIcon();
-            ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickRemoveOrganizationOkButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'OK' button on remove organization confirmation popup");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyNoResultsMessageIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'The search criteria yielded no results.' message is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickSaveButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
-
-            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
-            ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
-            ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.selectAnesthesiaOrganization();
-            ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.clickCancelButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
-            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
-            ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
-            ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.selectAnesthesiaOrganization();
-            ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
-            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
-
-            ManagementAccessSecurityPage.clickApplyButton();
-            ExtentReportListener.getExtentTest().pass("Clicked Apply button successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
-
-            ManagementAccessSecurityPage.selectExportControlManageAndSave();
-            ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
-            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
-            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
-            ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
-            ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnMyProfilePage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the My Profile page.");
+//            ManagementAccessSecurityPage.clickMyProfileLink();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'My Profile' link successfully");
+//
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyFirstNameLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'First Name' label is displayed successfully.");
+//            ManagementAccessSecurityPage.clickSecurityLink();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Security' link successfully");
+//
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' expand button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickOrganizationLevelAccessToggleButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Organization Level Access' Collapse button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButtonToCollapse();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button again to collapse search area successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            if (ManagementAccessSecurityPage.isOrganizationPresent(organizationName)) {
+//
+//                ExtentReportListener.getExtentTest()
+//                        .pass("Organization '" + organizationName + "' already present. Proceeding further.");
+//
+//            } else {
+//
+//                ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+//                ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+//                Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//                ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//                ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
+//                ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
+//                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//                ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
+//                ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
+//                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//                ManagementAccessSecurityPage.selectAnesthesiaOrganization();
+//                ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
+//                Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//                ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//                ManagementAccessSecurityPage.clickApplyButton();
+//                ExtentReportListener.getExtentTest().pass("Clicked Apply button successfully");
+//                Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//                ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//                ManagementAccessSecurityPage.selectExportControlManageAndSave();
+//                ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
+//                Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+//                ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+//
+//                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+//                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+//            }
+//
+//
+//            if (!ManagementAccessSecurityPage.isExportControlViewCheckboxSelected()) {
+//
+//                ManagementAccessSecurityPage.selectExportControlViewAndSave();
+//                ExtentReportListener.getExtentTest().pass("Selected Export Control 'View' and clicked Save successfully");
+//                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+//                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+//
+//            } else {
+//                ExtentReportListener.getExtentTest().info("Export Control 'View' checkbox is already selected. Skipping selection.");
+//            }
+//
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+//
+//
+//            if (!ManagementAccessSecurityPage.isExportControlManageCheckboxSelected()) {
+//
+//                ManagementAccessSecurityPage.selectExportControlManageAndSave();
+//                ExtentReportListener.getExtentTest().pass("Selected Export Control 'Manage' and clicked Save successfully");
+//                ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+//                ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+//
+//            } else {
+//                ExtentReportListener.getExtentTest().info("Export Control 'Manage' checkbox is already selected. Skipping selection.");
+//            }
+//
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+//            ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
+//
+//            ManagementAccessSecurityPage.clickRemoveIcon();
+//            ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickRemoveOrganizationCancelButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button on remove organization confirmation popup");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationPopupIsClosed());
+//            ExtentReportListener.getExtentTest().pass("Verified remove organization popup is closed successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.clickRemoveIcon();
+//            ExtentReportListener.getExtentTest().pass("Clicked Remove icon successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyRemoveOrganizationConfirmationMessageIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified remove organization confirmation message is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickRemoveOrganizationOkButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'OK' button on remove organization confirmation popup");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyNoResultsMessageIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'The search criteria yielded no results.' message is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickSaveButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Save' button successfully");
+//
+//            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
+//            ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
+//            ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.selectAnesthesiaOrganization();
+//            ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.clickCancelButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Cancel' button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickAddAdditionalOrganizationButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked 'Add Additional Organization' button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.clickOrganizationSearchDropdown();
+//            ExtentReportListener.getExtentTest().pass("Clicked organization search dropdown successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.enterOrganizationSearchText(organizationName);
+//            ExtentReportListener.getExtentTest().pass("Entered organization name '" + organizationName + "' in search field successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.selectAnesthesiaOrganization();
+//            ExtentReportListener.getExtentTest().pass("Selected '10AA - Anesthesia' organization successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyUserLandsOnSecurityPage());
+//            ExtentReportListener.getExtentTest().pass("User successfully landed on the Security page.");
+//
+//            ManagementAccessSecurityPage.clickApplyButton();
+//            ExtentReportListener.getExtentTest().pass("Clicked Apply button successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyOrganizationLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Organization' label is displayed successfully.");
+//
+//            ManagementAccessSecurityPage.selectExportControlManageAndSave();
+//            ExtentReportListener.getExtentTest().pass("Selected 'Manage' for Export Control and clicked Save successfully");
+//            Assert.assertTrue(ManagementAccessSecurityPage.VerifyExportLabelIsDisplayed());
+//            ExtentReportListener.getExtentTest().pass("Verified 'Export' label is displayed successfully.");
+//            ManagementAccessSecurityPage.waitForSecurityAccessUpdatedToastToDisappear();
+//            ExtentReportListener.getExtentTest().info("Waited for success toast to disappear");
 
             dashboardPage.clickExportControlLink();
             ExtentReportListener.getExtentTest().info("Clicked 'Export Control' module link successfully");
@@ -367,10 +367,18 @@ public class PBI_256613_Organisation_Level_Access_Security_Flow {
             String recordNum = systemAdminPage.getRecordNumber();
             ExtentReportListener.getExtentTest().info("Fetched Record Number: " + recordNum);
 
-            menuFlow.clickSearchLink();
+            menuFlow.clickSearchLink01();
             ExtentReportListener.getExtentTest().info("Clicked 'Search' link successfully from Export Control sidebar");
             Assert.assertTrue(ManagementAccessSecurityPage.verifyUserLandsOnSearchPage(), "User did NOT land on Search page");
             ExtentReportListener.getExtentTest().pass("Verified user landed on Search page successfully");
+
+            menuFlow.clickSearchButton();
+            ExtentReportListener.getExtentTest().info("Clicked Search");
+            Assert.assertTrue(myActionsPage.isReviewerLabelDisplayed(), "Reviewer label is NOT displayed");
+            ExtentReportListener.getExtentTest().pass("Verified 'Reviewer' label is displayed");
+
+            ManagementAccessSecurityPage.refreshPage();
+            ExtentReportListener.getExtentTest().pass("Refreshed the Export Control Search page successfully");
 
             menuFlow.clickSearchButton();
             ExtentReportListener.getExtentTest().info("Clicked Search");

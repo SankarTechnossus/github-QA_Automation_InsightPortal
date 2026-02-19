@@ -114,10 +114,19 @@ public class SystemAdminPage extends BasePage {
         }
     }
 
-    // Record Number link in results grid – dynamic by record number text
+//     Record Number link in results grid – dynamic by record number text
     public By recordNumberLink(String recordNumber) {
         return By.xpath("//table[contains(@class,'item-grid')]//tbody//tr" + "//td[@data-column='_exportControlNumber']" + "//a[span[normalize-space()='" + recordNumber + "']]");
     }
+
+//    public By recordNumberLink(String recordNumber) {
+//        return By.xpath(
+//                "//table[contains(@class,'item-grid')]//tbody" +
+//                        "//td[@data-column='_exportControlNumber']" +
+//                        "//a[normalize-space()='" + recordNumber + "' or .//span[normalize-space()='" + recordNumber + "']]"
+//        );
+//    }
+
 
     public void clickRecordNumber(String recordNumber) {
 

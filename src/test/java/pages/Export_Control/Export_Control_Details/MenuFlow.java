@@ -18,6 +18,7 @@ public class MenuFlow extends BasePage {
 
     By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
     By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'menu-item')]");
+    By searchLink01 = By.xpath("//a[contains(@class,'menu-item') and contains(@href,'/response-review/search') and .//span[normalize-space()='Search']]");
 
     // Buttons
     By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");
@@ -27,6 +28,22 @@ public class MenuFlow extends BasePage {
     By searchBreadcrumb = By.xpath("//div[contains(@class,'simple-bread-crumbs')]//span[contains(@class,'crumb') and contains(@class,'_font-bold') and normalize-space()='Search']");
 
     // ************************************** Functions ********************************************************************
+
+    public void clickSearchLink01() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(searchLink01));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+
+        try {
+            link.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        }
+
+        pause(1000);
+    }
+
 
     public boolean isSearchBreadcrumbDisplayed() {
         try {
