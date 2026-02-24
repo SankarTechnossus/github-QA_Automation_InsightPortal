@@ -18,8 +18,7 @@ public class MenuFlow extends BasePage {
 
     By exportControlLink = By.xpath("//a[@href='/export-control' and contains(@class,'module-link')]");
     By searchLink = By.xpath("//a[@href='/export-control/search' and contains(@class,'menu-item')]");
-    By searchLink01 = By.xpath("//a[contains(@class,'menu-item') and contains(@href,'/response-review/search') and .//span[normalize-space()='Search']]");
-
+    By searchLink01 = By.xpath("//a[contains(@class,'menu-item') and contains(@href,'/export-control/') and contains(@href,'/search') and .//span[normalize-space()='Search']]");
     // Buttons
     By searchButton = By.xpath("//button[@type='submit' and normalize-space()='Search']");
 
@@ -30,10 +29,18 @@ public class MenuFlow extends BasePage {
     // ************************************** Functions ********************************************************************
 
     public void clickSearchLink01() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(searchLink01));
 
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(searchLink01));
+        wait.until(ExpectedConditions.visibilityOf(link));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", link);
+
+        // small stabilization for React sidebars (optional)
+        pause(300);
+
+        wait.until(ExpectedConditions.elementToBeClickable(link));
 
         try {
             link.click();
@@ -41,8 +48,25 @@ public class MenuFlow extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
         }
 
+        // best sync: URL contains /search (not toast)
+        wait.until(ExpectedConditions.urlContains("/search"));
         pause(1000);
     }
+
+//    public void clickSearchLink01() {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(searchLink01));
+//
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
+//
+//        try {
+//            link.click();
+//        } catch (Exception e) {
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+//        }
+//
+//        pause(1000);
+//    }
 
 
     public boolean isSearchBreadcrumbDisplayed() {
